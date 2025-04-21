@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>This is the title</title>
+        <link rel="stylesheet" href="assets/semantic/semantic.min.css" type="text/css">
+        <style>
+            .main.container {
+                margin-top: 7rem;
+            }
+        </style>
+    </head>
+    <body>
+        <div class="ui fixed inverted menu">
+            <a href="/" class="header item">Home</a>
+        </div>
+        <div class="ui main container">
+            <% if (locals.flash && locals.flash.error)  {%>
+            <div class="ui negative message">
+                <%= flash.error %>
+            </div>
+            <% } %>
+            <% if (locals.flash && locals.flash.success)  {%>
+            <div class="ui success message">
+                <%= flash.success %>
+            </div>
+            <% } %>
