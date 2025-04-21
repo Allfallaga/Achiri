@@ -1,0 +1,22 @@
+.room-container {
+    display: flex;
+    flex-direction: row;
+    max-height: 100%;
+    .admin-area {
+        width: 20vw;
+    }
+    .media-area {
+        display: flex;
+        flex-direction: column;
+        width: 60vw;
+        max-height: 100vh;
+        height: 100vh;
+    }
+    .moderation-chat-area {
+        .chat-area {
+            .chat-messages {
+                // max-height: calc(100% - 350px)
+            }
+        }
+    }
+}
