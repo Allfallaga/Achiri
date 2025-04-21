@@ -1,0 +1,80 @@
+.moderation-chat-area {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-center;
+    justify-content: stretch;
+    width: 30%;
+    // margin-bottom: 30px;
+    .moderation-area {
+        display: inherit;
+        flex-direction: column;
+        justify-content: space-between;
+        align-items: flex-start;
+        height: 50vh;
+        .list-group {
+            list-style: none;
+            overflow-y: scroll;
+            overflow-x: hidden;
+            max-height: 100%;
+            width: 100%;
+            display: flex;
+            flex-direction: column;
+            margin: 0;
+            padding: 0;
+            .moderation-member {
+                display: flex;
+                flex-direction: row;
+                justify-content: space-around;
+                align-items: center;
+                padding: 15px 0px;
+                .moderation-icon-control {
+                    width: 20px;
+                    height: 20px;
+                    padding: 10px 12px;
+                    border-radius: 100%;
+                    color: rgb(163, 163, 163);
+                    background-color: rgb(72, 72, 72);
+                    &:hover {
+                        background-color: white;
+                        color: red;
+                    }
+                }
+                .moderation-avatar-name-member {
+                    display: flex;
+                    img {
+                        border-radius: 100%;
+                        width: 50px;
+                        height: 50px;
+                    }
+                    .moderation-status {
+                        display: flex;
+                        flex-direction: column;
+                        align-items: flex-start;
+                        justify-content: center;
+                        &-name {
+                            color: rgb(177, 177, 177);
+                        }
+                    }
+                }
+            }
+            &::-webkit-scrollbar {
+                margin-top: 5px;
+                padding-top: 15px;
+                // width: 20px;
+                height: 7px;
+            }
+
+            /* Track */
+            &::-webkit-scrollbar-track {
+                // box-shadow: inset 0 0 5px grey;
+                border-radius: 1px;
+            }
+
+            /* Handle */
+            &::-webkit-scrollbar-thumb {
+                background: grey;
+                border-radius: 10px;
+            }
+        }
+    }
+}

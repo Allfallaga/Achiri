@@ -1,0 +1,92 @@
+.chat-messages {
+    // flex-direction: column;
+    // justify-content: flex-end;
+    scroll-behavior: smooth;
+    .chat-message-right,
+    .chat-message-left {
+        display: flex;
+        margin : 8px 8px;
+        .message-data {
+            margin:0 5px;
+            display: flex;
+            flex-direction: column;
+            .message-header {
+                display: flex;
+                font-size: .7rem;
+            }
+            .message-body {
+                padding: 10px;
+                background-color: #353535;
+                border-radius: 5px;
+                display: flex;
+                flex-direction: column;
+                .message-time {
+                    font-size: .7rem;
+                }
+                .message-nickname {
+                    font-size: .7rem;
+                }
+                .message-content {
+                    font-size: .85rem;
+                }
+            }
+        }
+        img {
+            border-radius: 100%;
+        }
+    }
+    .chat-message-right {
+        flex-direction: row-reverse;
+        .message-header {
+            flex-direction: row-reverse;
+            .message-nickname {
+                margin-left: 10px;
+            }
+        }
+        .message-data {
+            align-items: flex-end;
+            .message-body {
+                text-align: right;
+            }
+        }
+    }
+    .chat-message-left {
+        .message-data {
+            align-items: flex-start;
+        }
+        .message-body {
+            text-align: left;
+        }
+    }
+    * {
+        color: rgb(191, 191, 191);
+    }
+}
+.chat-input {
+    height: 10vh;
+    .input-group {
+        display: flex;
+        height: 100%;
+    }
+    input {
+        height: 100%;
+        width: 90%;
+        padding-left: 15px;
+        background-color: #17171d;
+        &:focus-visible {
+            outline: none;
+        }
+    }
+    .send-chat-message-btn {
+        width: 20%;
+        background: none;
+        border: none;
+        svg {
+            font-size: 1.5rem;
+            color: #a3a3a3;
+        }
+        &:hover {
+            background-color: #4f4f4f;
+        }
+    }
+}
