@@ -1,1 +1,8 @@
-ref: refs/heads/master
+0000000000000000000000000000000000000000 8d0c7e6d6985d9b7601f6ed47c2b933b9fd52453 mohand <tinedghar3d@gmail.com> 1648110582 +0100	commit (initial): initial commit
+8d0c7e6d6985d9b7601f6ed47c2b933b9fd52453 0d2c1b60ab2fbcfaa9350452beac73eaa4619724 mohand <tinedghar3d@gmail.com> 1648111531 +0100	commit: changed ip addresses
+0d2c1b60ab2fbcfaa9350452beac73eaa4619724 09698e08500dfb9836fc5e847a70d4d46ac6a550 mohand <tinedghar3d@gmail.com> 1648113799 +0100	commit: added db config
+09698e08500dfb9836fc5e847a70d4d46ac6a550 f4e1e1cbb7639bd4adb555bcf7d402ffcc460ec5 mohand <tinedghar3d@gmail.com> 1648113979 +0100	commit: added db config
+f4e1e1cbb7639bd4adb555bcf7d402ffcc460ec5 a92f06519ad05a30928dae5f47d9ad4310472840 mohand <tinedghar3d@gmail.com> 1648119242 +0100	commit: fixed infinit loop bug
+a92f06519ad05a30928dae5f47d9ad4310472840 3b32610cf2c34462be0221ad40fdc701f3d411c3 mohand <tinedghar3d@gmail.com> 1648119992 +0100	commit: removed echo own video
+3b32610cf2c34462be0221ad40fdc701f3d411c3 30542555e66ca7a821f6c70b58543919f2a5e8ec mohand <tinedghar3d@gmail.com> 1648138958 +0100	commit: fixed no device found bug
+30542555e66ca7a821f6c70b58543919f2a5e8ec 0b385d2ae509c973aaca8b88b230428bde123ad6 mohand <tinedghar3d@gmail.com> 1648145943 +0100	commit: arranged the rooms css

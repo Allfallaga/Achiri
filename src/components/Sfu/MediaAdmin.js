@@ -1,27 +1,51 @@
-import React, { useRef, useState, useEffect } from "react";
-import { IoVideocamOutline } from "react-icons/io5";
+import React, { useRef, useEffect } from "react";
 
-function MediaAdmin(props) {
-  const video = useRef();
+/**
+ * MediaAdmin
+ * - Affiche le flux vidéo/audio pour l'admin ou un membre
+ * - Moderne, accessible, robuste
+ */
+function MediaAdmin({ imAdmin, stream, video: videoTrack, audio: audioTrack }) {
+  const videoRef = useRef();
+
   useEffect(() => {
-    console.log(props);
-    if (props.imAdmin) {
-      video.current.srcObject = props.stream;
-      if (props.stream) {
-        video.current.srcObject = new MediaStream();
-        video.current.srcObject.addTrack(props.stream.getVideoTracks()[0]);
+    let mediaStream = new MediaStream();
+
+    if (imAdmin && stream) {
+      const tracks = stream.getVideoTracks();
+      if (tracks.length > 0) {
+        mediaStream.addTrack(tracks[0]);
       }
     } else {
-      if (props.video || props.audio)
-        video.current.srcObject = new MediaStream();
-      console.log(props.video);
-      if (props.video) video.current.srcObject.addTrack(props.video);
-      if (props.audio) video.current.srcObject.addTrack(props.audio);
-      return;
+      if (videoTrack) mediaStream.addTrack(videoTrack);
+      if (audioTrack) mediaStream.addTrack(audioTrack);
     }
-  });
-  console.log(props);
-  return <video ref={video} autoPlay></video>;
+
+    if (videoRef.current) {
+      videoRef.current.srcObject = mediaStream;
+    }
+
+    return () => {
+      if (videoRef.current) videoRef.current.srcObject = null;
+    };
+  }, [imAdmin, stream, videoTrack, audioTrack]);
+
+  return (
+    <video
+      ref={videoRef}
+      autoPlay
+      playsInline
+      style={{
+        width: "100%",
+        borderRadius: 10,
+        background: "#111",
+        minHeight: 180,
+        objectFit: "cover",
+        boxShadow: "0 2px 12px #0003"
+      }}
+      aria-label={imAdmin ? "Flux vidéo administrateur" : "Flux vidéo membre"}
+    />
+  );
 }
 
 export default MediaAdmin;

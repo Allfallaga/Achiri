@@ -1,0 +1,8 @@
+# robots.txt pour Plateforme IA Inclusive
+# Voir : https://www.robotstxt.org/robotstxt.html
+
+User-agent: *
+Allow: /
+
+# Sitemaps (à adapter si besoin)
+# Sitemap: https://votre-domaine.fr/sitemap.xml

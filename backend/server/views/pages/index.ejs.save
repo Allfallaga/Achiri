@@ -1,0 +1,19 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Achiri - Accueil</title>
+</head>
+<body>
+  <h1>Bienvenue sur Achiri !</h1>
+  <ul>
+    <% if (messages && messages.length > 0) { %>
+      <% messages.forEach(function(msg) { %>
+        <li><%= msg.content %></li>
+      <% }); %>
+    <% } else { %>
+      <li>Aucun message.</li>
+    <% } %>
+  </ul>
+</body>
+</html>
+

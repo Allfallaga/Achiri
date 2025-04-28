@@ -1,0 +1,35 @@
+import React from 'react';
+import { render } from '@testing-library/react';
+import { MemoryRouter } from 'react-router-dom';
+import { HelmetProvider } from 'react-helmet-async';
+import App from './App';
+
+test('App se rend sans crash', () => {
+  render(
+    <HelmetProvider>
+      <MemoryRouter>
+        <App />
+      </MemoryRouter>
+    </HelmetProvider>
+  );
+});
+
+test('Affiche la navigation principale', () => {
+  render(
+    <HelmetProvider>
+      <MemoryRouter>
+        <App />
+      </MemoryRouter>
+    </HelmetProvider>
+  );
+});
+
+test('Affiche la page 404 pour une route inconnue', () => {
+  render(
+    <HelmetProvider>
+      <MemoryRouter initialEntries={['/route-inconnue']}>
+        <App />
+      </MemoryRouter>
+    </HelmetProvider>
+  );
+});

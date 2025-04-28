@@ -1,98 +1,49 @@
-.animate-spin
-{
-	-moz-animation:spin 2s infinite linear;
-	-o-animation:spin 2s infinite linear;
-	-webkit-animation:spin 2s infinite linear;
-	animation:spin 2s infinite linear;
-	display:inline-block
-}
-
-@-moz-keyframes spin {
-	0%
-	{
-		-moz-transform:rotate(0deg);
-		-o-transform:rotate(0deg);
-		-webkit-transform:rotate(0deg);
-		transform:rotate(0deg)
+/* Animation de rotation universelle, moderne et accessible */
+.animate-spin {
+	animation: spin 1.2s linear infinite;
+	display: inline-block;
+  }
+  
+  /* Keyframes modernes, support large navigateurs */
+  @keyframes spin {
+	0% {
+	  transform: rotate(0deg);
 	}
-	
-	100%
-	{
-		-moz-transform:rotate(359deg);
-		-o-transform:rotate(359deg);
-		-webkit-transform:rotate(359deg);
-		transform:rotate(359deg)
+	100% {
+	  transform: rotate(360deg);
 	}
-}
-
-@-webkit-keyframes spin {
-	0%
-	{
-		-moz-transform:rotate(0deg);
-		-o-transform:rotate(0deg);
-		-webkit-transform:rotate(0deg);
-		transform:rotate(0deg)
+  }
+  
+  /* Compatibilité legacy (optionnel, peut être retiré si support moderne suffisant) */
+  @-webkit-keyframes spin {
+	0% {
+	  -webkit-transform: rotate(0deg);
 	}
-	
-	100%
-	{
-		-moz-transform:rotate(359deg);
-		-o-transform:rotate(359deg);
-		-webkit-transform:rotate(359deg);
-		transform:rotate(359deg)
+	100% {
+	  -webkit-transform: rotate(360deg);
 	}
-}
-
-@-o-keyframes spin {
-	0%
-	{
-		-moz-transform:rotate(0deg);
-		-o-transform:rotate(0deg);
-		-webkit-transform:rotate(0deg);
-		transform:rotate(0deg)
+  }
+  @-moz-keyframes spin {
+	0% {
+	  -moz-transform: rotate(0deg);
 	}
-	
-	100%
-	{
-		-moz-transform:rotate(359deg);
-		-o-transform:rotate(359deg);
-		-webkit-transform:rotate(359deg);
-		transform:rotate(359deg)
+	100% {
+	  -moz-transform: rotate(360deg);
 	}
-}
-
-@-ms-keyframes spin {
-	0%
-	{
-		-moz-transform:rotate(0deg);
-		-o-transform:rotate(0deg);
-		-webkit-transform:rotate(0deg);
-		transform:rotate(0deg)
+  }
+  @-o-keyframes spin {
+	0% {
+	  -o-transform: rotate(0deg);
 	}
-	
-	100%
-	{
-		-moz-transform:rotate(359deg);
-		-o-transform:rotate(359deg);
-		-webkit-transform:rotate(359deg);
-		transform:rotate(359deg)
+	100% {
+	  -o-transform: rotate(360deg);
 	}
-}
-
-@keyframes spin {
-	0%
-	{
-		-moz-transform:rotate(0deg);
-		-o-transform:rotate(0deg);
-		-webkit-transform:rotate(0deg);
-		transform:rotate(0deg)
+  }
+  @-ms-keyframes spin {
+	0% {
+	  -ms-transform: rotate(0deg);
 	}
-	
-	100%
-	{
-		-moz-transform:rotate(359deg);
-		-o-transform:rotate(359deg);
-		-webkit-transform:rotate(359deg);
-		transform:rotate(359deg)
+	100% {
+	  -ms-transform: rotate(360deg);
 	}
-}
+  }

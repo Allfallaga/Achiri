@@ -3,155 +3,114 @@ import {
   IoVolumeMuteSharp,
   IoVideocamOffSharp,
   IoVideocam,
-  IoBanSharp,
   IoVolumeHighSharp,
 } from "react-icons/io5";
 
-function MediaRcv(props) {
-  const video = React.useRef();
+/**
+ * MediaRcv
+ * - Affiche le flux média reçu (vidéo/audio)
+ * - Permet de couper/activer la vidéo et l'audio
+ * - Moderne, accessible, robuste
+ */
+function MediaRcv({ video: videoTrack, audio: audioTrack }) {
+  const videoRef = useRef();
+  const [videoEnabled, setVideoEnabled] = useState(true);
+  const [audioEnabled, setAudioEnabled] = useState(true);
 
-  let [videoState, setVideoState] = useState(false);
-  let [audioState, setAudioState] = useState(false);
+  // Attache les tracks au composant vidéo
+  useEffect(() => {
+    const stream = new MediaStream();
+    if (videoTrack?.track) stream.addTrack(videoTrack.track);
+    if (audioTrack?.track) stream.addTrack(audioTrack.track);
+    if (videoRef.current) videoRef.current.srcObject = stream;
+    return () => {
+      if (videoRef.current) videoRef.current.srcObject = null;
+    };
+  }, [videoTrack, audioTrack]);
 
-  React.useEffect(() => {
-    video.current.srcObject = new MediaStream();
-    if (props.video) video.current.srcObject.addTrack(props.video.track);
-    if (props.audio) video.current.srcObject.addTrack(props.audio.track);
-  });
-
+  // Toggle vidéo
   const toggleVideo = () => {
-    video.current.srcObject.getVideoTracks()[0].enabled =
-      !video.current.srcObject.getVideoTracks()[0].enabled;
-    setVideoState((val) => !val);
+    const tracks = videoRef.current?.srcObject?.getVideoTracks();
+    if (tracks && tracks[0]) {
+      tracks[0].enabled = !tracks[0].enabled;
+      setVideoEnabled(tracks[0].enabled);
+    }
   };
 
+  // Toggle audio
   const toggleSound = () => {
-    video.current.srcObject.getAudioTracks()[0].enabled =
-      !video.current.srcObject.getAudioTracks()[0].enabled;
-    setAudioState((val) => !val);
+    const tracks = videoRef.current?.srcObject?.getAudioTracks();
+    if (tracks && tracks[0]) {
+      tracks[0].enabled = !tracks[0].enabled;
+      setAudioEnabled(tracks[0].enabled);
+    }
   };
 
   return (
-    <div>
-      <div className="moderation-controls-container">
-        <div className="moderation-controls">
-          <span
+    <div className="media-rcv-container" style={{ position: "relative", width: "100%" }}>
+      <div
+        className="moderation-controls-container"
+        style={{ position: "absolute", top: 10, left: 10, zIndex: 2 }}
+        aria-label="Contrôles de modération"
+      >
+        <div className="moderation-controls" style={{ display: "flex", gap: 12 }}>
+          <button
+            type="button"
             onClick={toggleSound}
-            className={
-              audioState
-                ? "active moderation-icon-control icon-mute"
-                : "inactive moderation-icon-control icon-mute"
-            }
+            className={`moderation-icon-control icon-mute ${audioEnabled ? "active" : "inactive"}`}
+            title={audioEnabled ? "Couper le son" : "Activer le son"}
+            aria-label={audioEnabled ? "Couper le son" : "Activer le son"}
+            tabIndex={0}
+            style={{
+              cursor: "pointer",
+              fontSize: 22,
+              background: "none",
+              border: "none",
+              padding: 0,
+              color: "inherit",
+              outline: "none"
+            }}
+            onKeyDown={e => (e.key === "Enter" || e.key === " ") && toggleSound()}
           >
-            {!audioState ? <IoVolumeHighSharp /> : <IoVolumeMuteSharp />}
-          </span>
-          <span
+            {audioEnabled ? <IoVolumeHighSharp /> : <IoVolumeMuteSharp />}
+          </button>
+          <button
+            type="button"
             onClick={toggleVideo}
-            className={
-              videoState
-                ? "active moderation-icon-control icon-mute"
-                : "inactive moderation-icon-control icon-mute"
-            }
+            className={`moderation-icon-control icon-video ${videoEnabled ? "active" : "inactive"}`}
+            title={videoEnabled ? "Couper la vidéo" : "Activer la vidéo"}
+            aria-label={videoEnabled ? "Couper la vidéo" : "Activer la vidéo"}
+            tabIndex={0}
+            style={{
+              cursor: "pointer",
+              fontSize: 22,
+              background: "none",
+              border: "none",
+              padding: 0,
+              color: "inherit",
+              outline: "none"
+            }}
+            onKeyDown={e => (e.key === "Enter" || e.key === " ") && toggleVideo()}
           >
-            {!videoState ? <IoVideocam /> : <IoVideocamOffSharp />}
-          </span>
+            {videoEnabled ? <IoVideocam /> : <IoVideocamOffSharp />}
+          </button>
         </div>
       </div>
-      <video ref={video} autoPlay={true}></video>
+      <video
+        ref={videoRef}
+        autoPlay
+        playsInline
+        style={{
+          width: "100%",
+          borderRadius: 10,
+          background: "#111",
+          minHeight: 180,
+          objectFit: "cover",
+        }}
+        aria-label="Vidéo reçue"
+      />
     </div>
   );
 }
 
 export default MediaRcv;
-
-// import React from "react";
-// import {
-//   IoVolumeMuteSharp,
-//   IoVideocamOffSharp,
-//   IoVideocam,
-//   IoBanSharp,
-//   IoVolumeHighSharp,
-// } from "react-icons/io5";
-// class MediaRcv extends React.Component {
-//   constructor(props) {
-//     super(props);
-//     this.state = {
-//       videoState: false,
-//       audioState: false,
-//       videoTrack: this.props.video,
-//       audioTrack: this.props.audio,
-//     };
-//     this.video = React.createRef();
-//     this.toggleVideo = this.toggleVideo.bind(this);
-//     this.toggleSound = this.toggleSound.bind(this);
-//   }
-
-//   componentDidMount() {
-//     console.log(this.state)
-//     this.video.current.srcObject = new MediaStream();
-//     if (this.state.videoTrack)
-//       this.video.current.srcObject.addTrack(this.state.videoTrack.track);
-//     if (this.state.audioTrack)
-//       this.video.current.srcObject.addTrack(this.state.audioTrack.track);
-//   }
-
-//   componentDidUpdate(prevProps) {
-//     this.updateTracks(this.props.video, this.props.audio)
-//     console.log(prevProps)
-//     console.log(this.props)
-//   }
-
-//   updateTracks(videoTrack, audioTrack) {
-//     this.video.current.srcObject = new MediaStream();
-//     if (this.state.videoTrack)
-//       this.video.current.srcObject.addTrack(this.state.videoTrack.track);
-//     if (this.state.audioTrack)
-//       this.video.current.srcObject.addTrack(this.state.audioTrack.track);
-//   }
-
-//   toggleVideo() {
-//     this.video.current.srcObject.getVideoTracks()[0].enabled =
-//       !this.video.current.srcObject.getVideoTracks()[0].enabled;
-//     this.setState((state) => ({
-//       videoState: !state.videoState,
-//       audioState: state.audioState,
-//     }));
-//     // setVideoState(this.video.current.srcObject.getVideoTracks()[0].enabled);
-//   }
-
-//   toggleSound() {
-//     console.log(this.video.current.srcObject.getAudioTracks()[0].enabled)
-//     this.video.current.srcObject.getAudioTracks()[0].enabled =
-//       !this.video.current.srcObject.getAudioTracks()[0].enabled;
-//     this.setState((state) => ({
-//       videoState: state.videoState,
-//       audioState: !state.audioState,
-//     }));
-//     // setAudioState(this.video.current.srcObject.getAudioTracks()[0].enabled);
-//   }
-
-//   render() {
-//     return (
-//       <div>
-//         <div className="moderation-controls-container">
-//           <div className="moderation-controls">
-//             <span
-//               onClick={this.toggleSound}
-//               className="moderation-icon-control icon-mute"
-//             >
-//               {this.state.audioState ? <IoVolumeHighSharp /> :<IoVolumeMuteSharp /> }
-//             </span>
-//             <span
-//               onClick={this.toggleVideo}
-//               className="moderation-icon-control icon-video"
-//             >
-//               {this.state.videoState ? <IoVideocam /> : <IoVideocamOffSharp />}
-//             </span>
-//           </div>
-//         </div>
-//         <video ref={this.video} autoPlay={true}></video>
-//       </div>
-//     );
-//   }
-// }
-// export default MediaRcv;

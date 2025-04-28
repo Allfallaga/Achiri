@@ -1,0 +1,81 @@
+.moderation-area {
+  background: #fff;
+  border-radius: 12px;
+  box-shadow: 0 2px 16px rgba(0,0,0,0.06);
+  padding: 1.2rem 1rem;
+  margin-right: 12px;
+  max-height: 480px;
+  overflow-y: auto;
+}
+
+/* Titre de la zone de modération */
+.moderation-title {
+  font-size: 1.18em;
+  font-weight: 700;
+  color: #1976d2;
+  margin-bottom: 14px;
+}
+
+/* Message vide */
+.moderation-empty {
+  color: #888;
+  font-style: italic;
+  text-align: center;
+  margin-top: 24px;
+  aria-live: polite;
+}
+
+/* Liste des membres */
+.list-group {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+
+.list-group li {
+  background: #fff;
+  border-radius: 8px;
+  box-shadow: 0 1px 4px rgba(0,0,0,0.04);
+  margin-bottom: 1rem;
+  padding: 1rem;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+/* Actions de modération */
+.moderation-actions {
+  display: flex;
+  gap: 0.5rem;
+}
+
+.moderation-actions button {
+  background: #ff9800;
+  color: #fff;
+  border: none;
+  border-radius: 6px;
+  padding: 0.4em 1em;
+  font-weight: 600;
+  cursor: pointer;
+  transition: background 0.2s;
+}
+
+.moderation-actions button:hover,
+.moderation-actions button:focus {
+  background: #e65100;
+  outline: none;
+}
+
+/* Responsive */
+@media (max-width: 600px) {
+  .moderation-area {
+    padding: 1rem;
+    margin-right: 0;
+    max-height: 320px;
+  }
+  .list-group li {
+    flex-direction: column;
+    align-items: flex-start;
+    padding: 0.7rem;
+  }
+}

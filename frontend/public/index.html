@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="fr">
+  <head>
+    <meta charset="utf-8" />
+    <link rel="icon" href="%PUBLIC_URL%/favicon.ico" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="theme-color" content="#0055ff" />
+    <meta
+      name="description"
+      content="Plateforme IA inclusive : chat, accessibilité, santé, maison connectée, quiz, tableau de bord et plus."
+    />
+    <link rel="apple-touch-icon" href="%PUBLIC_URL%/logo192.png" />
+    <link rel="manifest" href="%PUBLIC_URL%/manifest.json" />
+    <!-- Google Fonts : Roboto pour cohérence UI -->
+    <link href="https://fonts.googleapis.com/css?family=Roboto:400,700&display=swap" rel="stylesheet" />
+    <title>Plateforme IA Inclusive</title>
+    <style>
+      html, body {
+        height: 100%;
+        margin: 0;
+        padding: 0;
+        font-family: 'Roboto', Arial, sans-serif;
+        background: #f8fafc;
+        color: #222;
+        font-size: 16px;
+        min-height: 100vh;
+      }
+      #root {
+        min-height: 100vh;
+        outline: none;
+      }
+      /* Amélioration accessibilité focus */
+      :focus-visible {
+        outline: 2px solid #0055ff !important;
+        outline-offset: 2px;
+      }
+    </style>
+  </head>
+  <body>
+    <noscript>
+      Vous devez activer JavaScript pour utiliser cette application.
+    </noscript>
+    <main id="root" aria-label="Contenu principal" tabindex="-1"></main>
+    <!--
+      Ce fichier HTML est le template principal pour React.
+      Les scripts JS seront injectés automatiquement lors du build.
+      Pour démarrer le dev : `npm start`
+      Pour le build production : `npm run build`
+    -->
+  </body>
+</html>

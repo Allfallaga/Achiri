@@ -1,20 +1,36 @@
-import React, { createContext, useState } from "react"
+import React, { createContext, useState, useEffect } from "react";
 
-const AuthContext = createContext({})
+const AuthContext = createContext({});
 
+/**
+ * AuthProvider
+ * - Fournit le contexte d'authentification à toute l'application
+ * - Persistance dans localStorage, logique moderne et robuste
+ */
 export const AuthProvider = ({ children }) => {
-
-    let initialAuthState = {}
-
-    if (localStorage.getItem('auth')) {
-        initialAuthState = JSON.parse(localStorage.getItem('auth'))
+  const [auth, setAuth] = useState(() => {
+    try {
+      const stored = localStorage.getItem('auth');
+      return stored ? JSON.parse(stored) : {};
+    } catch {
+      return {};
     }
+  });
 
-    const [auth, setAuth] = useState(initialAuthState)
+  // Persiste l'état d'auth dans localStorage à chaque changement
+  useEffect(() => {
+    try {
+      localStorage.setItem('auth', JSON.stringify(auth));
+    } catch {
+      // Optionnel : gestion d'erreur de stockage
+    }
+  }, [auth]);
 
-    return <AuthContext.Provider value={{ auth, setAuth }}>
-        {children}
+  return (
+    <AuthContext.Provider value={{ auth, setAuth }}>
+      {children}
     </AuthContext.Provider>
-}
+  );
+};
 
-export default AuthContext
+export default AuthContext;

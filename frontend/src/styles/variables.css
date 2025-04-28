@@ -1,0 +1,118 @@
+/* Variables CSS globales pour Achiri Video Chat */
+
+:root {
+  /* Couleurs principales */
+  --primary: #1976d2;
+  --primary-light: #63a4ff;
+  --secondary: #43a047;
+  --secondary-light: #b2ff59;
+  --danger: #e53935;
+  --danger-light: #ffcdd2;
+  --background: #f5f7fa;
+  --surface: #fff;
+  --surface-alt: #e3f2fd;
+  --border: #e0e0e0;
+  --shadow: 0 2px 16px #1976d233;
+
+  /* Texte */
+  --text: #222;
+  --text-light: #fff;
+  --text-muted: #888;
+  --text-link: #43a047;
+
+  /* UI */
+  --border-radius: 12px;
+  --border-radius-lg: 18px;
+  --transition: 0.2s cubic-bezier(0.4, 0, 0.2, 1);
+
+  /* Fonts */
+  --font-main: 'Roboto', Arial, sans-serif;
+  --font-size-base: 1rem;
+  --font-size-lg: 1.25rem;
+  --font-size-sm: 0.95rem;
+
+  /* Z-index */
+  --z-header: 100;
+  --z-modal: 200;
+  --z-tooltip: 300;
+}
+
+/* Scrollbar custom */
+::-webkit-scrollbar {
+  width: 8px;
+  background: var(--surface-alt);
+}
+::-webkit-scrollbar-thumb {
+  background: var(--primary-light);
+  border-radius: 8px;
+}
+
+/* Responsive helpers */
+@media (max-width: 700px) {
+  .video-room-flex {
+    flex-direction: column !important;
+    gap: 1rem !important;
+    align-items: stretch !important;
+  }
+}
+
+/* Utilitaires */
+.text-link {
+  color: var(--text-link);
+  text-decoration: underline;
+  cursor: pointer;
+  transition: color var(--transition);
+}
+.text-link:hover {
+  color: var(--primary);
+}
+
+/* Modernisation et accessibilité supplémentaires */
+body {
+  background: var(--background);
+  color: var(--text);
+  font-family: var(--font-main);
+  font-size: var(--font-size-base);
+  margin: 0;
+  padding: 0;
+  min-height: 100vh;
+}
+
+button,
+input,
+select,
+textarea {
+  font-family: var(--font-main);
+  font-size: var(--font-size-base);
+  border-radius: var(--border-radius);
+  border: 1px solid var(--border);
+  transition: box-shadow var(--transition), border-color var(--transition);
+  outline: none;
+}
+
+button:focus,
+input:focus,
+select:focus,
+textarea:focus {
+  border-color: var(--primary);
+  box-shadow: 0 0 0 2px var(--primary-light);
+}
+
+button {
+  cursor: pointer;
+  transition: background var(--transition), color var(--transition), opacity var(--transition);
+}
+
+[aria-live] {
+  outline: none !important;
+}
+
+@media (max-width: 500px) {
+  main, .main-container {
+    padding: 1rem !important;
+    border-radius: var(--border-radius) !important;
+  }
+  h1, h2, h3 {
+    font-size: 1.2rem !important;
+  }
+}

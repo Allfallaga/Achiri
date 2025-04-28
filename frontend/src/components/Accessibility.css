@@ -1,0 +1,132 @@
+/* Container */
+.accessibility-container {
+  box-shadow: 0 4px 24px 0 rgba(0,0,0,0.08);
+  transition: background 0.3s;
+  padding: 2rem;
+  border-radius: 1rem;
+  background: #fff;
+  color: #222;
+  max-width: 700px;
+  margin: 2rem auto;
+  outline: none;
+}
+
+/* Section titles */
+.accessibility-container h2,
+.accessibility-container h3 {
+  font-weight: 700;
+  color: #2563eb;
+  margin-bottom: 1rem;
+  letter-spacing: 0.01em;
+}
+
+/* Option blocks */
+.accessibility-option {
+  background: #f9fafb;
+  border-radius: 8px;
+  padding: 1rem 1.2rem;
+  margin-bottom: 1.2rem;
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  box-shadow: 0 1px 4px 0 rgba(37,99,235,0.04);
+  transition: background 0.2s;
+  outline: none;
+}
+.accessibility-option:focus-within {
+  box-shadow: 0 0 0 2px #2563eb55;
+}
+.accessibility-option:hover {
+  background: #e0e7ff;
+}
+
+/* Toggle switches, checkboxes, etc. */
+.accessibility-container input[type="checkbox"],
+.accessibility-container input[type="range"] {
+  accent-color: #2563eb;
+  margin-right: 0.7em;
+  cursor: pointer;
+}
+
+/* Description text */
+.accessibility-desc {
+  color: #64748b;
+  font-size: 0.98em;
+  margin-top: 0.2em;
+}
+
+/* Accessibility icons */
+.accessibility-icon {
+  font-size: 1.5em;
+  color: #2563eb;
+  min-width: 1.5em;
+}
+
+/* Buttons */
+.accessibility-container button {
+  background: #2563eb;
+  color: #fff;
+  border: none;
+  border-radius: 6px;
+  padding: 0.5em 1.2em;
+  font-weight: 500;
+  cursor: pointer;
+  transition: background 0.2s, box-shadow 0.2s;
+  outline: none;
+}
+.accessibility-container button:focus,
+.accessibility-container button:hover {
+  background: #1e40af;
+  box-shadow: 0 0 0 2px #2563eb55;
+}
+
+/* High contrast mode */
+.accessibility-container.high-contrast {
+  background: #000;
+  color: #fff;
+}
+.accessibility-container.high-contrast .accessibility-option {
+  background: #222;
+  color: #fff;
+}
+.accessibility-container.high-contrast .accessibility-icon {
+  color: #fbbf24;
+}
+.accessibility-container.high-contrast .accessibility-desc {
+  color: #fbbf24;
+}
+.accessibility-container.high-contrast button {
+  background: #fbbf24;
+  color: #000;
+}
+.accessibility-container.high-contrast button:focus,
+.accessibility-container.high-contrast button:hover {
+  background: #f59e42;
+  color: #000;
+}
+
+/* LSF/Sign language video preview */
+.lsf-preview {
+  border: 2px dashed #2563eb;
+  border-radius: 8px;
+  padding: 1em;
+  background: #f1f5f9;
+  margin-bottom: 1em;
+  text-align: center;
+  color: #2563eb;
+  font-size: 1.1em;
+}
+
+/* Responsive */
+@media (max-width: 600px) {
+  .accessibility-container {
+    padding: 1rem;
+    margin: 1rem;
+  }
+  .accessibility-option {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 0.5rem;
+    padding: 0.8rem 0.7rem;
+  }
+}

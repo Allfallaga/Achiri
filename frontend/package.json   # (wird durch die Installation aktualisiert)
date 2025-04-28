@@ -1,0 +1,19 @@
+{
+  "name": "frontend",
+  "version": "1.0.0",
+  "private": true,
+  "dependencies": {
+    "react": "^17.0.0",
+    "react-dom": "^17.0.0",
+    "react-helmet-async": "^1.0.0",
+    "react-router-dom": "^5.2.0"
+  },
+  "devDependencies": {
+    "jest": "^26.0.0",
+    "babel-jest": "^26.0.0",
+    "babel-preset-react": "^6.24.1"
+  },
+  "scripts": {
+    "test": "jest"
+  }
+}

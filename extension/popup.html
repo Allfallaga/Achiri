@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8" />
+  <title>Achiri Extension IA</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <style>
+    body {
+      font-family: system-ui, sans-serif;
+      background: #f4f8fb;
+      margin: 0;
+      padding: 0 0 12px 0;
+      min-width: 320px;
+      min-height: 220px;
+      color: #222;
+    }
+    header {
+      background: #1976d2;
+      color: #fff;
+      padding: 1em 0 0.7em 0;
+      text-align: center;
+      border-radius: 0 0 18px 18px;
+      margin-bottom: 12px;
+      box-shadow: 0 2px 12px #1976d222;
+    }
+    h1 {
+      font-size: 1.3em;
+      margin: 0 0 2px 0;
+      letter-spacing: 1px;
+    }
+    #achiri-status {
+      font-size: 0.98em;
+      color: #1976d2;
+      margin-bottom: 6px;
+      text-align: center;
+    }
+    #achiri-role {
+      font-size: 0.98em;
+      color: #555;
+      margin-bottom: 10px;
+      text-align: center;
+    }
+    #achiri-actions {
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+      margin: 0 12px;
+    }
+    #achiri-actions button {
+      background: #1976d2;
+      color: #fff;
+      border: none;
+      border-radius: 8px;
+      padding: 0.7em 1em;
+      font-size: 1em;
+      font-weight: bold;
+      cursor: pointer;
+      transition: background 0.2s;
+      box-shadow: 0 2px 8px #1976d222;
+    }
+    #achiri-actions button:hover, #achiri-actions button:focus-visible {
+      background: #1565c0;
+      outline: 2px solid #1565c0;
+      outline-offset: 2px;
+    }
+    #achiri-actions button:active {
+      background: #0d47a1;
+    }
+    #achiri-actions button:disabled {
+      background: #e0e0e0;
+      color: #bdbdbd;
+      cursor: not-allowed;
+      opacity: 0.7;
+    }
+    footer {
+      margin-top: 18px;
+      text-align: center;
+      font-size: 0.95em;
+      color: #888;
+    }
+    @media (max-width: 400px) {
+      body { min-width: 220px; }
+      #achiri-actions { margin: 0 4px; }
+    }
+  </style>
+</head>
+<body>
+  <header>
+    <h1>Achiri Extension IA</h1>
+  </header>
+  <div id="achiri-status" aria-live="polite">Chargement...</div>
+  <div id="achiri-role"></div>
+  <div id="achiri-actions"></div>
+  <footer>
+    © Achiri · IA inclusive
+  </footer>
+  <script src="popup.js"></script>
+</body>
+</html>

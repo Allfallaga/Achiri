@@ -1,20 +1,79 @@
 .MuiBox-root {
-    padding : 20px;
+    padding: 20px;
+  
     .room-box {
-        padding: 20px;
-        p {
-            text-align: justify;
-        }
-        .room-title {
-            font-size: 1.3rem;
-            color: white;
-        }
+      display: flex;
+      flex-direction: column;
+      align-items: flex-start;
+      background: #fff;
+      border-radius: 14px;
+      box-shadow: 0 2px 12px #1976d222;
+      padding: 1.2rem 1rem;
+      margin: 0.7rem 0;
+      text-decoration: none;
+      color: #222;
+      border: 1px solid #e3e3e3;
+      transition: box-shadow 0.18s, transform 0.12s, background 0.18s;
+  
+      &:hover,
+      &:focus-visible {
+        background: #f5faff;
+        box-shadow: 0 4px 24px #1976d244;
+        outline: 2px solid #1976d2;
+        outline-offset: 2px;
+        transform: translateY(-2px) scale(1.01);
         text-decoration: none;
-        color: gray;
-        &:hover {
-            background-color: rgba(255,255,255,.1)
-        }
-        border: 1px solid rgba(255,255,255,.1);
-        border-radius: 15px;
+      }
+  
+      .room-title {
+        font-size: 1.2rem;
+        color: #fff;
+        background: linear-gradient(90deg, #1976d2 0%, #43a047 100%);
+        border-radius: 8px;
+        font-weight: 700;
+        margin-bottom: 8px;
+        padding: 0.4em 1em;
+        box-shadow: 0 1px 4px #1976d222;
+        pointer-events: none;
+        text-transform: none;
+      }
+  
+      .room-description {
+        text-align: justify;
+        color: #1976d2;
+        font-size: 1rem;
+        margin: 0 0 8px 0;
+        font-weight: 500;
+        letter-spacing: 0.1px;
+      }
+  
+      span {
+        color: #43a047;
+        font-weight: 600;
+        font-size: 1rem;
+        margin-top: 2px;
+        letter-spacing: 0.2px;
+      }
     }
-}
+  }
+  
+  /* Responsive */
+  @media (max-width: 600px) {
+    .MuiBox-root {
+      padding: 6px;
+      .room-box {
+        padding: 0.7rem 0.5rem;
+        border-radius: 8px;
+        .room-title {
+          font-size: 1rem;
+          padding: 0.3em 0.7em;
+        }
+        .room-description {
+          font-size: 0.95rem;
+        }
+        span {
+          font-size: 0.95rem;
+        }
+      }
+    }
+  }

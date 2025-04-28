@@ -1,0 +1,71 @@
+@import './styles/variables.css';
+
+body {
+  margin: 0;
+  font-family: var(--font-main);
+  background: var(--background);
+  color: var(--text);
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  min-height: 100vh;
+  line-height: 1.6;
+}
+
+code {
+  font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New', monospace;
+  background: var(--surface-alt);
+  padding: 0.2em 0.4em;
+  border-radius: 4px;
+  font-size: 0.98em;
+}
+
+a {
+  color: var(--text-link);
+  text-decoration: underline;
+  transition: color var(--transition);
+  outline: none;
+}
+a:hover,
+a:focus {
+  color: var(--primary);
+  text-decoration: underline;
+}
+
+button,
+input,
+select,
+textarea {
+  font-family: var(--font-main);
+  font-size: var(--font-size-base);
+  border-radius: var(--border-radius);
+  border: 1px solid var(--border);
+  transition: box-shadow var(--transition), border-color var(--transition);
+  outline: none;
+}
+
+button:focus,
+input:focus,
+select:focus,
+textarea:focus {
+  border-color: var(--primary);
+  box-shadow: 0 0 0 2px var(--primary-light);
+}
+
+button {
+  cursor: pointer;
+  transition: background var(--transition), color var(--transition), opacity var(--transition);
+}
+
+[aria-live] {
+  outline: none !important;
+}
+
+@media (max-width: 500px) {
+  main, .main-container {
+    padding: 1rem !important;
+    border-radius: var(--border-radius) !important;
+  }
+  h1, h2, h3 {
+    font-size: 1.2rem !important;
+  }
+}

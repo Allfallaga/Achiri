@@ -1,0 +1,41 @@
+{
+  "manifest_version": 3,
+  "name": "Achiri Extension IA",
+  "version": "1.0.0",
+  "description": "Extension IA inclusive : accessibilité, santé, domotique, éducation, influenceur.",
+  "icons": {
+    "16": "icon.png",
+    "32": "icon.png",
+    "48": "icon.png",
+    "128": "icon.png"
+  },
+  "permissions": [
+    "storage",
+    "notifications",
+    "scripting",
+    "activeTab"
+  ],
+  "host_permissions": [
+    "<all_urls>"
+  ],
+  "background": {
+    "service_worker": "background.js"
+  },
+  "action": {
+    "default_popup": "popup.html",
+    "default_icon": "icon.png"
+  },
+  "content_scripts": [
+    {
+      "matches": ["<all_urls>"],
+      "js": ["contentScript.js"],
+      "run_at": "document_end"
+    }
+  ],
+  "web_accessible_resources": [
+    {
+      "resources": ["icon.png"],
+      "matches": ["<all_urls>"]
+    }
+  ]
+}

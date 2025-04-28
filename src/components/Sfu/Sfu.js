@@ -4,6 +4,11 @@ import { Device } from "mediasoup-client";
 import MediaRcv from "../MediaRcv/MediaRcv";
 import MediaAdmin from "./MediaAdmin";
 
+/**
+ * Sfu
+ * - Gestion du flux vidéo/audio pour admin et membres
+ * - Moderne, accessible, robuste, cohérent
+ */
 function Sfu(props) {
   const alreadyConnected = useRef(false);
   const rtpCapabilities = useRef();
@@ -27,7 +32,6 @@ function Sfu(props) {
   const videoProducer = useRef();
   const audioProducer = useRef();
   const roomName = useRef(props.roomName);
-  const videoContainer = useRef();
   const videoParams = useRef({
     encodings: [
       { rid: "r0", scalabilityMode: "L3T3_KEY" },
@@ -42,10 +46,10 @@ function Sfu(props) {
 
   useEffect(() => {
     isAdmin.current = props.isAdmin;
-    videoContainer.current = document.getElementById("videoContainer");
     socket.current = io(process.env.REACT_APP_PEERSERVER_ADDR_COMP, {
       transports: ["websocket"],
     });
+
     socket.current.on("connection-success", ({ socketId }) => {
       startStreaming(props.isAdmin);
     });
@@ -53,58 +57,57 @@ function Sfu(props) {
       signalNewConsumerTransport(producerId);
     });
     socket.current.on("producer-closed", ({ remoteProducerId }) => {
-      // server notification is received when a producer is closed
-      // we need to close the client-side consumer and associated transport
       const producerToClose = consumerTransports.current.find(
         (transportData) => transportData.producerId === remoteProducerId
       );
-      producerToClose.consumerTransport.close();
-      producerToClose.consumer.close();
-
-      // remove the consumer transport from the list
-      consumerTransports.current = consumerTransports.current.filter(
-        (transportData) => transportData.producerId !== remoteProducerId
-      );
+      if (producerToClose) {
+        producerToClose.consumerTransport.close();
+        producerToClose.consumer.close();
+        consumerTransports.current = consumerTransports.current.filter(
+          (transportData) => transportData.producerId !== remoteProducerId
+        );
+      }
     });
     socket.current.on("duplicate-user", ({ exists }) => {
       alreadyConnected.current = exists;
     });
-  },[]);
+
+    return () => {
+      socket.current && socket.current.disconnect();
+      if (my_media.current) my_media.current.srcObject = null;
+      setAdminMedia({ socketId: "", videoTrack: undefined, audioTrack: undefined });
+      setVideoConsumers({});
+      setAudioConsumers({});
+    };
+    // eslint-disable-next-line
+  }, []);
 
   const startStreaming = async (isAdmin) => {
-    await navigator.mediaDevices
-      .getUserMedia({ video: true, audio: true })
-      .then((stream) => {
-        console.log(stream);
-        videoTrack.current = stream.getVideoTracks()[0];
-        audioTrack.current = stream.getAudioTracks()[0];
-        videoParams.current = {
-          ...videoParams.current,
-          track: videoTrack.current,
-        };
-        audioParams.current = {
-          ...audioParams.current,
-          track: audioTrack.current,
-        };
-        if (isAdmin) {
-          // admin_media.current.srcObject = stream
-          setImAdmin(true);
-          setStream(stream);
-        } else {
-          // setMyMedia(admin => ({ socketId: socket.current.id, videoConsumer: { track: videoTrack.current }, audioConsumer: { track: audioTrack.current } }))
-            // my_media.current.srcObject = stream;
-            my_media.current.srcObject = stream
-            my_media.current.srcObject.addTrack(stream.getVideoTracks()[0])
-        }
-        joinRoom();
-      })
-      .catch((error) => {
-        setTimeout(() => {
-          startStreaming(isAdmin)
-        }, 400);
-        console.log(error);
-        // alert(error.message);
-      });
+    try {
+      const stream = await navigator.mediaDevices.getUserMedia({ video: true, audio: true });
+      videoTrack.current = stream.getVideoTracks()[0];
+      audioTrack.current = stream.getAudioTracks()[0];
+      videoParams.current = {
+        ...videoParams.current,
+        track: videoTrack.current,
+      };
+      audioParams.current = {
+        ...audioParams.current,
+        track: audioTrack.current,
+      };
+      if (isAdmin) {
+        setImAdmin(true);
+        setStream(stream);
+      } else {
+        my_media.current.srcObject = stream;
+      }
+      joinRoom();
+    } catch (error) {
+      setTimeout(() => {
+        startStreaming(isAdmin);
+      }, 400);
+      // Optionnel : afficher une notification d'erreur à l'utilisateur
+    }
   };
 
   const joinRoom = () => {
@@ -112,7 +115,6 @@ function Sfu(props) {
       "joinRoom",
       { roomName: roomName.current, user: props.user, isAdmin: props.isAdmin },
       (data) => {
-        console.log("Router RTP : ", data.rtpCapabilities);
         rtpCapabilities.current = data.rtpCapabilities;
         createDevice();
       }
@@ -122,15 +124,12 @@ function Sfu(props) {
   const createDevice = async () => {
     try {
       device.current = new Device();
-      console.log(rtpCapabilities.current)
       await device.current.load({
         routerRtpCapabilities: rtpCapabilities.current,
       });
-
       createProducerTransport();
     } catch (error) {
-      console.log(error);
-      alert(error.message);
+      // Optionnel : afficher une notification d'erreur à l'utilisateur
     }
   };
 
@@ -140,25 +139,15 @@ function Sfu(props) {
       { consumer: false },
       ({ params }) => {
         if (params.error) {
-          console.log(params.error);
           return;
         }
-
-        // creates a new WebRTC Transport to send media
-        // based on the server's producer transport params
         producerTransport.current = device.current.createSendTransport(params);
 
         producerTransport.current.on(
           "connect",
           async ({ dtlsParameters }, callback, errback) => {
             try {
-              // Signal local DTLS parameters to the server side transport
-              // see server's socket.on('transport-connect', ...)
-              await socket.current.emit("transport-connect", {
-                dtlsParameters,
-              });
-
-              // Tell the transport that parameters were transmitted.
+              await socket.current.emit("transport-connect", { dtlsParameters });
               callback();
             } catch (error) {
               errback(error);
@@ -170,7 +159,6 @@ function Sfu(props) {
           async (parameters, callback, errback) => {
             try {
               if (!alreadyConnected.current) {
-              // if (true) {
                 await socket.current.emit(
                   "transport-produce",
                   {
@@ -184,8 +172,7 @@ function Sfu(props) {
                 );
               }
             } catch (error) {
-              console.log(error);
-              alert(error?.message);
+              // Optionnel : afficher une notification d'erreur à l'utilisateur
             }
           }
         );
@@ -196,10 +183,6 @@ function Sfu(props) {
   };
 
   const connectSendTransport = async () => {
-    // we now call produce() to instruct the producer transport
-    // to send media to the Router
-    // https://mediasoup.org/documentation/v3/mediasoup-client/api/#transport-produce
-    // this action will trigger the 'connect' and 'produce' events above
     [videoProducer.current, audioProducer.current] = await Promise.all([
       producerTransport.current.produce(videoParams.current),
       producerTransport.current.produce(audioParams.current),
@@ -207,34 +190,11 @@ function Sfu(props) {
     socket.current.emit("producers-exist", ({ producersExist }) => {
       if (producersExist) getProducers();
     });
-    videoProducer.current.on("trackended", () => {
-      console.log("Video track ended");
-
-      // close video track
-    });
-    audioProducer.current.on("trackended", () => {
-      console.log("Audio track ended");
-
-      // close Audio track
-    });
-
-    videoProducer.current.on("transportclose", () => {
-      console.log("transport ended");
-
-      // close video track
-    });
-    audioProducer.current.on("transportclose", () => {
-      console.log("transport ended");
-
-      // close video track
-    });
+    // Gestion des événements trackended/transportclose possible ici
   };
 
   const getProducers = () => {
     socket.current.emit("getProducers", (producerIds) => {
-      console.log(producerIds);
-      // for each of the producer create a consumer
-      // producerIds.forEach(id => signalNewConsumerTransport(id))
       producerIds.forEach((producerId) => {
         signalNewConsumerTransport(producerId);
       });
@@ -242,23 +202,17 @@ function Sfu(props) {
   };
 
   const signalNewConsumerTransport = async (remoteProducerId) => {
-    // This function is called in a loop in the server
-    // And loops through all the producers to consume the remote producer id
     await socket.current.emit(
       "createWebRtcTransport",
       { consumer: true },
       ({ params }) => {
         if (params.error) {
-          console.log(params.error);
           return;
         }
         let consumerTransport;
         try {
           consumerTransport = device.current.createRecvTransport(params);
-          console.log("consumer transport : ", consumerTransport);
         } catch (error) {
-          console.log(error);
-          alert(error.message);
           return;
         }
 
@@ -286,9 +240,6 @@ function Sfu(props) {
     remoteProducerId,
     serverConsumerTransportId
   ) => {
-    // for consumer, we need to tell the server first
-    // to create a consumer based on the rtpCapabilities and consume
-    // if the router can consume, it will send back a set of params as below
     await socket.current.emit(
       "consume",
       {
@@ -298,13 +249,8 @@ function Sfu(props) {
       },
       async ({ params, socketId, isAdmin }) => {
         if (params.error) {
-          console.log("Cannot Consume");
-          console.log(params.error);
           return;
         }
-
-        // then consume with the local consumer transport
-        // which creates a consumer
         const consumer = await consumerTransport.consume({
           id: params.id,
           producerId: params.producerId,
@@ -323,7 +269,7 @@ function Sfu(props) {
         ];
 
         if (isAdmin) {
-          if (consumer.kind == "video") {
+          if (consumer.kind === "video") {
             setAdminMedia((med) => ({
               socketId: socketId,
               videoTrack: consumer.track,
@@ -342,18 +288,10 @@ function Sfu(props) {
           return;
         }
 
-        console.log(videoConsumers);
-        console.log(audioConsumers);
-
-        if (consumer.kind == "video") {
-          let client = {};
-          client[socketId] = consumer;
-          setVideoConsumers((cons) => ({ ...cons, ...client }));
+        if (consumer.kind === "video") {
+          setVideoConsumers((cons) => ({ ...cons, [socketId]: consumer }));
         } else {
-          let client = {};
-          client[socketId] = consumer;
-          audioConsumers[socketId] = consumer;
-          setAudioConsumers((cons) => ({ ...cons, ...client }));
+          setAudioConsumers((cons) => ({ ...cons, [socketId]: consumer }));
         }
 
         socket.current.emit("consumer-resume", {
@@ -366,29 +304,40 @@ function Sfu(props) {
   return (
     <div className="media-area">
       <div className="main-media">
-        {imAdmin && <MediaAdmin imAdmin={true} stream={stream}></MediaAdmin>}
+        {imAdmin && <MediaAdmin imAdmin={true} stream={stream} />}
         {!imAdmin && (
           <MediaAdmin
             imAdmin={false}
             audio={adminMedia.audioTrack}
             video={adminMedia.videoTrack}
-          ></MediaAdmin>
+          />
         )}
         <div className="my-media">
-          <video ref={my_media} autoPlay muted></video>
+          <video
+            ref={my_media}
+            autoPlay
+            muted
+            style={{
+              width: "100%",
+              borderRadius: 10,
+              background: "#222",
+              minHeight: 120,
+              objectFit: "cover",
+              boxShadow: "0 1px 4px #1976d222"
+            }}
+            aria-label="Votre flux"
+          />
         </div>
       </div>
-      <div className="secondary-media">
-        {Object.entries(videoConsumers).map((consumer) => {
-          return (
-            <div key={consumer[0]} className="their-media">
-              <MediaRcv
-                video={videoConsumers[consumer[0]]}
-                audio={audioConsumers[consumer[0]]}
-              ></MediaRcv>
-            </div>
-          );
-        })}
+      <div className="secondary-media" style={{ display: "flex", flexWrap: "wrap", gap: 16, marginTop: 18 }}>
+        {Object.entries(videoConsumers).map(([socketId, videoConsumer]) => (
+          <div key={socketId} className="their-media" style={{ position: "relative", minWidth: 180, flex: "1 1 220px" }}>
+            <MediaRcv
+              video={videoConsumer}
+              audio={audioConsumers[socketId]}
+            />
+          </div>
+        ))}
       </div>
     </div>
   );

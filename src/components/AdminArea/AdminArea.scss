@@ -1,9 +1,73 @@
 .admin-area {
     display: flex;
     flex-direction: column;
-    justify-content: center;
-    .admin-action {
-        color: #b1b1b1;
-
+    align-items: center;
+    padding: 2rem 1rem;
+    background: #f9f9fb;
+    border-radius: 1rem;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.04);
+  
+    .admin-actions {
+      display: flex;
+      flex-direction: row;
+      gap: 1.5rem;
+      list-style: none;
+      padding: 0;
+      margin: 0;
+      width: 100%;
+      justify-content: center;
     }
-}
+  
+    .admin-action {
+      color: #222;
+      background: #fff;
+      border: 2px solid #185abc;
+      border-radius: 0.5rem;
+      padding: 0.75rem 1.5rem;
+      font-size: 1rem;
+      font-weight: 500;
+      cursor: pointer;
+      transition: 
+        background 0.2s,
+        color 0.2s,
+        border-color 0.2s,
+        box-shadow 0.2s;
+      outline: none;
+  
+      &:hover,
+      &:focus-visible {
+        background: #185abc;
+        color: #fff;
+        border-color: #185abc;
+        box-shadow: 0 0 0 3px #b3d4fc;
+      }
+  
+      &:active {
+        background: #0d387a;
+        color: #fff;
+        border-color: #0d387a;
+      }
+    }
+  }
+  
+  /* Accessibilité : focus visible pour tous les boutons */
+  .admin-action:focus-visible {
+    outline: 2px solid #185abc;
+    outline-offset: 2px;
+  }
+  
+  /* Responsive */
+  @media (max-width: 600px) {
+    .admin-area {
+      padding: 1rem 0.5rem;
+      .admin-actions {
+        flex-direction: column;
+        gap: 1rem;
+        align-items: stretch;
+      }
+      .admin-action {
+        width: 100%;
+        text-align: center;
+      }
+    }
+  }
