@@ -1,25 +1,36 @@
-import React, { useRef, useEffect, useState, useCallback } from 'react';
+import React, { useRef, useEffect, useState, useCallback, useContext } from 'react';
 import io from 'socket.io-client';
-import MediaRcv from './MediaRcv/MediaRcv';
-import UserList from './UserList';
-import ChatBox from './ChatBox';
+import MediaRcv from '../MediaRcv/MediaRcv';
+import UserList from '../UserList';
+import ChatBox from '../ChatBox';
+import RoomHeader from './RoomHeader';
+import ParticipantList from './ParticipantList';
+import RoomControls from './RoomControls';
+import ModerationPanel from './ModerationPanel';
+import AccessibilityOptions from './AccessibilityOptions';
+import AnimationsManager from './AnimationsManager';
+import SubtitlesPanel from './SubtitlesPanel';
+import ScreenSharePanel from './ScreenSharePanel';
+import BreakoutRoomsPanel from './BreakoutRoomsPanel';
+import NotificationBanner from './NotificationBanner';
+import { RoomContext } from '../../contexts/RoomContext';
+import { UserContext } from '../../contexts/UserContext';
+import { AccessibilityContext } from '../../contexts/AccessibilityContext';
+import '../../styles/videochat.css';
 import { NavLink } from 'react-router-dom';
 
 const BACKEND_URL = process.env.REACT_APP_BACKEND_URL || 'http://localhost:3001';
 
 /**
- * Composant VideoRoom ultra-complet : vidéo, users, chat, rôles, mute, kick, main levée, badges, points, accessibilité.
+ * Composant VideoRoom ultra-complet et modulaire : vidéo, users, chat, rôles, mute, kick, main levée, badges, points, accessibilité, animations, modération, sous-titres, notifications, partage d’écran, breakout rooms.
  */
-function VideoRoom({ roomId, user }) {
-  const localVideo = useRef();
-  const peerConnection = useRef();
-  const [remoteTracks, setRemoteTracks] = useState({ video: null, audio: null });
-  const [videoEnabled, setVideoEnabled] = useState(true);
-  const [audioEnabled, setAudioEnabled] = useState(true);
-  const [loading, setLoading] = useState(true);
-  const [error, setError] = useState(null);
+function VideoRoom({ roomId, user, type = "free" }) {
+  // Contextes globaux
+  const roomCtx = useContext(RoomContext);
+  const userCtx = useContext(UserContext);
+  const accessibilityCtx = useContext(AccessibilityContext);
 
-  // Room state
+  // Local state pour fallback si pas de contexte
   const [roomInfo, setRoomInfo] = useState({
     owner: null,
     users: [],
@@ -30,35 +41,35 @@ function VideoRoom({ roomId, user }) {
     points: {},
     chatHistory: [],
   });
+  const [remoteTracks, setRemoteTracks] = useState({ video: null, audio: null });
+  const [videoEnabled, setVideoEnabled] = useState(true);
+  const [audioEnabled, setAudioEnabled] = useState(true);
+  const [loading, setLoading] = useState(true);
+  const [error, setError] = useState(null);
   const [kicked, setKicked] = useState(false);
   const [handRaised, setHandRaised] = useState(false);
-
-  // Accessibilité
   const [ttsEnabled, setTtsEnabled] = useState(false);
 
-  // Toggle caméra
-  const toggleVideo = () => {
-    const stream = localVideo.current?.srcObject;
-    if (stream) {
-      const videoTrack = stream.getVideoTracks()[0];
-      if (videoTrack) {
-        videoTrack.enabled = !videoTrack.enabled;
-        setVideoEnabled(videoTrack.enabled);
-      }
-    }
-  };
+  // UI panels
+  const [showChat, setShowChat] = useState(true);
+  const [showParticipants, setShowParticipants] = useState(true);
+  const [showModeration, setShowModeration] = useState(false);
+  const [showAccessibility, setShowAccessibility] = useState(false);
+  const [showScreenShare, setShowScreenShare] = useState(false);
+  const [showBreakout, setShowBreakout] = useState(false);
+  const [notification, setNotification] = useState(null);
 
-  // Toggle micro
-  const toggleAudio = () => {
-    const stream = localVideo.current?.srcObject;
-    if (stream) {
-      const audioTrack = stream.getAudioTracks()[0];
-      if (audioTrack) {
-        audioTrack.enabled = !audioTrack.enabled;
-        setAudioEnabled(audioTrack.enabled);
-      }
+  // Réfs pour focus/accessibilité
+  const localVideo = useRef();
+  const mainVideoRef = useRef();
+  const peerConnection = useRef();
+
+  // Effet accessibilité : focus sur la vidéo principale à l'entrée
+  useEffect(() => {
+    if (mainVideoRef.current && (accessibilityCtx?.accessibility?.autoFocusVideo || accessibilityCtx?.autoFocusVideo)) {
+      mainVideoRef.current.focus();
     }
-  };
+  }, [accessibilityCtx]);
 
   // Text-to-speech pour accessibilité
   const speak = useCallback(
@@ -71,6 +82,7 @@ function VideoRoom({ roomId, user }) {
     [ttsEnabled]
   );
 
+  // --- LOGIQUE WEBRTC/SOCKET (repris de ton code long) ---
   useEffect(() => {
     let socket;
     setLoading(true);
@@ -214,18 +226,145 @@ function VideoRoom({ roomId, user }) {
 
   const myId = user?.name || user;
 
+  // Accessibilité options
+  const accessibilityOptions = {
+    subtitles: accessibilityCtx?.accessibility?.subtitles,
+    signLanguage: accessibilityCtx?.accessibility?.signLanguage,
+    highContrast: accessibilityCtx?.accessibility?.highContrast,
+    reduceMotion: accessibilityCtx?.accessibility?.reduceMotion,
+    tts: accessibilityCtx?.accessibility?.tts,
+  };
+
+  // Permissions (à compléter selon RoomContext)
+  const canModerate = true;
+  const canShareScreen = true;
+  const canAccessBreakout = true;
+
   return (
-    <div
-      style={{
-        display: 'flex',
-        flexWrap: 'wrap',
-        gap: '2rem',
-        alignItems: 'flex-start',
-        justifyContent: 'center',
-        padding: '2rem 0',
-      }}
-    >
-      {/* Ajout navigation rapide */}
+    <div className={`video-room-container ${accessibilityOptions.highContrast ? "high-contrast" : ""}`}>
+      {/* Header de la room */}
+      <RoomHeader
+        room={roomCtx?.room || roomInfo}
+        type={type}
+        currentUser={user}
+        onShowAccessibility={() => setShowAccessibility((v) => !v)}
+        onShowModeration={() => setShowModeration((v) => !v)}
+        onShowBreakout={() => setShowBreakout((v) => !v)}
+      />
+
+      <div className="video-room-main">
+        {/* Liste des participants */}
+        {showParticipants && (
+          <ParticipantList
+            participants={roomCtx?.participants || roomInfo.users}
+            currentUser={user}
+            onModerate={canModerate ? () => setShowModeration(true) : undefined}
+          />
+        )}
+
+        {/* Zone vidéo principale */}
+        <div className="video-room-video-area" tabIndex={0} ref={mainVideoRef} aria-label="Zone vidéo principale">
+          {/* Vidéo locale */}
+          <div style={{ minWidth: 340, maxWidth: 360 }}>
+            <h3 style={{ color: "#1976d2", fontWeight: 700, fontSize: "1.1em" }}>Votre caméra</h3>
+            <video
+              ref={localVideo}
+              autoPlay
+              muted
+              style={{ width: '100%', background: '#222', borderRadius: 12 }}
+              aria-label="Vidéo locale"
+            />
+            <div style={{ marginTop: 12, display: "flex", flexWrap: "wrap", gap: 8 }}>
+              <button onClick={() => setVideoEnabled((v) => !v)}>{videoEnabled ? 'Désactiver la caméra' : 'Activer la caméra'}</button>
+              <button onClick={() => setAudioEnabled((v) => !v)}>{audioEnabled ? 'Couper le micro' : 'Activer le micro'}</button>
+              <button onClick={handleRaiseHand} disabled={handRaised}>{handRaised ? 'Main levée' : 'Lever la main'}</button>
+              <button onClick={() => setTtsEnabled((v) => !v)}>{ttsEnabled ? 'Désactiver vocal' : 'Activer vocal'}</button>
+            </div>
+            <div style={{ marginTop: 24 }}>
+              <UserList
+                users={roomInfo.users}
+                roles={roomInfo.roles}
+                muted={roomInfo.muted}
+                hands={roomInfo.hands}
+                badges={roomInfo.badges}
+                points={roomInfo.points}
+                currentUser={myId}
+                isOwner={roomInfo.owner === myId}
+                onMute={handleMute}
+                onKick={handleKick}
+                renderBadges={renderBadges}
+                renderPoints={renderPoints}
+              />
+            </div>
+          </div>
+          {/* Vidéo distante */}
+          <div style={{ minWidth: 340, maxWidth: 360 }}>
+            <h3 style={{ color: "#1976d2", fontWeight: 700, fontSize: "1.1em" }}>Remote</h3>
+            <MediaRcv video={remoteTracks.video} audio={remoteTracks.audio} />
+            <div style={{ marginTop: 24 }}>
+              <ChatBox
+                roomId={roomId}
+                user={user}
+                chatHistory={roomInfo.chatHistory}
+                ttsEnabled={ttsEnabled}
+                speak={speak}
+              />
+            </div>
+          </div>
+          {/* Sous-titres temps réel */}
+          {accessibilityOptions.subtitles && <SubtitlesPanel />}
+          {/* Fenêtre interprète langue des signes */}
+          {accessibilityOptions.signLanguage && (
+            <div className="sign-language-panel" aria-label="Interprète langue des signes">
+              {/* À intégrer : flux vidéo interprète */}
+            </div>
+          )}
+          {/* Animations */}
+          <AnimationsManager accessibility={accessibilityOptions} />
+          {/* Notifications */}
+          {notification && <NotificationBanner notification={notification} />}
+        </div>
+
+        {/* Barre de contrôle */}
+        <RoomControls
+          currentUser={user}
+          room={roomCtx?.room || roomInfo}
+          canShareScreen={canShareScreen}
+          onShareScreen={() => setShowScreenShare((v) => !v)}
+          onToggleChat={() => setShowChat((v) => !v)}
+          onToggleParticipants={() => setShowParticipants((v) => !v)}
+          onToggleAccessibility={() => setShowAccessibility((v) => !v)}
+        />
+
+        {/* Chat */}
+        {showChat && <ChatBox roomId={roomId} user={user} chatHistory={roomInfo.chatHistory} ttsEnabled={ttsEnabled} speak={speak} />}
+
+        {/* Modération */}
+        {showModeration && canModerate && (
+          <ModerationPanel
+            room={roomCtx?.room || roomInfo}
+            participants={roomCtx?.participants || roomInfo.users}
+            currentUser={user}
+            onClose={() => setShowModeration(false)}
+          />
+        )}
+
+        {/* Accessibilité */}
+        {showAccessibility && (
+          <AccessibilityOptions
+            accessibility={accessibilityCtx?.accessibility}
+            setAccessibility={accessibilityCtx?.setAccessibility}
+            onClose={() => setShowAccessibility(false)}
+          />
+        )}
+
+        {/* Partage d’écran */}
+        {showScreenShare && canShareScreen && <ScreenSharePanel onClose={() => setShowScreenShare(false)} />}
+
+        {/* Breakout rooms */}
+        {showBreakout && canAccessBreakout && <BreakoutRoomsPanel onClose={() => setShowBreakout(false)} />}
+      </div>
+      {/* Navigation rapide */}
       <div style={{ position: "absolute", left: 20, top: 20 }}>
         <NavLink
           to="/"
@@ -244,108 +383,6 @@ function VideoRoom({ roomId, user }) {
         >
           ← Accueil
         </NavLink>
-      </div>
-      <div style={{ minWidth: 340, maxWidth: 360 }}>
-        <h3 style={{ color: "#1976d2", fontWeight: 700, fontSize: "1.1em" }}>Votre caméra</h3>
-        <video
-          ref={localVideo}
-          autoPlay
-          muted
-          style={{ width: '100%', background: '#222', borderRadius: 12 }}
-          aria-label="Vidéo locale"
-        />
-        <div style={{ marginTop: 12, display: "flex", flexWrap: "wrap", gap: 8 }}>
-          <button
-            onClick={toggleVideo}
-            style={{
-              background: videoEnabled ? "#1976d2" : "#bdbdbd",
-              color: "#fff",
-              border: "none",
-              borderRadius: 6,
-              padding: "0.5em 1em",
-              fontWeight: "bold",
-              cursor: "pointer"
-            }}
-            aria-label={videoEnabled ? "Désactiver la caméra" : "Activer la caméra"}
-          >
-            {videoEnabled ? 'Désactiver la caméra' : 'Activer la caméra'}
-          </button>
-          <button
-            onClick={toggleAudio}
-            style={{
-              background: audioEnabled ? "#43a047" : "#bdbdbd",
-              color: "#fff",
-              border: "none",
-              borderRadius: 6,
-              padding: "0.5em 1em",
-              fontWeight: "bold",
-              cursor: "pointer"
-            }}
-            aria-label={audioEnabled ? "Couper le micro" : "Activer le micro"}
-          >
-            {audioEnabled ? 'Couper le micro' : 'Activer le micro'}
-          </button>
-          <button
-            onClick={handleRaiseHand}
-            disabled={handRaised}
-            style={{
-              background: handRaised ? "#ffe082" : "#ffb300",
-              color: "#222",
-              border: "none",
-              borderRadius: 6,
-              padding: "0.5em 1em",
-              fontWeight: "bold",
-              cursor: handRaised ? "not-allowed" : "pointer"
-            }}
-            aria-label={handRaised ? "Main déjà levée" : "Lever la main"}
-          >
-            {handRaised ? 'Main levée' : 'Lever la main'}
-          </button>
-          <button
-            onClick={() => setTtsEnabled((v) => !v)}
-            style={{
-              background: ttsEnabled ? "#1976d2" : "#bdbdbd",
-              color: "#fff",
-              border: "none",
-              borderRadius: 6,
-              padding: "0.5em 1em",
-              fontWeight: "bold",
-              cursor: "pointer"
-            }}
-            aria-label={ttsEnabled ? "Désactiver vocal" : "Activer vocal"}
-          >
-            {ttsEnabled ? 'Désactiver vocal' : 'Activer vocal'}
-          </button>
-        </div>
-        <div style={{ marginTop: 24 }}>
-          <UserList
-            users={roomInfo.users}
-            roles={roomInfo.roles}
-            muted={roomInfo.muted}
-            hands={roomInfo.hands}
-            badges={roomInfo.badges}
-            points={roomInfo.points}
-            currentUser={myId}
-            isOwner={roomInfo.owner === myId}
-            onMute={handleMute}
-            onKick={handleKick}
-            renderBadges={renderBadges}
-            renderPoints={renderPoints}
-          />
-        </div>
-      </div>
-      <div style={{ minWidth: 340, maxWidth: 360 }}>
-        <h3 style={{ color: "#1976d2", fontWeight: 700, fontSize: "1.1em" }}>Remote</h3>
-        <MediaRcv video={remoteTracks.video} audio={remoteTracks.audio} />
-        <div style={{ marginTop: 24 }}>
-          <ChatBox
-            roomId={roomId}
-            user={user}
-            chatHistory={roomInfo.chatHistory}
-            ttsEnabled={ttsEnabled}
-            speak={speak}
-          />
-        </div>
       </div>
     </div>
   );
