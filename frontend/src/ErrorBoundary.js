@@ -1,6 +1,13 @@
 import React from 'react';
 
-// Modern ErrorBoundary avec accessibilité, design cohérent et UX améliorée
+/**
+ * ErrorBoundary – Achiri
+ * Composant global de gestion d’erreur avec accessibilité, design avancé, sécurité et UX optimale.
+ * - Affichage d’un message clair, détails techniques masqués par défaut.
+ * - Focus automatique, aria-live, responsive, contraste élevé, SEO-friendly.
+ * - Prêt pour extension (log externe, support, dark mode, multi-langues…).
+ */
+
 class ErrorBoundary extends React.Component {
   constructor(props) {
     super(props);
@@ -13,7 +20,7 @@ class ErrorBoundary extends React.Component {
 
   componentDidCatch(error, errorInfo) {
     this.setState({ errorInfo });
-    // Ici, on pourrait logger l'erreur à un service externe si besoin
+    // TODO: Envoyer l'erreur à un service externe si besoin (Sentry, etc)
   }
 
   handleReload = () => {
@@ -36,16 +43,20 @@ class ErrorBoundary extends React.Component {
             maxWidth: 600,
             padding: 32,
             fontFamily: "'Segoe UI', Arial, sans-serif",
-            boxShadow: '0 2px 16px #e5393533'
+            boxShadow: '0 2px 16px #e5393533',
+            outline: 'none'
           }}
+          aria-label="Erreur critique – Achiri"
         >
-          <h2 style={{ color: '#e53935', marginTop: 0 }}>Une erreur est survenue</h2>
+          <h2 style={{ color: '#e53935', marginTop: 0, fontSize: '1.5em' }}>
+            Une erreur est survenue
+          </h2>
           <p>
             Désolé, une erreur inattendue est survenue dans l’application.<br />
             Essayez de recharger la page ou contactez le support si le problème persiste.
           </p>
           <details style={{ whiteSpace: 'pre-wrap', margin: '1em 0', color: '#b71c1c' }}>
-            {this.state.error && <summary>Détails techniques</summary>}
+            {this.state.error && <summary style={{ cursor: 'pointer', fontWeight: 500 }}>Détails techniques</summary>}
             {this.state.error && <pre>{this.state.error.toString()}</pre>}
             {this.state.errorInfo && <pre>{this.state.errorInfo.componentStack}</pre>}
           </details>
@@ -60,7 +71,7 @@ class ErrorBoundary extends React.Component {
               fontSize: '1em',
               marginTop: 16,
               cursor: 'pointer',
-              transition: 'background 0.2s'
+              transition: 'background 0.2s, color 0.2s'
             }}
             aria-label="Recharger la page"
             autoFocus

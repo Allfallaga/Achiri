@@ -1,0 +1,325 @@
+/* ==========================================================================
+   Video Chat Interface Stylesheet for Achiri
+   (Combines Video Display and Text Chat)
+   ========================================================================== */
+
+/* --- Import Variables --- */
+@import '../styles/variables.css'; /* Chemin à vérifier */
+
+/* --- Main Video Chat Container --- */
+.videochat-container {
+  display: flex;
+  height: calc(100vh - 60px); /* Ajuster selon header/footer */
+  background-color: var(--color-background); /* Fond clair par défaut */
+  font-family: var(--font-family-base);
+  overflow: hidden; /* Empêche le débordement global */
+}
+
+/* --- Video Section --- */
+.video-section {
+  flex-grow: 1; /* Prend la majorité de l'espace */
+  display: flex;
+  flex-direction: column;
+  background-color: #111827; /* Fond sombre pour la vidéo */
+  position: relative; /* Pour positionner les contrôles et l'aperçu */
+  min-width: 0; /* Empêche le débordement dans flexbox */
+}
+
+/* --- Main Video Display --- */
+.main-video-display {
+  flex-grow: 1;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  overflow: hidden;
+  position: relative; /* Pour l'aperçu local */
+}
+
+.main-video-display video {
+  display: block;
+  max-width: 100%;
+  max-height: 100%;
+  object-fit: contain; /* Affiche toute la vidéo, peut laisser des bandes noires */
+  /* ou object-fit: cover; si remplir l'espace est prioritaire */
+}
+
+/* --- Local Video Preview (Reuse from videocall.css if applicable) --- */
+.videochat-local-preview {
+  position: absolute;
+  bottom: var(--spacing-lg);
+  left: var(--spacing-lg);
+  width: 130px;
+  aspect-ratio: 16 / 9;
+  border-radius: var(--radius-sm);
+  overflow: hidden;
+  border: 2px solid rgba(255, 255, 255, 0.4);
+  box-shadow: var(--shadow-md);
+  z-index: 10;
+  background-color: #374151;
+}
+
+.videochat-local-preview video {
+  display: block;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  transform: scaleX(-1); /* Effet miroir */
+}
+
+/* --- Video Controls (Simplified bar or individual buttons) --- */
+.video-controls {
+  display: flex;
+  justify-content: center;
+  gap: var(--spacing-md);
+  padding: var(--spacing-sm) 0;
+  background-color: rgba(17, 24, 39, 0.8); /* Fond sombre semi-transparent */
+}
+
+/* Reuse control button style from videocall.css */
+.video-controls .control-button {
+  background-color: rgba(75, 85, 99, 0.7);
+  color: #ffffff;
+  border: none;
+  width: 44px;
+  height: 44px;
+  border-radius: 50%;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  font-size: 1.2rem;
+  transition: background-color var(--transition-duration-fast) ease,
+              transform var(--transition-duration-fast) ease,
+              box-shadow var(--transition-duration-fast) ease;
+  outline: none;
+}
+.video-controls .control-button:hover {
+  background-color: rgba(107, 114, 128, 0.8);
+}
+.video-controls .control-button:focus-visible {
+  box-shadow: 0 0 0 3px var(--color-focus-ring);
+}
+.video-controls .control-button:active {
+  transform: scale(0.9);
+}
+.video-controls .control-button.active {
+  background-color: var(--color-primary-main);
+}
+.video-controls .control-button.hang-up {
+  background-color: var(--color-danger-main);
+}
+.video-controls .control-button.hang-up:hover {
+  background-color: var(--color-danger-dark);
+}
+
+/* --- Chat Section (Sidebar) --- */
+.chat-section {
+  flex-shrink: 0; /* Ne grandit pas par défaut */
+  width: 320px; /* Largeur fixe pour la sidebar de chat */
+  border-left: 1px solid var(--color-border-main);
+  display: flex;
+  flex-direction: column;
+  background-color: var(--color-surface-1);
+  transition: width 0.3s ease, margin-left 0.3s ease; /* Pour l'ouverture/fermeture */
+}
+
+/* Optionnel: Style pour cacher/réduire la sidebar */
+.chat-section.collapsed {
+  width: 0;
+  border-left: none;
+  overflow: hidden; /* Cache le contenu quand réduit */
+}
+
+/* --- Chat Header (Optionnel) --- */
+.chat-header {
+  padding: var(--spacing-md);
+  border-bottom: 1px solid var(--color-border-main);
+  font-weight: var(--font-weight-medium);
+  color: var(--color-text-primary);
+  flex-shrink: 0;
+}
+
+/* --- Chat History (Reuse from assistantAgent.css) --- */
+.videochat-history {
+  flex-grow: 1;
+  overflow-y: auto;
+  padding: var(--spacing-md);
+  display: flex;
+  flex-direction: column;
+  gap: var(--spacing-sm);
+}
+
+.videochat-message-bubble {
+  max-width: 90%; /* Légèrement plus large dans la sidebar */
+  padding: var(--spacing-xs) var(--spacing-sm);
+  border-radius: var(--radius-md);
+  line-height: 1.5;
+  word-wrap: break-word;
+  font-size: var(--font-size-sm);
+}
+
+.videochat-user-message {
+  background-color: var(--color-primary-lightest); /* Couleur utilisateur */
+  color: var(--color-text-primary);
+  align-self: flex-end;
+  border-bottom-right-radius: var(--radius-sm);
+}
+
+.videochat-other-message {
+  background-color: var(--color-surface-2); /* Couleur autre participant */
+  color: var(--color-text-secondary);
+  align-self: flex-start;
+  border-bottom-left-radius: var(--radius-sm);
+}
+
+/* --- Chat Input Area (Reuse from assistantAgent.css) --- */
+.videochat-input-area {
+  padding: var(--spacing-sm) var(--spacing-md);
+  border-top: 1px solid var(--color-border-main);
+  display: flex;
+  align-items: center;
+  gap: var(--spacing-sm);
+  background-color: var(--color-surface-1);
+  flex-shrink: 0;
+}
+
+.videochat-input-field {
+  flex-grow: 1;
+  padding: var(--spacing-xs) var(--spacing-sm);
+  border: 1px solid var(--color-border-main);
+  border-radius: var(--radius-md);
+  font-size: var(--font-size-sm);
+  color: var(--color-text-primary);
+  background-color: var(--color-surface-1); /* Ou --color-background */
+  outline: none;
+  resize: none; /* Empêche le redimensionnement manuel */
+  min-height: 38px; /* Hauteur minimale */
+  max-height: 100px; /* Limite l'expansion */
+  overflow-y: auto; /* Permet le défilement si le texte est long */
+}
+
+.videochat-input-field:focus {
+  border-color: var(--color-primary-main);
+  box-shadow: 0 0 0 2px var(--color-primary-lightest); /* Léger glow au focus */
+}
+
+.videochat-send-button {
+  flex-shrink: 0;
+  background-color: var(--color-primary-main);
+  color: var(--color-primary-contrast-text);
+  border: none;
+  border-radius: 50%;
+  width: 36px;
+  height: 36px;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: background-color var(--transition-duration-fast) ease-out,
+              box-shadow var(--transition-duration-fast) ease-out;
+  outline: none;
+  font-size: 1.1rem; /* Taille icône envoi */
+}
+
+.videochat-send-button:hover {
+  background-color: var(--color-primary-dark);
+}
+
+.videochat-send-button:focus-visible {
+  box-shadow: 0 0 0 3px var(--color-focus-ring);
+}
+
+.videochat-send-button:disabled {
+  background-color: var(--color-text-disabled);
+  cursor: not-allowed;
+}
+
+/* --- Responsive Design --- */
+
+/* Tablettes et petits écrans où le chat pourrait être caché */
+@media (max-width: 1024px) {
+  .chat-section {
+    /* Option 1: Réduire la largeur */
+    /* width: 280px; */
+
+    /* Option 2: Cacher par défaut et ajouter un bouton pour ouvrir */
+    position: absolute;
+    right: 0;
+    top: 0;
+    bottom: 0;
+    height: 100%;
+    transform: translateX(100%);
+    transition: transform 0.3s ease;
+    z-index: var(--z-index-modal); /* Au-dessus de la vidéo */
+    box-shadow: -5px 0 15px rgba(0,0,0,0.1);
+  }
+  .chat-section.open {
+    transform: translateX(0);
+  }
+  /* Ajouter un bouton pour ouvrir/fermer le chat dans le JSX */
+}
+
+/* Mobiles */
+@media (max-width: 767px) {
+  .videochat-container {
+    flex-direction: column; /* Empiler vidéo et chat */
+    height: 100vh;
+  }
+
+  .video-section {
+    /* Laisser la vidéo prendre la majorité de l'espace disponible */
+    /* La hauteur sera déterminée par le contenu ou des règles flex */
+    min-height: 50vh; /* Exemple: au moins la moitié de l'écran */
+  }
+
+  .chat-section {
+    width: 100%; /* Pleine largeur */
+    height: auto; /* Hauteur basée sur le contenu */
+    max-height: 50vh; /* Limite la hauteur du chat */
+    border-left: none;
+    border-top: 1px solid var(--color-border-main);
+    position: static; /* Reset positionnement absolu */
+    transform: none; /* Reset transformation */
+    transition: none; /* Pas de transition en mode empilé */
+    box-shadow: none;
+  }
+
+  .videochat-local-preview {
+    width: 100px;
+    bottom: var(--spacing-md);
+    left: var(--spacing-md);
+  }
+
+  .video-controls {
+    padding: var(--spacing-xs) 0;
+    gap: var(--spacing-sm);
+  }
+  .video-controls .control-button {
+    width: 40px;
+    height: 40px;
+    font-size: 1.1rem;
+  }
+
+  .videochat-input-area {
+    padding: var(--spacing-xs) var(--spacing-sm);
+  }
+  .videochat-send-button {
+    width: 32px;
+    height: 32px;
+    font-size: 1rem;
+  }
+}
+
+/* --- SEO & Documentation ---
+  - Ce fichier CSS style une interface combinant vidéo et chat textuel.
+  - Utilise Flexbox pour le layout principal (vidéo + chat).
+  - La section chat est conçue comme une sidebar sur les grands écrans,
+    potentiellement cachée/superposée sur tablette, et empilée sous la vidéo sur mobile.
+  - Réutilise des styles des composants `videocall.css` et `assistantAgent.css` pour la cohérence.
+  - Design responsive avec ajustements majeurs pour mobile.
+  - Styles de focus visibles pour l'accessibilité.
+  - La sémantique HTML (JSX) est importante (ex: <main>, <aside>, <button> avec `aria-label`).
+  - Les icônes doivent être utilisées pour les contrôles vidéo et le bouton d'envoi.
+  - La logique d'ouverture/fermeture du chat sur tablette nécessite du JavaScript.
+  - Conçu pour être utilisé avec le composant `VideoChat.jsx`.
+*/

@@ -1,6 +1,7 @@
 # Achiri – Plateforme IA Inclusive
 
-Bienvenue sur le frontend de **Achiri**, une plateforme open source d’accessibilité, santé, domotique, éducation et influence, propulsée par l’IA.
+Bienvenue sur le frontend de **Achiri**, la plateforme open source d’accessibilité, santé, domotique, éducation et influence, propulsée par l’IA.  
+**Design avancé, inclusif, sécurisé, mobile/web, SEO-friendly, extensible et documenté.**
 
 ---
 
@@ -51,38 +52,53 @@ npm run format
 ## 📁 Structure du projet
 
 - `src/`
-  - `components/` : Composants réutilisables (UI, widgets, etc.)
-  - `pages/` : Pages principales (Dashboard, Paramètres, etc.)
+  - `components/` : Composants réutilisables (UI, widgets, notifications, badges…)
+  - `pages/` : Pages principales (Dashboard, Paramètres, Accessibilité, etc.)
   - `services/` : Accès API (REST/mock)
-  - `styles/` : Fichiers CSS globaux et variables
-  - `context/` : Contextes React (auth, etc.)
+  - `styles/` : Fichiers CSS globaux, variables, accessibilité, responsive
+  - `context/` : Contextes React (auth, accessibilité, thèmes…)
   - `utils/` : Fonctions utilitaires
-  - `App.js` : Routing principal et structure globale
-  - `ErrorBoundary.js` : Gestion globale des erreurs
+  - `App.js` : Routing principal, structure globale, SEO, accessibilité
+  - `ErrorBoundary.js` : Gestion globale des erreurs (UX, accessibilité, sécurité)
+  - `i18n.js` : Multilingue, accessibilité, SEO
   - `index.js` : Point d’entrée de l’application
+  - `reportWebVitals.js` : Mesure performance, accessibilité, SEO
+  - `setupTests.js` : Configuration avancée des tests
 
 ---
 
 ## 🧑‍🦽 Accessibilité & UX
 
-- Navigation clavier et lecteurs d’écran (ARIA, focus visible, aria-live)
-- Contrastes et couleurs accessibles
-- Responsive mobile/desktop
-- Feedback utilisateur cohérent (visuel, vocal, erreurs)
+- Navigation clavier, lecteurs d’écran (ARIA, focus visible, aria-live)
+- Contrastes et couleurs accessibles, dark mode, high-contrast mode
+- Responsive mobile/desktop, breakpoints, flexibilité
+- Feedback utilisateur cohérent (visuel, vocal, notifications, erreurs)
+- Multilingue (français/anglais, prêt pour extension)
+- Composants accessibles (boutons, formulaires, notifications, modals)
+
+---
+
+## 🔒 Sécurité
+
+- Authentification, routes protégées, contrôle des rôles
+- Pas de fuite de données, pas de tracking non maîtrisé
+- Sécurité des dépendances, gestion robuste des erreurs (ErrorBoundary)
+- Prêt pour extensions sécurité (logs, monitoring, alertes)
 
 ---
 
 ## 🧪 Tests
 
 - Tests unitaires et d’intégration avec Jest et Testing Library
-- Voir `src/App.test.js` pour des exemples
+- Accessibilité, SEO, responsive, sécurité, feedback utilisateur
+- Voir `src/App.test.js` et `src/setupTests.js` pour des exemples
 
 ---
 
 ## 🌐 Progressive Web App (PWA)
 
-- Manifest, favicon, accessibilité mobile, support offline (à vérifier/compléter)
-- SEO : sitemap, balises meta, titres dynamiques (Helmet)
+- Manifest, favicon, accessibilité mobile, support offline (à compléter)
+- SEO : sitemap, balises meta, titres dynamiques (Helmet), structure claire
 
 ---
 
@@ -93,6 +109,7 @@ npm run format
 - `npm test` – Lance les tests
 - `npm run lint` – Lint le code
 - `npm run format` – Formate le code avec Prettier
+- `npm run analyze` – Analyse le bundle JS
 
 ---
 
@@ -103,6 +120,8 @@ npm run format
 - [React Router](https://reactrouter.com/)
 - [Testing Library](https://testing-library.com/)
 - [Web Vitals](https://web.dev/vitals/)
+- [i18next](https://www.i18next.com/)
+- [React Helmet](https://github.com/nfl/react-helmet)
 
 ---
 
@@ -113,6 +132,8 @@ npm run format
 3. Commit tes changements (`git commit -am 'feat: nouvelle fonctionnalité'`)
 4. Push la branche (`git push origin feature/ma-fonctionnalite`)
 5. Ouvre une Pull Request
+
+Merci de respecter la structure, l’accessibilité, la sécurité et la documentation du projet.
 
 ---
 
@@ -126,7 +147,8 @@ npm run format
 - [ ] Permissions navigateur (micro, caméra, notifications)
 - [ ] PWA (manifest, favicon, offline)
 - [ ] SEO (Helmet, sitemap, titres dynamiques)
-- [ ] Harmonisation des textes, labels, ARIA, français partout
+- [ ] Harmonisation des textes, labels, ARIA, multilingue partout
+- [ ] Extensions futures : badges, analytics, monitoring, dark mode, multi-langues
 
 ---
 

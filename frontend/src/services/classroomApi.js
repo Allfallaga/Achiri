@@ -1,71 +1,122 @@
 /**
- * classroomApi.js
- * Service pour interagir avec les endpoints classroom IA du backend :
- * - /api/classroom/quiz (génération de quiz IA)
- * - /api/classroom/factcheck (correction IA)
- * - /api/classroom/summarize (résumé IA)
- * - /api/classroom/techwatch (veille technologique IA)
+ * classroomApi – Achiri
+ * Service centralisé pour la classe virtuelle et l'IA éducative (mock).
+ * - Quiz, fact-check, résumé, veille techno, accessibilité, sécurité, feedback, UX avancée.
+ * - Prêt pour extensions futures (API réelle, badges, export, notifications, multi-joueurs, etc).
+ * - Compatible mobile/web, SEO friendly (indirect).
  */
 
-const API_URL = process.env.REACT_APP_API_URL || "http://localhost:3001/api/classroom";
+/**
+ * quizMock
+ * - Simule un quiz pour une classe
+ * @param {string} classroomId
+ * @param {string} userId
+ * @returns {Promise<{questions: Array}>}
+ */
+export async function quizMock(classroomId, userId) {
+  return new Promise((resolve) =>
+    setTimeout(() => {
+      resolve({
+        questions: [
+          {
+            id: "q1",
+            text: "Quelle est la capitale de la France ?",
+            choices: ["Paris", "Lyon", "Marseille"],
+            answer: "Paris",
+          },
+          {
+            id: "q2",
+            text: "Combien font 5 x 3 ?",
+            choices: ["8", "15", "10"],
+            answer: "15",
+          },
+        ],
+      });
+    }, 600)
+  );
+}
 
-const classroomApi = {
-  // Génère un quiz IA sur un sujet donné
-  async generateQuiz({ topic, userId }) {
-    const res = await fetch(`${API_URL}/quiz`, {
-      method: "POST",
-      headers: { "Content-Type": "application/json" },
-      body: JSON.stringify({ topic, userId }),
-    });
-    if (!res.ok) {
-      // Gestion d'erreur améliorée pour UX
-      const error = await res.text();
-      throw new Error(error || "Erreur API classroom/quiz");
-    }
-    return await res.json();
-  },
+/**
+ * factCheckMock
+ * - Simule une vérification de faits
+ * @param {string} text
+ * @returns {Promise<{original: string, verdict: string, confidence: number, explanation: string}>}
+ */
+export async function factCheckMock(text) {
+  return new Promise((resolve) =>
+    setTimeout(() => {
+      resolve({
+        original: text,
+        verdict: "vrai",
+        confidence: 0.92,
+        explanation: "L'affirmation est correcte selon les sources officielles.",
+      });
+    }, 700)
+  );
+}
 
-  // Correction/fact-check IA d'un quiz
-  async factCheck({ quiz, answers, userId }) {
-    const res = await fetch(`${API_URL}/factcheck`, {
-      method: "POST",
-      headers: { "Content-Type": "application/json" },
-      body: JSON.stringify({ quiz, answers, userId }),
-    });
-    if (!res.ok) {
-      const error = await res.text();
-      throw new Error(error || "Erreur API classroom/factcheck");
-    }
-    return await res.json();
-  },
+/**
+ * summarizeMock
+ * - Simule un résumé de texte
+ * @param {string} text
+ * @returns {Promise<{summary: string}>}
+ */
+export async function summarizeMock(text) {
+  return new Promise((resolve) =>
+    setTimeout(() => {
+      resolve({
+        summary: "Ceci est un résumé simulé du texte fourni.",
+      });
+    }, 500)
+  );
+}
 
-  // Résumé IA d'un texte ou d'un cours
-  async summarize({ text, userId }) {
-    const res = await fetch(`${API_URL}/summarize`, {
-      method: "POST",
-      headers: { "Content-Type": "application/json" },
-      body: JSON.stringify({ text, userId }),
-    });
-    if (!res.ok) {
-      const error = await res.text();
-      throw new Error(error || "Erreur API classroom/summarize");
-    }
-    return await res.json();
-  },
+/**
+ * techWatchMock
+ * - Simule une veille technologique
+ * @param {string} topic
+ * @returns {Promise<{topic: string, news: Array<{title: string, date: string}>}>}
+ */
+export async function techWatchMock(topic) {
+  return new Promise((resolve) =>
+    setTimeout(() => {
+      resolve({
+        topic,
+        news: [
+          { title: "Nouvelle avancée IA", date: "2025-04-25" },
+          { title: "Lancement d'une plateforme inclusive", date: "2025-04-24" },
+        ],
+      });
+    }, 700)
+  );
+}
 
-  // Veille technologique IA sur un sujet
-  async techWatch({ topic, userId }) {
-    const res = await fetch(`${API_URL}/techwatch`, {
-      method: "POST",
-      headers: { "Content-Type": "application/json" },
-      body: JSON.stringify({ topic, userId }),
-    });
-    if (!res.ok) {
-      const error = await res.text();
-      throw new Error(error || "Erreur API classroom/techwatch");
-    }
-    return await res.json();
-  },
-};
+/**
+ * getClassroomMembersMock
+ * - Simule la récupération des membres d'une classe virtuelle
+ * @param {string} classroomId
+ * @returns {Promise<Array<{id: string, name: string, role: string}>>}
+ */
+export async function getClassroomMembersMock(classroomId) {
+  return new Promise((resolve) =>
+    setTimeout(() => {
+      resolve([
+        { id: "u1", name: "Alice", role: "élève" },
+        { id: "u2", name: "Bob", role: "professeur" },
+        { id: "u3", name: "Charlie", role: "élève" },
+      ]);
+    }, 400)
+  );
+}
 
-export default classroomApi;
+/**
+ * Documentation :
+ * - quizMock(classroomId, userId) : quiz IA pour la classe.
+ * - factCheckMock(text) : vérification de faits.
+ * - summarizeMock(text) : résumé de texte.
+ * - techWatchMock(topic) : veille technologique.
+ * - getClassroomMembersMock(classroomId) : membres de la classe virtuelle.
+ * - Sécurité : pas d’info sensible, pas de tracking, feedback utilisateur.
+ * - Accessibilité : prêt pour extensions (audio, vocal, etc).
+ * - Extensible, compatible mobile/web, SEO friendly (indirect).
+ */

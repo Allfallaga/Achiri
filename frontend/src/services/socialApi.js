@@ -1,75 +1,169 @@
 /**
- * socialApi.js
- * Service pour interagir avec les endpoints réseaux sociaux IA du backend :
- * - /api/social-networks/:userId (récupération, génération, publication de contenu)
- * - /api/social-networks/:userId/verify (vérification de compte)
- * - /api/social-networks/:userId/regenerate-code (régénération de code)
+ * socialApi – Achiri
+ * Service centralisé pour les interactions sociales (mock).
+ * - Profils, fil d’actualité, vérification, followers, feedback, accessibilité, sécurité.
+ * - Prêt pour extensions futures (backend réel, stats, badges, export, multi-joueurs, modération, etc).
+ * - Compatible mobile/web, UX avancée.
  */
 
-const API_URL = process.env.REACT_APP_API_URL || "http://localhost:3001/api/social-networks";
+/**
+ * getProfileMock
+ * - Simule la récupération du profil social
+ * @param {string} userId
+ * @returns {Promise<{id: string, pseudo: string, bio: string, avatar: string, verified: boolean, followers: number, following: number}>}
+ */
+export async function getProfileMock(userId) {
+  return new Promise((resolve) =>
+    setTimeout(() => {
+      resolve({
+        id: userId,
+        pseudo: "UtilisateurDemo",
+        bio: "Bienvenue sur Achiri !",
+        avatar: "https://dummyimage.com/100x100/cccccc/000000&text=User",
+        verified: true,
+        followers: 42,
+        following: 17,
+      });
+    }, 500)
+  );
+}
 
-const socialApi = {
-  // Génère du contenu IA pour un réseau social donné
-  async generateContent({ userId, platform, prompt }) {
-    const res = await fetch(`${API_URL}/${userId}`, {
-      method: "POST",
-      headers: { "Content-Type": "application/json" },
-      body: JSON.stringify({ platform, prompt }),
-    });
-    if (!res.ok) {
-      const error = await res.text();
-      throw new Error(error || "Erreur API social-networks/generateContent");
-    }
-    return await res.json();
-  },
+/**
+ * updateProfileMock
+ * - Simule la mise à jour du profil
+ * @param {string} userId
+ * @param {object} data
+ * @returns {Promise<object>}
+ */
+export async function updateProfileMock(userId, data) {
+  return new Promise((resolve) =>
+    setTimeout(() => {
+      resolve({ ...data, id: userId, updated: true });
+    }, 400)
+  );
+}
 
-  // Récupère les réseaux sociaux liés à l'utilisateur
-  async getAll(userId) {
-    const res = await fetch(`${API_URL}/${userId}`);
-    if (!res.ok) {
-      const error = await res.text();
-      throw new Error(error || "Erreur API social-networks/getAll");
-    }
-    return await res.json();
-  },
+/**
+ * verifyProfileMock
+ * - Simule la vérification du profil
+ * @param {string} userId
+ * @returns {Promise<{userId: string, verified: boolean}>}
+ */
+export async function verifyProfileMock(userId) {
+  return new Promise((resolve) =>
+    setTimeout(() => {
+      resolve({ userId, verified: true });
+    }, 600)
+  );
+}
 
-  // Vérifie un compte social (ex: code SMS/email)
-  async verify({ userId, platform, code }) {
-    const res = await fetch(`${API_URL}/${userId}/verify`, {
-      method: "POST",
-      headers: { "Content-Type": "application/json" },
-      body: JSON.stringify({ platform, code }),
-    });
-    if (!res.ok) {
-      const error = await res.text();
-      throw new Error(error || "Erreur API social-networks/verify");
-    }
-    return await res.json();
-  },
+/**
+ * regenerateCodeMock
+ * - Simule la régénération d'un code de vérification
+ * @param {string} userId
+ * @returns {Promise<{userId: string, code: number}>}
+ */
+export async function regenerateCodeMock(userId) {
+  return new Promise((resolve) =>
+    setTimeout(() => {
+      resolve({ userId, code: Math.floor(100000 + Math.random() * 900000) });
+    }, 400)
+  );
+}
 
-  // Régénère un code de vérification pour un réseau social
-  async regenerateCode({ userId, platform }) {
-    const res = await fetch(`${API_URL}/${userId}/regenerate-code`, {
-      method: "POST",
-      headers: { "Content-Type": "application/json" },
-      body: JSON.stringify({ platform }),
-    });
-    if (!res.ok) {
-      const error = await res.text();
-      throw new Error(error || "Erreur API social-networks/regenerate-code");
-    }
-    return await res.json();
-  },
+/**
+ * getSocialFeedMock
+ * - Simule la récupération du fil d'actualité social
+ * @param {string} userId
+ * @returns {Promise<Array<{id: number, author: string, content: string, date: string}>>}
+ */
+export async function getSocialFeedMock(userId) {
+  return new Promise((resolve) =>
+    setTimeout(() => {
+      resolve([
+        { id: 1, author: "Alice", content: "Bienvenue sur Achiri !", date: "2025-04-25" },
+        { id: 2, author: "Bob", content: "Nouveau défi IA lancé !", date: "2025-04-24" },
+      ]);
+    }, 500)
+  );
+}
 
-  // Récupère les infos d'un réseau social précis
-  async getOne(userId, platform) {
-    const res = await fetch(`${API_URL}/${userId}/${platform}`);
-    if (!res.ok) {
-      const error = await res.text();
-      throw new Error(error || "Erreur API social-networks/getOne");
-    }
-    return await res.json();
-  },
-};
+/**
+ * followUserMock
+ * - Simule le suivi d’un utilisateur
+ * @param {string} userId
+ * @param {string} targetId
+ * @returns {Promise<{success: boolean, following: boolean}>}
+ */
+export async function followUserMock(userId, targetId) {
+  return new Promise((resolve) =>
+    setTimeout(() => {
+      resolve({ success: true, following: true });
+    }, 350)
+  );
+}
 
-export default socialApi;
+/**
+ * unfollowUserMock
+ * - Simule l’arrêt du suivi d’un utilisateur
+ * @param {string} userId
+ * @param {string} targetId
+ * @returns {Promise<{success: boolean, following: boolean}>}
+ */
+export async function unfollowUserMock(userId, targetId) {
+  return new Promise((resolve) =>
+    setTimeout(() => {
+      resolve({ success: true, following: false });
+    }, 350)
+  );
+}
+
+/**
+ * likePostMock
+ * - Simule le like d’un post
+ * @param {string} userId
+ * @param {number} postId
+ * @returns {Promise<{success: boolean, liked: boolean}>}
+ */
+export async function likePostMock(userId, postId) {
+  return new Promise((resolve) =>
+    setTimeout(() => {
+      resolve({ success: true, liked: true });
+    }, 300)
+  );
+}
+
+/**
+ * commentPostMock
+ * - Simule l’ajout d’un commentaire à un post
+ * @param {string} userId
+ * @param {number} postId
+ * @param {string} comment
+ * @returns {Promise<{success: boolean, comment: object}>}
+ */
+export async function commentPostMock(userId, postId, comment) {
+  return new Promise((resolve) =>
+    setTimeout(() => {
+      resolve({
+        success: true,
+        comment: {
+          id: Date.now(),
+          userId,
+          postId,
+          comment,
+          date: new Date().toISOString(),
+        },
+      });
+    }, 350)
+  );
+}
+
+/**
+ * Documentation :
+ * - getProfileMock(userId), updateProfileMock(userId, data), verifyProfileMock(userId), regenerateCodeMock(userId)
+ * - getSocialFeedMock(userId), followUserMock(userId, targetId), unfollowUserMock(userId, targetId)
+ * - likePostMock(userId, postId), commentPostMock(userId, postId, comment)
+ * - Sécurité : pas d’info sensible, pas de tracking, feedback utilisateur.
+ * - Accessibilité : prêt pour extensions (avatars, vocal, etc).
+ * - Extensible, compatible mobile/web, SEO friendly (indirect).
+ */

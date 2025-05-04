@@ -1,0 +1,156 @@
+/* ==========================================================================
+   Accessibility Filter Stylesheet for Achiri
+   ========================================================================== */
+
+   @import '../../styles/variables.css'; /* Assurez-vous que ce chemin est correct */
+
+   .accessibility-filter {
+     display: flex;
+     flex-wrap: wrap; /* Permet aux filtres de passer à la ligne sur petits écrans */
+     align-items: center; /* Alignement vertical des éléments */
+     gap: var(--spacing-md); /* Espace entre les groupes de filtres et le reset */
+     background-color: var(--color-surface-1);
+     border-radius: var(--radius-lg);
+     box-shadow: var(--shadow-sm);
+     padding: var(--spacing-sm) var(--spacing-md);
+     margin: var(--spacing-lg) 0; /* Marge verticale pour séparer des autres éléments */
+     border: 1px solid var(--color-border-main);
+     transition: background-color var(--transition-duration-base) ease,
+                 border-color var(--transition-duration-base) ease;
+   }
+   
+   .accessibility-filter-label {
+     font-weight: var(--font-weight-semibold);
+     color: var(--color-primary-main);
+     display: inline-flex; /* Pour aligner l'icône */
+     align-items: center;
+     gap: var(--spacing-xs); /* Espace entre icône et texte */
+     font-size: var(--font-size-base);
+     flex-shrink: 0; /* Empêche le label de rétrécir */
+     margin-right: var(--spacing-sm); /* Espace après le label principal */
+   }
+   
+   /* Style pour chaque groupe label + checkbox */
+   .accessibility-filter-switch {
+     display: inline-flex; /* Alignement horizontal des éléments internes */
+     align-items: center;
+     gap: var(--spacing-xs); /* Espace entre icône, texte et checkbox */
+     cursor: pointer; /* Indique que tout le label est cliquable */
+     font-size: var(--font-size-sm);
+     color: var(--color-text-secondary);
+     transition: color var(--transition-duration-fast) ease;
+     padding: var(--spacing-xxs) var(--spacing-xs); /* Zone cliquable et espace pour focus */
+     border-radius: var(--radius-sm); /* Pour l'outline de focus */
+     outline: none; /* Base, géré par focus-within */
+   }
+   
+   .accessibility-filter-switch:hover {
+     color: var(--color-text-primary); /* Changement de couleur au survol */
+   }
+   
+   /* Style pour la checkbox elle-même */
+   .accessibility-filter-switch input[type="checkbox"] {
+     margin-left: var(--spacing-xs); /* Espace entre le texte et la checkbox */
+     accent-color: var(--color-primary-main); /* Couleur de la coche */
+     width: 16px; /* Taille standardisée */
+     height: 16px;
+     cursor: pointer;
+     outline: none; /* Base, géré par focus-visible ou focus-within sur le parent */
+     border-radius: var(--radius-sm); /* Cohérence visuelle */
+     vertical-align: middle; /* Meilleur alignement avec le texte */
+   }
+   
+   /* Style focus pour le label entier quand la checkbox (ou un autre élément interne) a le focus */
+   .accessibility-filter-switch:focus-within {
+     outline: var(--focus-outline);
+     outline-offset: var(--focus-outline-offset);
+     box-shadow: 0 0 0 2px var(--color-surface-1), 0 0 0 4px var(--color-focus-ring); /* Anneau de focus clair */
+     color: var(--color-text-primary); /* Améliore la visibilité du texte au focus */
+   }
+   
+   /* Bouton Reset */
+   .accessibility-filter-reset {
+     display: inline-flex; /* Alignement icône/texte */
+     align-items: center;
+     gap: var(--spacing-xs);
+     margin-left: auto; /* Pousse le bouton à l'extrémité droite */
+     background-color: var(--color-warning-light);
+     color: var(--color-warning-dark);
+     border: 1px solid var(--color-warning-main);
+     border-radius: var(--radius-md);
+     padding: var(--spacing-xs) var(--spacing-sm);
+     font-weight: var(--font-weight-medium);
+     font-size: var(--font-size-sm);
+     cursor: pointer;
+     transition: all var(--transition-duration-fast) ease;
+     outline: none; /* Base, géré par focus-visible */
+     white-space: nowrap; /* Empêche le texte de passer à la ligne */
+   }
+   
+   .accessibility-filter-reset:hover {
+     background-color: var(--color-warning-main);
+     color: var(--color-warning-contrast-text);
+     border-color: var(--color-warning-dark);
+   }
+   
+   .accessibility-filter-reset:focus-visible {
+     outline: var(--focus-outline);
+     outline-offset: var(--focus-outline-offset);
+     box-shadow: 0 0 0 2px var(--color-surface-1), 0 0 0 4px var(--color-focus-ring); /* Anneau de focus */
+   }
+   
+   /* Styles communs pour les icônes */
+   .accessibility-filter-label svg,
+   .accessibility-filter-switch svg,
+   .accessibility-filter-reset svg {
+     font-size: 1.1em; /* Taille légèrement augmentée pour la visibilité */
+     vertical-align: middle; /* Meilleur alignement vertical */
+     flex-shrink: 0; /* Empêche les icônes de rétrécir */
+   }
+   
+   /* Responsive Design */
+   @media (max-width: 768px) { /* Point de rupture ajustable */
+     .accessibility-filter {
+       gap: var(--spacing-sm); /* Réduire l'espace vertical et horizontal */
+       padding: var(--spacing-sm);
+     }
+     .accessibility-filter-label {
+        width: 100%; /* Le label principal prend toute la largeur */
+        margin-right: 0; /* Pas de marge à droite */
+        margin-bottom: var(--spacing-xs); /* Espace sous le label principal */
+        justify-content: center; /* Optionnel: centrer le label principal */
+     }
+     .accessibility-filter-reset {
+        margin-left: 0; /* Plus de marge auto */
+        margin-top: var(--spacing-sm); /* Espace au-dessus du bouton reset */
+        width: 100%; /* Optionnel: bouton reset pleine largeur */
+        justify-content: center; /* Optionnel: centrer le contenu du bouton */
+        /* Ou aligner à droite si pleine largeur n'est pas souhaité */
+        /* align-self: flex-end; */
+        /* width: auto; */
+     }
+   }
+   
+   /* Dark Mode */
+   @media (prefers-color-scheme: dark) {
+     /* Les variables CSS globales (--color-*, --spacing-*, etc.)
+        sont conçues pour gérer le dark mode.
+        Aucune surcharge spécifique n'est généralement nécessaire ici si les variables
+        sont correctement définies pour les deux thèmes dans variables.css. */
+   
+     /* Exemple de surcharge si une variable spécifique posait problème en dark mode: */
+     /* .accessibility-filter-switch { */
+     /*   color: var(--color-text-secondary-dark); */ /* Si --color-text-secondary manque de contraste */
+     /* } */
+   }
+   
+   /* --- SEO & Documentation ---
+     - Stylesheet pour le composant React `AccessibilityFilter`.
+     - Objectif: Fournir des options de filtrage basées sur des critères d'accessibilité (LSF, Vocal, Contraste).
+     - Utilise Flexbox pour la mise en page principale et le wrapping des éléments.
+     - Style les checkboxes (`input[type="checkbox"]`) et leurs labels (`<label>`) pour une meilleure UX et accessibilité.
+     - Intègre les variables du design system Achiri (`variables.css`) pour la cohérence visuelle.
+     - Gère les états interactifs : normal, hover, focus (`:focus-within` pour les labels, `:focus-visible` pour le bouton).
+     - Inclut des styles responsives pour une adaptation aux différentes tailles d'écran (breakpoint à 768px).
+     - Prêt pour le Dark Mode via les variables CSS globales, avec possibilité de surcharges spécifiques si besoin.
+   */

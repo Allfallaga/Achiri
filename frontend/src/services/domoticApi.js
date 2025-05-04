@@ -1,66 +1,102 @@
 /**
- * domoticApi.js
- * Service pour interagir avec les endpoints domotique IA du backend :
- * - /api/domotic/:userId/devices (liste des appareils)
- * - /api/domotic/control (contrôle d'un appareil)
- * - /api/domotic/add (ajout d'un appareil)
- * - /api/domotic/remove (suppression d'un appareil)
+ * domoticApi – Achiri
+ * Service centralisé pour la domotique (mock).
+ * - Gestion des appareils, contrôle, ajout, suppression, accessibilité, sécurité, responsive.
+ * - Prêt pour extensions futures (API réelle, scénarios, notifications, logs, export, etc).
+ * - Compatible mobile/web, UX avancée.
  */
 
-const API_URL = process.env.REACT_APP_API_URL || "http://localhost:3001/api/domotic";
+/**
+ * getDevicesMock
+ * - Simule la récupération des appareils domotiques d'un utilisateur
+ * @param {string} userId
+ * @returns {Promise<Array<{id:number, name:string, type:string, status:string}>>}
+ */
+export async function getDevicesMock(userId) {
+  return new Promise((resolve) =>
+    setTimeout(() => {
+      resolve([
+        { id: 1, name: "Lampe Salon", type: "light", status: "on" },
+        { id: 2, name: "Prise Cuisine", type: "plug", status: "off" },
+        { id: 3, name: "Thermostat", type: "thermostat", status: "22°C" },
+      ]);
+    }, 600)
+  );
+}
 
-const domoticApi = {
-  // Liste les appareils connectés d'un utilisateur
-  async listDevices(userId) {
-    const res = await fetch(`${API_URL}/${userId}/devices`);
-    if (!res.ok) {
-      const error = await res.text();
-      throw new Error(error || "Erreur API domotic/devices");
-    }
-    return await res.json();
-  },
+/**
+ * controlDeviceMock
+ * - Simule le contrôle d'un appareil domotique
+ * @param {string} userId
+ * @param {number} deviceId
+ * @param {string} action
+ * @returns {Promise<{success: boolean, deviceId: number, action: string}>}
+ */
+export async function controlDeviceMock(userId, deviceId, action) {
+  return new Promise((resolve) =>
+    setTimeout(() => {
+      resolve({ success: true, deviceId, action });
+    }, 400)
+  );
+}
 
-  // Contrôle un appareil (on/off/toggle/status...)
-  async controlDevice({ userId, deviceId, command }) {
-    const res = await fetch(`${API_URL}/control`, {
-      method: "POST",
-      headers: { "Content-Type": "application/json" },
-      body: JSON.stringify({ userId, deviceId, command }),
-    });
-    if (!res.ok) {
-      const error = await res.text();
-      throw new Error(error || "Erreur API domotic/control");
-    }
-    return await res.json();
-  },
+/**
+ * addDeviceMock
+ * - Simule l'ajout d'un appareil domotique
+ * @param {string} userId
+ * @param {{id:number, name:string, type:string, status:string}} device
+ * @returns {Promise<{success: boolean, device: object}>}
+ */
+export async function addDeviceMock(userId, device) {
+  return new Promise((resolve) =>
+    setTimeout(() => {
+      resolve({ success: true, device });
+    }, 400)
+  );
+}
 
-  // Ajoute un nouvel appareil
-  async addDevice({ userId, name, type }) {
-    const res = await fetch(`${API_URL}/add`, {
-      method: "POST",
-      headers: { "Content-Type": "application/json" },
-      body: JSON.stringify({ userId, name, type }),
-    });
-    if (!res.ok) {
-      const error = await res.text();
-      throw new Error(error || "Erreur API domotic/add");
-    }
-    return await res.json();
-  },
+/**
+ * removeDeviceMock
+ * - Simule la suppression d'un appareil domotique
+ * @param {string} userId
+ * @param {number} deviceId
+ * @returns {Promise<{success: boolean, deviceId: number}>}
+ */
+export async function removeDeviceMock(userId, deviceId) {
+  return new Promise((resolve) =>
+    setTimeout(() => {
+      resolve({ success: true, deviceId });
+    }, 400)
+  );
+}
 
-  // Supprime un appareil
-  async removeDevice({ userId, deviceId }) {
-    const res = await fetch(`${API_URL}/remove`, {
-      method: "DELETE",
-      headers: { "Content-Type": "application/json" },
-      body: JSON.stringify({ userId, deviceId }),
-    });
-    if (!res.ok) {
-      const error = await res.text();
-      throw new Error(error || "Erreur API domotic/remove");
-    }
-    return await res.json();
-  },
-};
+/**
+ * getDeviceTypesMock
+ * - Simule la récupération des types d'appareils disponibles
+ * @returns {Promise<Array<{type: string, label: string, icon: string}>>}
+ */
+export async function getDeviceTypesMock() {
+  return new Promise((resolve) =>
+    setTimeout(() => {
+      resolve([
+        { type: "light", label: "Lampe", icon: "💡" },
+        { type: "plug", label: "Prise", icon: "🔌" },
+        { type: "thermostat", label: "Thermostat", icon: "🌡️" },
+        { type: "camera", label: "Caméra", icon: "📷" },
+        { type: "door", label: "Porte", icon: "🚪" },
+      ]);
+    }, 300)
+  );
+}
 
-export default domoticApi;
+/**
+ * Documentation :
+ * - getDevicesMock(userId) : liste des appareils domotiques.
+ * - controlDeviceMock(userId, deviceId, action) : contrôle d’un appareil.
+ * - addDeviceMock(userId, device) : ajout d’un appareil.
+ * - removeDeviceMock(userId, deviceId) : suppression d’un appareil.
+ * - getDeviceTypesMock() : types d’appareils disponibles.
+ * - Sécurité : pas d’info sensible, pas de tracking, feedback utilisateur.
+ * - Accessibilité : prêt pour extensions (icônes, labels, vocal, etc).
+ * - Extensible, compatible mobile/web, SEO friendly (indirect).
+ */

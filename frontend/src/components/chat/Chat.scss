@@ -1,0 +1,191 @@
+// Chat.scss – Achiri : chat moderne, accessibilité, sécurité, responsive, SEO friendly, design avancé
+
+.moderation-chat-area {
+  max-height: 100vh;
+  overflow: hidden;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 2rem;
+  justify-content: center;
+
+  .chat-area {
+    display: flex;
+    flex-direction: column;
+    height: 60vh;
+    width: 100%;
+    max-width: 480px;
+    background: #fff;
+    border-radius: 1rem;
+    box-shadow: 0 2px 16px #1976d222;
+    padding: 1.2rem 0.8rem 0.5rem 0.8rem;
+    margin: 0 auto;
+    outline: none;
+    transition: box-shadow 0.18s, background 0.18s;
+
+    &:focus-visible {
+      box-shadow: 0 0 0 3px #1976d2, 0 2px 16px #1976d222;
+      outline: 2px solid #1976d2;
+      outline-offset: 2px;
+    }
+
+    .chat-messages {
+      flex: 1 1 auto;
+      min-height: 0;
+      max-height: 45vh;
+      overflow-y: auto;
+      overflow-x: hidden;
+      display: flex;
+      flex-direction: column;
+      gap: 0.5rem;
+      padding-right: 0.5rem;
+      scroll-behavior: smooth;
+
+      &::-webkit-scrollbar {
+        width: 8px;
+        background: #f5f7fa;
+        border-radius: 4px;
+      }
+
+      &::-webkit-scrollbar-track {
+        background: #f5f7fa;
+        border-radius: 4px;
+      }
+
+      &::-webkit-scrollbar-thumb {
+        background: #1976d244;
+        border-radius: 4px;
+        transition: background 0.2s;
+      }
+
+      &::-webkit-scrollbar-thumb:hover {
+        background: #1976d2;
+      }
+    }
+
+    .chat-input-area {
+      display: flex;
+      align-items: center;
+      border-top: 1px solid #e0e0e0;
+      background: #fff;
+      padding: 0.7rem 1rem;
+      border-radius: 0 0 1rem 1rem;
+      margin-top: 0.5rem;
+
+      input[type="text"] {
+        flex: 1;
+        border: none;
+        outline: none;
+        font-size: 1em;
+        background: transparent;
+        color: #222;
+        padding: 0.5em;
+      }
+
+      button {
+        background: linear-gradient(90deg, #1976d2 0%, #43a047 100%);
+        color: #fff;
+        border: none;
+        border-radius: 8px;
+        padding: 0.5em 1.2em;
+        margin-left: 8px;
+        font-weight: bold;
+        font-size: 1em;
+        cursor: pointer;
+        opacity: 1;
+        transition: opacity 0.2s, background 0.18s;
+        &:disabled {
+          opacity: 0.6;
+          cursor: not-allowed;
+        }
+      }
+    }
+
+    // Suggestions IA
+    .ai-suggestions {
+      background: #e3f2fd;
+      padding: 8px;
+      border-radius: 8px;
+      margin: 0 0 8px 0;
+      font-size: 0.97em;
+      color: #1976d2;
+      .suggestion {
+        cursor: pointer;
+        padding: 2px 0;
+        border-bottom: 1px solid #bbdefb;
+        &:last-child {
+          border-bottom: none;
+        }
+        &:hover,
+        &:focus {
+          background: #bbdefb;
+          color: #1976d2;
+        }
+      }
+    }
+
+    // Typing users
+    .typing-users {
+      color: #1976d2;
+      font-size: 0.95em;
+      padding-left: 16px;
+      padding-bottom: 2px;
+      font-style: italic;
+      letter-spacing: 0.5px;
+    }
+
+    // Error message
+    .chat-error {
+      color: #b71c1c;
+      background: #ffcdd2;
+      padding: 6px;
+      font-size: 0.95em;
+      border-radius: 6px;
+      margin-top: 6px;
+      text-align: center;
+    }
+  }
+}
+
+/* Responsive */
+@media (max-width: 800px) {
+  .moderation-chat-area {
+    flex-direction: column;
+    gap: 1.2rem;
+    .chat-area {
+      height: 50vh;
+      padding: 0.5rem;
+      max-width: 98vw;
+      .chat-messages {
+        max-height: 35vh;
+      }
+    }
+  }
+}
+
+@media (max-width: 500px) {
+  .moderation-chat-area {
+    gap: 0.7rem;
+    .chat-area {
+      height: 40vh;
+      padding: 0.25rem;
+      border-radius: 0.5rem;
+      min-width: 0;
+      .chat-messages {
+        max-height: 25vh;
+        padding-right: 0.25rem;
+      }
+      .chat-input-area {
+        border-radius: 0 0 0.5rem 0.5rem;
+        padding: 0.5rem 0.5rem;
+      }
+    }
+  }
+}
+
+/* Accessibilité & SEO :
+   - Focus visible, navigation clavier, couleurs contrastées.
+   - Responsive, mobile first, aria-labels à placer côté React.
+   - Design avancé, branding Achiri.
+   - Prêt pour dark/light mode (ajouter classes si besoin).
+   - Suggestions IA, erreurs, utilisateurs qui écrivent, tout est stylé pour UX optimale.
+*/

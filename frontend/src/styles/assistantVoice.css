@@ -1,0 +1,183 @@
+/* ==========================================================================
+   Assistant Voice Input/Output Stylesheet for Achiri
+   ========================================================================== */
+
+/* --- Variables (Cohérence avec les autres fichiers assistant) --- */
+:root {
+    --voice-primary-color: #8b5cf6; /* Violet pour la voix */
+    --voice-primary-hover: #7c3aed;
+    --voice-listening-glow: rgba(139, 92, 246, 0.4); /* Lueur pendant l'écoute */
+    --voice-processing-color: #f59e0b; /* Orange pour le traitement */
+    --voice-text-dark: #1f2937;
+    --voice-text-medium: #4b5563;
+    --voice-text-light: #6b7280;
+    --voice-bg: #ffffff;
+    --voice-bg-alt: #f8fafc;
+    --voice-border-color: #e2e8f0;
+    --voice-shadow: 0 4px 10px rgba(0, 0, 0, 0.07);
+    --voice-border-radius-lg: 1.5rem; /* 24px - Bouton micro rond */
+    --voice-border-radius-md: 0.5rem;  /* 8px */
+    --voice-focus-ring: 0 0 0 3px rgba(139, 92, 246, 0.5);
+  }
+  
+  /* --- Main Container --- */
+  .assistant-voice-container {
+    background-color: var(--voice-bg);
+    border-radius: var(--voice-border-radius-md);
+    box-shadow: var(--voice-shadow);
+    border: 1px solid var(--voice-border-color);
+    padding: 1rem 1.5rem;
+    font-family: 'Inter', sans-serif;
+    color: var(--voice-text-dark);
+    display: flex;
+    align-items: center;
+    justify-content: space-between; /* Centre le bouton et laisse de la place pour le texte */
+    gap: 1rem;
+    /* Peut être intégré dans la barre de saisie ou comme élément flottant */
+  }
+  
+  /* --- Voice Input Button --- */
+  .voice-input-button {
+    flex-shrink: 0; /* Empêche le bouton de rétrécir */
+    width: 56px; /* Taille du bouton micro */
+    height: 56px;
+    border-radius: 50%; /* Rond */
+    background-color: var(--voice-bg-alt);
+    border: 1px solid var(--voice-border-color);
+    color: var(--voice-primary-color);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    transition: background-color 0.2s ease, color 0.2s ease, box-shadow 0.3s ease, transform 0.2s ease;
+    outline: none;
+    font-size: 1.75rem; /* Taille pour l'icône micro */
+    position: relative; /* Pour les animations/indicateurs */
+  }
+  
+  .voice-input-button:hover {
+    background-color: #eef2ff; /* Léger fond violet au survol */
+    border-color: #c7d2fe;
+    color: var(--voice-primary-hover);
+  }
+  
+  .voice-input-button:focus-visible {
+    box-shadow: var(--voice-focus-ring);
+    border-color: var(--voice-primary-color);
+  }
+  
+  .voice-input-button:active {
+    transform: scale(0.95); /* Effet d'appui */
+  }
+  
+  /* --- States for Voice Button --- */
+  
+  /* State: Listening */
+  .voice-input-button.listening {
+    background-color: var(--voice-primary-color);
+    color: #ffffff;
+    border-color: var(--voice-primary-color);
+    /* Animation de pulsation/lueur */
+    animation: pulse-glow 1.5s infinite ease-out;
+  }
+  
+  .voice-input-button.listening:hover {
+    background-color: var(--voice-primary-hover);
+  }
+  
+  /* State: Processing (après l'arrêt de l'écoute) */
+  .voice-input-button.processing {
+    background-color: var(--voice-processing-color);
+    color: #ffffff;
+    border-color: var(--voice-processing-color);
+    cursor: default; /* Pas cliquable pendant le traitement */
+    /* Optionnel: Animation de rotation ou autre indicateur */
+    /* animation: spin 1s linear infinite; */
+  }
+  
+  .voice-input-button.processing:hover {
+    background-color: #f59e0b; /* Pas de changement de couleur au survol */
+  }
+  
+  /* State: Assistant Speaking (si le bouton sert aussi de feedback) */
+  .voice-input-button.speaking {
+    /* Style si l'assistant parle, ex: icône différente ou couleur */
+    background-color: var(--voice-bg-alt);
+    color: var(--voice-primary-color);
+    /* Peut-être une bordure animée */
+    /* border: 2px solid var(--voice-primary-color); */
+  }
+  
+  
+  /* --- Transcription / Status Text Area --- */
+  .voice-status-text {
+    flex-grow: 1; /* Prend l'espace restant */
+    font-size: 0.95rem;
+    color: var(--voice-text-medium);
+    text-align: left; /* Ou center si préféré */
+    min-height: 1.5em; /* Pour éviter les sauts de layout */
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap; /* Affiche sur une seule ligne */
+  }
+  
+  .voice-status-text.transcribing {
+    color: var(--voice-text-dark);
+    font-style: italic;
+  }
+  
+  .voice-status-text.error {
+    color: #dc2626; /* Rouge pour les erreurs */
+    font-weight: 500;
+  }
+  
+  /* --- Animations --- */
+  
+  @keyframes pulse-glow {
+    0% {
+      box-shadow: 0 0 0 0 var(--voice-listening-glow);
+    }
+    70% {
+      box-shadow: 0 0 0 10px rgba(139, 92, 246, 0);
+    }
+    100% {
+      box-shadow: 0 0 0 0 rgba(139, 92, 246, 0);
+    }
+  }
+  
+  /* Optionnel: Animation de rotation pour 'processing' */
+  /* @keyframes spin {
+    from { transform: rotate(0deg); }
+    to { transform: rotate(360deg); }
+  } */
+  
+  
+  /* --- Responsive Design --- */
+  @media (max-width: 767px) {
+    .assistant-voice-container {
+      padding: 0.75rem 1rem;
+      gap: 0.75rem;
+    }
+  
+    .voice-input-button {
+      width: 48px;
+      height: 48px;
+      font-size: 1.5rem;
+    }
+  
+    .voice-status-text {
+      font-size: 0.9rem;
+    }
+  }
+  
+  /* --- SEO & Documentation ---
+    - Ce fichier CSS style l'interface d'entrée/sortie vocale de l'assistant.
+    - Inclut des styles pour le bouton microphone et ses différents états (inactif, écoute, traitement).
+    - Prévoit une zone pour afficher le statut ou le texte transcrit.
+    - Utilise des variables CSS et une animation pour l'état d'écoute.
+    - Design responsive.
+    - Styles de focus visibles pour l'accessibilité du bouton.
+    - La sémantique HTML (JSX) est importante (ex: <button>, rôles ARIA pour les états).
+    - Le bouton doit avoir un `aria-label` clair (ex: "Activer la saisie vocale"). Les changements d'état doivent être annoncés aux lecteurs d'écran si possible (via ARIA live regions).
+    - Conçu pour être utilisé avec le composant `AssistantVoice.jsx`.
+  */

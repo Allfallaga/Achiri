@@ -1,0 +1,277 @@
+/* --- Container principal des challenges --- */
+.challenges-container {
+  box-shadow: 0 4px 24px 0 rgba(0,0,0,0.08);
+  transition: background 0.3s, color 0.3s;
+  background: #fff;
+  border-radius: 1rem;
+  padding: 2rem;
+  max-width: 700px;
+  margin: 2rem auto;
+  color: #222;
+  outline: none;
+  font-family: 'Inter', Arial, sans-serif;
+}
+
+/* --- Tabs navigation --- */
+.tab-btn {
+  background: none;
+  border: none;
+  font-weight: 500;
+  color: #64748b;
+  padding: 0.4rem 1rem;
+  border-radius: 6px 6px 0 0;
+  cursor: pointer;
+  transition: color 0.2s, background 0.2s;
+  outline: none;
+}
+.tab-btn.active,
+.tab-btn:focus,
+.tab-btn:hover {
+  color: #2563eb;
+  background: #e0e7ff;
+  outline: 2px solid #2563eb55;
+}
+
+/* --- Liste des challenges --- */
+.challenge-list {
+  margin-top: 1rem;
+}
+.challenge-item {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  background: #f9fafb;
+  border-radius: 8px;
+  padding: 0.8rem 1rem;
+  transition: box-shadow 0.2s, background 0.2s;
+  border-left: 4px solid #fbbf24;
+  box-shadow: 0 1px 4px 0 rgba(37,99,235,0.04);
+  outline: none;
+}
+.challenge-item .font-semibold {
+  font-size: 1.08em;
+}
+.challenge-item .text-orange-500 {
+  font-weight: 500;
+}
+.challenge-item .text-green-600 {
+  font-weight: 500;
+}
+.challenge-item .text-xs {
+  font-size: 0.92em;
+}
+.challenge-item .mr-3 {
+  font-size: 1.3em;
+}
+.challenge-item.border-l-4.border-green-400 {
+  border-left: 4px solid #22c55e;
+}
+.challenge-item.border-l-4.border-orange-400 {
+  border-left: 4px solid #f59e42;
+}
+.challenge-item:focus-within {
+  box-shadow: 0 0 0 2px #2563eb55;
+}
+.challenge-item:hover {
+  background: #e0e7ff;
+  box-shadow: 0 2px 8px 0 rgba(37,99,235,0.08);
+}
+
+/* --- Actions sur les challenges (accepter/refuser) --- */
+.challenge-actions {
+  display: flex;
+  gap: 8px;
+}
+.challenge-actions button {
+  border: none;
+  border-radius: 5px;
+  padding: 4px 10px;
+  font-weight: bold;
+  font-size: 1em;
+  cursor: pointer;
+  transition: background 0.2s, color 0.2s;
+  outline: none;
+}
+.challenge-actions button:focus,
+.challenge-actions button:hover {
+  box-shadow: 0 0 0 2px #2563eb55;
+}
+.challenge-actions .accept-btn {
+  background: #43a047;
+  color: #fff;
+}
+.challenge-actions .accept-btn:disabled {
+  background: #bdbdbd;
+  color: #fff;
+  cursor: not-allowed;
+}
+.challenge-actions .decline-btn {
+  background: #ffcdd2;
+  color: #b71c1c;
+}
+.challenge-actions .decline-btn:disabled {
+  background: #f5f5f5;
+  color: #bdbdbd;
+  cursor: not-allowed;
+}
+
+/* --- Suggestions IA --- */
+.suggestions-ia {
+  background: #fff;
+  border-radius: 8px;
+  padding: 8px;
+  margin-bottom: 12px;
+  font-size: 14px;
+  color: #1976d2;
+}
+.suggestions-ia ul {
+  margin: 0;
+  padding-left: 18px;
+}
+.suggestions-ia li {
+  cursor: pointer;
+  margin-bottom: 2px;
+  text-decoration: underline dotted;
+}
+.suggestions-ia li:focus,
+.suggestions-ia li:hover {
+  color: #2563eb;
+  outline: 2px solid #2563eb55;
+}
+
+/* --- Leaderboard --- */
+.challenge-leaderboard {
+  margin-top: 1.5rem;
+  background: #f1f5f9;
+  border-radius: 8px;
+  padding: 1rem 1.2rem;
+}
+.challenge-leaderboard h3 {
+  font-size: 1.1em;
+  margin-bottom: 0.5rem;
+}
+.challenge-leaderboard ol {
+  padding-left: 1.2em;
+}
+.challenge-leaderboard li {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 0.3em 0;
+  border-bottom: 1px solid #e5e7eb;
+}
+.challenge-leaderboard li:last-child {
+  border-bottom: none;
+}
+.challenge-leaderboard .font-bold {
+  font-weight: 600;
+}
+.challenge-leaderboard .text-blue-600 {
+  color: #2563eb;
+}
+.challenge-leaderboard .text-blue-300 {
+  color: #93c5fd;
+}
+.challenge-leaderboard .text-yellow-400 {
+  color: #fbbf24;
+}
+
+/* --- Messages d'état (succès, erreur, info) --- */
+.challenge-message {
+  border-radius: 8px;
+  padding: 0.8em 1.2em;
+  margin-bottom: 1em;
+  font-size: 1em;
+  font-weight: 500;
+  background: #e0f2fe;
+  color: #2563eb;
+  border-left: 4px solid #2563eb;
+}
+.challenge-message.success {
+  background: #e8f5e9;
+  color: #2e7d32;
+  border-left-color: #2e7d32;
+}
+.challenge-message.error {
+  background: #ffebee;
+  color: #b71c1c;
+  border-left-color: #b71c1c;
+}
+
+/* --- Accessibilité : focus visible, navigation clavier --- */
+.tab-btn:focus-visible,
+.challenge-item:focus-visible,
+.challenge-actions button:focus-visible,
+.suggestions-ia li:focus-visible {
+  outline: 2px solid #2563eb;
+  outline-offset: 2px;
+}
+.challenge-item[tabindex="0"]:focus {
+  outline: 2px solid #2563eb;
+}
+
+/* --- Mode contraste élevé --- */
+.challenges-container.high-contrast {
+  background: #000;
+  color: #fff;
+}
+.challenges-container.high-contrast .challenge-item {
+  background: #222;
+  color: #fff;
+  border-left-color: #fbbf24;
+}
+.challenges-container.high-contrast .challenge-actions .accept-btn {
+  background: #fbbf24;
+  color: #000;
+}
+.challenges-container.high-contrast .challenge-actions .decline-btn {
+  background: #222;
+  color: #fbbf24;
+  border: 1px solid #fbbf24;
+}
+.challenges-container.high-contrast .challenge-message {
+  background: #111;
+  color: #fbbf24;
+  border-left-color: #fbbf24;
+}
+.challenges-container.high-contrast .suggestions-ia {
+  background: #111;
+  color: #fbbf24;
+}
+
+/* --- Animation pour feedback visuel --- */
+@keyframes challenge-bounce {
+  0%, 100% { transform: translateY(0);}
+  20% { transform: translateY(-6px);}
+  40% { transform: translateY(-12px);}
+  60% { transform: translateY(-6px);}
+  80% { transform: translateY(-3px);}
+}
+.challenge-bounce {
+  animation: challenge-bounce 0.7s cubic-bezier(.4,0,.2,1);
+}
+
+/* --- Responsive --- */
+@media (max-width: 600px) {
+  .challenges-container {
+    padding: 1rem;
+    margin: 1rem;
+  }
+  .challenge-item {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 0.5rem;
+    padding: 0.7rem 0.7rem;
+  }
+  .challenge-leaderboard {
+    padding: 0.7rem 0.5rem;
+  }
+}
+
+/* --- SEO & Documentation ---
+  - Contraste élevé, focus visible, navigation clavier, ARIA-friendly.
+  - Respect du prefers-reduced-motion (voir animation.css).
+  - Prêt pour badges, notifications, extensions, multi-langues.
+  - Design moderne, compatible mobile/web, SEO-friendly (structure, contraste, accessibilité).
+  - Documentez toute extension ou modification majeure.
+*/

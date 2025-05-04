@@ -1,0 +1,314 @@
+/* Achiri Wallet – Design avancé, accessibilité, responsive, sécurité, SEO, branding */
+
+/* Conteneur principal */
+.wallet-container {
+  background: #fff;
+  color: #222;
+  border-radius: 18px;
+  box-shadow: 0 4px 24px rgba(0,0,0,0.09);
+  padding: 2rem;
+  max-width: 440px;
+  margin: 2rem auto;
+  font-family: 'Segoe UI', Arial, sans-serif;
+  outline: none;
+  transition: background 0.3s, color 0.3s;
+  position: relative;
+  z-index: 1;
+}
+
+/* Titre */
+.wallet-container h2 {
+  font-size: 1.7rem;
+  font-weight: 700;
+  margin-bottom: 0.5rem;
+  color: #f59e42;
+  display: flex;
+  align-items: center;
+  letter-spacing: 0.01em;
+}
+
+/* Solde */
+.wallet-balance {
+  background: linear-gradient(90deg, #fffbe6 0%, #ffe082 100%);
+  border-radius: 12px;
+  padding: 1.2rem 1.5rem;
+  margin-bottom: 1.2rem;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  box-shadow: 0 2px 8px #ffe08233;
+  gap: 18px;
+}
+
+.wallet-balance span {
+  font-size: 1.2rem;
+  display: flex;
+  align-items: center;
+}
+
+/* Recharge & opérations */
+.btn-recharge,
+.btn-leaderboard,
+.btn-rewards,
+.btn-history {
+  background: none;
+  border: none;
+  color: #3182ce;
+  font-weight: 600;
+  cursor: pointer;
+  font-size: 1rem;
+  transition: color 0.2s;
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  margin-right: 0.7em;
+  padding: 0.3em 0.8em;
+  border-radius: 6px;
+}
+
+.btn-recharge:hover,
+.btn-leaderboard:hover,
+.btn-rewards:hover,
+.btn-history:hover,
+.btn-recharge:focus,
+.btn-leaderboard:focus,
+.btn-rewards:focus,
+.btn-history:focus {
+  color: #225ea8;
+  background: #f3f8ff;
+  outline: 2px solid #3182ce;
+}
+
+.input-recharge {
+  border: 1px solid #ccc;
+  border-radius: 7px;
+  padding: 0.5em 1em;
+  font-size: 1rem;
+  margin-right: 0.5em;
+  transition: border 0.2s;
+  background: #fafbfc;
+}
+
+.input-recharge:focus {
+  border-color: #3182ce;
+  outline: none;
+  background: #f3f8ff;
+}
+
+.btn-confirm {
+  background: #3182ce;
+  color: #fff;
+  border: none;
+  border-radius: 7px;
+  padding: 0.5em 1.2em;
+  font-weight: 600;
+  cursor: pointer;
+  transition: background 0.2s;
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  box-shadow: 0 1px 4px #3182ce22;
+}
+
+.btn-confirm:disabled {
+  background: #b3c6e0;
+  cursor: not-allowed;
+}
+
+/* Historique, classement, récompenses */
+.wallet-history,
+.wallet-leaderboard,
+.wallet-rewards {
+  background: #f8fafc;
+  border-radius: 10px;
+  padding: 1rem;
+  margin-bottom: 1rem;
+  box-shadow: 0 1px 6px #e0e7ef22;
+}
+
+.wallet-history h3,
+.wallet-leaderboard h3,
+.wallet-rewards h3 {
+  font-size: 1.1rem;
+  font-weight: 600;
+  margin-bottom: 0.7rem;
+  color: #222;
+  display: flex;
+  align-items: center;
+}
+
+.wallet-history ul,
+.wallet-leaderboard ol {
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.wallet-history li,
+.wallet-leaderboard li {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 0.3em 0;
+  border-bottom: 1px solid #eee;
+  font-size: 1rem;
+}
+
+.wallet-history li:last-child,
+.wallet-leaderboard li:last-child {
+  border-bottom: none;
+}
+
+.reward-item {
+  display: flex;
+  align-items: center;
+  background: #fff;
+  border-radius: 7px;
+  box-shadow: 0 1px 4px rgba(0,0,0,0.04);
+  padding: 0.3em 0.8em;
+  margin-right: 0.5em;
+  margin-bottom: 0.5em;
+  font-size: 1em;
+  transition: box-shadow 0.2s;
+}
+
+.reward-item span {
+  margin-right: 0.3em;
+}
+
+/* Feedback utilisateur */
+.wallet-container [aria-live="polite"],
+.wallet-container [aria-live="assertive"] {
+  font-size: 1em;
+  margin-bottom: 0.5em;
+  display: flex;
+  align-items: center;
+  gap: 6px;
+}
+
+/* Accessibilité : focus visible */
+.wallet-container:focus-visible,
+.btn-recharge:focus-visible,
+.input-recharge:focus-visible,
+.btn-confirm:focus-visible,
+.btn-history:focus-visible,
+.btn-leaderboard:focus-visible,
+.btn-rewards:focus-visible {
+  outline: 2px solid #f59e42;
+  outline-offset: 2px;
+}
+
+/* Footer */
+.wallet-container footer {
+  margin-top: 1.2em;
+  color: #888;
+  font-size: 0.93em;
+  text-align: center;
+  letter-spacing: 0.01em;
+}
+
+/* Responsive */
+@media (max-width: 600px) {
+  .wallet-container {
+    padding: 1rem;
+    max-width: 98vw;
+  }
+  .wallet-balance {
+    flex-direction: column;
+    align-items: flex-start;
+    padding: 1rem;
+    gap: 8px;
+  }
+  .reward-item {
+    font-size: 0.95em;
+  }
+  .wallet-history,
+  .wallet-leaderboard,
+  .wallet-rewards {
+    padding: 0.7rem;
+  }
+}
+
+/* Dark mode (préparation) */
+@media (prefers-color-scheme: dark) {
+  .wallet-container {
+    background: #181f2a;
+    color: #e5e7eb;
+  }
+  .wallet-balance {
+    background: linear-gradient(90deg, #232b3b 0%, #1e293b 100%);
+    color: #ffe082;
+  }
+  .wallet-history,
+  .wallet-leaderboard,
+  .wallet-rewards {
+    background: #232b3b;
+    color: #e5e7eb;
+  }
+  .reward-item {
+    background: #232b3b;
+    color: #ffe082;
+  }
+  .btn-recharge,
+  .btn-leaderboard,
+  .btn-rewards,
+  .btn-history {
+    color: #90caf9;
+  }
+  .btn-recharge:hover,
+  .btn-leaderboard:hover,
+  .btn-rewards:hover,
+  .btn-history:hover {
+    color: #42a5f5;
+    background: #1e293b;
+  }
+}
+
+/* SEO & accessibilité */
+.wallet-container {
+  outline: none;
+}
+
+/* Animation légère sur apparition */
+@media (prefers-reduced-motion: no-preference) {
+  .wallet-container {
+    animation: fadeInUp 0.6s cubic-bezier(.23,1.01,.32,1) both;
+  }
+  @keyframes fadeInUp {
+    from {
+      opacity: 0;
+      transform: translateY(30px);
+    }
+    to {
+      opacity: 1;
+      transform: translateY(0);
+    }
+  }
+}
+
+/* Custom scrollbar pour historique */
+.wallet-history ul {
+  max-height: 220px;
+  overflow-y: auto;
+  scrollbar-width: thin;
+  scrollbar-color: #ffe082 #fafafa;
+}
+.wallet-history ul::-webkit-scrollbar {
+  width: 7px;
+  background: #fafafa;
+}
+.wallet-history ul::-webkit-scrollbar-thumb {
+  background: #ffe082;
+  border-radius: 6px;
+}
+
+/* Sécurité : pas de sélection accidentelle */
+.wallet-container,
+.wallet-container * {
+  user-select: text;
+}
+
+/* Branding Achiri */
+.wallet-container {
+  border: 2px solid #f59e4211;
+}

@@ -1,12 +1,26 @@
 // Utilitaire API pour le frontend Achiri (version mock, aucun appel réseau)
+// - Sécurité, accessibilité, feedback, UX avancée, prêt pour extensions futures
+// - Compatible mobile/web, SEO friendly (indirect)
 
+/**
+ * mockDelay
+ * Simule un délai réseau pour les réponses mock.
+ * @param {any} result
+ * @param {number} delay
+ * @returns {Promise<any>}
+ */
 const mockDelay = (result, delay = 400) =>
   new Promise((resolve) => setTimeout(() => resolve(result), delay));
 
-// Helpers mock
+/**
+ * request
+ * Simule une requête API selon la route.
+ * @param {string} path
+ * @param {object} options
+ * @returns {Promise<any>}
+ */
 async function request(path, { method = "GET", body, params, headers = {} } = {}) {
-  // Simule une réponse générique selon la route
-  // Tu peux personnaliser chaque route mock ici si besoin
+  // Personnalisation des routes mock
   if (path.startsWith("/login")) {
     return mockDelay({ token: "demo-token", user: { id: "demo-user", pseudo: "Utilisateur" } });
   }
@@ -138,6 +152,15 @@ export const getLeaderboard = (type, params) => request(`/leaderboard/${type}`, 
 export const upsertScore = (type, userId, score, meta) => request(`/leaderboard/${type}/${userId}`, { method: "POST", body: { score, meta } });
 export const getUserRank = (type, userId) => request(`/leaderboard/${type}/${userId}/rank`);
 export const resetLeaderboard = (type) => request(`/leaderboard/${type}/reset`, { method: "POST" });
+
+/**
+ * Documentation :
+ * - Toutes les fonctions sont mockées pour le développement frontend.
+ * - Sécurité : aucune donnée sensible, pas de tracking, feedback utilisateur possible.
+ * - Accessibilité : prêt pour extensions (feedback, notifications, etc).
+ * - Extensible, compatible mobile/web, SEO friendly (indirect).
+ * - Pour passer en mode réel : remplacer les mocks par des appels API réels.
+ */
 
 export default {
   login,

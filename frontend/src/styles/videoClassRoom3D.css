@@ -1,0 +1,430 @@
+/* ==========================================================================
+   Video ClassRoom 3D Stylesheet for Achiri
+   ==========================================================================
+   Styles avancés pour une salle de classe vidéo 3D immersive et interactive.
+   - Design adaptatif (Responsive)
+   - Support Thème Sombre (Dark Mode)
+   - Accessibilité (Focus visible, contrastes)
+   - Intégration fonctionnalités (Avatars, Modération, Badges, Points, LSF, Sous-titres)
+   - Branding Achiri via variables CSS.
+*/
+
+/* --- Import Variables --- */
+@import '../styles/variables.css'; /* Chemin à vérifier */
+
+/* --- Container Principal --- */
+.classroom3d-container {
+  width: 100vw;
+  min-height: 100vh;
+  /* Utilisation de variables pour le fond, fallback si non définies */
+  background: linear-gradient(120deg, var(--color-background-dark, #232a34) 60%, var(--color-primary-main, #1976d2) 100%);
+  color: var(--color-text-on-dark-bg, #f8fafc); /* Texte clair par défaut sur fond sombre */
+  display: flex;
+  flex-direction: column;
+  align-items: stretch; /* Étire les enfants pour remplir la largeur */
+  justify-content: flex-start;
+  overflow-x: hidden; /* Empêche le défilement horizontal */
+  position: relative;
+  transition: background var(--transition-duration-base) ease;
+  font-family: var(--font-family-base);
+}
+
+/* --- Zone Vidéo Centrale --- */
+.classroom3d-video-area {
+  flex: 1; /* Prend l'espace vertical restant */
+  display: grid;
+  /* Grille adaptative pour les cartes vidéo */
+  grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+  gap: var(--spacing-lg, 1.5rem); /* Espace entre les cartes */
+  padding: var(--spacing-xl, 2rem) var(--spacing-md, 1rem) calc(var(--spacing-xl, 2rem) + 60px) var(--spacing-md, 1rem); /* Espace autour + espace pour footer */
+  align-content: center; /* Centre les cartes verticalement si peu nombreuses */
+  justify-content: center;
+  position: relative;
+  z-index: 1;
+}
+
+/* --- Carte Vidéo/Avatar 3D --- */
+.classroom3d-video-card {
+  background: linear-gradient(120deg, var(--color-surface-1, #fff) 70%, var(--color-primary-lightest, #e3f2fd) 100%);
+  color: var(--color-text-primary, #1f2937); /* Texte sombre sur fond clair */
+  border-radius: var(--radius-lg, 0.75rem);
+  box-shadow: var(--shadow-md, 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06));
+  overflow: hidden;
+  /* min-width: 280px; */ /* Géré par la grille */
+  /* max-width: 360px; */ /* Géré par la grille */
+  aspect-ratio: 16 / 10; /* Ratio légèrement plus haut pour infos */
+  display: flex;
+  flex-direction: column;
+  align-items: stretch;
+  position: relative;
+  transition: box-shadow var(--transition-duration-fast) ease,
+              transform var(--transition-duration-fast) ease;
+  outline: none; /* Base, géré par focus-visible */
+}
+
+/* Style de focus visible */
+.classroom3d-video-card:focus-visible {
+  outline: var(--focus-outline-width, 2px) solid var(--color-warning-main, #fbbf24);
+  outline-offset: var(--focus-outline-offset, 2px);
+  box-shadow: 0 0 0 4px rgba(251, 191, 36, 0.4), /* Utilise la couleur warning pour focus */
+              var(--shadow-lg, 0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05));
+}
+
+/* Effet au survol ou état actif (ex: utilisateur parle) */
+.classroom3d-video-card:hover,
+.classroom3d-video-card.active {
+  box-shadow: 0 0 0 4px rgba(var(--color-primary-main-rgb, 25, 118, 210), 0.2), /* Utilise primary pour hover/active */
+              var(--shadow-lg, 0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05));
+  transform: scale(1.02); /* Légère mise à l'échelle */
+}
+
+/* --- Conteneur Média (Vidéo ou Avatar 3D) --- */
+.classroom3d-media-container {
+  flex-grow: 1; /* Prend l'espace dans la carte */
+  background-color: #2d3748; /* Fond sombre pour le média */
+  position: relative; /* Pour positionner les overlays */
+  overflow: hidden; /* Cache les débordements */
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.classroom3d-media-container video,
+.classroom3d-media-container .avatar-3d-placeholder /* Style pour l'avatar */ {
+  display: block;
+  width: 100%;
+  height: 100%;
+  object-fit: cover; /* Remplit l'espace */
+  outline: none;
+}
+
+/* Placeholder simple pour avatar 3D */
+.classroom3d-media-container .avatar-3d-placeholder {
+  background: radial-gradient(circle, #4a5568 0%, #2d3748 70%);
+  color: var(--color-text-muted);
+  font-size: var(--font-size-4xl);
+  text-align: center;
+  line-height: 1.5; /* Ajuster pour centrer l'icône/texte */
+  /* Ajouter une icône ou un texte ici via le JSX */
+}
+
+/* --- Infos Utilisateur (Nom, Badge, Points) --- */
+.classroom3d-userinfo {
+  position: absolute;
+  top: var(--spacing-sm, 0.5rem);
+  left: var(--spacing-sm, 0.5rem);
+  display: flex;
+  align-items: center;
+  background: rgba(0, 0, 0, 0.5); /* Fond semi-transparent */
+  border-radius: var(--radius-full); /* Pilule */
+  padding: var(--spacing-xs, 0.25rem) var(--spacing-sm, 0.5rem);
+  z-index: 3;
+  font-size: var(--font-size-sm, 0.875rem);
+  color: #ffffff;
+  font-weight: var(--font-weight-medium);
+  gap: var(--spacing-xs, 0.25rem);
+  max-width: calc(100% - 100px); /* Évite superposition avec contrôles */
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.classroom3d-userinfo .username {
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.classroom3d-userinfo .badge {
+  background: var(--color-primary-lightest, #e3f2fd);
+  color: var(--color-primary-darker, #0d47a1);
+  border-radius: var(--radius-sm, 0.25rem);
+  padding: 0 var(--spacing-xs, 0.25rem);
+  font-size: 0.9em;
+  font-weight: var(--font-weight-semibold);
+  flex-shrink: 0; /* Empêche le badge de rétrécir */
+}
+
+.classroom3d-userinfo .points {
+  color: var(--color-warning-main, #fbbf24);
+  font-weight: var(--font-weight-bold);
+  font-size: 0.95em;
+  margin-left: var(--spacing-xs, 0.25rem);
+  flex-shrink: 0;
+}
+.classroom3d-userinfo .points::before {
+  content: "⭐"; /* Icône étoile pour les points */
+  margin-right: 2px;
+}
+
+/* --- Contrôles Modération (Overlay) --- */
+.classroom3d-controls {
+  position: absolute;
+  top: var(--spacing-sm, 0.5rem);
+  right: var(--spacing-sm, 0.5rem);
+  display: flex;
+  gap: var(--spacing-xs, 0.25rem);
+  z-index: 4; /* Au-dessus des infos utilisateur */
+  opacity: 0; /* Caché par défaut, apparaît au survol de la carte */
+  transition: opacity var(--transition-duration-fast) ease;
+}
+
+.classroom3d-video-card:hover .classroom3d-controls {
+  opacity: 1;
+}
+
+.classroom3d-controls button {
+  background: rgba(255, 255, 255, 0.8);
+  color: var(--color-text-secondary, #4b5563);
+  border: none;
+  border-radius: 50%; /* Boutons ronds */
+  width: 32px;
+  height: 32px;
+  font-size: 1rem; /* Taille icône */
+  cursor: pointer;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  transition: background var(--transition-duration-fast) ease,
+              color var(--transition-duration-fast) ease,
+              box-shadow var(--transition-duration-fast) ease;
+  outline: none;
+}
+.classroom3d-controls button:hover {
+  background: var(--color-surface-1, #fff);
+  color: var(--color-text-primary, #1f2937);
+}
+
+/* Style pour bouton actif (ex: Muted) */
+.classroom3d-controls button.active {
+  background: var(--color-danger-main, #e53935);
+  color: var(--color-danger-contrast-text, #fff);
+}
+.classroom3d-controls button.active:hover {
+  background: var(--color-danger-dark, #b71c1c);
+}
+
+/* Style pour bouton inactif (ex: Video Off) - Moins proéminent */
+.classroom3d-controls button.inactive {
+  background: rgba(75, 85, 99, 0.7); /* Gris */
+  color: #e5e7eb;
+}
+.classroom3d-controls button.inactive:hover {
+  background: rgba(107, 114, 128, 0.8);
+}
+
+.classroom3d-controls button:focus-visible {
+  outline: var(--focus-outline-width, 2px) solid var(--color-primary-main, #1976d2);
+  outline-offset: 1px;
+}
+
+/* --- Sous-titres Temps Réel --- */
+.classroom3d-subtitles {
+  position: absolute;
+  left: var(--spacing-sm, 0.5rem);
+  right: var(--spacing-sm, 0.5rem);
+  bottom: var(--spacing-sm, 0.5rem);
+  background: rgba(var(--color-primary-main-rgb, 25, 118, 210), 0.8); /* Utilise primary */
+  color: var(--color-primary-contrast-text, #fff);
+  border-radius: var(--radius-md, 0.5rem);
+  font-size: var(--font-size-sm, 0.875rem);
+  padding: var(--spacing-xs, 0.25rem) var(--spacing-sm, 0.5rem);
+  text-align: center;
+  z-index: 10;
+  font-weight: var(--font-weight-medium);
+  letter-spacing: 0.01em;
+  user-select: text; /* Permet la sélection */
+  pointer-events: auto; /* Permet l'interaction si nécessaire */
+  transition: background var(--transition-duration-base) ease,
+              color var(--transition-duration-base) ease;
+  max-height: 4em; /* Limite la hauteur */
+  overflow: hidden; /* Cache le débordement */
+}
+
+/* --- Indicateur Langue des Signes (LSF) --- */
+.classroom3d-signlanguage {
+  position: absolute;
+  left: var(--spacing-sm, 0.5rem);
+  bottom: calc(var(--spacing-sm, 0.5rem) + 40px); /* Au-dessus des sous-titres */
+  background: rgba(255, 255, 255, 0.9);
+  border-radius: var(--radius-sm, 0.25rem);
+  padding: var(--spacing-xs, 0.25rem);
+  z-index: 11;
+  font-size: 1.1rem; /* Taille icône LSF */
+  color: var(--color-primary-main, #1976d2);
+  border: 1px solid var(--color-primary-main, #1976d2);
+  box-shadow: var(--shadow-sm);
+  display: inline-flex; /* Pour taille basée sur contenu */
+  align-items: center;
+  justify-content: center;
+  /* Ajouter une icône LSF ici via le JSX */
+}
+
+/* --- Footer (Optionnel, infos globales) --- */
+.classroom3d-footer {
+  position: fixed; /* Fixé en bas de la fenêtre */
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: rgba(0, 0, 0, 0.3);
+  backdrop-filter: blur(5px);
+  color: var(--color-text-on-dark-bg, #f8fafc);
+  font-size: var(--font-size-xs, 0.75rem);
+  text-align: center;
+  padding: var(--spacing-xs, 0.25rem) 0;
+  z-index: var(--z-index-sticky); /* Au-dessus du contenu scrollable */
+}
+
+/* --- Responsive Design --- */
+@media (max-width: 900px) {
+  .classroom3d-video-area {
+    grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+    gap: var(--spacing-md, 1rem);
+    padding: var(--spacing-lg, 1.5rem) var(--spacing-sm, 0.5rem) calc(var(--spacing-lg, 1.5rem) + 50px) var(--spacing-sm, 0.5rem);
+  }
+  .classroom3d-video-card {
+    aspect-ratio: 16 / 11; /* Ajuster ratio pour mobile */
+  }
+  .classroom3d-userinfo {
+    font-size: var(--font-size-xs, 0.75rem);
+  }
+  .classroom3d-controls button {
+    width: 28px;
+    height: 28px;
+    font-size: 0.9rem;
+  }
+  .classroom3d-subtitles {
+    font-size: 0.8rem;
+    bottom: var(--spacing-xs, 0.25rem);
+    left: var(--spacing-xs, 0.25rem);
+    right: var(--spacing-xs, 0.25rem);
+  }
+  .classroom3d-signlanguage {
+    font-size: 1rem;
+    bottom: calc(var(--spacing-xs, 0.25rem) + 30px);
+    left: var(--spacing-xs, 0.25rem);
+  }
+}
+
+@media (max-width: 600px) {
+  .classroom3d-video-area {
+    grid-template-columns: repeat(auto-fit, minmax(160px, 1fr)); /* Cartes plus petites */
+    gap: var(--spacing-sm, 0.5rem);
+    padding: var(--spacing-md, 1rem) var(--spacing-xs, 0.25rem) calc(var(--spacing-md, 1rem) + 40px) var(--spacing-xs, 0.25rem);
+  }
+  .classroom3d-video-card {
+    border-radius: var(--radius-md, 0.5rem);
+    aspect-ratio: 16 / 12;
+  }
+  .classroom3d-userinfo {
+    padding: 2px var(--spacing-xs, 0.25rem);
+    gap: 2px;
+  }
+  .classroom3d-userinfo .badge,
+  .classroom3d-userinfo .points {
+    font-size: 0.8em;
+    margin-left: 2px;
+  }
+  .classroom3d-controls {
+    gap: 2px;
+  }
+  .classroom3d-controls button {
+    width: 24px;
+    height: 24px;
+    font-size: 0.8rem;
+  }
+  .classroom3d-subtitles {
+    font-size: 0.7rem;
+    padding: 2px var(--spacing-xs, 0.25rem);
+  }
+  .classroom3d-signlanguage {
+    font-size: 0.9rem;
+    padding: 1px;
+    bottom: calc(var(--spacing-xs, 0.25rem) + 25px);
+  }
+  .classroom3d-footer {
+    font-size: 0.65rem;
+  }
+}
+
+/* --- Dark Mode Support --- */
+@media (prefers-color-scheme: dark) {
+  /* Surcharge des variables pour le thème sombre */
+  .classroom3d-container {
+    /* Ajuster les couleurs du dégradé pour le mode sombre */
+    --color-background-dark: #111827; /* Plus sombre */
+    --color-primary-main-dark-variant: var(--color-primary-dark, #1565c0); /* Variante sombre de primary */
+    background: linear-gradient(120deg, var(--color-background-dark) 60%, var(--color-primary-main-dark-variant) 100%);
+    color: var(--color-text-on-dark-bg, #e5e7eb);
+  }
+
+  .classroom3d-video-card {
+    /* Fond de carte sombre */
+    --card-bg-dark-1: #1f2937;
+    --card-bg-dark-2: #374151;
+    background: linear-gradient(120deg, var(--card-bg-dark-1) 70%, var(--card-bg-dark-2) 100%);
+    color: var(--color-text-on-dark-bg, #e5e7eb);
+    box-shadow: var(--shadow-md), 0 0 0 1px rgba(255, 255, 255, 0.05); /* Ajouter une bordure subtile */
+  }
+
+  .classroom3d-video-card:focus-visible {
+    outline-color: var(--color-warning-light, #fff8e1); /* Warning plus clair pour focus */
+    box-shadow: 0 0 0 4px rgba(255, 248, 225, 0.3), var(--shadow-lg);
+  }
+
+  .classroom3d-video-card:hover,
+  .classroom3d-video-card.active {
+    box-shadow: 0 0 0 4px rgba(var(--color-primary-light-rgb, 100, 181, 246), 0.2), var(--shadow-lg);
+  }
+
+  .classroom3d-userinfo .badge {
+    background: var(--color-primary-darker, #0d47a1);
+    color: var(--color-primary-lightest, #e3f2fd);
+  }
+
+  .classroom3d-controls button {
+    background: rgba(55, 65, 81, 0.8); /* Fond bouton plus sombre */
+    color: var(--color-text-on-dark-bg, #e5e7eb);
+  }
+  .classroom3d-controls button:hover {
+    background: rgba(75, 85, 99, 0.9);
+  }
+  .classroom3d-controls button.active {
+    background: var(--color-danger-dark, #b71c1c); /* Danger sombre */
+  }
+  .classroom3d-controls button.inactive {
+    background: rgba(31, 41, 55, 0.7);
+    color: #9ca3af;
+  }
+  .classroom3d-controls button:focus-visible {
+    outline-color: var(--color-primary-light, #64b5f6); /* Primary plus clair pour focus */
+  }
+
+  .classroom3d-subtitles {
+    background: rgba(var(--color-primary-darker-rgb, 13, 71, 161), 0.8); /* Primary très sombre */
+    color: var(--color-primary-contrast-text, #fff);
+  }
+
+  .classroom3d-signlanguage {
+    background: rgba(31, 41, 55, 0.9); /* Fond sombre pour LSF */
+    color: var(--color-primary-light, #64b5f6); /* Texte clair */
+    border-color: var(--color-primary-light, #64b5f6);
+  }
+
+  .classroom3d-footer {
+    background: rgba(0, 0, 0, 0.5);
+    backdrop-filter: blur(8px);
+  }
+}
+
+/* --- SEO & Documentation ---
+   - Structure HTML sémantique attendue (JSX) : <section>, <article>, <video>, <button>, etc.
+   - Utilisation de variables CSS pour la cohérence et la thématisation.
+   - Design immersif avec dégradés et ombres.
+   - Styles pour overlays (infos utilisateur, contrôles, sous-titres, LSF).
+   - Responsive design pour mobile, tablette, desktop via Grid et Media Queries.
+   - Accessibilité : Focus visible clair, préparation pour contrastes (via variables).
+   - Dark Mode : Support via `prefers-color-scheme`.
+   - Les icônes pour les contrôles, badges, points, LSF doivent être ajoutées dans le JSX.
+   - Les états (active, inactive) sont gérés par ajout/suppression de classes via JS.
+*/

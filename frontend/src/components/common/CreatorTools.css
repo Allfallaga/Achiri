@@ -1,0 +1,230 @@
+/* --- Container principal des outils créateur --- */
+.creator-tools-container {
+  box-shadow: 0 4px 24px 0 rgba(0,0,0,0.08);
+  transition: background 0.3s, color 0.3s;
+  background: #fff;
+  border-radius: 1rem;
+  padding: 2rem;
+  max-width: 700px;
+  margin: 2rem auto;
+  color: #222;
+  outline: none;
+  font-family: 'Inter', Arial, sans-serif;
+}
+
+/* --- Avatar IA --- */
+.creator-tools-container .w-16 {
+  width: 64px;
+  height: 64px;
+}
+.creator-tools-container img {
+  transition: border 0.2s, box-shadow 0.2s;
+}
+.creator-tools-container img.border-blue-500 {
+  box-shadow: 0 0 0 2px #2563eb;
+  border-radius: 50%;
+}
+
+/* --- Filtres photo & upload --- */
+.creator-tools-container input[type="file"] {
+  margin-top: 0.5rem;
+  margin-bottom: 0.5rem;
+}
+.creator-tools-container img.w-32 {
+  width: 128px;
+  height: 128px;
+  border-radius: 12px;
+  margin-top: 0.5rem;
+  box-shadow: 0 2px 8px 0 rgba(37,99,235,0.08);
+}
+
+/* --- Générateur de posts/captions SEO --- */
+.creator-tools-container textarea {
+  min-height: 60px;
+  resize: vertical;
+  font-size: 1em;
+  border: 1px solid #d1d5db;
+  border-radius: 6px;
+  padding: 8px 10px;
+  background: #fff;
+  transition: border 0.2s;
+  color: #222;
+}
+.creator-tools-container textarea:focus {
+  border-color: #2563eb;
+  outline: none;
+}
+.creator-tools-container .bg-gray-100,
+.creator-tools-container .dark\:bg-gray-800 {
+  margin-top: 0.5rem;
+  padding: 0.5rem 0.8rem;
+  border-radius: 6px;
+  font-size: 0.98em;
+  background: #f3f4f6;
+  color: #222;
+}
+.creator-tools-container .dark\:bg-gray-800 {
+  background: #1f2937;
+  color: #fff;
+}
+
+/* --- Planificateur de publication --- */
+.creator-tools-container input[type="datetime-local"] {
+  border: 1px solid #d1d5db;
+  border-radius: 6px;
+  padding: 6px 10px;
+  font-size: 1em;
+  background: #fff;
+  transition: border 0.2s;
+  color: #222;
+}
+.creator-tools-container input[type="datetime-local"]:focus {
+  border-color: #22c55e;
+  outline: none;
+}
+
+/* --- Boutons --- */
+.creator-tools-container button {
+  font-weight: 500;
+  border: none;
+  border-radius: 6px;
+  cursor: pointer;
+  transition: background 0.2s, color 0.2s, box-shadow 0.2s;
+  margin-left: 0.2rem;
+  padding: 0.6em 1.2em;
+  font-size: 1em;
+  outline: none;
+}
+.creator-tools-container button.bg-blue-600 {
+  background: #2563eb;
+  color: #fff;
+}
+.creator-tools-container button.bg-green-600 {
+  background: #22c55e;
+  color: #fff;
+}
+.creator-tools-container button.bg-blue-600:hover,
+.creator-tools-container button.bg-green-600:hover {
+  filter: brightness(1.1);
+  box-shadow: 0 0 0 2px #2563eb55;
+}
+.creator-tools-container button:focus-visible {
+  outline: 2px solid #2563eb;
+  outline-offset: 2px;
+}
+.creator-tools-container button:disabled {
+  opacity: 0.6;
+  cursor: not-allowed;
+}
+
+/* --- Astuce créateur --- */
+.creator-tools-container .bg-yellow-50 {
+  background: #fefce8;
+  color: #78350f;
+  border-radius: 6px;
+  padding: 0.5rem 0.8rem;
+  margin-top: 0.5rem;
+}
+.creator-tools-container .dark\:bg-yellow-900 {
+  background: #78350f;
+  color: #fff;
+}
+
+/* --- Messages d'état (succès, erreur, info) --- */
+.creator-tools-message {
+  border-radius: 8px;
+  padding: 0.8em 1.2em;
+  margin-bottom: 1em;
+  font-size: 1em;
+  font-weight: 500;
+  background: #e0f2fe;
+  color: #2563eb;
+  border-left: 4px solid #2563eb;
+}
+.creator-tools-message.success {
+  background: #e8f5e9;
+  color: #2e7d32;
+  border-left-color: #2e7d32;
+}
+.creator-tools-message.error {
+  background: #ffebee;
+  color: #b71c1c;
+  border-left-color: #b71c1c;
+}
+
+/* --- Accessibilité : focus visible, navigation clavier --- */
+.creator-tools-container input:focus-visible,
+.creator-tools-container textarea:focus-visible,
+.creator-tools-container button:focus-visible {
+  outline: 2px solid #2563eb;
+  outline-offset: 2px;
+}
+.creator-tools-container input[type="file"]:focus-visible {
+  outline: 2px solid #22c55e;
+}
+
+/* --- Mode contraste élevé --- */
+.creator-tools-container.high-contrast {
+  background: #000;
+  color: #fff;
+}
+.creator-tools-container.high-contrast textarea,
+.creator-tools-container.high-contrast input,
+.creator-tools-container.high-contrast input[type="datetime-local"] {
+  background: #222;
+  color: #fff;
+  border-color: #fbbf24;
+}
+.creator-tools-container.high-contrast button.bg-blue-600,
+.creator-tools-container.high-contrast button.bg-green-600 {
+  background: #fbbf24;
+  color: #000;
+}
+.creator-tools-container.high-contrast .bg-yellow-50,
+.creator-tools-container.high-contrast .dark\:bg-yellow-900 {
+  background: #222;
+  color: #fbbf24;
+}
+.creator-tools-container.high-contrast .creator-tools-message {
+  background: #111;
+  color: #fbbf24;
+  border-left-color: #fbbf24;
+}
+
+/* --- Animation pour feedback visuel --- */
+@keyframes creator-bounce {
+  0%, 100% { transform: translateY(0);}
+  20% { transform: translateY(-6px);}
+  40% { transform: translateY(-12px);}
+  60% { transform: translateY(-6px);}
+  80% { transform: translateY(-3px);}
+}
+.creator-bounce {
+  animation: creator-bounce 0.7s cubic-bezier(.4,0,.2,1);
+}
+
+/* --- Responsive --- */
+@media (max-width: 600px) {
+  .creator-tools-container {
+    padding: 1rem;
+    margin: 1rem;
+    font-size: 0.97em;
+  }
+  .creator-tools-container .w-16,
+  .creator-tools-container img.w-32 {
+    width: 48px;
+    height: 48px;
+  }
+  .creator-tools-container textarea,
+  .creator-tools-container input[type="datetime-local"] {
+    font-size: 0.97em;
+  }
+}
+
+/* --- SEO & Documentation ---
+  - Contraste élevé, focus visible, navigation clavier, ARIA-friendly.
+  - Respect du prefers-reduced-motion (voir animation.css).
+  - Prêt pour badges, notifications, extensions, multi-langues.
+  - Design moderne, compatible mobile/web, SEO-friendly (structure, contraste, accessibilité).
+  - Documentez toute extension ou modification majeure.
+*/

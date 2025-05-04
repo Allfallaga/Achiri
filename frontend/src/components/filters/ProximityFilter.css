@@ -1,0 +1,195 @@
+/* ==========================================================================
+   Proximity Filter Stylesheet for Achiri
+   ========================================================================== */
+
+   @import '../../styles/variables.css'; /* Assurez-vous que ce chemin est correct */
+
+   .proximity-filter {
+     display: flex;
+     align-items: center;
+     gap: var(--spacing-md); /* Espace cohérent entre les éléments */
+     background-color: var(--color-surface-1);
+     border-radius: var(--radius-lg);
+     box-shadow: var(--shadow-sm);
+     padding: var(--spacing-sm) var(--spacing-md);
+     margin: var(--spacing-lg) 0; /* Marge verticale pour l'espacement */
+     border: 1px solid var(--color-border-main);
+     transition: background-color var(--transition-duration-base) ease,
+                 border-color var(--transition-duration-base) ease;
+   }
+   
+   .proximity-filter-label {
+     font-weight: var(--font-weight-semibold);
+     color: var(--color-primary-main);
+     display: inline-flex; /* Pour aligner l'icône verticalement */
+     align-items: center;
+     gap: var(--spacing-xs); /* Espace entre icône et texte */
+     font-size: var(--font-size-base);
+     flex-shrink: 0; /* Empêche le label de rétrécir sur petits écrans */
+   }
+   
+   .proximity-filter-slider {
+     flex-grow: 1; /* Prend l'espace disponible */
+     accent-color: var(--color-primary-main); /* Couleur principale pour le slider */
+     margin: 0 var(--spacing-xs); /* Marge horizontale légère */
+     cursor: pointer;
+     height: 6px; /* Hauteur de la piste du slider */
+     background-color: var(--color-surface-3); /* Couleur de fond de la piste */
+     border-radius: var(--radius-full); /* Piste arrondie */
+     appearance: none; /* Supprime les styles par défaut du navigateur */
+     -webkit-appearance: none;
+     outline: none; /* Le focus sera géré sur le thumb */
+     transition: background-color var(--transition-duration-base) ease;
+   }
+   
+   /* Styles pour le "thumb" (curseur) du slider - Webkit (Chrome, Safari, Edge) */
+   .proximity-filter-slider::-webkit-slider-thumb {
+     -webkit-appearance: none; /* Supprime les styles par défaut */
+     appearance: none;
+     width: 18px; /* Taille du curseur */
+     height: 18px;
+     background: var(--color-primary-main); /* Couleur du curseur */
+     border-radius: 50%; /* Curseur rond */
+     cursor: pointer;
+     border: 2px solid var(--color-surface-1); /* Bordure pour contraste sur la piste */
+     transition: background-color var(--transition-duration-fast) ease,
+                 box-shadow var(--transition-duration-fast) ease; /* Transition pour le focus */
+   }
+   
+   /* Styles pour le "thumb" (curseur) du slider - Firefox */
+   .proximity-filter-slider::-moz-range-thumb {
+     width: 18px;
+     height: 18px;
+     background: var(--color-primary-main);
+     border-radius: 50%;
+     cursor: pointer;
+     border: 2px solid var(--color-surface-1);
+     transition: background-color var(--transition-duration-fast) ease,
+                 box-shadow var(--transition-duration-fast) ease;
+   }
+   
+   /* Styles pour le focus visible du slider (sur le thumb) */
+   .proximity-filter-slider:focus-visible {
+      outline: none; /* Pas d'outline sur la piste */
+   }
+   
+   .proximity-filter-slider:focus-visible::-webkit-slider-thumb {
+     box-shadow: 0 0 0 3px var(--color-surface-1), 0 0 0 5px var(--color-focus-ring); /* Anneau de focus */
+   }
+   
+   .proximity-filter-slider:focus-visible::-moz-range-thumb {
+     box-shadow: 0 0 0 3px var(--color-surface-1), 0 0 0 5px var(--color-focus-ring); /* Anneau de focus */
+   }
+   
+   /* Affichage de la valeur sélectionnée */
+   .proximity-filter-value {
+     min-width: 60px; /* Largeur minimale pour éviter les sauts de layout */
+     font-weight: var(--font-weight-medium);
+     color: var(--color-primary-main);
+     text-align: center;
+     font-size: var(--font-size-sm);
+     flex-shrink: 0; /* Empêche la valeur de rétrécir */
+     background-color: var(--color-surface-2); /* Léger fond pour distinguer */
+     padding: var(--spacing-xxs) var(--spacing-xs);
+     border-radius: var(--radius-sm);
+     border: 1px solid var(--color-border-main);
+     transition: background-color var(--transition-duration-base) ease,
+                 border-color var(--transition-duration-base) ease,
+                 color var(--transition-duration-base) ease;
+   }
+   
+   /* Bouton Reset */
+   .proximity-filter-reset {
+     display: inline-flex; /* Pour aligner icône et texte */
+     align-items: center;
+     gap: var(--spacing-xs); /* Espace entre icône et texte */
+     margin-left: var(--spacing-xs); /* Espacement par rapport à la valeur */
+     background-color: var(--color-warning-light);
+     color: var(--color-warning-dark);
+     border: 1px solid var(--color-warning-main);
+     border-radius: var(--radius-md);
+     padding: var(--spacing-xs) var(--spacing-sm);
+     font-weight: var(--font-weight-medium);
+     font-size: var(--font-size-sm);
+     cursor: pointer;
+     transition: all var(--transition-duration-fast) ease;
+     outline: none; /* Le focus est géré par focus-visible */
+     white-space: nowrap; /* Empêche le texte de passer à la ligne */
+   }
+   
+   .proximity-filter-reset:hover {
+     background-color: var(--color-warning-main);
+     color: var(--color-warning-contrast-text);
+     border-color: var(--color-warning-dark);
+   }
+   
+   .proximity-filter-reset:focus-visible {
+     outline: var(--focus-outline);
+     outline-offset: var(--focus-outline-offset);
+     box-shadow: 0 0 0 2px var(--color-surface-1), 0 0 0 4px var(--color-focus-ring); /* Anneau de focus */
+   }
+   
+   /* Styles communs pour les icônes */
+   .proximity-filter-label svg,
+   .proximity-filter-reset svg {
+     font-size: 1.1em; /* Taille légèrement augmentée */
+     vertical-align: middle; /* Meilleur alignement vertical */
+   }
+   
+   /* Responsive Design */
+   @media (max-width: 600px) {
+     .proximity-filter {
+       flex-direction: column; /* Empile les éléments verticalement */
+       align-items: stretch; /* Étire les éléments sur la largeur */
+       gap: var(--spacing-sm); /* Espace vertical entre éléments */
+       padding: var(--spacing-sm);
+     }
+   
+     .proximity-filter-label {
+       /* Optionnel: centrer le label ou le laisser aligné à gauche */
+       /* text-align: center; */
+     }
+   
+     .proximity-filter-slider {
+       width: 100%; /* Prend toute la largeur disponible */
+       margin: var(--spacing-xs) 0; /* Marge verticale */
+     }
+   
+     .proximity-filter-value {
+        align-self: center; /* Centre l'affichage de la valeur */
+        margin-top: var(--spacing-xs);
+     }
+   
+     .proximity-filter-reset {
+       margin-left: 0; /* Pas de marge à gauche si empilé */
+       margin-top: var(--spacing-sm); /* Espace au-dessus */
+       align-self: flex-end; /* Aligne le bouton reset à droite */
+     }
+   }
+   
+   /* Dark Mode */
+   @media (prefers-color-scheme: dark) {
+     /* Les variables CSS globales (--color-*, --spacing-*, etc.)
+        sont conçues pour gérer le dark mode.
+        Aucune surcharge spécifique n'est nécessaire ici si les variables
+        sont correctement définies pour les deux thèmes. */
+   
+     /* Exemple de surcharge si une variable spécifique posait problème en dark mode: */
+     /* .proximity-filter-slider::-webkit-slider-thumb { */
+     /*   border-color: var(--color-surface-2); */ /* Si --color-surface-1 manque de contraste */
+     /* } */
+     /* .proximity-filter-slider::-moz-range-thumb { */
+     /*   border-color: var(--color-surface-2); */
+     /* } */
+   }
+   
+   /* --- SEO & Documentation ---
+     - Stylesheet pour le composant React `ProximityFilter`.
+     - Objectif: Fournir un contrôle de filtrage par distance via un slider.
+     - Utilise Flexbox pour la mise en page principale et la disposition responsive.
+     - Style personnalisé pour `input[type="range"]` compatible Webkit et Firefox.
+     - Intègre les variables du design system Achiri (`variables.css`).
+     - Gère les états interactifs : normal, hover, focus-visible.
+     - Styles responsives pour une bonne expérience sur mobile (< 600px).
+     - Prêt pour le Dark Mode via les variables CSS globales.
+   */

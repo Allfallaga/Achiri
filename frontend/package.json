@@ -2,20 +2,28 @@
   "name": "frontend",
   "version": "0.1.0",
   "private": true,
+  "type": "module",
+  "description": "Achiri – Plateforme IA inclusive, accessible, sécurisée, mobile/web, SEO-friendly, design avancé, extensible.",
+  "author": "Achiri Team",
+  "license": "MIT",
   "dependencies": {
+    "@mui/material": "^7.0.2",
     "@testing-library/dom": "^10.4.0",
-    "@testing-library/jest-dom": "^6.6.3",
     "@testing-library/react": "^16.3.0",
     "@testing-library/user-event": "^13.5.0",
+    "axios": "^1.9.0",
     "framer-motion": "^12.8.0",
     "i18next": "^25.0.1",
+    "mediasoup-client": "^3.10.0",
     "react": "^18.3.1",
     "react-dom": "^18.3.1",
+    "react-helmet": "^6.1.0",
     "react-helmet-async": "^2.0.5",
     "react-i18next": "^15.5.1",
     "react-icons": "^5.5.0",
     "react-router-dom": "^6.30.0",
     "react-scripts": "^5.0.1",
+    "sass": "^1.87.0",
     "simple-peer": "^9.11.1",
     "socket.io-client": "^4.8.1",
     "web-vitals": "^2.1.4"
@@ -26,20 +34,8 @@
     "test": "react-scripts test --env=jsdom",
     "eject": "react-scripts eject",
     "lint": "eslint ./src --ext .js,.jsx",
-    "format": "prettier --write \"src/**/*.{js,jsx,css,md,json}\""
-  },
-  "eslintConfig": {
-    "extends": [
-      "react-app",
-      "react-app/jest",
-      "prettier"
-    ],
-    "plugins": [
-      "unused-imports"
-    ],
-    "rules": {
-      "unused-imports/no-unused-imports": "warn"
-    }
+    "format": "prettier --write \"src/**/*.{js,jsx,css,scss,md,json}\"",
+    "analyze": "source-map-explorer 'build/static/js/*.js'"
   },
   "browserslist": {
     "production": [
@@ -54,11 +50,33 @@
     ]
   },
   "devDependencies": {
+    "@babel/eslint-parser": "^7.27.1",
     "@babel/plugin-syntax-dynamic-import": "^7.8.3",
     "@babel/preset-env": "^7.26.9",
-    "@babel/preset-react": "^7.26.3",
+    "@babel/preset-react": "^7.27.1",
+    "@testing-library/jest-dom": "^6.6.3",
+    "eslint": "^9.26.0",
     "eslint-config-prettier": "^10.1.2",
+    "eslint-plugin-import": "^2.31.0",
+    "eslint-plugin-react-hooks": "^5.2.0",
     "eslint-plugin-unused-imports": "^4.1.4",
     "prettier": "^3.2.5"
-  }
+  },
+  "engines": {
+    "node": ">=18.0.0",
+    "npm": ">=9.0.0"
+  },
+  "keywords": [
+    "achiri",
+    "accessibilité",
+    "ia",
+    "react",
+    "seo",
+    "mobile",
+    "web",
+    "sécurité",
+    "design",
+    "multilingue",
+    "responsive"
+  ]
 }

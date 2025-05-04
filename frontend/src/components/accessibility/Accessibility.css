@@ -1,0 +1,216 @@
+/* --- Container principal d'accessibilité --- */
+.accessibility-container {
+  box-shadow: 0 4px 24px 0 rgba(0,0,0,0.08);
+  transition: background 0.3s, color 0.3s;
+  padding: 2rem;
+  border-radius: 1rem;
+  background: #fff;
+  color: #222;
+  max-width: 700px;
+  margin: 2rem auto;
+  outline: none;
+  font-family: 'Inter', Arial, sans-serif;
+}
+
+/* --- Titres de section --- */
+.accessibility-container h2,
+.accessibility-container h3 {
+  font-weight: 700;
+  color: #2563eb;
+  margin-bottom: 1rem;
+  letter-spacing: 0.01em;
+  font-size: 1.5rem;
+}
+
+/* --- Blocs d'options --- */
+.accessibility-option {
+  background: #f9fafb;
+  border-radius: 8px;
+  padding: 1rem 1.2rem;
+  margin-bottom: 1.2rem;
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  box-shadow: 0 1px 4px 0 rgba(37,99,235,0.04);
+  transition: background 0.2s, color 0.2s;
+  outline: none;
+}
+.accessibility-option:focus-within {
+  box-shadow: 0 0 0 2px #2563eb55;
+}
+.accessibility-option:hover {
+  background: #e0e7ff;
+}
+
+/* --- Contrôles (checkbox, range, radio, switch) --- */
+.accessibility-container input[type="checkbox"],
+.accessibility-container input[type="range"],
+.accessibility-container input[type="radio"] {
+  accent-color: #2563eb;
+  margin-right: 0.7em;
+  cursor: pointer;
+}
+.accessibility-container input[type="range"] {
+  width: 120px;
+  vertical-align: middle;
+}
+
+/* --- Texte de description --- */
+.accessibility-desc {
+  color: #64748b;
+  font-size: 0.98em;
+  margin-top: 0.2em;
+  line-height: 1.5;
+}
+
+/* --- Icônes d'accessibilité --- */
+.accessibility-icon {
+  font-size: 1.5em;
+  color: #2563eb;
+  min-width: 1.5em;
+  vertical-align: middle;
+  transition: color 0.2s;
+}
+
+/* --- Boutons --- */
+.accessibility-container button {
+  background: #2563eb;
+  color: #fff;
+  border: none;
+  border-radius: 6px;
+  padding: 0.5em 1.2em;
+  font-weight: 500;
+  cursor: pointer;
+  transition: background 0.2s, box-shadow 0.2s, color 0.2s;
+  outline: none;
+  font-size: 1em;
+}
+.accessibility-container button:focus,
+.accessibility-container button:hover {
+  background: #1e40af;
+  box-shadow: 0 0 0 2px #2563eb55;
+  color: #fff;
+}
+.accessibility-container button:active {
+  background: #0e1e40;
+}
+
+/* --- Mode contraste élevé --- */
+.accessibility-container.high-contrast {
+  background: #000;
+  color: #fff;
+}
+.accessibility-container.high-contrast .accessibility-option {
+  background: #222;
+  color: #fff;
+}
+.accessibility-container.high-contrast .accessibility-icon {
+  color: #fbbf24;
+}
+.accessibility-container.high-contrast .accessibility-desc {
+  color: #fbbf24;
+}
+.accessibility-container.high-contrast button {
+  background: #fbbf24;
+  color: #000;
+}
+.accessibility-container.high-contrast button:focus,
+.accessibility-container.high-contrast button:hover {
+  background: #f59e42;
+  color: #000;
+}
+
+/* --- Aperçu vidéo LSF / Langue des signes --- */
+.lsf-preview {
+  border: 2px dashed #2563eb;
+  border-radius: 8px;
+  padding: 1em;
+  background: #f1f5f9;
+  margin-bottom: 1em;
+  text-align: center;
+  color: #2563eb;
+  font-size: 1.1em;
+}
+.high-contrast .lsf-preview {
+  border-color: #fbbf24;
+  background: #222;
+  color: #fbbf24;
+}
+
+/* --- Liens accessibles --- */
+.accessibility-container a {
+  color: #2563eb;
+  text-decoration: underline;
+  transition: color 0.2s;
+}
+.accessibility-container a:focus,
+.accessibility-container a:hover {
+  color: #1e40af;
+  outline: 2px solid #2563eb;
+  outline-offset: 2px;
+}
+
+/* --- Messages d'état (succès, erreur, info) --- */
+.accessibility-message {
+  border-radius: 8px;
+  padding: 0.8em 1.2em;
+  margin-bottom: 1em;
+  font-size: 1em;
+  font-weight: 500;
+  background: #e0f2fe;
+  color: #2563eb;
+  border-left: 4px solid #2563eb;
+}
+.accessibility-message.success {
+  background: #e8f5e9;
+  color: #2e7d32;
+  border-left-color: #2e7d32;
+}
+.accessibility-message.error {
+  background: #ffebee;
+  color: #b71c1c;
+  border-left-color: #b71c1c;
+}
+.high-contrast .accessibility-message {
+  background: #111;
+  color: #fbbf24;
+  border-left-color: #fbbf24;
+}
+
+/* --- Animation pour feedback visuel --- */
+@keyframes accessibility-bounce {
+  0%, 100% { transform: translateY(0);}
+  20% { transform: translateY(-6px);}
+  40% { transform: translateY(-12px);}
+  60% { transform: translateY(-6px);}
+  80% { transform: translateY(-3px);}
+}
+.accessibility-bounce {
+  animation: accessibility-bounce 0.7s cubic-bezier(.4,0,.2,1);
+}
+
+/* --- Responsive --- */
+@media (max-width: 600px) {
+  .accessibility-container {
+    padding: 1rem;
+    margin: 1rem;
+  }
+  .accessibility-option {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 0.5rem;
+    padding: 0.8rem 0.7rem;
+  }
+  .accessibility-container h2,
+  .accessibility-container h3 {
+    font-size: 1.15rem;
+  }
+}
+
+/* --- SEO & Documentation ---
+  - Contraste élevé, focus visible, navigation clavier, ARIA-friendly.
+  - Respect du prefers-reduced-motion (voir animation.css).
+  - Prêt pour badges, notifications, extensions, multi-langues.
+  - Design moderne, compatible mobile/web, SEO-friendly (structure, contraste, accessibilité).
+  - Documentez toute extension ou modification majeure.
+*/

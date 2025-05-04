@@ -1,12 +1,16 @@
 import React from 'react';
 import { Link, Navigate, useLocation } from 'react-router-dom';
+
 import AuthContext from '../../context/AuthProvider';
 
 /**
- * Navbar moderne, accessible, responsive.
- * - Affiche les liens principaux, connexion/déconnexion, avatar utilisateur.
- * - Navigation clavier, ARIA, feedback visuel.
+ * Navbar – Achiri
+ * Barre de navigation moderne, accessible, responsive, sécurisée, SEO friendly, design avancé.
+ * - UX avancée, accessibilité, sécurité, responsive, SEO, branding Achiri.
+ * - Fonctionnalités : liens principaux, connexion/déconnexion, avatar, menu burger, feedback, focus, couleurs, dark mode ready.
+ * - Prêt pour extensions futures (notifications, badges, analytics, etc).
  */
+
 function Navbar(props) {
   const { auth, setAuth } = React.useContext(AuthContext);
   const [redirect, setRedirect] = React.useState(false);
@@ -59,9 +63,21 @@ function Navbar(props) {
         zIndex: 100
       }}
       aria-label="Barre de navigation principale"
+      tabIndex={0}
     >
       <div className="container-fluid" style={{ display: "flex", alignItems: "center", flexWrap: "wrap" }}>
-        <Link className="navbar-brand fw-bold" to="/" style={{ color: "#1976d2", fontSize: "1.3em", textDecoration: "none" }}>
+        <Link
+          className="navbar-brand fw-bold"
+          to="/"
+          style={{
+            color: "#1976d2",
+            fontSize: "1.3em",
+            textDecoration: "none",
+            fontWeight: 700,
+            letterSpacing: "0.02em"
+          }}
+          aria-label="Accueil Achiri"
+        >
           Achiri
         </Link>
         <button
@@ -108,6 +124,7 @@ function Navbar(props) {
                     transition: "background 0.2s"
                   }}
                   aria-current={location.pathname === link.to ? "page" : undefined}
+                  tabIndex={0}
                 >
                   {link.label}
                 </Link>
@@ -203,9 +220,32 @@ function Navbar(props) {
             gap: 0 !important;
           }
         }
+        @media (prefers-color-scheme: dark) {
+          .navbar {
+            background: #181f2a !important;
+            box-shadow: 0 2px 8px #222a;
+          }
+          .navbar-brand, .nav-link, .btn-outline-primary, .btn-outline-danger {
+            color: #e3f2fd !important;
+            background: #181f2a !important;
+            border-color: #1976d2 !important;
+          }
+          .nav-link.active {
+            background: #223366 !important;
+            color: #90caf9 !important;
+          }
+        }
       `}</style>
     </nav>
   );
 }
 
 export default Navbar;
+
+/**
+ * Documentation :
+ * - Navbar : liens principaux, connexion/déconnexion, avatar, menu burger, feedback, focus, couleurs, responsive, dark mode ready.
+ * - Accessibilité : aria-labels, navigation clavier, responsive, SEO ready, focus visible.
+ * - Sécurité : pas d’info sensible, feedback utilisateur, contrôle clavier.
+ * - Design avancé, branding Achiri, mobile first, prêt pour extensions futures.
+ */

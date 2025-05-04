@@ -1,118 +1,221 @@
-/* Variables CSS globales pour Achiri Video Chat */
+/* ==========================================================================
+   CSS Custom Properties (Variables) for Achiri Application
+   ==========================================================================
+   Defines the core design tokens for colors, typography, spacing, layout,
+   shadows, transitions, z-index, and accessibility features.
+   These variables enable consistency, theming (light/dark mode), and
+   easier maintenance across the application.
+*/
 
 :root {
-  /* Couleurs principales */
-  --primary: #1976d2;
-  --primary-light: #63a4ff;
-  --secondary: #43a047;
-  --secondary-light: #b2ff59;
-  --danger: #e53935;
-  --danger-light: #ffcdd2;
-  --background: #f5f7fa;
-  --surface: #fff;
-  --surface-alt: #e3f2fd;
-  --border: #e0e0e0;
-  --shadow: 0 2px 16px #1976d233;
 
-  /* Texte */
-  --text: #222;
-  --text-light: #fff;
-  --text-muted: #888;
-  --text-link: #43a047;
+  /* -------------------------------------------------------------------------- */
+  /*   1. Colors                                                                */
+  /* -------------------------------------------------------------------------- */
 
-  /* UI */
-  --border-radius: 12px;
-  --border-radius-lg: 18px;
-  --transition: 0.2s cubic-bezier(0.4, 0, 0.2, 1);
+  /* --- Primary Palette (Example: Blue) --- */
+  --color-primary-lightest: #e3f2fd; /* Très clair, pour fonds subtils */
+  --color-primary-lighter: #90caf9;
+  --color-primary-light: #64b5f6;   /* Utilisé dans l'original comme primary-light */
+  --color-primary-main: #1976d2;    /* Utilisé dans l'original comme primary */
+  --color-primary-dark: #1565c0;
+  --color-primary-darker: #0d47a1;   /* Utilisé dans l'original comme primary-dark */
+  --color-primary-contrast-text: #ffffff; /* Texte sur couleur primaire */
 
-  /* Fonts */
-  --font-main: 'Roboto', Arial, sans-serif;
-  --font-size-base: 1rem;
-  --font-size-lg: 1.25rem;
-  --font-size-sm: 0.95rem;
+  /* --- Secondary Palette (Example: Green) --- */
+  --color-secondary-lightest: #e8f5e9;
+  --color-secondary-lighter: #a5d6a7;
+  --color-secondary-light: #81c784; /* Proche de l'original secondary-light (ajusté) */
+  --color-secondary-main: #43a047;   /* Utilisé dans l'original comme secondary */
+  --color-secondary-dark: #388e3c;
+  --color-secondary-darker: #2e7d32;  /* Utilisé dans l'original comme secondary-dark */
+  --color-secondary-contrast-text: #ffffff;
 
-  /* Z-index */
-  --z-header: 100;
-  --z-modal: 200;
-  --z-tooltip: 300;
+  /* --- Semantic Colors --- */
+  --color-danger-light: #ffcdd2;    /* Utilisé dans l'original */
+  --color-danger-main: #e53935;     /* Utilisé dans l'original comme danger */
+  --color-danger-dark: #b71c1c;     /* Utilisé dans l'original */
+  --color-danger-contrast-text: #ffffff;
+
+  --color-warning-light: #fff8e1;
+  --color-warning-main: #fbbf24;    /* Utilisé dans l'original comme warning */
+  --color-warning-dark: #f59e0b;
+  --color-warning-contrast-text: #1f2937; /* Texte sombre sur jaune */
+
+  --color-success-light: #e8f5e9;
+  --color-success-main: #22c55e;    /* Utilisé dans l'original comme success */
+  --color-success-dark: #16a34a;
+  --color-success-contrast-text: #ffffff;
+
+  --color-info-light: #e0f2fe;
+  --color-info-main: #2563eb;     /* Utilisé dans l'original comme info */
+  --color-info-dark: #1e40af;
+  --color-info-contrast-text: #ffffff;
+
+  /* --- Greyscale & Backgrounds/Surfaces --- */
+  /* Adaptable for Light/Dark Mode */
+  --color-background: #f8fafc;      /* Fond principal (était --background) */
+  --color-surface-1: #ffffff;       /* Surface principale (cartes, etc.) (était --surface) */
+  --color-surface-2: #f1f5f9;       /* Surface secondaire/alternative (était --surface-alt approx) */
+  --color-surface-3: #e2e8f0;       /* Surface plus foncée ou bordures */
+
+  --color-border-light: #f1f5f9;    /* Bordure très subtile */
+  --color-border-main: #e2e8f0;     /* Bordure standard (était --border approx) */
+  --color-border-strong: #cbd5e1;   /* Bordure plus marquée (était --border-strong approx) */
+
+  /* --- Text Colors --- */
+  /* Adaptable for Light/Dark Mode */
+  --color-text-primary: #1f2937;    /* Texte principal (était --text approx) */
+  --color-text-secondary: #4b5563;  /* Texte secondaire/plus doux */
+  --color-text-muted: #6b7280;      /* Texte discret (était --text-muted approx) */
+  --color-text-disabled: #9ca3af;   /* Texte désactivé */
+  --color-text-on-dark-bg: #f8fafc; /* Texte sur fonds sombres (était --text-light approx) */
+  --color-text-link: var(--color-secondary-main); /* Lien par défaut (était --text-link) */
+  --color-text-link-hover: var(--color-primary-main); /* Hover lien (était --text-link-hover) */
+
+  /* --- Specific UI Colors --- */
+  --color-focus-ring: var(--color-primary-main); /* Couleur de l'anneau de focus */
+  --color-scrollbar-track: var(--color-surface-2);
+  --color-scrollbar-thumb: #cbd5e1;
+  --color-scrollbar-thumb-hover: #9ca3af;
+
+  /* -------------------------------------------------------------------------- */
+  /*   2. Typography                                                          */
+  /* -------------------------------------------------------------------------- */
+
+  --font-family-base: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif; /* Police principale moderne */
+  --font-family-headings: var(--font-family-base); /* Ou une police spécifique pour les titres */
+  --font-family-mono: 'SFMono-Regular', Consolas, 'Liberation Mono', Menlo, Courier, monospace; /* Police pour le code */
+
+  --font-size-root: 100%; /* Base pour les calculs rem (généralement 16px) */
+  --font-size-base: 1rem; /* Taille de texte standard (était --font-size-base) */
+  --font-size-lg: 1.125rem; /* 18px (était --font-size-lg approx) */
+  --font-size-xl: 1.25rem; /* 20px */
+  --font-size-2xl: 1.5rem; /* 24px */
+  --font-size-3xl: 1.875rem; /* 30px */
+  --font-size-4xl: 2.25rem; /* 36px */
+  --font-size-sm: 0.875rem; /* 14px (était --font-size-sm approx) */
+  --font-size-xs: 0.75rem; /* 12px (était --font-size-xs approx) */
+
+  --font-weight-light: 300;
+  --font-weight-normal: 400;
+  --font-weight-medium: 500;
+  --font-weight-semibold: 600;
+  --font-weight-bold: 700;
+  --font-weight-extrabold: 800;
+
+  --line-height-base: 1.6;          /* Interligne pour le corps du texte */
+  --line-height-headings: 1.3;      /* Interligne pour les titres */
+  --line-height-tight: 1.2;         /* Interligne plus serré */
+
+  --letter-spacing-tight: -0.02em;
+  --letter-spacing-normal: 0;
+  --letter-spacing-wide: 0.05em;
+
+  /* -------------------------------------------------------------------------- */
+  /*   3. Spacing & Sizing                                                      */
+  /* -------------------------------------------------------------------------- */
+  /* Utiliser une échelle cohérente (ex: multiple de 4px ou 8px) */
+  --spacing-xs: 0.25rem;  /* 4px */
+  --spacing-sm: 0.5rem;   /* 8px */
+  --spacing-md: 1rem;     /* 16px */
+  --spacing-lg: 1.5rem;   /* 24px */
+  --spacing-xl: 2rem;     /* 32px */
+  --spacing-2xl: 2.5rem;  /* 40px */
+  --spacing-3xl: 3rem;    /* 48px */
+  --spacing-4xl: 4rem;    /* 64px */
+
+  --container-padding: var(--spacing-md); /* Padding latéral pour les conteneurs */
+  --container-max-width: 1280px;          /* Largeur maximale des conteneurs */
+
+  /* -------------------------------------------------------------------------- */
+  /*   4. Borders & Radius                                                      */
+  /* -------------------------------------------------------------------------- */
+
+  --border-width-sm: 1px;
+  --border-width-md: 2px;
+
+  --radius-sm: 0.25rem;  /* 4px (était --border-radius-sm approx) */
+  --radius-md: 0.5rem;   /* 8px (était --border-radius approx) */
+  --radius-lg: 0.75rem;  /* 12px (était --border-radius-lg approx) */
+  --radius-xl: 1rem;    /* 16px */
+  --radius-full: 9999px; /* Pour les éléments ronds (avatars, etc.) */
+
+  /* -------------------------------------------------------------------------- */
+  /*   5. Shadows & Elevation                                                   */
+  /* -------------------------------------------------------------------------- */
+  /* Utiliser des ombres subtiles et cohérentes */
+  --shadow-sm: 0 1px 2px 0 rgba(0, 0, 0, 0.05);
+  --shadow-md: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06); /* Proche de --shadow */
+  --shadow-lg: 0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05); /* Proche de --shadow-lg */
+  --shadow-xl: 0 20px 25px -5px rgba(0, 0, 0, 0.1), 0 10px 10px -5px rgba(0, 0, 0, 0.04);
+  --shadow-inner: inset 0 2px 4px 0 rgba(0, 0, 0, 0.06);
+
+  /* -------------------------------------------------------------------------- */
+  /*   6. Transitions & Animations                                              */
+  /* -------------------------------------------------------------------------- */
+
+  --transition-duration-fast: 150ms;
+  --transition-duration-base: 250ms; /* Proche de --transition */
+  --transition-duration-slow: 400ms;
+
+  --transition-timing-base: cubic-bezier(0.4, 0, 0.2, 1); /* Courbe standard */
+  --transition-timing-ease-in: ease-in;
+  --transition-timing-ease-out: ease-out;
+
+  --transition-base: all var(--transition-duration-base) var(--transition-timing-base); /* Transition globale */
+
+  /* -------------------------------------------------------------------------- */
+  /*   7. Z-Index                                                               */
+  /* -------------------------------------------------------------------------- */
+  /* Définir une échelle claire pour la superposition */
+  --z-index-dropdown: 1000;
+  --z-index-sticky: 1020;   /* Éléments fixes (header, etc.) */
+  --z-index-modal-backdrop: 1040;
+  --z-index-modal: 1050;    /* Modales (était --z-modal approx) */
+  --z-index-popover: 1060;
+  --z-index-tooltip: 1070;  /* Tooltips (était --z-tooltip approx) */
+  --z-index-toast: 1080;    /* Notifications Toast (était --z-toast approx) */
+
+  /* -------------------------------------------------------------------------- */
+  /*   8. Accessibility                                                         */
+  /* -------------------------------------------------------------------------- */
+
+  --focus-outline-width: 2px;
+  --focus-outline-style: solid;
+  --focus-outline-color: var(--color-focus-ring);
+  --focus-outline-offset: 2px; /* Était --focus-outline-offset */
+  --focus-outline: var(--focus-outline-width) var(--focus-outline-style) var(--focus-outline-color); /* Combinaison */
+
+  /* Variables pour le mode Contraste Élevé (peuvent être surchargées par JS ou classe body) */
+  --hc-background: #000000;
+  --hc-text: #ffffff;
+  --hc-link: #ffff00; /* Jaune vif */
+  --hc-link-hover: #ffffff;
+  --hc-border: #ffffff;
+  --hc-focus-ring: #ffff00;
+  --hc-button-bg: #ffff00;
+  --hc-button-text: #000000;
+
+  /* -------------------------------------------------------------------------- */
+  /*   9. Breakpoints (Optionnel, souvent géré directement en media queries)   */
+  /* -------------------------------------------------------------------------- */
+  /* Peut être utile pour JS ou des cas spécifiques */
+  /* --breakpoint-sm: 640px;
+     --breakpoint-md: 768px;
+     --breakpoint-lg: 1024px;
+     --breakpoint-xl: 1280px; */
+
 }
 
-/* Scrollbar custom */
-::-webkit-scrollbar {
-  width: 8px;
-  background: var(--surface-alt);
-}
-::-webkit-scrollbar-thumb {
-  background: var(--primary-light);
-  border-radius: 8px;
-}
-
-/* Responsive helpers */
-@media (max-width: 700px) {
-  .video-room-flex {
-    flex-direction: column !important;
-    gap: 1rem !important;
-    align-items: stretch !important;
-  }
-}
-
-/* Utilitaires */
-.text-link {
-  color: var(--text-link);
-  text-decoration: underline;
-  cursor: pointer;
-  transition: color var(--transition);
-}
-.text-link:hover {
-  color: var(--primary);
-}
-
-/* Modernisation et accessibilité supplémentaires */
-body {
-  background: var(--background);
-  color: var(--text);
-  font-family: var(--font-main);
-  font-size: var(--font-size-base);
-  margin: 0;
-  padding: 0;
-  min-height: 100vh;
-}
-
-button,
-input,
-select,
-textarea {
-  font-family: var(--font-main);
-  font-size: var(--font-size-base);
-  border-radius: var(--border-radius);
-  border: 1px solid var(--border);
-  transition: box-shadow var(--transition), border-color var(--transition);
-  outline: none;
-}
-
-button:focus,
-input:focus,
-select:focus,
-textarea:focus {
-  border-color: var(--primary);
-  box-shadow: 0 0 0 2px var(--primary-light);
-}
-
-button {
-  cursor: pointer;
-  transition: background var(--transition), color var(--transition), opacity var(--transition);
-}
-
-[aria-live] {
-  outline: none !important;
-}
-
-@media (max-width: 500px) {
-  main, .main-container {
-    padding: 1rem !important;
-    border-radius: var(--border-radius) !important;
-  }
-  h1, h2, h3 {
-    font-size: 1.2rem !important;
-  }
-}
+/* ==========================================================================
+   Fin des Variables CSS
+   ==========================================================================
+   Documentation :
+   - Ce fichier centralise tous les tokens de design d'Achiri.
+   - Utiliser ces variables dans tous les autres fichiers CSS (`var(--variable-name)`).
+   - La structure permet une maintenance et une thématisation (light/dark) facilitées.
+   - Les couleurs sémantiques (danger, warning, success, info) aident à la cohérence UI/UX.
+   - Les variables d'accessibilité (--focus-outline, --hc-*) sont cruciales.
+   - NE PAS METTRE de règles CSS globales ici, les placer dans `index.css`.
+*/

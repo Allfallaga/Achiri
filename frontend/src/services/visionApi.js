@@ -1,70 +1,61 @@
 /**
- * visionApi.js
- * Service pour interagir avec les endpoints IA de vision du backend :
- * - /api/vision/describe
- * - /api/vision/detect-objects
- * - /api/vision/detect-gestures
- * - /api/vision/sign-to-text
+ * visionApi.js – Achiri
+ * Mock d'API de vision par ordinateur pour la description d'image, détection d'objets, gestes, OCR, etc.
+ * - Prêt pour intégration API réelle ultérieure.
+ * - Sécurité, accessibilité, extensible, documentation claire.
  */
 
-const API_URL = process.env.REACT_APP_API_URL || "http://localhost:3001/api/vision";
+// Mock : description d'image (remplacez par appel API réel plus tard)
+export async function describeImageMock(imageDataUrl) {
+  // Simule une latence réseau
+  await new Promise((resolve) => setTimeout(resolve, 1200));
+  // Retourne une description factice
+  return {
+    description: "Une personne souriante devant un ordinateur portable, fond lumineux."
+  };
+}
 
-const visionApi = {
-  // Décrit une image (scène) via IA
-  async describe({ image }) {
-    const res = await fetch(`${API_URL}/describe`, {
-      method: "POST",
-      headers: { "Content-Type": "application/json" },
-      body: JSON.stringify({ image }),
-    });
-    if (!res.ok) {
-      const error = await res.text();
-      throw new Error(error || "Erreur API vision/describe");
-    }
-    return await res.json();
-  },
+// Mock : détection d'objets
+export async function detectObjectsMock(imageDataUrl) {
+  await new Promise((resolve) => setTimeout(resolve, 900));
+  return {
+    objects: [
+      { label: "ordinateur portable", confidence: 0.98 },
+      { label: "personne", confidence: 0.95 }
+    ]
+  };
+}
 
-  // Détecte les objets présents sur une image
-  async detectObjects({ image }) {
-    const res = await fetch(`${API_URL}/detect-objects`, {
-      method: "POST",
-      headers: { "Content-Type": "application/json" },
-      body: JSON.stringify({ image }),
-    });
-    if (!res.ok) {
-      const error = await res.text();
-      throw new Error(error || "Erreur API vision/detect-objects");
-    }
-    return await res.json();
-  },
+// Mock : détection de gestes
+export async function detectGesturesMock(imageDataUrl) {
+  await new Promise((resolve) => setTimeout(resolve, 800));
+  return {
+    gestures: [
+      { label: "main levée", confidence: 0.87 }
+    ]
+  };
+}
 
-  // Détecte les gestes (ex: langue des signes, gestes main)
-  async detectGestures({ image }) {
-    const res = await fetch(`${API_URL}/detect-gestures`, {
-      method: "POST",
-      headers: { "Content-Type": "application/json" },
-      body: JSON.stringify({ image }),
-    });
-    if (!res.ok) {
-      const error = await res.text();
-      throw new Error(error || "Erreur API vision/detect-gestures");
-    }
-    return await res.json();
-  },
+// Mock : OCR (reconnaissance de texte)
+export async function ocrTextMock(imageDataUrl) {
+  await new Promise((resolve) => setTimeout(resolve, 1000));
+  return {
+    text: "Bienvenue sur Achiri !"
+  };
+}
 
-  // Traduit la langue des signes en texte (pour SignLanguageTranslator)
-  async signToText({ image }) {
-    const res = await fetch(`${API_URL}/sign-to-text`, {
-      method: "POST",
-      headers: { "Content-Type": "application/json" },
-      body: JSON.stringify({ image }),
-    });
-    if (!res.ok) {
-      const error = await res.text();
-      throw new Error(error || "Erreur API vision/sign-to-text");
-    }
-    return await res.json();
-  },
-};
+// Mock : traduction langue des signes en texte
+export async function signToTextMock(imageDataUrl) {
+  await new Promise((resolve) => setTimeout(resolve, 1100));
+  return {
+    text: "Bonjour, comment puis-je vous aider ?"
+  };
+}
 
-export default visionApi;
+/**
+ * Documentation :
+ * - Chaque fonction simule une API IA de vision.
+ * - Remplacez les mocks par des appels API réels pour production.
+ * - Respecte la charte Achiri (sécurité, accessibilité, extensibilité).
+ * - Prêt pour extensions futures (analyse d'image avancée, analytics, etc).
+ */

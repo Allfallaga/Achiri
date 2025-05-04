@@ -4,6 +4,8 @@
   <meta charset="UTF-8" />
   <title>Achiri Extension IA</title>
   <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta name="description" content="Extension IA inclusive : accessibilité, santé, domotique, éducation, influenceur. Design avancé, sécurité, SEO, mobile/web." />
+  <link rel="icon" href="icon.png" sizes="any" />
   <style>
     body {
       font-family: system-ui, sans-serif;
@@ -72,6 +74,18 @@
       cursor: not-allowed;
       opacity: 0.7;
     }
+    .achiri-success {
+      color: #00b894;
+      text-align: center;
+      margin-top: 8px;
+      font-weight: bold;
+    }
+    .achiri-error {
+      color: #d63031;
+      text-align: center;
+      margin-top: 8px;
+      font-weight: bold;
+    }
     footer {
       margin-top: 18px;
       text-align: center;
@@ -89,11 +103,98 @@
     <h1>Achiri Extension IA</h1>
   </header>
   <div id="achiri-status" aria-live="polite">Chargement...</div>
-  <div id="achiri-role"></div>
-  <div id="achiri-actions"></div>
+  <div id="achiri-role" aria-live="polite"></div>
+  <div id="achiri-actions" role="group" aria-label="Actions IA"></div>
+  <div id="achiri-feedback" aria-live="polite"></div>
   <footer>
     © Achiri · IA inclusive
   </footer>
-  <script src="popup.js"></script>
+  <script>
+    // Accessibilité, sécurité, logique métier, feedback
+    const statusDiv = document.getElementById("achiri-status");
+    const roleDiv = document.getElementById("achiri-role");
+    const actionsDiv = document.getElementById("achiri-actions");
+    const feedbackDiv = document.getElementById("achiri-feedback");
+
+    // Récupère le rôle utilisateur
+    chrome.runtime.sendMessage({ type: "GET_USER_ROLE" }, (res) => {
+      roleDiv.textContent = "Rôle : " + (res && res.role ? res.role : "Utilisateur");
+    });
+
+    // Actions IA principales
+    const actions = [
+      {
+        label: "Décrire la page (IA)",
+        icon: "👁️",
+        onClick: () => {
+          statusDiv.textContent = "Analyse IA en cours...";
+          chrome.runtime.sendMessage({
+            type: "CALL_IA_API",
+            url: "https://api.achiri.ai/vision/describe",
+            body: { url: window.location.href },
+            headers: {},
+            method: "POST"
+          }, (res) => {
+            if (res && res.success && res.data && res.data.description) {
+              feedbackDiv.innerHTML = `<div class="achiri-success">Description IA : ${res.data.description}</div>`;
+            } else {
+              feedbackDiv.innerHTML = `<div class="achiri-error">Erreur IA ou aucune description générée.</div>`;
+            }
+            statusDiv.textContent = "Prêt.";
+          });
+        }
+      },
+      {
+        label: "Alerte Santé",
+        icon: "🩺",
+        onClick: () => {
+          chrome.runtime.sendMessage({
+            type: "HEALTH_ALERT",
+            message: "Alerte santé déclenchée depuis l'extension."
+          }, () => {
+            feedbackDiv.innerHTML = `<div class="achiri-success">Alerte santé envoyée !</div>`;
+          });
+        }
+      },
+      {
+        label: "Action Domotique",
+        icon: "🏠",
+        onClick: () => {
+          chrome.runtime.sendMessage({
+            type: "DOMOTIC_ACTION",
+            action: "light_on"
+          }, (res) => {
+            if (res && res.success) {
+              feedbackDiv.innerHTML = `<div class="achiri-success">Commande domotique envoyée !</div>`;
+            } else {
+              feedbackDiv.innerHTML = `<div class="achiri-error">Erreur domotique.</div>`;
+            }
+          });
+        }
+      },
+      {
+        label: "Accessibilité IA",
+        icon: "♿",
+        onClick: () => {
+          chrome.tabs.query({ active: true, currentWindow: true }, (tabs) => {
+            chrome.tabs.sendMessage(tabs[0].id, { type: "INJECT_OVERLAY" });
+            feedbackDiv.innerHTML = `<div class="achiri-success">Bouton accessibilité IA injecté !</div>`;
+          });
+        }
+      }
+    ];
+
+    // Génère les boutons d'action
+    actions.forEach(action => {
+      const btn = document.createElement("button");
+      btn.innerText = `${action.icon} ${action.label}`;
+      btn.setAttribute("aria-label", action.label);
+      btn.onclick = action.onClick;
+      actionsDiv.appendChild(btn);
+    });
+
+    // Statut prêt
+    statusDiv.textContent = "Prêt.";
+  </script>
 </body>
 </html>

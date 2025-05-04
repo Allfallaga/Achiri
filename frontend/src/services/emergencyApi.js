@@ -1,36 +1,50 @@
+// Service mock pour la gestion des urgences (aucun appel réseau)
+
 /**
- * emergencyApi.js
- * Service pour interagir avec les endpoints d'urgence du backend :
- * - /api/emergency/alert (envoi d'une alerte d'urgence)
- * - /api/emergency/:userId/history (historique des alertes)
+ * sendEmergencyAlertMock
+ * - Simule l'envoi d'une alerte d'urgence
+ * @param {string} userId
+ * @param {string} type
+ * @param {string} details
+ * @returns {Promise<{success: boolean, alertId: number, type: string, details: string, timestamp: string}>}
  */
+export async function sendEmergencyAlertMock(userId, type, details) {
+  return new Promise((resolve) =>
+    setTimeout(() => {
+      resolve({
+        success: true,
+        alertId: Math.floor(Math.random() * 10000),
+        type,
+        details,
+        timestamp: new Date().toISOString(),
+      });
+    }, 700)
+  );
+}
 
-const API_URL = process.env.REACT_APP_API_URL || "http://localhost:3001/api/emergency";
-
-const emergencyApi = {
-  // Envoie une alerte d'urgence
-  async alert({ userId, timestamp }) {
-    const res = await fetch(`${API_URL}/alert`, {
-      method: "POST",
-      headers: { "Content-Type": "application/json" },
-      body: JSON.stringify({ userId, timestamp }),
-    });
-    if (!res.ok) {
-      const error = await res.text();
-      throw new Error(error || "Erreur API emergency/alert");
-    }
-    return await res.json();
-  },
-
-  // Récupère l'historique des alertes d'urgence pour un utilisateur
-  async getHistory(userId) {
-    const res = await fetch(`${API_URL}/${userId}/history`);
-    if (!res.ok) {
-      const error = await res.text();
-      throw new Error(error || "Erreur API emergency/history");
-    }
-    return await res.json();
-  },
-};
-
-export default emergencyApi;
+/**
+ * getEmergencyHistoryMock
+ * - Simule la récupération de l'historique des alertes d'urgence
+ * @param {string} userId
+ * @returns {Promise<Array<{id: number, type: string, details: string, timestamp: string}>>}
+ */
+export async function getEmergencyHistoryMock(userId) {
+  return new Promise((resolve) =>
+    setTimeout(() => {
+      resolve([
+        {
+          id: 1,
+          type: "médicale",
+          details: "Chute détectée",
+          timestamp: "2025-04-25T10:15:00Z",
+        },
+        {
+          id: 2,
+          type: "incendie",
+          details: "Détecteur de fumée déclenché",
+          timestamp: "2025-04-20T18:30:00Z",
+        },
+      ]);
+    }, 600)
+  );
+}

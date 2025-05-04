@@ -1,0 +1,245 @@
+/* ==========================================================================
+   Video Call Interface Stylesheet for Achiri
+   ========================================================================== */
+
+/* --- Import Variables --- */
+@import '../styles/variables.css'; /* Chemin à vérifier */
+
+/* --- Main Video Call Container --- */
+.videocall-container {
+  display: flex;
+  flex-direction: column;
+  height: calc(100vh - 60px); /* Ajuster selon header/footer */
+  background-color: #111827; /* Fond sombre pour l'immersion */
+  color: var(--color-text-on-dark-bg);
+  font-family: var(--font-family-base);
+  overflow: hidden; /* Empêche le débordement */
+  position: relative; /* Pour positionner la barre de contrôle */
+}
+
+/* --- Participants Video Area --- */
+.participants-area {
+  flex-grow: 1;
+  display: grid;
+  /* Grille adaptative pour les participants */
+  grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+  gap: var(--spacing-sm);
+  padding: var(--spacing-md);
+  overflow-y: auto; /* Permet le défilement si beaucoup de participants */
+  align-content: center; /* Centre les vidéos verticalement si peu nombreuses */
+  justify-content: center; /* Centre les vidéos horizontalement */
+}
+
+/* --- Individual Participant Video --- */
+.participant-video {
+  position: relative;
+  background-color: #374151; /* Placeholder si la vidéo ne charge pas */
+  border-radius: var(--radius-md);
+  overflow: hidden;
+  aspect-ratio: 16 / 9; /* Maintenir le ratio vidéo */
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border: 1px solid #4b5563; /* Bordure subtile */
+}
+
+.participant-video video {
+  display: block;
+  width: 100%;
+  height: 100%;
+  object-fit: cover; /* Remplit l'espace sans déformer */
+}
+
+/* --- Local Video Preview (Picture-in-Picture style) --- */
+.local-video-preview {
+  position: absolute;
+  bottom: calc(var(--spacing-md) + 70px); /* Au-dessus de la barre de contrôle */
+  right: var(--spacing-md);
+  width: 150px; /* Taille de l'aperçu local */
+  height: auto;
+  aspect-ratio: 16 / 9;
+  border-radius: var(--radius-sm);
+  overflow: hidden;
+  border: 2px solid rgba(255, 255, 255, 0.5);
+  box-shadow: var(--shadow-lg);
+  z-index: 10; /* Au-dessus des autres vidéos */
+  background-color: #374151;
+}
+
+.local-video-preview video {
+  display: block;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  transform: scaleX(-1); /* Effet miroir pour la caméra locale */
+}
+
+/* --- Participant Info Overlay (Name, Status) --- */
+.participant-info {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  background: linear-gradient(to top, rgba(0, 0, 0, 0.6), transparent);
+  color: #ffffff;
+  padding: var(--spacing-xs) var(--spacing-sm);
+  font-size: var(--font-size-xs);
+  border-bottom-left-radius: var(--radius-md);
+  border-bottom-right-radius: var(--radius-md);
+  display: flex;
+  align-items: center;
+  gap: var(--spacing-xs);
+  opacity: 0; /* Caché par défaut */
+  transition: opacity var(--transition-duration-fast) ease-in-out;
+}
+
+.participant-video:hover .participant-info {
+  opacity: 1; /* Afficher au survol */
+}
+
+.participant-status-icon {
+  font-size: 0.8rem;
+}
+.participant-status-icon.muted {
+  color: var(--color-danger-main);
+}
+.participant-status-icon.video-off {
+  color: var(--color-text-muted);
+}
+
+/* --- Control Bar --- */
+.control-bar {
+  position: absolute;
+  bottom: var(--spacing-md);
+  left: 50%;
+  transform: translateX(-50%);
+  background-color: rgba(31, 41, 55, 0.85); /* Fond semi-transparent */
+  backdrop-filter: blur(10px); /* Effet de flou (support variable) */
+  -webkit-backdrop-filter: blur(10px);
+  padding: var(--spacing-sm) var(--spacing-lg);
+  border-radius: var(--radius-full); /* Forme de pilule */
+  display: flex;
+  gap: var(--spacing-md);
+  box-shadow: var(--shadow-xl);
+  z-index: var(--z-index-sticky); /* Au-dessus du contenu */
+  transition: opacity var(--transition-duration-base) ease,
+              transform var(--transition-duration-base) ease;
+}
+
+/* Optionnel: Cacher la barre après inactivité (géré par JS) */
+.control-bar.hidden {
+  opacity: 0;
+  transform: translate(-50%, 120%); /* Descend et disparaît */
+  pointer-events: none;
+}
+
+/* --- Control Buttons --- */
+.control-button {
+  background-color: rgba(75, 85, 99, 0.7); /* Gris semi-transparent */
+  color: #ffffff;
+  border: none;
+  width: 48px;
+  height: 48px;
+  border-radius: 50%;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  font-size: 1.3rem; /* Taille pour les icônes */
+  transition: background-color var(--transition-duration-fast) ease,
+              transform var(--transition-duration-fast) ease,
+              box-shadow var(--transition-duration-fast) ease;
+  outline: none;
+}
+
+.control-button:hover {
+  background-color: rgba(107, 114, 128, 0.8);
+}
+
+.control-button:focus-visible {
+  box-shadow: 0 0 0 3px var(--color-focus-ring); /* Utilise la variable de focus */
+}
+
+.control-button:active {
+  transform: scale(0.9);
+}
+
+/* Style pour les boutons actifs/désactivés (ex: Mute, Video Off) */
+.control-button.active {
+  background-color: var(--color-primary-main); /* Ou une autre couleur distinctive */
+}
+
+/* Style spécifique pour le bouton "Raccrocher" */
+.control-button.hang-up {
+  background-color: var(--color-danger-main);
+}
+.control-button.hang-up:hover {
+  background-color: var(--color-danger-dark);
+}
+
+/* --- Responsive Design --- */
+
+/* Tablettes */
+@media (max-width: 1024px) {
+  .local-video-preview {
+    width: 120px;
+    bottom: calc(var(--spacing-sm) + 65px); /* Ajuster position */
+    right: var(--spacing-sm);
+  }
+  .control-bar {
+    gap: var(--spacing-sm);
+    padding: var(--spacing-xs) var(--spacing-md);
+  }
+  .control-button {
+    width: 44px;
+    height: 44px;
+    font-size: 1.2rem;
+  }
+}
+
+/* Mobiles */
+@media (max-width: 767px) {
+  .videocall-container {
+    height: 100vh; /* Plein écran sur mobile */
+  }
+  .participants-area {
+    padding: var(--spacing-sm);
+    gap: var(--spacing-xs);
+    /* Forcer une seule colonne si nécessaire ou ajuster minmax */
+    /* grid-template-columns: 1fr; */
+  }
+  .local-video-preview {
+    width: 90px;
+    bottom: calc(var(--spacing-xs) + 60px);
+    right: var(--spacing-xs);
+    border-width: 1px;
+  }
+  .control-bar {
+    width: calc(100% - var(--spacing-md)); /* Presque pleine largeur */
+    bottom: var(--spacing-sm);
+    padding: var(--spacing-xs) var(--spacing-sm);
+    justify-content: space-around; /* Répartir les boutons */
+    gap: var(--spacing-xs);
+    border-radius: var(--radius-lg); /* Moins arrondi */
+  }
+  .control-button {
+    width: 40px;
+    height: 40px;
+    font-size: 1.1rem;
+  }
+  .participant-info {
+    font-size: 0.65rem; /* Plus petit sur mobile */
+    padding: 2px 4px;
+  }
+}
+
+/* --- SEO & Documentation ---
+  - Ce fichier CSS style l'interface d'appel vidéo d'Achiri.
+  - Utilise un fond sombre pour l'immersion et une grille pour les participants.
+  - Inclut un aperçu local en mode picture-in-picture.
+  - La barre de contrôle est positionnée en bas et peut être cachée (via JS).
+  - Design responsive pour tablettes et mobiles.
+  - Styles de focus visibles pour l'accessibilité des contrôles.
+  - La sémantique HTML (JSX) est importante (ex: <video>, <button> avec `aria-label` ou `aria-pressed`).
+  - Les icônes doivent être utilisées dans les boutons de contrôle (via SVG, FontAwesome, etc.).
+  - Conçu pour être utilisé avec le composant `VideoCall.jsx`.
+*/

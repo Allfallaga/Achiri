@@ -2,7 +2,7 @@
   "manifest_version": 3,
   "name": "Achiri Extension IA",
   "version": "1.0.0",
-  "description": "Extension IA inclusive : accessibilité, santé, domotique, éducation, influenceur.",
+  "description": "Extension IA inclusive : accessibilité, santé, domotique, éducation, influenceur. Design avancé, sécurité, SEO, mobile/web.",
   "icons": {
     "16": "icon.png",
     "32": "icon.png",
@@ -37,5 +37,18 @@
       "resources": ["icon.png"],
       "matches": ["<all_urls>"]
     }
-  ]
+  ],
+  "options_page": "options.html",
+  "short_name": "Achiri IA",
+  "author": "Achiri Team",
+  "homepage_url": "https://github.com/Allfallaga/achiri",
+  "commands": {
+    "toggle-accessibility": {
+      "suggested_key": {
+        "default": "Ctrl+Shift+A"
+      },
+      "description": "Activer/désactiver l'accessibilité IA"
+    }
+  }
 }
+

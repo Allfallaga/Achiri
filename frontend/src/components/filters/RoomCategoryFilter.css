@@ -1,0 +1,155 @@
+/* ==========================================================================
+   Room Category Filter Stylesheet for Achiri
+   ========================================================================== */
+
+   @import '../../styles/variables.css'; /* Ajuste le chemin si nécessaire */
+
+   .room-category-filter {
+     display: flex;
+     flex-wrap: wrap; /* Permet aux boutons de passer à la ligne */
+     gap: var(--spacing-sm); /* Espace entre les éléments */
+     align-items: center;
+     background-color: var(--color-surface-1);
+     border-radius: var(--radius-lg);
+     box-shadow: var(--shadow-sm);
+     padding: var(--spacing-sm) var(--spacing-md);
+     margin: var(--spacing-lg) 0;
+     border: 1px solid var(--color-border-main);
+     transition: background-color var(--transition-duration-base) ease,
+                 border-color var(--transition-duration-base) ease;
+   }
+   
+   .room-category-filter-label {
+     font-weight: var(--font-weight-semibold);
+     color: var(--color-primary-main);
+     display: inline-flex; /* Utiliser inline-flex pour aligner l'icône */
+     align-items: center;
+     gap: var(--spacing-xs);
+     margin-right: var(--spacing-sm); /* Espace après le label */
+     font-size: var(--font-size-base);
+     flex-shrink: 0; /* Empêche le label de rétrécir */
+   }
+   
+   .room-category-filter-btn,
+   .room-category-filter-reset {
+     display: inline-flex; /* Utiliser inline-flex */
+     align-items: center;
+     gap: var(--spacing-xs);
+     border-radius: var(--radius-md);
+     padding: var(--spacing-xs) var(--spacing-sm);
+     font-weight: var(--font-weight-medium);
+     font-size: var(--font-size-sm);
+     cursor: pointer;
+     transition: all var(--transition-duration-fast) ease;
+     border: 1px solid transparent; /* Base pour la bordure */
+     outline: none; /* Base, géré par focus-visible */
+     white-space: nowrap; /* Empêche le texte du bouton de passer à la ligne */
+   }
+   
+   /* Style bouton catégorie normal */
+   .room-category-filter-btn {
+     background-color: var(--color-surface-2);
+     color: var(--color-text-secondary);
+     border-color: var(--color-border-main);
+   }
+   
+   /* Style bouton catégorie au survol */
+   .room-category-filter-btn:hover {
+     background-color: var(--color-surface-3);
+     color: var(--color-text-primary);
+     border-color: var(--color-border-strong);
+   }
+   
+   /* Style bouton catégorie sélectionné */
+   .room-category-filter-btn.selected {
+     background-color: var(--color-primary-main);
+     color: var(--color-primary-contrast-text);
+     border-color: var(--color-primary-dark);
+     font-weight: var(--font-weight-bold);
+   }
+   
+   /* Style bouton catégorie sélectionné au survol */
+   .room-category-filter-btn.selected:hover {
+     background-color: var(--color-primary-dark);
+     border-color: var(--color-primary-darker);
+   }
+   
+   /* Style bouton reset normal */
+   .room-category-filter-reset {
+     background-color: var(--color-warning-light);
+     color: var(--color-warning-dark);
+     border-color: var(--color-warning-main);
+     margin-left: auto; /* Pousse le bouton reset à droite */
+   }
+   
+   /* Style bouton reset au survol */
+   .room-category-filter-reset:hover {
+     background-color: var(--color-warning-main);
+     color: var(--color-warning-contrast-text);
+     border-color: var(--color-warning-dark);
+   }
+   
+   /* Style focus visible pour tous les boutons */
+   .room-category-filter-btn:focus-visible,
+   .room-category-filter-reset:focus-visible {
+     outline: var(--focus-outline);
+     outline-offset: var(--focus-outline-offset);
+     /* Optionnel: renforcer le style au focus */
+     box-shadow: 0 0 0 2px var(--color-surface-1), 0 0 0 4px var(--color-focus-ring);
+   }
+   
+   /* Style focus visible pour bouton sélectionné */
+   .room-category-filter-btn.selected:focus-visible {
+     outline-color: var(--color-warning-main); /* Utiliser une couleur contrastante pour le focus sur l'élément actif */
+     box-shadow: 0 0 0 2px var(--color-surface-1), 0 0 0 4px var(--color-warning-main);
+   }
+   
+   /* Icônes dans les boutons */
+   .room-category-filter-btn svg,
+   .room-category-filter-reset svg {
+     font-size: 1.1em; /* Légèrement plus grand que le texte */
+     vertical-align: middle; /* Meilleur alignement vertical */
+   }
+   
+   /* Responsive */
+   @media (max-width: 768px) {
+     .room-category-filter {
+       padding: var(--spacing-sm);
+     }
+     .room-category-filter-label {
+       margin-right: 0; /* Pas de marge à droite si les éléments s'empilent */
+       margin-bottom: var(--spacing-xs); /* Espace si le label est seul sur une ligne */
+       width: 100%; /* Prend toute la largeur si nécessaire */
+     }
+     .room-category-filter-reset {
+        margin-left: 0; /* Plus de marge auto sur petit écran */
+        margin-top: var(--spacing-xs); /* Espace au-dessus si empilé */
+     }
+   }
+   
+   /* Dark Mode */
+   @media (prefers-color-scheme: dark) {
+     /* Les variables globales gèrent déjà le dark mode,
+        mais on peut surcharger si un style spécifique est nécessaire ici */
+   
+     /* Exemple de surcharge si nécessaire pour le bouton reset en dark mode */
+     /* .room-category-filter-reset { */
+       /* background-color: var(--color-warning-dark); */
+       /* color: var(--color-warning-lightest); */
+       /* border-color: var(--color-warning-main); */
+     /* } */
+   
+     /* .room-category-filter-reset:hover { */
+        /* background-color: var(--color-warning-darker); */
+     /* } */
+   }
+   
+   /* --- SEO & Documentation ---
+     - Ce fichier style le composant RoomCategoryFilter.
+     - Utilise Flexbox pour l'alignement et le wrapping des boutons.
+     - S'appuie fortement sur les variables CSS globales (`variables.css`).
+     - Gère les états : normal, hover, selected, focus-visible.
+     - Inclut des styles responsives pour les petits écrans.
+     - Le support Dark Mode est principalement géré par les variables globales.
+     - Les icônes sont stylisées pour s'aligner correctement avec le texte.
+   */

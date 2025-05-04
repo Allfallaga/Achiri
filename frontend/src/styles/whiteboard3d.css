@@ -1,0 +1,246 @@
+/**
+ * whiteboard3d.css – Achiri
+ * Styles avancés pour tableau blanc 3D collaboratif.
+ * - Design immersif, accessibilité, sécurité, responsive, SEO friendly.
+ * - Prêt pour outils, modération, overlays, dark mode, mobile/web.
+ * - Branding Achiri, documentation claire.
+ */
+
+/* Container principal du whiteboard */
+.whiteboard3d-container {
+    width: 100vw;
+    min-height: 100vh;
+    background: linear-gradient(120deg, #232a34 60%, #1976d2 100%);
+    display: flex;
+    flex-direction: column;
+    align-items: stretch;
+    justify-content: flex-start;
+    overflow: hidden;
+    position: relative;
+    transition: background 0.2s;
+  }
+  
+  /* Zone de dessin */
+  .whiteboard3d-canvas-area {
+    flex: 1;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 32px 16px 80px 16px;
+    position: relative;
+    z-index: 1;
+  }
+  
+  /* Canvas 3D */
+  .whiteboard3d-canvas {
+    background: #fff;
+    border-radius: 18px;
+    box-shadow: 0 6px 32px #1976d233, 0 2px 8px #43a04722;
+    min-width: 320px;
+    min-height: 220px;
+    max-width: 98vw;
+    max-height: 80vh;
+    outline: none;
+    transition: box-shadow 0.18s, border-radius 0.18s;
+    border: 2px solid #1976d2;
+  }
+  .whiteboard3d-canvas:focus-visible {
+    outline: 2px solid #ffd600;
+    outline-offset: 2px;
+    box-shadow: 0 0 0 6px #ffd60055;
+  }
+  
+  /* Outils du whiteboard */
+  .whiteboard3d-tools {
+    position: absolute;
+    top: 24px;
+    left: 24px;
+    display: flex;
+    gap: 14px;
+    z-index: 10;
+    background: rgba(34, 34, 34, 0.7);
+    border-radius: 10px;
+    padding: 8px 16px;
+    box-shadow: 0 2px 8px #0002;
+    align-items: center;
+  }
+  .whiteboard3d-tool-btn {
+    background: #fff;
+    color: #1976d2;
+    border: none;
+    border-radius: 8px;
+    padding: 0.4em 0.8em;
+    font-weight: bold;
+    font-size: 1em;
+    cursor: pointer;
+    transition: background 0.18s, color 0.18s, box-shadow 0.18s;
+  }
+  .whiteboard3d-tool-btn.active {
+    background: #43a047;
+    color: #fff;
+  }
+  .whiteboard3d-tool-btn:focus-visible {
+    outline: 2px solid #185abc;
+    outline-offset: 2px;
+  }
+  
+  /* Utilisateurs connectés */
+  .whiteboard3d-users {
+    position: absolute;
+    top: 24px;
+    right: 24px;
+    display: flex;
+    gap: 10px;
+    z-index: 10;
+  }
+  .whiteboard3d-user-avatar {
+    width: 38px;
+    height: 38px;
+    border-radius: 50%;
+    background: linear-gradient(135deg, #1976d2 60%, #43a047 100%);
+    box-shadow: 0 2px 8px #1976d244;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 1.3em;
+    color: #fff;
+    border: 2px solid #fff;
+    position: relative;
+  }
+  .whiteboard3d-user-badge {
+    position: absolute;
+    bottom: -2px;
+    right: -2px;
+    background: #ffd600;
+    color: #1976d2;
+    border-radius: 50%;
+    width: 16px;
+    height: 16px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 0.8em;
+    font-weight: bold;
+    border: 2px solid #fff;
+    z-index: 2;
+  }
+  
+  /* Overlay pour modération ou notifications */
+  .whiteboard3d-overlay {
+    position: absolute;
+    top: 0; left: 0; right: 0; bottom: 0;
+    background: rgba(25, 118, 210, 0.12);
+    border-radius: 18px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: #fff;
+    font-size: 1.2em;
+    pointer-events: none;
+    z-index: 20;
+  }
+  
+  /* Footer */
+  .whiteboard3d-footer {
+    position: absolute;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: rgba(0,0,0,0.18);
+    color: #fff;
+    font-size: 0.85em;
+    text-align: center;
+    padding: 2px 0;
+    z-index: 2;
+    border-radius: 0 0 12px 12px;
+  }
+  
+  /* Responsive */
+  @media (max-width: 900px) {
+    .whiteboard3d-canvas-area {
+      padding: 16px 4px 60px 4px;
+    }
+    .whiteboard3d-canvas {
+      min-width: 180px;
+      min-height: 120px;
+      border-radius: 10px;
+    }
+    .whiteboard3d-tools,
+    .whiteboard3d-users {
+      top: 8px;
+      left: 8px;
+      right: 8px;
+      padding: 4px 8px;
+      border-radius: 6px;
+    }
+    .whiteboard3d-user-avatar {
+      width: 28px;
+      height: 28px;
+      font-size: 1em;
+    }
+  }
+  
+  @media (max-width: 600px) {
+    .whiteboard3d-canvas-area {
+      padding: 8px 2px 40px 2px;
+    }
+    .whiteboard3d-canvas {
+      min-width: 90px;
+      min-height: 60px;
+      border-radius: 6px;
+    }
+    .whiteboard3d-tools,
+    .whiteboard3d-users {
+      top: 2px;
+      left: 2px;
+      right: 2px;
+      padding: 2px 4px;
+      border-radius: 4px;
+    }
+    .whiteboard3d-user-avatar {
+      width: 18px;
+      height: 18px;
+      font-size: 0.7em;
+    }
+    .whiteboard3d-user-badge {
+      width: 10px;
+      height: 10px;
+      font-size: 0.5em;
+      bottom: -1px;
+      right: -1px;
+    }
+  }
+  
+  /* Dark mode support */
+  @media (prefers-color-scheme: dark) {
+    .whiteboard3d-container {
+      background: linear-gradient(120deg, #181c24 60%, #1976d2 100%) !important;
+      color: #ffd600 !important;
+    }
+    .whiteboard3d-canvas {
+      background: #181c24 !important;
+      color: #ffd600 !important;
+      border-color: #ffd600 !important;
+    }
+    .whiteboard3d-tools {
+      background: #232a34 !important;
+      color: #ffd600 !important;
+    }
+    .whiteboard3d-user-avatar {
+      background: linear-gradient(135deg, #181c24 60%, #1976d2 100%) !important;
+      color: #ffd600 !important;
+      border-color: #ffd600 !important;
+    }
+    .whiteboard3d-user-badge {
+      background: #ffd600 !important;
+      color: #181c24 !important;
+      border-color: #181c24 !important;
+    }
+  }
+  
+  /* SEO & documentation :
+     - Design immersif, focus visible, avatars, badges, overlay modération.
+     - Couleurs accessibles, branding Achiri.
+     - Responsive, mobile first, dark/light mode.
+     - Prêt pour intégration accessibilité, modération, analytics.
+  */

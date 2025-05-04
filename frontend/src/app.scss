@@ -1,0 +1,276 @@
+/**
+ * app.scss – Achiri
+ * Styles globaux pour la plateforme IA inclusive Achiri.
+ * - Design moderne, branding Achiri, responsive, accessibilité, dark mode ready.
+ * - Focus visible, contrastes, feedback utilisateur, mobile first, SEO friendly.
+ * - Prêt pour extensions futures (animations, badges, notifications, etc).
+ */
+
+/* Reset CSS & base */
+html, body, #root {
+  height: 100%;
+  margin: 0;
+  padding: 0;
+  font-family: 'Roboto', Arial, sans-serif;
+  background: #f8fafc;
+  color: #222;
+  scroll-behavior: smooth;
+}
+
+*, *::before, *::after {
+  box-sizing: border-box;
+  transition: background 0.2s, color 0.2s, border 0.2s, box-shadow 0.2s;
+}
+
+/* Liens */
+a {
+  color: #1976d2;
+  text-decoration: none;
+  transition: color 0.2s;
+  &:hover, &:focus {
+    color: #43a047;
+    text-decoration: underline;
+    outline: none;
+  }
+}
+
+/* Boutons et champs de formulaire */
+button, input, select, textarea {
+  font-family: inherit;
+  font-size: 1em;
+  border-radius: 6px;
+  border: 1px solid #e3e3e3;
+  transition: border 0.2s, box-shadow 0.2s;
+  outline: none;
+  background: #fff;
+  color: #222;
+  &:focus {
+    outline: 2px solid #ffd600;
+    border-color: #1976d2;
+    box-shadow: 0 0 0 2px #1976d233;
+  }
+}
+button:disabled,
+input:disabled,
+select:disabled,
+textarea:disabled {
+  opacity: 0.6;
+  cursor: not-allowed;
+}
+
+/* Scrollbar personnalisée */
+::-webkit-scrollbar {
+  width: 8px;
+  background: #e3e3e3;
+}
+::-webkit-scrollbar-thumb {
+  background: #1976d2;
+  border-radius: 8px;
+}
+::-webkit-scrollbar-thumb:hover {
+  background: #43a047;
+}
+
+/* Layout général */
+body {
+  min-height: 100vh;
+  background: linear-gradient(120deg, #f8fafc 60%, #e3f2fd 100%);
+}
+
+/* Header & Footer */
+header, footer {
+  width: 100%;
+  box-sizing: border-box;
+  background: #1976d2;
+  color: #fff;
+  padding: 1.2em 0;
+  text-align: center;
+  font-size: 1em;
+  box-shadow: 0 2px 12px #1976d222;
+}
+footer {
+  background: #222;
+  color: #fff;
+  margin-top: 40px;
+}
+
+/* Main */
+main {
+  min-height: 60vh;
+  padding: 0 1.2em;
+  margin: 0 auto;
+  max-width: 1200px;
+  width: 100%;
+}
+
+/* Titres */
+h1, h2, h3, h4, h5 {
+  font-family: 'Roboto', Arial, sans-serif;
+  font-weight: 700;
+  color: #1976d2;
+  margin-top: 0;
+  letter-spacing: 0.5px;
+}
+h1 { font-size: 2.2em; }
+h2 { font-size: 1.5em; }
+h3 { font-size: 1.2em; }
+
+/* Boutons principaux */
+.btn, .button, button {
+  background: linear-gradient(90deg, #1976d2 0%, #43a047 100%);
+  color: #fff;
+  border: none;
+  border-radius: 8px;
+  padding: 0.6em 1.2em;
+  font-weight: bold;
+  font-size: 1em;
+  cursor: pointer;
+  box-shadow: 0 2px 8px #1976d222;
+  transition: background 0.2s, color 0.2s, transform 0.1s;
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  &:hover, &:focus {
+    background: linear-gradient(90deg, #43a047 0%, #1976d2 100%);
+    color: #ffd600;
+    outline: none;
+    transform: scale(1.04);
+  }
+}
+
+/* Focus visible pour accessibilité */
+:focus-visible {
+  outline: 2px solid #ffd600 !important;
+  outline-offset: 2px;
+}
+
+/* Messages d'état globaux */
+.status-message {
+  border-radius: 8px;
+  padding: 0.8em 1.2em;
+  margin-bottom: 1em;
+  font-size: 1em;
+  font-weight: 500;
+  background: #e0f2fe;
+  color: #2563eb;
+  border-left: 4px solid #2563eb;
+  &.success {
+    background: #e8f5e9;
+    color: #2e7d32;
+    border-left-color: #2e7d32;
+  }
+  &.error {
+    background: #ffebee;
+    color: #b71c1c;
+    border-left-color: #b71c1c;
+  }
+}
+
+/* SEO/Accessibilité : cacher visuellement mais garder accessible */
+.sr-only {
+  position: absolute !important;
+  width: 1px !important;
+  height: 1px !important;
+  padding: 0 !important;
+  margin: -1px !important;
+  overflow: hidden !important;
+  clip: rect(0,0,0,0) !important;
+  border: 0 !important;
+}
+
+/* Contraste élevé (mode accessibilité) */
+.high-contrast, body.high-contrast {
+  background: #000 !important;
+  color: #fff !important;
+}
+.high-contrast a, body.high-contrast a {
+  color: #ffd600 !important;
+}
+.high-contrast button, body.high-contrast button {
+  background: #ffd600 !important;
+  color: #000 !important;
+}
+.high-contrast input, .high-contrast textarea, .high-contrast select {
+  background: #222 !important;
+  color: #fff !important;
+  border-color: #ffd600 !important;
+}
+
+/* Responsive */
+@media (max-width: 900px) {
+  main {
+    max-width: 98vw;
+    padding: 0 0.5em;
+  }
+  header, footer {
+    padding-left: 0.5em;
+    padding-right: 0.5em;
+  }
+}
+@media (max-width: 600px) {
+  main {
+    padding: 0 0.2em;
+    font-size: 0.97em;
+  }
+  h1 { font-size: 1.3em; }
+  h2 { font-size: 1.1em; }
+  .btn, .button, button {
+    font-size: 0.97em;
+    padding: 0.5em 1em;
+  }
+}
+
+/* Dark mode */
+@media (prefers-color-scheme: dark) {
+  html, body, #root {
+    background: #181f2a !important;
+    color: #e3f2fd !important;
+  }
+  main {
+    background: #181f2a !important;
+    color: #e3f2fd !important;
+  }
+  header, footer {
+    background: #223366 !important;
+    color: #ffd600 !important;
+  }
+  a, h1, h2, h3, h4, h5 {
+    color: #ffd600 !important;
+  }
+  .btn, .button, button {
+    background: linear-gradient(90deg, #223366 0%, #43a047 100%) !important;
+    color: #ffd600 !important;
+  }
+  ::-webkit-scrollbar-thumb {
+    background: #223366 !important;
+  }
+}
+
+/* Animations et transitions globales */
+@keyframes fade-in {
+  from { opacity: 0; }
+  to { opacity: 1; }
+}
+.fade-in {
+  animation: fade-in 0.6s cubic-bezier(.4,0,.2,1);
+}
+
+/* Utilitaires */
+.text-link {
+  color: #43a047;
+  text-decoration: underline;
+  cursor: pointer;
+  transition: color 0.2s;
+  &:hover, &:focus {
+    color: #1976d2;
+    outline: 2px solid #ffd600;
+    outline-offset: 2px;
+  }
+}
+
+/* Documentation :
+   - Respecte la charte Achiri (couleurs, typographie, responsive, accessibilité).
+   - Prêt pour badges, notifications, multi-langues, extensions, dark/high-contrast mode.
+   - SEO friendly : structure claire, focus visible, sr-only, responsive, feedback visuel.
+   - Documentez toute extension ou modification majeure.
+*/

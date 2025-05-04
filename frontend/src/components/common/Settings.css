@@ -1,0 +1,258 @@
+/* ==========================================================================
+   Common Settings Panel Stylesheet for Achiri
+   ========================================================================== */
+
+   @import '../../styles/variables.css'; /* Assurez-vous que ce chemin est correct */
+
+   /* --- Conteneur principal des paramètres --- */
+   .settings-panel {
+     background-color: var(--color-surface-1);
+     border-radius: var(--radius-lg);
+     box-shadow: var(--shadow-md);
+     padding: var(--spacing-lg);
+     margin-bottom: var(--spacing-xl); /* Espace sous le panneau */
+     border: 1px solid var(--color-border-main);
+     transition: background-color var(--transition-duration-base) ease,
+                 border-color var(--transition-duration-base) ease;
+   }
+   
+   /* --- Titre principal du panneau --- */
+   .settings-panel-title {
+     font-size: var(--font-size-xl);
+     font-weight: var(--font-weight-bold);
+     color: var(--color-text-primary);
+     margin-bottom: var(--spacing-lg);
+     padding-bottom: var(--spacing-sm);
+     border-bottom: 1px solid var(--color-border-subtle);
+   }
+   
+   /* --- Section de paramètres --- */
+   .settings-section {
+     margin-bottom: var(--spacing-xl);
+   }
+   
+   .settings-section:last-child {
+     margin-bottom: 0; /* Pas de marge pour la dernière section */
+   }
+   
+   /* --- Titre d'une section --- */
+   .settings-section-title {
+     font-size: var(--font-size-lg);
+     font-weight: var(--font-weight-semibold);
+     color: var(--color-primary-main);
+     margin-bottom: var(--spacing-md);
+     padding-bottom: var(--spacing-xs);
+     border-bottom: 1px dashed var(--color-border-subtle); /* Séparateur léger */
+   }
+   
+   /* --- Élément de paramètre individuel (ligne) --- */
+   .setting-item {
+     display: flex;
+     flex-wrap: wrap; /* Permet le passage à la ligne sur petits écrans */
+     align-items: center; /* Alignement vertical */
+     justify-content: space-between; /* Espace entre label et contrôle */
+     padding: var(--spacing-md) 0;
+     border-bottom: 1px solid var(--color-border-faint);
+     gap: var(--spacing-md); /* Espace si les éléments passent à la ligne */
+   }
+   
+   .settings-section .setting-item:last-child {
+     border-bottom: none; /* Pas de bordure pour le dernier item d'une section */
+   }
+   
+   /* --- Label d'un paramètre --- */
+   .setting-item-label {
+     font-size: var(--font-size-base);
+     color: var(--color-text-secondary);
+     flex-basis: 40%; /* Base de largeur pour le label */
+     flex-grow: 1; /* Permet au label de prendre plus de place si nécessaire */
+   }
+   
+   .setting-item-label strong {
+     font-weight: var(--font-weight-medium);
+     color: var(--color-text-primary); /* Titre du paramètre plus visible */
+     display: block; /* Met le titre sur sa propre ligne */
+     margin-bottom: var(--spacing-xxs);
+   }
+   
+   /* --- Zone de contrôle (input, select, toggle, etc.) --- */
+   .setting-item-control {
+     flex-basis: 50%; /* Base de largeur pour le contrôle */
+     flex-grow: 1; /* Permet au contrôle de prendre plus de place */
+     display: flex;
+     justify-content: flex-end; /* Aligne le contrôle à droite par défaut */
+     align-items: center;
+     gap: var(--spacing-sm); /* Espace si plusieurs contrôles */
+   }
+   
+   /* --- Styles spécifiques pour les contrôles courants --- */
+   .setting-item-control input[type="text"],
+   .setting-item-control input[type="email"],
+   .setting-item-control input[type="password"],
+   .setting-item-control select {
+     width: 100%; /* Prend toute la largeur disponible dans la zone de contrôle */
+     max-width: 300px; /* Limite la largeur maximale */
+     padding: var(--spacing-xs) var(--spacing-sm);
+     border: 1px solid var(--color-border-main);
+     border-radius: var(--radius-md);
+     background-color: var(--color-surface-2);
+     color: var(--color-text-primary);
+     font-size: var(--font-size-base);
+     transition: border-color var(--transition-duration-fast) ease,
+                 box-shadow var(--transition-duration-fast) ease;
+   }
+   
+   .setting-item-control input[type="text"]:focus,
+   .setting-item-control input[type="email"]:focus,
+   .setting-item-control input[type="password"]:focus,
+   .setting-item-control select:focus {
+     border-color: var(--color-primary-main);
+     box-shadow: 0 0 0 3px var(--color-focus-ring);
+     outline: none;
+   }
+   
+   /* Style pour un toggle switch (à adapter si vous utilisez une lib spécifique) */
+   .setting-item-control .toggle-switch {
+     /* Styles pour votre composant de toggle switch */
+     position: relative;
+     display: inline-block;
+     width: 50px;
+     height: 26px;
+   }
+   .setting-item-control .toggle-switch input {
+     opacity: 0;
+     width: 0;
+     height: 0;
+   }
+   .setting-item-control .slider {
+     position: absolute;
+     cursor: pointer;
+     top: 0;
+     left: 0;
+     right: 0;
+     bottom: 0;
+     background-color: var(--color-surface-3);
+     transition: .4s;
+     border-radius: 26px;
+   }
+   .setting-item-control .slider:before {
+     position: absolute;
+     content: "";
+     height: 18px;
+     width: 18px;
+     left: 4px;
+     bottom: 4px;
+     background-color: white;
+     transition: .4s;
+     border-radius: 50%;
+   }
+   .setting-item-control input:checked + .slider {
+     background-color: var(--color-success-main);
+   }
+   .setting-item-control input:focus + .slider {
+     box-shadow: 0 0 1px var(--color-success-main);
+   }
+   .setting-item-control input:checked + .slider:before {
+     transform: translateX(24px);
+   }
+   
+   /* --- Boutons d'action dans les paramètres --- */
+   .settings-actions {
+     display: flex;
+     justify-content: flex-end; /* Aligne les boutons à droite */
+     gap: var(--spacing-md);
+     margin-top: var(--spacing-lg);
+     padding-top: var(--spacing-lg);
+     border-top: 1px solid var(--color-border-subtle);
+   }
+   
+   .settings-actions .btn {
+     /* Styles de base pour les boutons (à adapter à vos boutons globaux) */
+     padding: var(--spacing-sm) var(--spacing-lg);
+     border-radius: var(--radius-md);
+     font-weight: var(--font-weight-medium);
+     cursor: pointer;
+     transition: all var(--transition-duration-fast) ease;
+     border: 1px solid transparent;
+     outline: none;
+   }
+   .settings-actions .btn-primary {
+     background-color: var(--color-primary-main);
+     color: var(--color-primary-contrast-text);
+     border-color: var(--color-primary-main);
+   }
+   .settings-actions .btn-primary:hover {
+     background-color: var(--color-primary-dark);
+     border-color: var(--color-primary-dark);
+   }
+   .settings-actions .btn-secondary {
+     background-color: var(--color-surface-3);
+     color: var(--color-text-secondary);
+     border-color: var(--color-border-main);
+   }
+   .settings-actions .btn-secondary:hover {
+     background-color: var(--color-surface-4);
+     border-color: var(--color-border-strong);
+     color: var(--color-text-primary);
+   }
+   .settings-actions .btn:focus-visible {
+     outline: var(--focus-outline);
+     outline-offset: var(--focus-outline-offset);
+     box-shadow: 0 0 0 2px var(--color-surface-1), 0 0 0 4px var(--color-focus-ring);
+   }
+   
+   
+   /* --- Responsive Design --- */
+   @media (max-width: 768px) {
+     .settings-panel {
+       padding: var(--spacing-md);
+     }
+   
+     .setting-item {
+       flex-direction: column; /* Empile label et contrôle */
+       align-items: flex-start; /* Aligne tout à gauche */
+       gap: var(--spacing-sm);
+     }
+   
+     .setting-item-label,
+     .setting-item-control {
+       flex-basis: 100%; /* Prend toute la largeur */
+       width: 100%;
+     }
+   
+     .setting-item-control {
+       justify-content: flex-start; /* Aligne le contrôle à gauche */
+     }
+   
+     .setting-item-control input[type="text"],
+     .setting-item-control input[type="email"],
+     .setting-item-control input[type="password"],
+     .setting-item-control select {
+       max-width: none; /* Permet de prendre toute la largeur */
+     }
+   
+     .settings-actions {
+       flex-direction: column; /* Empile les boutons */
+       gap: var(--spacing-sm);
+     }
+     .settings-actions .btn {
+       width: 100%; /* Boutons pleine largeur */
+       text-align: center;
+     }
+   }
+   
+   /* --- Dark Mode ---
+      Les variables CSS globales gèrent le dark mode.
+      Aucune surcharge spécifique n'est prévue ici par défaut.
+   */
+   
+   /* --- SEO & Documentation ---
+     - Stylesheet pour les panneaux de paramètres communs (`Settings.js`/`Settings.jsx`).
+     - Objectif: Fournir une structure visuelle claire et cohérente pour les pages de configuration.
+     - Utilise Flexbox pour l'alignement des labels et des contrôles.
+     - Intègre les variables du design system Achiri (`variables.css`).
+     - Gère les états interactifs : normal, hover, focus (`:focus`, `:focus-visible`).
+     - Inclut des styles responsives pour une adaptation mobile (breakpoint à 768px).
+     - Prêt pour le Dark Mode via les variables CSS globales.
+     - Contient des exemples de styles pour inputs, selects, toggles et boutons.
+   */

@@ -1,0 +1,214 @@
+/* Achiri UserDashboard – Design avancé, accessibilité, responsive, sécurité, SEO, branding */
+
+/* Container principal */
+.user-dashboard-container {
+  box-shadow: 0 4px 24px 0 rgba(0,0,0,0.08);
+  background: #fff;
+  border-radius: 16px;
+  padding: 2rem;
+  margin: 2rem auto;
+  max-width: 700px;
+  transition: background 0.3s, color 0.3s;
+  font-family: 'Segoe UI', Arial, sans-serif;
+  outline: none;
+}
+
+/* Header utilisateur */
+.user-dashboard-container .w-16 {
+  width: 64px;
+  height: 64px;
+}
+.user-dashboard-container img {
+  border-radius: 50%;
+  border: 2px solid #2563eb;
+  object-fit: cover;
+  transition: border 0.2s;
+}
+.user-dashboard-container .text-xl {
+  font-size: 1.3em;
+}
+.user-dashboard-container .font-bold {
+  font-weight: 700;
+}
+.user-dashboard-container .bg-blue-100,
+.user-dashboard-container .dark\:bg-blue-800 {
+  background: #dbeafe;
+  color: #2563eb;
+  margin-right: 0.3em;
+}
+.user-dashboard-container .bg-blue-800 {
+  background: #1e40af;
+  color: #dbeafe;
+}
+
+/* Points & notifications */
+.user-dashboard-container .text-yellow-600 {
+  color: #fbbf24;
+  font-weight: 600;
+}
+.user-dashboard-container .text-yellow-300 {
+  color: #fde68a;
+}
+.user-dashboard-container .text-red-500 {
+  color: #ef4444;
+}
+
+/* Quick links */
+.quick-links {
+  margin-top: 1.5rem;
+  margin-bottom: 1.5rem;
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 1rem;
+}
+.quick-link {
+  background: #f9fafb;
+  border-radius: 8px;
+  padding: 0.9rem 1rem;
+  display: flex;
+  align-items: center;
+  gap: 0.7rem;
+  font-weight: 500;
+  color: #2563eb;
+  text-decoration: none;
+  box-shadow: 0 1px 4px 0 rgba(37,99,235,0.04);
+  transition: background 0.2s, box-shadow 0.2s, color 0.2s;
+  outline: none;
+  cursor: pointer;
+}
+.quick-link:hover,
+.quick-link:focus {
+  background: #e0e7ff;
+  box-shadow: 0 2px 8px 0 rgba(37,99,235,0.08);
+  color: #1e40af;
+  outline: 2px solid #2563eb;
+}
+
+/* Astuce */
+.user-dashboard-container .bg-green-50 {
+  background: #ecfdf5;
+}
+.user-dashboard-container .dark\:bg-green-900 {
+  background: #064e3b;
+}
+.user-dashboard-container .text-green-800 {
+  color: #065f46;
+}
+.user-dashboard-container .dark\:text-green-200 {
+  color: #bbf7d0;
+}
+
+/* Accessibilité : focus visible */
+.quick-link:focus-visible {
+  outline: 2px solid #1976d2;
+  outline-offset: 2px;
+}
+
+/* Feedback utilisateur */
+.user-feedback {
+  margin-top: 2rem;
+  color: #888;
+  font-size: 0.93em;
+  text-align: center;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+}
+
+/* Progression section */
+.user-progress-section {
+  background: #fff;
+  border-radius: 10px;
+  box-shadow: 0 1px 6px #1976d211;
+  padding: 1em;
+  margin-bottom: 18px;
+  margin-top: -8px;
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 18px;
+}
+.user-progress-section svg {
+  display: block;
+  margin-top: 2px;
+  margin-bottom: 2px;
+  max-width: 220px;
+}
+
+/* Responsive */
+@media (max-width: 700px) {
+  .user-dashboard-container {
+    padding: 1rem;
+    max-width: 98vw;
+  }
+  .quick-links {
+    grid-template-columns: 1fr;
+    gap: 0.7rem;
+  }
+  .user-dashboard-container .w-16 {
+    width: 48px;
+    height: 48px;
+  }
+  .user-progress-section {
+    flex-direction: column;
+    gap: 10px;
+  }
+}
+
+/* Animation légère sur apparition */
+@media (prefers-reduced-motion: no-preference) {
+  .user-dashboard-container {
+    animation: fadeInUp 0.6s cubic-bezier(.23,1.01,.32,1) both;
+  }
+  @keyframes fadeInUp {
+    from {
+      opacity: 0;
+      transform: translateY(30px);
+    }
+    to {
+      opacity: 1;
+      transform: translateY(0);
+    }
+  }
+}
+
+/* SEO & accessibilité */
+.user-dashboard-container {
+  outline: none;
+}
+
+/* Dark mode (préparation) */
+@media (prefers-color-scheme: dark) {
+  .user-dashboard-container {
+    background: #181f2a;
+    color: #e5e7eb;
+  }
+  .quick-link {
+    background: #232b3b;
+    color: #60a5fa;
+  }
+  .quick-link:hover,
+  .quick-link:focus {
+    background: #1e293b;
+    color: #93c5fd;
+  }
+  .user-feedback {
+    color: #a3a3a3;
+  }
+  .user-progress-section {
+    background: #232b3b;
+    color: #ffe082;
+  }
+}
+
+/* Branding Achiri */
+.user-dashboard-container {
+  border: 2px solid #f59e4211;
+}
+
+/* Sécurité : pas de sélection accidentelle */
+.user-dashboard-container,
+.user-dashboard-container * {
+  user-select: text;
+}

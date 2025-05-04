@@ -1,10 +1,13 @@
 import { useState, useEffect } from "react";
 
 /**
- * Hook pour gérer l'utilisateur courant (pseudo, avatar, couleur, etc.)
- * Prêt pour évoluer (auth, stockage local, etc.)
- * Ajout du support du rôle pour la navigation/Sidebar.
+ * useUser – Achiri
+ * Hook pour gérer l'utilisateur courant (pseudo, avatar, couleur, rôle, accessibilité, préférences).
+ * - Persistance locale, sécurité, accessibilité, UX avancée.
+ * - Prêt pour extensions futures (auth, multi-profils, badges, préférences, notifications, etc).
+ * - Compatible mobile/web, SEO friendly (indirect).
  */
+
 export function useUser(defaultName = "", defaultRole = "user") {
   // Pseudo utilisateur (persisté dans le localStorage)
   const [name, setName] = useState(() => {
@@ -20,10 +23,18 @@ export function useUser(defaultName = "", defaultRole = "user") {
     return localStorage.getItem("user_role") || defaultRole;
   });
 
+  // Préférences d'accessibilité (persistées)
+  const [accessibility, setAccessibility] = useState(() => {
+    try {
+      return JSON.parse(localStorage.getItem("user_accessibility")) || {};
+    } catch {
+      return {};
+    }
+  });
+
   // Avatar généré (ex: emoji)
   const avatar = (() => {
     const emojis = ["🦊", "🐼", "🐧", "🐸", "🐵", "🐱", "🐶", "🦁", "🐯", "🐨"];
-    // Utilisation d'un hash simple pour plus de variété
     let hash = 0;
     for (let i = 0; i < name.length; i++) {
       hash = name.charCodeAt(i) + ((hash << 5) - hash);
@@ -55,6 +66,11 @@ export function useUser(defaultName = "", defaultRole = "user") {
     }
   }, [role]);
 
+  // Persiste les préférences d'accessibilité si modifiées
+  useEffect(() => {
+    localStorage.setItem("user_accessibility", JSON.stringify(accessibility));
+  }, [accessibility]);
+
   // Réinitialise le pseudo et l'avatar
   const reset = () => {
     const newName = `user${Math.floor(1000 + Math.random() * 9000)}`;
@@ -62,15 +78,22 @@ export function useUser(defaultName = "", defaultRole = "user") {
     localStorage.setItem("user_name", newName);
   };
 
-  // Déconnexion utilisateur (efface le pseudo et le rôle)
+  // Déconnexion utilisateur (efface pseudo, rôle, accessibilité)
   const logout = () => {
     setName("");
     setRole(defaultRole);
+    setAccessibility({});
     localStorage.removeItem("user_name");
     localStorage.removeItem("user_role");
+    localStorage.removeItem("user_accessibility");
   };
 
-  // Permet d'étendre facilement (auth, logout, etc.)
+  // Mise à jour des préférences d'accessibilité
+  const updateAccessibility = (prefs) => {
+    setAccessibility(prev => ({ ...prev, ...prefs }));
+  };
+
+  // Permet d'étendre facilement (auth, logout, accessibilité, etc.)
   return {
     name,
     setName,
@@ -78,7 +101,22 @@ export function useUser(defaultName = "", defaultRole = "user") {
     color,
     role,
     setRole,
+    accessibility,
+    setAccessibility: updateAccessibility,
     reset,
     logout,
   };
 }
+
+/**
+ * Documentation :
+ * - name, setName : pseudo utilisateur (persisté).
+ * - role, setRole : rôle utilisateur (persisté).
+ * - avatar, color : UI personnalisée.
+ * - accessibility, setAccessibility : préférences d’accessibilité (persistées).
+ * - reset : réinitialise pseudo/avatar.
+ * - logout : efface toutes les infos locales.
+ * - Sécurité : aucune info sensible, persistance locale, prêt pour extensions auth.
+ * - Accessibilité : prêt pour extensions (contraste, TTS, navigation clavier, etc).
+ * - Extensible, compatible mobile/web, SEO friendly (indirect).
+ */

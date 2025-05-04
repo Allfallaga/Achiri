@@ -1,0 +1,261 @@
+/* ==========================================================================
+   Assistant Panel Stylesheet for Achiri
+   ========================================================================== */
+
+/* --- Variables (Cohérence avec les autres fichiers assistant) --- */
+:root {
+    --panel-primary-color: #0ea5e9; /* Bleu Ciel (idem assistantAgent) */
+    --panel-primary-hover: #0284c7;
+    --panel-text-dark: #1f2937;
+    --panel-text-medium: #4b5563;
+    --panel-text-light: #6b7280;
+    --panel-bg: #ffffff;             /* Fond blanc pour le panneau */
+    --panel-bg-alt: #f8fafc;       /* Fond alternatif pour sections */
+    --panel-border-color: #e2e8f0;
+    --panel-shadow: 0 5px 15px rgba(0, 0, 0, 0.1); /* Ombre plus marquée pour un panneau */
+    --panel-border-radius: 0.75rem; /* 12px */
+    --panel-focus-ring: 0 0 0 3px rgba(14, 165, 233, 0.4);
+  }
+  
+  /* --- Main Panel Container --- */
+  .assistant-panel {
+    background-color: var(--panel-bg);
+    border-radius: var(--panel-border-radius);
+    box-shadow: var(--panel-shadow);
+    border: 1px solid var(--panel-border-color);
+    padding: 1.5rem;
+    font-family: 'Inter', sans-serif;
+    color: var(--panel-text-dark);
+    display: flex;
+    flex-direction: column;
+    gap: 1.5rem; /* Espace entre les sections du panneau */
+    /* Positionnement: À définir dans le composant parent (ex: position: fixed, absolute, ou dans une grille) */
+    /* width: 300px; */ /* Exemple de largeur fixe */
+    /* max-height: 80vh; */ /* Limite la hauteur si nécessaire */
+    /* overflow-y: auto; */ /* Ajoute le défilement si le contenu dépasse */
+  }
+  
+  /* --- Panel Header --- */
+  .panel-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding-bottom: 1rem;
+    border-bottom: 1px solid var(--panel-border-color);
+  }
+  
+  .panel-title {
+    font-size: 1.25rem; /* 20px */
+    font-weight: 600;
+    color: var(--panel-text-dark);
+    margin: 0;
+  }
+  
+  /* Optionnel: Bouton pour fermer ou réduire le panneau */
+  .panel-close-button {
+    background: none;
+    border: none;
+    color: var(--panel-text-light);
+    font-size: 1.5rem; /* Taille de l'icône (ex: '×') */
+    cursor: pointer;
+    padding: 0.25rem;
+    line-height: 1;
+    border-radius: 50%;
+    transition: color 0.2s, background-color 0.2s;
+    outline: none;
+  }
+  
+  .panel-close-button:hover {
+    color: var(--panel-text-dark);
+    background-color: var(--panel-bg-alt);
+  }
+  
+  .panel-close-button:focus-visible {
+    box-shadow: var(--panel-focus-ring);
+    color: var(--panel-text-dark);
+    background-color: var(--panel-bg-alt);
+  }
+  
+  /* --- Panel Section --- */
+  .panel-section {
+    /* Styles pour une section distincte dans le panneau si besoin */
+    /* background-color: var(--panel-bg-alt); */
+    /* padding: 1rem; */
+    /* border-radius: 0.5rem; */
+  }
+  
+  .panel-section-title {
+    font-size: 1rem; /* 16px */
+    font-weight: 600;
+    color: var(--panel-text-medium);
+    margin-bottom: 0.75rem;
+    text-transform: uppercase; /* Optionnel: Titres de section en majuscules */
+    letter-spacing: 0.05em;
+  }
+  
+  /* --- Controls & Elements within Panel --- */
+  
+  /* Style générique pour les labels */
+  .panel-label {
+    display: block;
+    font-size: 0.9rem;
+    font-weight: 500;
+    color: var(--panel-text-medium);
+    margin-bottom: 0.4rem;
+  }
+  
+  /* Style pour les champs de saisie */
+  .panel-input {
+    width: 100%;
+    padding: 0.6rem 0.9rem;
+    border: 1px solid var(--panel-border-color);
+    border-radius: 0.375rem; /* 6px */
+    font-size: 0.95rem;
+    color: var(--panel-text-dark);
+    background-color: #fff; /* Fond blanc pour input */
+    outline: none;
+    transition: border-color 0.2s ease, box-shadow 0.2s ease;
+  }
+  
+  .panel-input:focus {
+    border-color: var(--panel-primary-color);
+    box-shadow: var(--panel-focus-ring);
+  }
+  
+  /* Style pour les boutons dans le panneau */
+  .panel-button {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 100%; /* Souvent pleine largeur dans les panneaux */
+    background-color: var(--panel-primary-color);
+    color: #ffffff;
+    border: none;
+    border-radius: 0.5rem; /* 8px */
+    padding: 0.65rem 1rem; /* 10px 16px */
+    font-weight: 500;
+    font-size: 0.9rem;
+    cursor: pointer;
+    text-align: center;
+    transition: background-color 0.2s ease-out, box-shadow 0.2s ease-out;
+    outline: none;
+  }
+  
+  .panel-button:hover {
+    background-color: var(--panel-primary-hover);
+  }
+  
+  .panel-button:focus-visible {
+    box-shadow: var(--panel-focus-ring);
+    background-color: var(--panel-primary-hover);
+  }
+  
+  .panel-button.secondary { /* Style alternatif pour bouton secondaire */
+    background-color: var(--panel-bg-alt);
+    color: var(--panel-text-medium);
+    border: 1px solid var(--panel-border-color);
+  }
+  
+  .panel-button.secondary:hover {
+    background-color: #e2e8f0; /* Gris clair au survol */
+    border-color: #cbd5e1;
+  }
+  
+  .panel-button.secondary:focus-visible {
+    box-shadow: 0 0 0 3px rgba(203, 213, 225, 0.5); /* Anneau de focus gris */
+    background-color: #e2e8f0;
+  }
+  
+  /* Style pour les switch/toggles (simplifié, utiliser une lib JS/CSS pour un vrai switch) */
+  .panel-toggle-label {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    cursor: pointer;
+    padding: 0.5rem 0;
+  }
+  
+  .panel-toggle-label span {
+    font-size: 0.95rem;
+    color: var(--panel-text-medium);
+  }
+  
+  .panel-toggle-checkbox { /* Cacher le checkbox natif */
+    opacity: 0;
+    width: 0;
+    height: 0;
+    position: absolute;
+  }
+  
+  .panel-toggle-switch { /* Le visuel du switch */
+    position: relative;
+    display: inline-block;
+    width: 40px;
+    height: 22px;
+    background-color: #cbd5e1; /* Fond gris inactif */
+    border-radius: 11px; /* Arrondi complet */
+    transition: background-color 0.2s ease;
+  }
+  
+  .panel-toggle-switch::before { /* Le curseur rond */
+    content: "";
+    position: absolute;
+    left: 3px;
+    top: 3px;
+    width: 16px;
+    height: 16px;
+    background-color: white;
+    border-radius: 50%;
+    transition: transform 0.2s ease;
+  }
+  
+  .panel-toggle-checkbox:checked + .panel-toggle-switch {
+    background-color: var(--panel-primary-color); /* Fond bleu actif */
+  }
+  
+  .panel-toggle-checkbox:checked + .panel-toggle-switch::before {
+    transform: translateX(18px); /* Déplace le curseur */
+  }
+  
+  .panel-toggle-checkbox:focus-visible + .panel-toggle-switch {
+    box-shadow: var(--panel-focus-ring); /* Focus sur le switch */
+  }
+  
+  
+  /* --- Responsive Design --- */
+  @media (max-width: 767px) {
+    /* Sur mobile, le panneau pourrait devenir un modal ou un drawer */
+    .assistant-panel {
+      /* Exemple: pleine largeur en bas de l'écran */
+      /* position: fixed;
+      bottom: 0;
+      left: 0;
+      right: 0;
+      width: 100%;
+      border-radius: 1rem 1rem 0 0;
+      max-height: 60vh;
+      padding: 1rem;
+      gap: 1rem; */
+      /* Ou simplement réduire la largeur/padding si toujours latéral */
+      padding: 1rem;
+      gap: 1rem;
+    }
+  
+    .panel-title {
+      font-size: 1.1rem;
+    }
+  
+    .panel-section-title {
+      font-size: 0.9rem;
+    }
+  }
+  
+  /* --- SEO & Documentation ---
+    - Ce fichier CSS style un panneau latéral ou contextuel pour l'assistant.
+    - Utilise des variables CSS pour la cohérence.
+    - Inclut des styles pour des éléments courants de panneau (header, sections, inputs, boutons, toggles).
+    - Design responsive suggéré (à adapter selon l'implémentation: modal, drawer, etc.).
+    - Styles de focus visibles pour l'accessibilité.
+    - La sémantique HTML (JSX) est importante (ex: <aside>, <section>, <button>, <label>).
+    - Conçu pour être utilisé avec le composant `AssistantPanel.jsx`.
+  */

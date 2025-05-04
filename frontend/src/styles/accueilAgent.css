@@ -1,0 +1,207 @@
+/* ==========================================================================
+   Accueil Agent Stylesheet for Achiri
+   ========================================================================== */
+
+/* --- Variables (Optionnel, mais recommandé pour la cohérence) --- */
+:root {
+    --agent-primary-color: #2563eb; /* Bleu principal */
+    --agent-primary-hover: #1e40af; /* Bleu foncé pour hover/focus */
+    --agent-text-dark: #1f2937;    /* Texte principal sombre */
+    --agent-text-medium: #4b5563;  /* Texte secondaire */
+    --agent-text-light: #6b7280;   /* Texte plus clair / descriptions */
+    --agent-bg-light: #f9fafb;     /* Fond très clair / page */
+    --agent-bg-card: #ffffff;      /* Fond des cartes */
+    --agent-border-color: #e5e7eb; /* Bordures subtiles */
+    --agent-shadow-sm: 0 1px 2px 0 rgba(0, 0, 0, 0.05);
+    --agent-shadow-md: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
+    --agent-shadow-lg: 0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05);
+    --agent-border-radius: 0.75rem; /* 12px */
+    --agent-focus-ring: 0 0 0 3px rgba(37, 99, 235, 0.4); /* Anneau de focus */
+  }
+  
+  /* --- Base Container --- */
+  .accueil-agent-container {
+    background-color: var(--agent-bg-light);
+    padding: 2rem 2.5rem; /* Plus d'espace latéral */
+    min-height: calc(100vh - 60px); /* Ajuster si hauteur header différente */
+    font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
+    color: var(--agent-text-dark);
+  }
+  
+  /* --- Header Section --- */
+  .accueil-agent-header {
+    margin-bottom: 2.5rem;
+    border-bottom: 1px solid var(--agent-border-color);
+    padding-bottom: 1.5rem;
+  }
+  
+  .accueil-agent-title {
+    font-size: 2.25rem; /* 36px */
+    font-weight: 700;
+    color: var(--agent-text-dark);
+    margin-bottom: 0.5rem;
+    letter-spacing: -0.02em;
+  }
+  
+  .accueil-agent-subtitle {
+    font-size: 1.125rem; /* 18px */
+    color: var(--agent-text-medium);
+    font-weight: 400;
+  }
+  
+  /* --- Widgets Grid --- */
+  .agent-widgets-grid {
+    display: grid;
+    /* Crée des colonnes flexibles, minimum 300px, maximum 1fr */
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    gap: 1.75rem; /* Espace entre les cartes */
+  }
+  
+  /* --- Individual Widget Card --- */
+  .agent-widget-card {
+    background-color: var(--agent-bg-card);
+    border-radius: var(--agent-border-radius);
+    padding: 1.75rem;
+    box-shadow: var(--agent-shadow-md);
+    border: 1px solid var(--agent-border-color);
+    transition: transform 0.25s cubic-bezier(.4,0,.2,1), box-shadow 0.25s cubic-bezier(.4,0,.2,1);
+    display: flex;
+    flex-direction: column; /* Organise le contenu verticalement */
+    outline: none; /* Pour le focus-within */
+  }
+  
+  .agent-widget-card:hover {
+    transform: translateY(-5px);
+    box-shadow: var(--agent-shadow-lg);
+  }
+  
+  /* Accessibilité: Style de focus visible pour la navigation clavier */
+  .agent-widget-card:focus-within {
+    box-shadow: var(--agent-shadow-lg), var(--agent-focus-ring);
+    transform: translateY(-2px); /* Léger soulèvement au focus */
+  }
+  
+  /* --- Card Header --- */
+  .widget-card-header {
+    display: flex;
+    align-items: center;
+    gap: 1rem; /* Espace entre icône et titre */
+    margin-bottom: 1rem;
+  }
+  
+  .widget-card-icon {
+    font-size: 2rem; /* Taille de l'icône */
+    color: var(--agent-primary-color);
+    flex-shrink: 0; /* Empêche l'icône de rétrécir */
+    /* Utiliser une vraie icône (SVG, FontAwesome, etc.) dans le JSX */
+    /* Exemple placeholder: */
+    /* content: '⚙️'; */
+  }
+  
+  .widget-card-title {
+    font-size: 1.25rem; /* 20px */
+    font-weight: 600;
+    color: var(--agent-text-dark);
+    margin: 0; /* Reset margin */
+  }
+  
+  /* --- Card Content --- */
+  .widget-card-content {
+    font-size: 1rem; /* 16px */
+    color: var(--agent-text-light);
+    line-height: 1.6;
+    margin-bottom: 1.5rem;
+    flex-grow: 1; /* Permet au contenu de pousser l'action vers le bas */
+  }
+  
+  /* --- Card Action / Button --- */
+  .widget-card-action {
+    margin-top: auto; /* Pousse le bouton vers le bas si la carte s'étire */
+  }
+  
+  .widget-card-action .agent-button { /* Utiliser une classe commune pour les boutons */
+    display: inline-flex; /* Pour aligner icône et texte si besoin */
+    align-items: center;
+    justify-content: center;
+    width: 100%; /* Bouton pleine largeur */
+    background-color: var(--agent-primary-color);
+    color: #ffffff;
+    border: none;
+    border-radius: 0.5rem; /* 8px */
+    padding: 0.75rem 1.5rem; /* 12px 24px */
+    font-weight: 500;
+    font-size: 0.95rem;
+    cursor: pointer;
+    text-align: center;
+    text-decoration: none; /* Au cas où utilisé comme lien */
+    transition: background-color 0.2s ease-out, box-shadow 0.2s ease-out;
+    outline: none; /* Pour le focus */
+  }
+  
+  .widget-card-action .agent-button:hover {
+    background-color: var(--agent-primary-hover);
+  }
+  
+  /* Accessibilité: Style de focus visible */
+  .widget-card-action .agent-button:focus-visible {
+    box-shadow: var(--agent-focus-ring);
+    background-color: var(--agent-primary-hover);
+  }
+  
+  .widget-card-action .agent-button:active {
+    transform: scale(0.98); /* Effet d'appui léger */
+  }
+  
+  /* --- Responsive Design --- */
+  
+  /* Tablettes et petits écrans */
+  @media (max-width: 1024px) {
+    .accueil-agent-container {
+      padding: 1.5rem;
+    }
+    .agent-widgets-grid {
+      /* Peut-être 2 colonnes max sur tablette */
+      grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+      gap: 1.5rem;
+    }
+    .accueil-agent-title {
+      font-size: 2rem;
+    }
+  }
+  
+  /* Mobiles */
+  @media (max-width: 767px) {
+    .accueil-agent-container {
+      padding: 1rem;
+    }
+    .accueil-agent-header {
+      margin-bottom: 1.5rem;
+      padding-bottom: 1rem;
+    }
+    .accueil-agent-title {
+      font-size: 1.75rem; /* 28px */
+    }
+    .accueil-agent-subtitle {
+      font-size: 1rem; /* 16px */
+    }
+    .agent-widgets-grid {
+      grid-template-columns: 1fr; /* Une seule colonne */
+      gap: 1rem;
+    }
+    .agent-widget-card {
+      padding: 1.25rem;
+    }
+    .widget-card-title {
+      font-size: 1.125rem; /* 18px */
+    }
+  }
+  
+  /* --- SEO & Documentation ---
+    - Ce fichier CSS structure l'apparence de l'accueil agent.
+    - Utilise des variables CSS pour la cohérence et la facilité de maintenance.
+    - Design responsive (Mobile-first ou Desktop-first adapté ici).
+    - Styles de focus visibles pour l'accessibilité (`:focus-within`, `:focus-visible`).
+    - Les couleurs doivent être vérifiées pour le contraste WCAG AA/AAA dans le contexte final.
+    - La sémantique HTML (dans le JSX) est cruciale pour le SEO et l'accessibilité (titres hN, landmarks, etc.).
+    - Ce CSS est conçu pour être utilisé avec le composant `AccueilAgent.jsx`.
+  */

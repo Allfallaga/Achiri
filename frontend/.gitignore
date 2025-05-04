@@ -1,41 +1,85 @@
-# See https://help.github.com/articles/ignoring-files/ for more about ignoring files.
+# .gitignore – Achiri
+# Optimisé pour sécurité, accessibilité, compatibilité mobile/web, SEO, CI/CD, extensions futures
 
-# dependencies
+# Dépendances
 /node_modules
 /.pnp
 .pnp.js
 
-# testing
+# Tests & couverture
 /coverage
+/jest-coverage
+/test-results
+*.spec.js
+*.test.js.snap
 
-# production
+# Production & builds
 /build
+/dist
+/.next
+/out
+/.cache
+.cache/
+.next/
+*.cache
 
-# misc
-.DS_Store
+# Environnements & secrets
+.env
+.env.*
+!.env.example
 .env.local
 .env.development.local
 .env.test.local
 .env.production.local
 
+# Logs & debug
 npm-debug.log*
 yarn-debug.log*
 yarn-error.log*
+logs
+*.log
 
 # IDE / Editor
 .vscode/
 .idea/
 *.swp
+*.sublime-workspace
+*.sublime-project
 
-# OS
+# OS & fichiers temporaires
+.DS_Store
 Thumbs.db
 ehthumbs.db
 *.bak
+*.tmp
+*.temp
 
-# Logs
-logs
-*.log
+# Artifacts optionnels
+*.tgz
+*.zip
 
-# Optional: build artifacts
-*.cache
-.cache/
+# Storybook & docs
+/storybook-static
+*.story.js
+*.stories.js
+*.stories.jsx
+*.stories.tsx
+
+# Lint & format
+.eslintcache
+.prettiercache
+
+# Images générées
+*.png
+*.jpg
+*.jpeg
+*.gif
+*.webp
+
+# Extensions futures (badges, analytics, monitoring, etc)
+# Ajoutez ici tout fichier ou dossier à ignorer pour les prochaines fonctionnalités
+
+# Documentation :
+# - Ce fichier protège la sécurité, la confidentialité, la performance et la propreté du repo.
+# - Prêt pour extensions (multi-langues, dark mode, analytics, badges, notifications…).
+# - Documentez toute modification majeure ici.

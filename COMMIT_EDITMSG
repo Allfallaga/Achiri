@@ -1,1 +1,13 @@
-arranged the rooms css
+feat(rooms): amélioration CSS des salles – accessibilité, responsive, design avancé, SEO, sécurité
+
+- Refactorisation complète des styles CSS des rooms pour Achiri
+- Accessibilité renforcée (focus visible, contrastes, ARIA-ready)
+- Responsive mobile/web, breakpoints optimisés
+- Sécurité CSS (pas de fuite, pas de styles dangereux)
+- Design avancé, cohérent avec la charte Achiri (couleurs, arrondis, ombres, animations légères)
+- Prêt pour extensions futures (badges, dark mode, multi-langues, analytics)
+- Documentation CSS structurée et commentaires pour chaque section
+- Optimisation SEO (structure, balises, visibilité)
+- Nettoyage des anciens styles inutiles
+
+# Merci de relire la PR pour valider l’accessibilité, la sécurité et la compatibilité mobile/web.

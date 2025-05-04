@@ -1,40 +1,79 @@
-node_modules
+# .gitignore – Achiri (racine)
+# Optimisé pour sécurité, accessibilité, compatibilité mobile/web, SEO, CI/CD, extensions futures
+
+# Dépendances & builds
+node_modules/
+dist/
+build/
+.cache/
+*.cache
+*.tsbuildinfo
+
+# Environnements & secrets
 .env
+.env.*
 .env.local
 .env.development.local
 .env.test.local
 .env.production.local
-dist
-build
-coverage
-.DS_Store
+*.local
+
+# Logs & debug
 *.log
+*.log.*
 npm-debug.log*
 yarn-debug.log*
 yarn-error.log*
-.vscode
-.idea
+logs/
+*.pid
+*.pid.lock
+
+# IDE / Editor
+.vscode/
+.idea/
+*.sublime-workspace
+*.sublime-project
+*.code-workspace
 *.swp
 *.swo
 *.tmp
 *.bak
-*.cache
-*.tgz
 *.orig
 *.rej
-*.sass-cache
-*.eslintcache
-*.test-results
-*.tsbuildinfo
+
+# OS & fichiers temporaires
+.DS_Store
+Thumbs.db
+ehthumbs.db
 *.iml
-*.pid
-*.seed
-*.pid.lock
+
+# Tests & couverture
+coverage/
+*.test-results
+*.test.js.snap
+jest-coverage/
+test-results/
+
+# Lint & format
+.eslintcache
+.sass-cache
+
+# Artifacts optionnels
+*.tgz
+*.zip
+*.tar.gz
+*.7z
+*.rar
+*.bak
+
+# BDD & fichiers sensibles
 *.sqlite
 *.sqlite3
 *.db
 *.db-journal
-*.log.*
+*.seed
+
+# Certificats & clés
 *.crt
 *.pem
 *.key
@@ -42,46 +81,50 @@ yarn-error.log*
 *.pfx
 *.cert
 *.csr
-*.sublime-workspace
-*.sublime-project
-*.code-workspace
-*.local
-*.env.*
-/public/static
-/public/assets
-/public/*.map
-/public/*.zip
-/public/*.tar.gz
-/public/*.7z
-/public/*.rar
-/public/*.bak
-/public/*.tmp
-/public/*.log
-/public/*.swp
-/public/*.swo
-/public/*.orig
-/public/*.rej
-/public/*.cache
-/public/*.test-results
-/public/*.tsbuildinfo
-/public/*.iml
-/public/*.pid
-/public/*.seed
-/public/*.pid.lock
-/public/*.sqlite
-/public/*.sqlite3
-/public/*.db
-/public/*.db-journal
-/public/*.log.*
-/public/*.crt
-/public/*.pem
-/public/*.key
-/public/*.p12
-/public/*.pfx
-/public/*.cert
-/public/*.csr
-/public/*.sublime-workspace
-/public/*.sublime-project
-/public/*.code-workspace
-/public/*.local
-/public/*.env.*
+
+# Public (assets, maps, archives, logs, temp)
+public/static/
+public/assets/
+public/*.map
+public/*.zip
+public/*.tar.gz
+public/*.7z
+public/*.rar
+public/*.bak
+public/*.tmp
+public/*.log
+public/*.swp
+public/*.swo
+public/*.orig
+public/*.rej
+public/*.cache
+public/*.test-results
+public/*.tsbuildinfo
+public/*.iml
+public/*.pid
+public/*.pid.lock
+public/*.sqlite
+public/*.sqlite3
+public/*.db
+public/*.db-journal
+public/*.log.*
+public/*.crt
+public/*.pem
+public/*.key
+public/*.p12
+public/*.pfx
+public/*.cert
+public/*.csr
+public/*.sublime-workspace
+public/*.sublime-project
+public/*.code-workspace
+public/*.local
+public/*.env.*
+
+# Extensions futures (badges, analytics, monitoring, PWA, etc)
+# Ajoutez ici tout fichier ou dossier à ignorer pour les prochaines fonctionnalités
+
+# Documentation :
+# - Ce fichier protège la sécurité, la confidentialité, la performance et la propreté du repo.
+# - Prêt pour extensions (multi-langues, dark mode, analytics, badges, notifications…).
+# - Documentez toute modification majeure ici.

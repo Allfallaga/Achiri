@@ -1,0 +1,286 @@
+/* Achiri Virtual Classroom – Design avancé, accessibilité, responsive, sécurité, SEO, dark mode */
+
+/* Container */
+.virtual-classroom-container,
+.virtual-classroom-list-container,
+.virtual-classroom-detail-container {
+  box-shadow: 0 4px 24px 0 rgba(0,0,0,0.08);
+  background: #fff;
+  border-radius: 16px;
+  padding: 2rem;
+  margin: 2rem auto;
+  max-width: 700px;
+  transition: background 0.3s, color 0.3s;
+  font-family: 'Segoe UI', Arial, sans-serif;
+  outline: none;
+  color: #222;
+}
+
+/* Dark mode */
+.virtual-classroom-container.dark,
+.virtual-classroom-list-container.dark,
+.virtual-classroom-detail-container.dark {
+  background: #232b3b !important;
+  color: #ffe082 !important;
+}
+.virtual-classroom-container.dark .course-item,
+.virtual-classroom-list-container.dark .classroom-item,
+.virtual-classroom-detail-container.dark input,
+.virtual-classroom-detail-container.dark textarea {
+  background: #181f2a !important;
+  color: #ffe082 !important;
+}
+.virtual-classroom-container.dark .course-detail,
+.virtual-classroom-detail-container.dark {
+  background: #232b3b !important;
+  color: #ffe082 !important;
+}
+
+/* Course list */
+.course-list {
+  margin-top: 1rem;
+}
+.course-item,
+.classroom-item {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  background: #f9fafb;
+  border-radius: 8px;
+  padding: 1rem;
+  margin-bottom: 0.5rem;
+  cursor: pointer;
+  transition: box-shadow 0.2s, background 0.2s;
+  border-left: 4px solid #2563eb;
+  outline: none;
+  color: #222;
+}
+.course-item:hover,
+.course-item:focus,
+.classroom-item:hover,
+.classroom-item:focus {
+  background: #e0e7ff;
+  box-shadow: 0 2px 8px 0 rgba(37,99,235,0.08);
+  outline: 2px solid #2563eb;
+}
+.course-item .font-semibold,
+.classroom-item .font-semibold {
+  font-size: 1.1em;
+  font-weight: 600;
+}
+
+/* Course detail */
+.course-detail {
+  margin-top: 1rem;
+}
+.course-detail video {
+  width: 100%;
+  border-radius: 8px;
+  margin-bottom: 1rem;
+  background: #000;
+}
+
+/* Quiz */
+.course-detail form,
+.virtual-classroom-detail-container form.quiz-form {
+  margin-top: 1rem;
+}
+.course-detail input[type="text"],
+.virtual-classroom-detail-container input[type="text"] {
+  border: 1px solid #d1d5db;
+  border-radius: 6px;
+  padding: 6px 10px;
+  font-size: 1em;
+  width: 100%;
+  background: #fff;
+  transition: border 0.2s;
+  color: #222;
+}
+.course-detail input[type="text"]:focus,
+.virtual-classroom-detail-container input[type="text"]:focus {
+  border-color: #2563eb;
+  outline: none;
+}
+.course-detail button[type="submit"],
+.virtual-classroom-detail-container button[type="submit"].quiz-submit {
+  margin-top: 0.5rem;
+  background: #2563eb;
+  color: #fff;
+  border: none;
+  border-radius: 6px;
+  padding: 0.6em 1.5em;
+  font-weight: bold;
+  font-size: 1em;
+  cursor: pointer;
+  transition: background 0.2s;
+}
+.course-detail button[type="submit"]:hover,
+.course-detail button[type="submit"]:focus,
+.virtual-classroom-detail-container button[type="submit"].quiz-submit:hover,
+.virtual-classroom-detail-container button[type="submit"].quiz-submit:focus {
+  background: #1e40af;
+  outline: 2px solid #2563eb;
+}
+
+/* Accessibility info */
+.accessibility-info {
+  margin-top: 1.5rem;
+  font-size: 0.98em;
+  background: #eff6ff;
+  border-radius: 8px;
+  padding: 0.8rem 1rem;
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  color: #1976d2;
+}
+
+/* Chat */
+.virtual-classroom-detail-container form input[type="text"] {
+  border: 1px solid #d1d5db;
+  border-radius: 6px;
+  padding: 8px 12px;
+  font-size: 1em;
+  background: #fff;
+  transition: border 0.2s;
+  color: #222;
+}
+.virtual-classroom-detail-container form input[type="text"]:focus {
+  border-color: #1976d2;
+  outline: none;
+}
+.virtual-classroom-detail-container form button[type="submit"] {
+  background: #43a047;
+  color: #fff;
+  border: none;
+  border-radius: 6px;
+  padding: 0.6em 1.2em;
+  font-weight: bold;
+  font-size: 1em;
+  cursor: pointer;
+  transition: background 0.2s;
+  display: flex;
+  align-items: center;
+  gap: 6px;
+}
+.virtual-classroom-detail-container form button[type="submit"]:hover,
+.virtual-classroom-detail-container form button[type="submit"]:focus {
+  background: #388e3c;
+  outline: 2px solid #43a047;
+}
+
+/* Focus visible pour accessibilité */
+.course-item:focus-visible,
+.classroom-item:focus-visible,
+.course-detail button[type="submit"]:focus-visible,
+.virtual-classroom-detail-container form button[type="submit"]:focus-visible {
+  outline: 2px solid #1976d2;
+  outline-offset: 2px;
+}
+
+/* Responsive */
+@media (max-width: 700px) {
+  .virtual-classroom-container,
+  .virtual-classroom-list-container,
+  .virtual-classroom-detail-container {
+    padding: 1rem;
+    max-width: 98vw;
+    font-size: 1em;
+  }
+}
+@media (max-width: 600px) {
+  .course-item,
+  .classroom-item {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 0.5rem;
+  }
+  .course-detail video {
+    height: 180px;
+  }
+  .virtual-classroom-detail-container {
+    padding: 0.7rem;
+  }
+}
+
+/* SEO & accessibilité */
+.virtual-classroom-container,
+.virtual-classroom-list-container,
+.virtual-classroom-detail-container {
+  /* Pour lecteurs d'écran et navigation clavier */
+  outline: none;
+}
+
+/* Footer */
+.virtual-classroom-container footer,
+.virtual-classroom-list-container footer,
+.virtual-classroom-detail-container footer {
+  margin-top: 2rem;
+  color: #888;
+  font-size: 0.93em;
+  text-align: center;
+}
+
+/* Animation légère sur apparition */
+@media (prefers-reduced-motion: no-preference) {
+  .virtual-classroom-container,
+  .virtual-classroom-list-container,
+  .virtual-classroom-detail-container {
+    animation: fadeInUp 0.6s cubic-bezier(.23,1.01,.32,1) both;
+  }
+  @keyframes fadeInUp {
+    from {
+      opacity: 0;
+      transform: translateY(30px);
+    }
+    to {
+      opacity: 1;
+      transform: translateY(0);
+    }
+  }
+}
+
+/* Boutons d'action */
+.virtual-classroom-container button,
+.virtual-classroom-list-container button,
+.virtual-classroom-detail-container button {
+  transition: background 0.2s, color 0.2s;
+}
+
+/* Scores */
+.virtual-classroom-detail-container ul {
+  list-style: disc inside;
+  margin: 0.5em 0 0 0;
+  padding: 0;
+}
+
+/* Chat messages */
+.virtual-classroom-detail-container .chat-messages {
+  background: #f9fafb;
+  border: 1px solid #e3e8ef;
+  border-radius: 8px;
+  padding: 10px 12px;
+  max-height: 120px;
+  overflow-y: auto;
+  margin-bottom: 8px;
+  color: #222;
+}
+.virtual-classroom-detail-container.dark .chat-messages {
+  background: #181f2a;
+  color: #ffe082;
+}
+
+/* Utilisateur courant en gras */
+.virtual-classroom-detail-container .chat-messages .me {
+  font-weight: 600;
+  color: #1976d2;
+}
+.virtual-classroom-detail-container.dark .chat-messages .me {
+  color: #ffe082;
+}
+
+/* Documentation :
+  - Design avancé, branding Achiri, mobile first, accessibilité (focus, contrastes, aria), SEO ready.
+  - Sécurité : pas d’info sensible, feedback utilisateur, contrôle clavier.
+  - Prêt pour extensions futures (badges, overlay, analytics, IA…).
+*/

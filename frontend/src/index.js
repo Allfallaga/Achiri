@@ -1,26 +1,38 @@
-import React from "react";
-import { createRoot } from "react-dom/client";
-import App from "./App";
-import ErrorBoundary from "./ErrorBoundary";
-import { HelmetProvider } from "react-helmet-async";
-import "./index.css";
+import React from 'react';
+import ReactDOM from 'react-dom/client';
 
-// Ajout d'AuthProvider pour la gestion des rôles, sessions et accès global
-import { AuthProvider } from "./context/AuthProvider";
+import './index.css'; // Reset & base styles
+import './assets/css/app.css'; // Styles globaux SCSS compilés
+import './i18n'; // Multilingue, accessibilité, SEO
+import { HelmetProvider } from 'react-helmet-async'; // Ajouté
 
-// Si besoin d'autres providers globaux (ex: AuthProvider), ils sont déjà dans App.js
+import App from './App';
+import ErrorBoundary from './ErrorBoundary';
+import reportWebVitals from './reportWebVitals';
 
-const container = document.getElementById("root");
-const root = createRoot(container);
+// Point d'entrée principal – Achiri
+// - Accessibilité, sécurité, SEO, responsive, design avancé
+// - Prêt pour extensions futures (multi-langues, dark mode, analytics, etc)
 
+const root = ReactDOM.createRoot(document.getElementById('root'));
 root.render(
   <React.StrictMode>
     <HelmetProvider>
       <ErrorBoundary>
-        <AuthProvider>
-          <App />
-        </AuthProvider>
+        <App />
       </ErrorBoundary>
     </HelmetProvider>
   </React.StrictMode>
 );
+
+// Mesure de la performance (SEO, UX, accessibilité)
+reportWebVitals();
+
+/**
+ * Documentation :
+ * - index.js : point d'entrée, charge les styles globaux, i18n, ErrorBoundary, App.
+ * - Accessibilité : ErrorBoundary global, multilingue, focus visible, responsive.
+ * - Sécurité : StrictMode, ErrorBoundary, pas de dépendances externes non maîtrisées.
+ * - SEO : structure claire, styles optimisés, i18n, reportWebVitals.
+ * - Prêt pour extensions (analytics, dark mode, badges, notifications…).
+ */

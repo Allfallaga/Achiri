@@ -1,0 +1,262 @@
+/* ==========================================================================
+   Global Stylesheet for Achiri Application
+   ========================================================================== */
+
+/* --- Import Variables --- */
+/* Ensure variables.css defines colors, fonts, spacing, transitions etc. */
+@import '../styles/variables.css'; /* Chemin à vérifier */
+
+/* --- CSS Reset & Sensible Defaults --- */
+*,
+*::before,
+*::after {
+  box-sizing: border-box; /* Apply box-sizing universally */
+  margin: 0;             /* Remove default margins */
+  padding: 0;            /* Remove default padding */
+  -webkit-font-smoothing: antialiased; /* Improve font rendering on WebKit */
+  -moz-osx-font-smoothing: grayscale;  /* Improve font rendering on Firefox */
+}
+
+html {
+  scroll-behavior: smooth; /* Enable smooth scrolling for anchor links */
+  /* Set base font size for easier rem calculations, adjust as needed */
+  font-size: 100%; /* Usually 16px */
+  -webkit-text-size-adjust: 100%; /* Prevent font scaling in landscape on iOS */
+}
+
+body {
+  font-family: var(--font-main, 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif);
+  background-color: var(--global-bg, #f8fafc); /* Use variable for background */
+  color: var(--global-text, #1f2937);       /* Use variable for text color */
+  line-height: var(--line-height-base, 1.6);
+  min-height: 100vh;
+  text-rendering: optimizeSpeed; /* Prioritize speed, can be optimizeLegibility if needed */
+}
+
+/* Improve media defaults */
+img, picture, video, canvas, svg {
+  display: block;
+  max-width: 100%;
+}
+
+/* Remove default list styles */
+ul, ol {
+  list-style: none;
+}
+
+/* --- Typography --- */
+h1, h2, h3, h4, h5, h6 {
+  font-family: var(--font-headings, var(--font-main)); /* Optional heading font */
+  font-weight: var(--font-weight-bold, 700);
+  line-height: var(--line-height-headings, 1.3);
+  color: var(--heading-color, var(--global-text)); /* Heading color variable */
+  margin-bottom: 0.75em; /* Default spacing below headings */
+}
+
+/* Define base heading sizes (can be overridden by components) */
+h1 { font-size: clamp(1.75rem, 1.5rem + 1.25vw, 2.5rem); } /* Responsive font size */
+h2 { font-size: clamp(1.5rem, 1.3rem + 1vw, 2rem); }
+h3 { font-size: clamp(1.25rem, 1.1rem + 0.75vw, 1.75rem); }
+h4 { font-size: clamp(1.1rem, 1rem + 0.5vw, 1.3rem); }
+
+p {
+  margin-bottom: 1em; /* Default spacing below paragraphs */
+  max-width: var(--paragraph-max-width, 75ch); /* Improve readability */
+}
+
+/* --- Links --- */
+a {
+  color: var(--link-color, #2563eb); /* Use variable */
+  text-decoration: none; /* Remove underline by default, add on hover/focus */
+  transition: color var(--transition-base, 0.2s ease);
+  outline: none; /* Base outline removal, rely on :focus-visible */
+}
+
+a:hover {
+  color: var(--link-hover-color, #1e40af); /* Use variable */
+  text-decoration: underline;
+}
+
+/* --- Accessibility: Visible Focus --- */
+/* Modern focus styling for keyboard users */
+:focus-visible {
+  outline: var(--focus-outline-width, 2px) solid var(--focus-outline-color, #2563eb);
+  outline-offset: var(--focus-outline-offset, 2px);
+  border-radius: var(--focus-outline-radius, 2px); /* Optional: slightly round the outline */
+}
+/* Remove default outline only when :focus-visible is supported */
+:focus:not(:focus-visible) {
+  outline: none;
+}
+
+
+/* --- Forms Base Styles --- */
+button,
+input,
+select,
+textarea {
+  font-family: inherit; /* Inherit font from body */
+  font-size: var(--font-size-base, 1rem);
+  line-height: var(--line-height-base, 1.6);
+  color: var(--input-text-color, var(--global-text));
+  background-color: var(--input-bg, #ffffff);
+  border: 1px solid var(--input-border-color, #d1d5db);
+  border-radius: var(--border-radius-md, 0.375rem); /* 6px */
+  padding: 0.6em 0.9em; /* Consistent padding */
+  transition: border-color var(--transition-base, 0.2s ease),
+              box-shadow var(--transition-base, 0.2s ease);
+}
+
+/* Remove default appearance for specific elements */
+input[type="search"]::-webkit-search-decoration,
+input[type="search"]::-webkit-search-cancel-button,
+input[type="search"]::-webkit-search-results-button,
+input[type="search"]::-webkit-search-results-decoration {
+  -webkit-appearance: none;
+}
+
+textarea {
+  resize: vertical; /* Allow vertical resize only */
+  min-height: 80px;
+}
+
+select {
+  /* Add custom arrow or use library for better styling */
+  appearance: none;
+  background-image: var(--select-arrow, url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' fill='none' viewBox='0 0 20 20'%3E%3Cpath stroke='%236b7280' stroke-linecap='round' stroke-linejoin='round' stroke-width='1.5' d='M6 8l4 4 4-4'/%3E%3C/svg%3E"));
+  background-position: right 0.7em top 50%;
+  background-repeat: no-repeat;
+  background-size: 1.2em auto;
+  padding-right: 2.5em; /* Space for the arrow */
+}
+
+/* --- Buttons Base Styles --- */
+button {
+  cursor: pointer;
+  background-color: var(--button-primary-bg, #2563eb);
+  color: var(--button-primary-text, #ffffff);
+  border: 1px solid transparent; /* Maintain layout consistency */
+  font-weight: var(--font-weight-medium, 500);
+  padding: 0.65em 1.5em; /* Slightly adjusted padding */
+  text-align: center;
+  vertical-align: middle;
+  user-select: none; /* Prevent text selection on buttons */
+  transition: background-color var(--transition-base, 0.2s ease),
+              border-color var(--transition-base, 0.2s ease),
+              color var(--transition-base, 0.2s ease),
+              opacity var(--transition-base, 0.2s ease),
+              box-shadow var(--transition-base, 0.2s ease);
+}
+
+button:hover {
+  background-color: var(--button-primary-hover-bg, #1e40af);
+  border-color: transparent;
+}
+
+button:disabled,
+button[disabled] { /* More specific selector */
+  opacity: var(--opacity-disabled, 0.6);
+  cursor: not-allowed;
+  background-color: var(--button-disabled-bg, #9ca3af);
+  color: var(--button-disabled-text, #e5e7eb);
+  border-color: transparent;
+}
+
+/* --- Code Blocks --- */
+code, pre {
+  font-family: var(--font-mono, 'SFMono-Regular', Consolas, 'Liberation Mono', Menlo, Courier, monospace);
+  background-color: var(--code-bg, #f3f4f6);
+  color: var(--code-text, #111827);
+  padding: 0.2em 0.4em;
+  border-radius: var(--border-radius-sm, 0.25rem); /* 4px */
+  font-size: 0.9em; /* Slightly smaller */
+  border: 1px solid var(--code-border-color, #e5e7eb);
+}
+
+pre {
+  padding: 1em;
+  overflow-x: auto; /* Allow horizontal scrolling for long code lines */
+  white-space: pre;
+}
+
+/* --- Accessibility Helpers --- */
+/* Visually hide content but keep it accessible to screen readers */
+.sr-only {
+  position: absolute !important;
+  width: 1px !important;
+  height: 1px !important;
+  padding: 0 !important;
+  margin: -1px !important; /* Prevent potential layout shifts */
+  overflow: hidden !important;
+  clip: rect(0, 0, 0, 0) !important;
+  white-space: nowrap !important; /* Prevent line breaks */
+  border: 0 !important;
+}
+
+/* --- Basic Layout Container (Optional) --- */
+.container {
+  width: 100%;
+  max-width: var(--container-max-width, 1200px); /* Define max width */
+  margin-left: auto;
+  margin-right: auto;
+  padding-left: var(--container-padding, 1rem);
+  padding-right: var(--container-padding, 1rem);
+}
+
+/* --- Responsive Adjustments --- */
+@media (max-width: 768px) { /* Tablet breakpoint */
+  html {
+    font-size: 93.75%; /* 15px base if 16px was 100% */
+  }
+  /* Adjust container padding for smaller screens */
+  .container {
+    --container-padding: 1rem;
+  }
+}
+
+@media (max-width: 480px) { /* Mobile breakpoint */
+  html {
+    font-size: 87.5%; /* 14px base if 16px was 100% */
+  }
+  /* Further reduce padding on very small screens */
+  .container {
+    --container-padding: 0.75rem;
+  }
+  /* Ensure buttons/inputs are easily tappable */
+  button, input, select, textarea {
+    font-size: 1rem; /* Prevent zooming on focus in iOS */
+  }
+}
+
+/* --- Print Styles --- */
+@media print {
+  body {
+    background-color: #fff;
+    color: #000;
+  }
+  /* Hide elements not relevant for printing */
+  header, footer, nav, aside, form button {
+    display: none !important;
+  }
+  /* Ensure links are visible when printed */
+  a {
+    color: #000;
+    text-decoration: underline;
+  }
+  /* Expand content */
+  main, .container {
+    max-width: none;
+    padding: 0;
+    margin: 0;
+  }
+}
+
+/* --- SEO & Documentation ---
+  - This global stylesheet provides base styles, resets, and utilities for Achiri.
+  - Relies heavily on CSS variables defined in `variables.css` for theming and consistency.
+  - Includes modern CSS reset, responsive typography, accessible focus styles, and basic form styling.
+  - Uses `clamp()` for fluid typography and `:focus-visible` for better focus management.
+  - Basic responsive adjustments and print styles included.
+  - Ensure color variables provide sufficient contrast (WCAG AA/AAA).
+  - Use semantic HTML structure throughout the application.
+*/

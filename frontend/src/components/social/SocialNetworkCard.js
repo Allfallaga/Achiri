@@ -1,18 +1,23 @@
-import React, { useState } from 'react';
+import React, { useState, useRef, useEffect } from 'react';
 
 /**
- * SocialNetworkCard
- * Affiche une carte pour connecter, vérifier et booster un réseau social.
+ * SocialNetworkCard – Achiri
+ * Carte de connexion, vérification et boost d'un réseau social.
+ * - UX avancée, accessibilité, sécurité, responsive, SEO friendly, design Achiri.
+ * - Fonctionnalités : édition d’URL, vérification, boost, feedback, rôles, focus, couleurs, responsive.
+ * - Prêt pour extensions futures (statut, analytics, dark mode, overlay, IA, badges, notifications, etc).
+ *
  * Props :
  *   - name : nom du réseau (ex: "Facebook")
  *   - icon : emoji ou icône
  *   - profileUrl : URL du profil (state parent)
  *   - status : "non-verifie" | "en-attente" | "verifie"
  *   - onUrlChange(url)
- *   - onVerify()
+ *   - onVerify(force)
  *   - onBoost()
  *   - role : "user" | "admin" | "owner"
  */
+
 const statusColors = {
   "non-verifie": "#bdbdbd",
   "en-attente": "#fbc02d",
@@ -35,10 +40,33 @@ function SocialNetworkCard({
   role = "user"
 }) {
   const [url, setUrl] = useState(profileUrl || "");
+  const [feedback, setFeedback] = useState("");
+  const inputRef = useRef();
+  const cardRef = useRef();
+
+  // Accessibilité : focus auto sur la carte à l'arrivée
+  useEffect(() => {
+    if (cardRef.current) cardRef.current.focus();
+  }, []);
 
   const handleChange = e => {
     setUrl(e.target.value);
     onUrlChange && onUrlChange(e.target.value);
+    setFeedback("");
+  };
+
+  const handleVerify = (force) => {
+    if (onVerify) {
+      onVerify(force);
+      setFeedback(force ? "Vérification forcée envoyée." : "Demande de vérification envoyée.");
+    }
+  };
+
+  const handleBoost = () => {
+    if (onBoost) {
+      onBoost();
+      setFeedback("Boost demandé !");
+    }
   };
 
   return (
@@ -46,6 +74,7 @@ function SocialNetworkCard({
       className="social-network-card"
       aria-label={`Carte ${name}`}
       tabIndex={0}
+      ref={cardRef}
       style={{
         background: "#fff",
         borderRadius: 16,
@@ -55,8 +84,9 @@ function SocialNetworkCard({
         display: "flex",
         alignItems: "center",
         gap: 18,
-        minWidth: 320,
-        maxWidth: 520
+        minWidth: 260,
+        maxWidth: 520,
+        outline: "none"
       }}
     >
       <div
@@ -77,6 +107,7 @@ function SocialNetworkCard({
       <div style={{ flex: 1 }}>
         <div style={{ fontWeight: "bold", fontSize: 18, marginBottom: 6 }}>{name}</div>
         <input
+          ref={inputRef}
           type="url"
           placeholder={`URL de votre profil ${name}`}
           value={url}
@@ -92,8 +123,11 @@ function SocialNetworkCard({
             marginBottom: 8,
             background: status === "verifie" ? "#f5f5f5" : "#fff"
           }}
+          autoComplete="off"
+          spellCheck={false}
+          inputMode="url"
         />
-        <div style={{ display: "flex", alignItems: "center", gap: 10 }}>
+        <div style={{ display: "flex", alignItems: "center", gap: 10, flexWrap: "wrap" }}>
           <span style={{
             fontSize: 13,
             color: "#fff",
@@ -106,7 +140,7 @@ function SocialNetworkCard({
           </span>
           {status === "non-verifie" && (
             <button
-              onClick={onVerify}
+              onClick={() => handleVerify(false)}
               style={{
                 background: "linear-gradient(90deg, #1976d2 0%, #43a047 100%)",
                 color: "#fff",
@@ -124,7 +158,7 @@ function SocialNetworkCard({
           )}
           {status === "verifie" && (
             <button
-              onClick={onBoost}
+              onClick={handleBoost}
               style={{
                 background: "linear-gradient(90deg, #43a047 0%, #1976d2 100%)",
                 color: "#fff",
@@ -154,15 +188,28 @@ function SocialNetworkCard({
               }}
               title="Forcer la vérification (admin)"
               aria-label={`Forcer la vérification du profil ${name} (admin)`}
-              onClick={() => onVerify && onVerify("force")}
+              onClick={() => handleVerify(true)}
             >
               Forcer vérif
             </button>
           )}
         </div>
+        {feedback && (
+          <div aria-live="polite" style={{ color: "#43a047", marginTop: 8, fontSize: 14 }}>
+            {feedback}
+          </div>
+        )}
       </div>
     </div>
   );
 }
 
-export default SocialNetworkCard
+export default SocialNetworkCard;
+
+/**
+ * Documentation :
+ * - Carte réseau social : édition d’URL, vérification, boost, feedback, rôles, focus, couleurs, responsive.
+ * - Accessibilité : aria-labels, navigation clavier, responsive, SEO ready, live region.
+ * - Sécurité : pas d’info sensible, feedback utilisateur, contrôle clavier.
+ * - Design avancé, branding Achiri, mobile first, prêt pour extensions futures (statut, analytics, dark mode, overlay, IA, badges, notifications, etc).
+ */
