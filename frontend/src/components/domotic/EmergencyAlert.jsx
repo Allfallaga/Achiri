@@ -38,25 +38,29 @@ const EmergencyAlert = ({ userId }) => {
         borderRadius: 16,
         boxShadow: "0 2px 16px #d6303122",
         padding: "2rem",
-        outline: "none"
+        outline: "none",
       }}
       aria-label="Alerte d'urgence"
       tabIndex={0}
     >
-      <h2 style={{
-        color: "#d63031",
-        marginBottom: 12,
-        fontWeight: 700,
-        fontSize: "1.5em",
-        display: "flex",
-        alignItems: "center",
-        justifyContent: "center",
-        gap: 8
-      }}>
+      <h2
+        style={{
+          color: "#d63031",
+          marginBottom: 12,
+          fontWeight: 700,
+          fontSize: "1.5em",
+          display: "flex",
+          alignItems: "center",
+          justifyContent: "center",
+          gap: 8,
+        }}
+      >
         🚨 Alerte d'Urgence
       </h2>
       <p style={{ color: "#444", fontSize: "1.05em", marginBottom: 18 }}>
-        En cas de danger ou de besoin d'aide immédiate, cliquez sur le bouton ci-dessous.<br />
+        En cas de danger ou de besoin d'aide immédiate, cliquez sur le bouton
+        ci-dessous.
+        <br />
         Une alerte sera envoyée à vos contacts ou services d'urgence.
       </p>
       <button
@@ -74,7 +78,7 @@ const EmergencyAlert = ({ userId }) => {
           cursor: sending ? "not-allowed" : "pointer",
           boxShadow: "0 2px 12px #d6303122",
           letterSpacing: 1,
-          transition: "background 0.2s, box-shadow 0.2s"
+          transition: "background 0.2s, box-shadow 0.2s",
         }}
         aria-label="Envoyer une alerte d'urgence"
         aria-busy={sending}
@@ -89,7 +93,7 @@ const EmergencyAlert = ({ userId }) => {
             color: "#00b894",
             marginTop: 10,
             fontWeight: "bold",
-            fontSize: "1.08em"
+            fontSize: "1.08em",
           }}
           aria-live="polite"
         >
@@ -103,7 +107,10 @@ const EmergencyAlert = ({ userId }) => {
       )}
       {!sent && !sending && (
         <div style={{ color: "#888", fontSize: "0.97em", marginTop: 10 }}>
-          <span role="img" aria-label="info">ℹ️</span> Fonctionnalité simulée pour la démo.
+          <span role="img" aria-label="info">
+            ℹ️
+          </span>{" "}
+          Fonctionnalité simulée pour la démo.
         </div>
       )}
       <footer
@@ -111,10 +118,21 @@ const EmergencyAlert = ({ userId }) => {
           marginTop: 18,
           color: "#888",
           fontSize: "0.93em",
-          textAlign: "center"
+          textAlign: "center",
         }}
       >
-        <span role="img" aria-label="sécurité">🔒</span> Sécurisé | <span role="img" aria-label="accessibilité">♿</span> Accessible | <span role="img" aria-label="mobile">📱</span> Mobile/Web
+        <span role="img" aria-label="sécurité">
+          🔒
+        </span>{" "}
+        Sécurisé |{" "}
+        <span role="img" aria-label="accessibilité">
+          ♿
+        </span>{" "}
+        Accessible |{" "}
+        <span role="img" aria-label="mobile">
+          📱
+        </span>{" "}
+        Mobile/Web
       </footer>
     </section>
   );

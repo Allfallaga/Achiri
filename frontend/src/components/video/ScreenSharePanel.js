@@ -186,7 +186,8 @@ export default function ScreenSharePanel({
           </div>
         )}
         <div>
-          <strong>Conseil :</strong> Pour une meilleure expérience, partagez uniquement la fenêtre ou l’onglet nécessaire.
+          <strong>Conseil :</strong> Pour une meilleure expérience, partagez
+          uniquement la fenêtre ou l’onglet nécessaire.
         </div>
       </div>
     </div>

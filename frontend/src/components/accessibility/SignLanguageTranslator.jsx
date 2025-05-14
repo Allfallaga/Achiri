@@ -30,7 +30,7 @@ const SignLanguageTranslator = () => {
       }
     })();
     return () => {
-      if (stream) stream.getTracks().forEach(track => track.stop());
+      if (stream) stream.getTracks().forEach((track) => track.stop());
       setCameraActive(false);
     };
   }, []);
@@ -74,7 +74,7 @@ const SignLanguageTranslator = () => {
         padding: "2rem",
         outline: "none",
         color: darkMode ? "#ffe082" : "#222",
-        transition: "background 0.3s, color 0.3s"
+        transition: "background 0.3s, color 0.3s",
       }}
       aria-label="Traduction IA de la langue des signes"
       tabIndex={0}
@@ -87,24 +87,28 @@ const SignLanguageTranslator = () => {
           marginBottom: 14,
           display: "flex",
           alignItems: "center",
-          gap: 8
+          gap: 8,
         }}
         tabIndex={0}
         aria-label="Traduction Langue des Signes IA"
       >
-        <span role="img" aria-label="langue des signes">🤟</span>
+        <span role="img" aria-label="langue des signes">
+          🤟
+        </span>
         Traduction Langue des Signes IA
         <button
           type="button"
           onClick={handleDarkMode}
-          aria-label={darkMode ? "Désactiver le mode sombre" : "Activer le mode sombre"}
+          aria-label={
+            darkMode ? "Désactiver le mode sombre" : "Activer le mode sombre"
+          }
           style={{
             marginLeft: 12,
             background: "none",
             border: "none",
             color: darkMode ? "#ffe082" : "#1976d2",
             cursor: "pointer",
-            fontSize: 20
+            fontSize: 20,
           }}
           tabIndex={0}
         >
@@ -120,7 +124,7 @@ const SignLanguageTranslator = () => {
           borderRadius: 8,
           background: "#222",
           minHeight: 180,
-          outline: cameraActive ? "2px solid #1976d2" : "2px dashed #b71c1c"
+          outline: cameraActive ? "2px solid #1976d2" : "2px dashed #b71c1c",
         }}
         aria-label="Webcam en direct"
         tabIndex={0}
@@ -138,11 +142,15 @@ const SignLanguageTranslator = () => {
           border: "none",
           cursor: loading || !cameraActive ? "not-allowed" : "pointer",
           fontWeight: "bold",
-          transition: "background 0.2s"
+          transition: "background 0.2s",
         }}
         aria-label="Traduire le geste en texte"
       >
-        {loading ? "Analyse..." : cameraActive ? "Traduire le geste" : "Caméra inactive"}
+        {loading
+          ? "Analyse..."
+          : cameraActive
+            ? "Traduire le geste"
+            : "Caméra inactive"}
       </button>
       {translation && (
         <div
@@ -152,7 +160,7 @@ const SignLanguageTranslator = () => {
             borderRadius: 8,
             marginTop: 10,
             fontSize: "1.1em",
-            color: darkMode ? "#ffe082" : "#1976d2"
+            color: darkMode ? "#ffe082" : "#1976d2",
           }}
           aria-live="polite"
           tabIndex={0}
@@ -161,7 +169,11 @@ const SignLanguageTranslator = () => {
         </div>
       )}
       {error && (
-        <div style={{ color: "#b71c1c", marginTop: 10 }} role="alert" tabIndex={0}>
+        <div
+          style={{ color: "#b71c1c", marginTop: 10 }}
+          role="alert"
+          tabIndex={0}
+        >
           {error}
         </div>
       )}
@@ -170,10 +182,21 @@ const SignLanguageTranslator = () => {
           marginTop: 18,
           color: darkMode ? "#ffe082" : "#888",
           fontSize: "0.93em",
-          textAlign: "center"
+          textAlign: "center",
         }}
       >
-        <span role="img" aria-label="sécurité">🔒</span> Sécurisé | <span role="img" aria-label="accessibilité">♿</span> Accessible | <span role="img" aria-label="mobile">📱</span> Mobile/Web
+        <span role="img" aria-label="sécurité">
+          🔒
+        </span>{" "}
+        Sécurisé |{" "}
+        <span role="img" aria-label="accessibilité">
+          ♿
+        </span>{" "}
+        Accessible |{" "}
+        <span role="img" aria-label="mobile">
+          📱
+        </span>{" "}
+        Mobile/Web
       </footer>
       <style>{`
         .sign-language-translator:focus {

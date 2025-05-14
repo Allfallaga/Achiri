@@ -1,4 +1,4 @@
-import React from 'react';
+import React from "react";
 
 /**
  * ErrorBoundary – Achiri
@@ -35,43 +35,57 @@ class ErrorBoundary extends React.Component {
           aria-live="assertive"
           tabIndex={-1}
           style={{
-            color: '#e53935',
-            background: '#fff',
-            border: '1px solid #ffcdd2',
+            color: "#e53935",
+            background: "#fff",
+            border: "1px solid #ffcdd2",
             borderRadius: 14,
-            margin: '2rem auto',
+            margin: "2rem auto",
             maxWidth: 600,
             padding: 32,
             fontFamily: "'Segoe UI', Arial, sans-serif",
-            boxShadow: '0 2px 16px #e5393533',
-            outline: 'none'
+            boxShadow: "0 2px 16px #e5393533",
+            outline: "none",
           }}
           aria-label="Erreur critique – Achiri"
         >
-          <h2 style={{ color: '#e53935', marginTop: 0, fontSize: '1.5em' }}>
+          <h2 style={{ color: "#e53935", marginTop: 0, fontSize: "1.5em" }}>
             Une erreur est survenue
           </h2>
           <p>
-            Désolé, une erreur inattendue est survenue dans l’application.<br />
-            Essayez de recharger la page ou contactez le support si le problème persiste.
+            Désolé, une erreur inattendue est survenue dans l’application.
+            <br />
+            Essayez de recharger la page ou contactez le support si le problème
+            persiste.
           </p>
-          <details style={{ whiteSpace: 'pre-wrap', margin: '1em 0', color: '#b71c1c' }}>
-            {this.state.error && <summary style={{ cursor: 'pointer', fontWeight: 500 }}>Détails techniques</summary>}
+          <details
+            style={{
+              whiteSpace: "pre-wrap",
+              margin: "1em 0",
+              color: "#b71c1c",
+            }}
+          >
+            {this.state.error && (
+              <summary style={{ cursor: "pointer", fontWeight: 500 }}>
+                Détails techniques
+              </summary>
+            )}
             {this.state.error && <pre>{this.state.error.toString()}</pre>}
-            {this.state.errorInfo && <pre>{this.state.errorInfo.componentStack}</pre>}
+            {this.state.errorInfo && (
+              <pre>{this.state.errorInfo.componentStack}</pre>
+            )}
           </details>
           <button
             onClick={this.handleReload}
             style={{
-              background: '#1976d2',
-              color: '#fff',
-              border: 'none',
+              background: "#1976d2",
+              color: "#fff",
+              border: "none",
               borderRadius: 8,
-              padding: '0.7em 1.5em',
-              fontSize: '1em',
+              padding: "0.7em 1.5em",
+              fontSize: "1em",
               marginTop: 16,
-              cursor: 'pointer',
-              transition: 'background 0.2s, color 0.2s'
+              cursor: "pointer",
+              transition: "background 0.2s, color 0.2s",
             }}
             aria-label="Recharger la page"
             autoFocus

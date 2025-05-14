@@ -17,10 +17,14 @@ const instance = axios.create({
 
 // Intercepteur de requête pour logs/debug (désactiver en prod si besoin)
 instance.interceptors.request.use(
-  config => {
+  (config) => {
     if (process.env.NODE_ENV !== "production") {
-       
-      console.log("[Axios] Request:", config.method, config.url, config.data || "");
+      console.log(
+        "[Axios] Request:",
+        config.method,
+        config.url,
+        config.data || "",
+      );
     }
     // Accessibilité : header pour préférences utilisateur (ex : dark mode, langue)
     if (window && window.localStorage) {
@@ -29,17 +33,20 @@ instance.interceptors.request.use(
     }
     return config;
   },
-  error => Promise.reject(error)
+  (error) => Promise.reject(error),
 );
 
 // Intercepteur de réponse pour gestion centralisée des erreurs et feedback
 instance.interceptors.response.use(
-  response => response,
-  error => {
+  (response) => response,
+  (error) => {
     if (error.response) {
       if (process.env.NODE_ENV !== "production") {
-         
-        console.error("[Axios] Error:", error.response.status, error.response.data);
+        console.error(
+          "[Axios] Error:",
+          error.response.status,
+          error.response.data,
+        );
       }
       // Accessibilité : feedback sonore/visuel possible ici (extension future)
       // Sécurité : gestion des erreurs globales (401, 403, etc)
@@ -48,7 +55,7 @@ instance.interceptors.response.use(
       }
     }
     return Promise.reject(error);
-  }
+  },
 );
 
 export default instance;

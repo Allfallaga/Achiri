@@ -43,7 +43,7 @@ const Quiz = ({ classroomId, userId }) => {
 
   // Répondre à une question
   const handleAnswer = (qid, value) => {
-    setAnswers(prev => ({ ...prev, [qid]: value }));
+    setAnswers((prev) => ({ ...prev, [qid]: value }));
   };
 
   // Soumettre le quiz (simulation)
@@ -64,23 +64,24 @@ const Quiz = ({ classroomId, userId }) => {
     }, 700);
   };
 
-  if (loading) return (
-    <div
-      style={{
-        margin: "2rem auto",
-        padding: 24,
-        borderRadius: 12,
-        maxWidth: 500,
-        background: "#fafcff",
-        textAlign: "center",
-        color: "#1976d2",
-        fontWeight: 600
-      }}
-      aria-live="polite"
-    >
-      Chargement du quiz...
-    </div>
-  );
+  if (loading)
+    return (
+      <div
+        style={{
+          margin: "2rem auto",
+          padding: 24,
+          borderRadius: 12,
+          maxWidth: 500,
+          background: "#fafcff",
+          textAlign: "center",
+          color: "#1976d2",
+          fontWeight: 600,
+        }}
+        aria-live="polite"
+      >
+        Chargement du quiz...
+      </div>
+    );
   if (!quiz) return <div>Aucun quiz disponible.</div>;
 
   return (
@@ -93,7 +94,7 @@ const Quiz = ({ classroomId, userId }) => {
         maxWidth: 500,
         background: "#fafcff",
         outline: "none",
-        boxShadow: "0 2px 16px #1976d220"
+        boxShadow: "0 2px 16px #1976d220",
       }}
       aria-label="Quiz interactif IA"
       tabIndex={0}
@@ -105,62 +106,74 @@ const Quiz = ({ classroomId, userId }) => {
           color: "#1976d2",
           fontWeight: 700,
           fontSize: "1.3em",
-          outline: "none"
+          outline: "none",
         }}
         tabIndex={-1}
       >
         🤖 Quiz IA
       </h3>
-      {error && <div style={{ color: "#d63031", marginBottom: 10 }} role="alert">{error}</div>}
-      {success && <div style={{ color: "#00b894", marginBottom: 10 }} role="status">{success}</div>}
+      {error && (
+        <div style={{ color: "#d63031", marginBottom: 10 }} role="alert">
+          {error}
+        </div>
+      )}
+      {success && (
+        <div style={{ color: "#00b894", marginBottom: 10 }} role="status">
+          {success}
+        </div>
+      )}
       <form onSubmit={handleSubmit} aria-describedby="quiz-desc">
         <div id="quiz-desc" style={{ display: "none" }}>
           Répondez à toutes les questions puis soumettez le quiz.
         </div>
-        {quiz.questions && quiz.questions.map(q => (
-          <fieldset
-            key={q.id}
-            style={{
-              marginBottom: 18,
-              border: "none",
-              padding: 0
-            }}
-            aria-labelledby={`label-${q.id}`}
-          >
-            <legend
-              id={`label-${q.id}`}
+        {quiz.questions &&
+          quiz.questions.map((q) => (
+            <fieldset
+              key={q.id}
               style={{
-                fontWeight: "bold",
-                marginBottom: 6,
-                color: "#222"
+                marginBottom: 18,
+                border: "none",
+                padding: 0,
               }}
+              aria-labelledby={`label-${q.id}`}
             >
-              {q.text}
-            </legend>
-            {q.choices.map(choice => (
-              <label key={choice} style={{
-                marginRight: 16,
-                display: "inline-flex",
-                alignItems: "center",
-                cursor: "pointer",
-                fontSize: "1em"
-              }}>
-                <input
-                  type="radio"
-                  name={`q_${q.id}`}
-                  value={choice}
-                  checked={answers[q.id] === choice}
-                  onChange={() => handleAnswer(q.id, choice)}
-                  style={{ marginRight: 6 }}
-                  aria-checked={answers[q.id] === choice}
-                  aria-label={choice}
-                  required
-                />
-                {choice}
-              </label>
-            ))}
-          </fieldset>
-        ))}
+              <legend
+                id={`label-${q.id}`}
+                style={{
+                  fontWeight: "bold",
+                  marginBottom: 6,
+                  color: "#222",
+                }}
+              >
+                {q.text}
+              </legend>
+              {q.choices.map((choice) => (
+                <label
+                  key={choice}
+                  style={{
+                    marginRight: 16,
+                    display: "inline-flex",
+                    alignItems: "center",
+                    cursor: "pointer",
+                    fontSize: "1em",
+                  }}
+                >
+                  <input
+                    type="radio"
+                    name={`q_${q.id}`}
+                    value={choice}
+                    checked={answers[q.id] === choice}
+                    onChange={() => handleAnswer(q.id, choice)}
+                    style={{ marginRight: 6 }}
+                    aria-checked={answers[q.id] === choice}
+                    aria-label={choice}
+                    required
+                  />
+                  {choice}
+                </label>
+              ))}
+            </fieldset>
+          ))}
         <button
           type="submit"
           style={{
@@ -173,7 +186,7 @@ const Quiz = ({ classroomId, userId }) => {
             fontSize: "1.1em",
             cursor: "pointer",
             marginTop: 10,
-            transition: "background 0.2s"
+            transition: "background 0.2s",
           }}
           aria-label="Soumettre le quiz"
         >

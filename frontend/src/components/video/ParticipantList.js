@@ -38,7 +38,9 @@ export default function ParticipantList({
       </h2>
       <ul style={{ listStyle: "none", padding: 0, margin: 0 }}>
         {participants.length === 0 && (
-          <li style={{ color: "#888", fontStyle: "italic" }}>Aucun participant</li>
+          <li style={{ color: "#888", fontStyle: "italic" }}>
+            Aucun participant
+          </li>
         )}
         {participants.map((user) => (
           <li
@@ -50,7 +52,12 @@ export default function ParticipantList({
               padding: "7px 0",
               borderBottom: "1px solid #e3e3e3",
             }}
-            aria-current={currentUser && (user.id === currentUser.id || user.name === currentUser.name) ? "true" : undefined}
+            aria-current={
+              currentUser &&
+              (user.id === currentUser.id || user.name === currentUser.name)
+                ? "true"
+                : undefined
+            }
           >
             <span
               style={{
@@ -63,7 +70,8 @@ export default function ParticipantList({
               {user.name || user.id}
               {user.role === "owner" && <span title="Propriétaire"> ⭐</span>}
               {user.role === "admin" && <span title="Admin"> 🛡️</span>}
-              {user.id === currentUser?.id || user.name === currentUser?.name ? (
+              {user.id === currentUser?.id ||
+              user.name === currentUser?.name ? (
                 <span style={{ color: "#388e3c", marginLeft: 4 }}>(Vous)</span>
               ) : null}
             </span>

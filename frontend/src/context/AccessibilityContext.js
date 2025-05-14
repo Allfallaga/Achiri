@@ -32,18 +32,26 @@ const AccessibilityContext = createContext({
 });
 
 export function AccessibilityProvider({ children }) {
-  const [highContrast, setHighContrast] = useState(defaultSettings.highContrast);
+  const [highContrast, setHighContrast] = useState(
+    defaultSettings.highContrast,
+  );
   const [fontSize, setFontSize] = useState(defaultSettings.fontSize);
   const [darkMode, setDarkMode] = useState(defaultSettings.darkMode);
-  const [focusVisible, setFocusVisible] = useState(defaultSettings.focusVisible);
+  const [focusVisible, setFocusVisible] = useState(
+    defaultSettings.focusVisible,
+  );
   const [tts, setTTS] = useState(defaultSettings.tts);
   const [subtitles, setSubtitles] = useState(defaultSettings.subtitles);
-  const [signLanguage, setSignLanguage] = useState(defaultSettings.signLanguage);
+  const [signLanguage, setSignLanguage] = useState(
+    defaultSettings.signLanguage,
+  );
   const [language, setLanguage] = useState(defaultSettings.language);
 
   // Persistance locale (localStorage)
   useEffect(() => {
-    const saved = JSON.parse(localStorage.getItem("achiri-accessibility") || "{}");
+    const saved = JSON.parse(
+      localStorage.getItem("achiri-accessibility") || "{}",
+    );
     if (saved.highContrast !== undefined) setHighContrast(saved.highContrast);
     if (saved.fontSize) setFontSize(saved.fontSize);
     if (saved.darkMode !== undefined) setDarkMode(saved.darkMode);
@@ -66,9 +74,18 @@ export function AccessibilityProvider({ children }) {
         subtitles,
         signLanguage,
         language,
-      })
+      }),
     );
-  }, [highContrast, fontSize, darkMode, focusVisible, tts, subtitles, signLanguage, language]);
+  }, [
+    highContrast,
+    fontSize,
+    darkMode,
+    focusVisible,
+    tts,
+    subtitles,
+    signLanguage,
+    language,
+  ]);
 
   // Application des préférences au body (pour le CSS global)
   useEffect(() => {
@@ -80,7 +97,16 @@ export function AccessibilityProvider({ children }) {
     document.body.dataset.subtitles = subtitles ? "true" : "false";
     document.body.dataset.signLanguage = signLanguage ? "true" : "false";
     document.body.dataset.language = language;
-  }, [highContrast, fontSize, darkMode, focusVisible, tts, subtitles, signLanguage, language]);
+  }, [
+    highContrast,
+    fontSize,
+    darkMode,
+    focusVisible,
+    tts,
+    subtitles,
+    signLanguage,
+    language,
+  ]);
 
   return (
     <AccessibilityContext.Provider

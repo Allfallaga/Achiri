@@ -1,4 +1,4 @@
-import React from 'react';
+import React from "react";
 import { Link } from "react-router-dom";
 
 /**
@@ -14,7 +14,7 @@ import { Link } from "react-router-dom";
  *   - notifications : { [route]: number }
  */
 
-function Header({ title = 'Vidéo Chat Room', children, notifications = {} }) {
+function Header({ title = "Vidéo Chat Room", children, notifications = {} }) {
   // Liens principaux pour navigation rapide
   const navLinks = [
     { to: "/", label: "Accueil" },
@@ -33,23 +33,23 @@ function Header({ title = 'Vidéo Chat Room', children, notifications = {} }) {
     { to: "/creator-tools", label: "Creator Tools" },
     { to: "/moderation", label: "Modération" },
     { to: "/reseaux-sociaux", label: "Réseaux Sociaux" },
-    { to: "/social-interactions", label: "Interactions Sociales" }
+    { to: "/social-interactions", label: "Interactions Sociales" },
   ];
 
   return (
     <header
       className="header-achiri"
       style={{
-        background: 'linear-gradient(90deg, #1976d2 0%, #43a047 100%)',
-        color: '#fff',
-        padding: '1.5rem 2rem',
-        display: 'flex',
-        alignItems: 'center',
-        justifyContent: 'space-between',
-        borderRadius: '0 0 16px 16px',
-        boxShadow: '0 2px 8px rgba(0,0,0,0.08)',
-        marginBottom: '2rem',
-        flexWrap: 'wrap'
+        background: "linear-gradient(90deg, #1976d2 0%, #43a047 100%)",
+        color: "#fff",
+        padding: "1.5rem 2rem",
+        display: "flex",
+        alignItems: "center",
+        justifyContent: "space-between",
+        borderRadius: "0 0 16px 16px",
+        boxShadow: "0 2px 8px rgba(0,0,0,0.08)",
+        marginBottom: "2rem",
+        flexWrap: "wrap",
       }}
       aria-label="En-tête principal"
       tabIndex={0}
@@ -57,10 +57,10 @@ function Header({ title = 'Vidéo Chat Room', children, notifications = {} }) {
       <h1
         style={{
           margin: 0,
-          fontSize: '2rem',
+          fontSize: "2rem",
           letterSpacing: 1,
           fontWeight: 700,
-          textShadow: "0 2px 8px #1976d244"
+          textShadow: "0 2px 8px #1976d244",
         }}
         tabIndex={0}
       >
@@ -72,10 +72,10 @@ function Header({ title = 'Vidéo Chat Room', children, notifications = {} }) {
           display: "flex",
           gap: "1.2rem",
           alignItems: "center",
-          flexWrap: "wrap"
+          flexWrap: "wrap",
         }}
       >
-        {navLinks.map(link => (
+        {navLinks.map((link) => (
           <Link
             key={link.to}
             to={link.to}
@@ -90,7 +90,7 @@ function Header({ title = 'Vidéo Chat Room', children, notifications = {} }) {
               transition: "color 0.2s, border-bottom 0.2s, background 0.2s",
               position: "relative",
               display: "flex",
-              alignItems: "center"
+              alignItems: "center",
             }}
             aria-label={link.label}
             tabIndex={0}
@@ -109,7 +109,7 @@ function Header({ title = 'Vidéo Chat Room', children, notifications = {} }) {
                   marginLeft: 7,
                   minWidth: 18,
                   display: "inline-block",
-                  textAlign: "center"
+                  textAlign: "center",
                 }}
                 aria-label={`${notifications[link.to]} notifications non lues`}
               >

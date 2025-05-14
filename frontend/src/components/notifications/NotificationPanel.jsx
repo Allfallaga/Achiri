@@ -97,7 +97,9 @@ export default function NotificationPanel({
   }, [darkMode]);
 
   // Si aucune props, fallback mock (pour démo/standalone)
-  const [notifications, setNotifications] = useState(propNotifications || mockNotifications);
+  const [notifications, setNotifications] = useState(
+    propNotifications || mockNotifications,
+  );
   const [success, setSuccess] = useState("");
   const [error, setError] = useState("");
   const [filter, setFilter] = useState("all");
@@ -106,7 +108,7 @@ export default function NotificationPanel({
   const markRead = (id) => {
     if (onMarkRead) return onMarkRead(id);
     setNotifications((prev) =>
-      prev.map((n) => (n.id === id ? { ...n, read: true } : n))
+      prev.map((n) => (n.id === id ? { ...n, read: true } : n)),
     );
     setSuccess("Notification marquée comme lue !");
     setTimeout(() => setSuccess(""), 1500);
@@ -135,7 +137,7 @@ export default function NotificationPanel({
 
   // Filtrage notifications
   const filtered = notifications.filter(
-    (n) => filter === "all" || n.type === filter
+    (n) => filter === "all" || n.type === filter,
   );
 
   return (
@@ -163,7 +165,14 @@ export default function NotificationPanel({
         transition: "background 0.3s, color 0.3s",
       }}
     >
-      <header style={{ display: "flex", alignItems: "center", justifyContent: "space-between", marginBottom: 18 }}>
+      <header
+        style={{
+          display: "flex",
+          alignItems: "center",
+          justifyContent: "space-between",
+          marginBottom: 18,
+        }}
+      >
         <h2
           style={{
             fontWeight: 700,
@@ -211,16 +220,20 @@ export default function NotificationPanel({
           <button
             className="darkmode-btn"
             onClick={() => setDarkMode((d) => !d)}
-            aria-label={darkMode ? "Désactiver le mode sombre" : "Activer le mode sombre"}
+            aria-label={
+              darkMode ? "Désactiver le mode sombre" : "Activer le mode sombre"
+            }
             style={{
               background: "none",
               border: "none",
               color: darkMode ? "#ffd600" : "#1976d2",
               fontSize: 18,
               marginLeft: 6,
-              cursor: "pointer"
+              cursor: "pointer",
             }}
-            title={darkMode ? "Désactiver le mode sombre" : "Activer le mode sombre"}
+            title={
+              darkMode ? "Désactiver le mode sombre" : "Activer le mode sombre"
+            }
           >
             {darkMode ? <FaSun /> : <FaMoon />}
           </button>
@@ -228,8 +241,19 @@ export default function NotificationPanel({
       </header>
 
       {/* Filtres */}
-      <nav aria-label="Filtres notifications" style={{ marginBottom: 16, display: "flex", gap: 8, flexWrap: "wrap" }}>
-        <span style={{ color: "#888", fontSize: 15, display: "flex", alignItems: "center", gap: 4 }}>
+      <nav
+        aria-label="Filtres notifications"
+        style={{ marginBottom: 16, display: "flex", gap: 8, flexWrap: "wrap" }}
+      >
+        <span
+          style={{
+            color: "#888",
+            fontSize: 15,
+            display: "flex",
+            alignItems: "center",
+            gap: 4,
+          }}
+        >
           <FaFilter /> Filtrer :
         </span>
         {Object.entries(typeLabels).map(([key, label]) => (
@@ -247,7 +271,7 @@ export default function NotificationPanel({
               outline: filter === key ? "2px solid #1976d2" : "none",
               boxShadow: filter === key ? "0 2px 8px #1976d233" : undefined,
               fontSize: 14,
-              transition: "background 0.2s, color 0.2s"
+              transition: "background 0.2s, color 0.2s",
             }}
             aria-pressed={filter === key}
             aria-label={`Filtrer par ${label}`}
@@ -259,15 +283,30 @@ export default function NotificationPanel({
       </nav>
 
       {success && (
-        <div aria-live="polite" style={{ color: "#43a047", marginBottom: 8, fontWeight: 600, display: "flex", alignItems: "center", gap: 6 }}>
+        <div
+          aria-live="polite"
+          style={{
+            color: "#43a047",
+            marginBottom: 8,
+            fontWeight: 600,
+            display: "flex",
+            alignItems: "center",
+            gap: 6,
+          }}
+        >
           <FaCheckCircle /> {success}
         </div>
       )}
       {error && (
-        <div aria-live="assertive" style={{ color: "red", marginBottom: 8 }}>{error}</div>
+        <div aria-live="assertive" style={{ color: "red", marginBottom: 8 }}>
+          {error}
+        </div>
       )}
 
-      <div className="notification-list" style={{ display: "flex", flexDirection: "column", gap: 12 }}>
+      <div
+        className="notification-list"
+        style={{ display: "flex", flexDirection: "column", gap: 12 }}
+      >
         {filtered.length === 0 ? (
           <div style={{ color: "#888", textAlign: "center", padding: "2em 0" }}>
             Aucune notification.
@@ -284,8 +323,12 @@ export default function NotificationPanel({
                 display: "flex",
                 alignItems: "center",
                 background: notif.read
-                  ? (darkMode ? "#232b3b" : "#f8fafc")
-                  : (darkMode ? "#223366" : "#e3f2fd"),
+                  ? darkMode
+                    ? "#232b3b"
+                    : "#f8fafc"
+                  : darkMode
+                    ? "#223366"
+                    : "#e3f2fd",
                 borderRadius: 8,
                 boxShadow: "0 1px 6px #e0e7ef22",
                 padding: "0.8em 1em",
@@ -297,7 +340,12 @@ export default function NotificationPanel({
             >
               <div style={{ marginRight: 12, fontSize: 22 }}>{notif.icon}</div>
               <div style={{ flex: 1 }}>
-                <div style={{ fontWeight: notif.read ? 400 : 600, color: darkMode ? "#f3f6fa" : "#222" }}>
+                <div
+                  style={{
+                    fontWeight: notif.read ? 400 : 600,
+                    color: darkMode ? "#f3f6fa" : "#222",
+                  }}
+                >
                   {notif.message}
                 </div>
                 <div style={{ fontSize: 12, color: "#888" }}>{notif.date}</div>
@@ -312,7 +360,7 @@ export default function NotificationPanel({
                     color: "#43a047",
                     fontSize: 20,
                     marginLeft: 8,
-                    cursor: "pointer"
+                    cursor: "pointer",
                   }}
                 >
                   <FaCheckCircle />
@@ -327,7 +375,7 @@ export default function NotificationPanel({
                   color: "#e53935",
                   fontSize: 18,
                   marginLeft: 8,
-                  cursor: "pointer"
+                  cursor: "pointer",
                 }}
               >
                 <FaTrashAlt />
@@ -341,10 +389,21 @@ export default function NotificationPanel({
           marginTop: 18,
           color: "#888",
           fontSize: "0.93em",
-          textAlign: "center"
+          textAlign: "center",
         }}
       >
-        <span role="img" aria-label="sécurité">🔒</span> Sécurisé | <span role="img" aria-label="accessibilité">♿</span> Accessible | <span role="img" aria-label="mobile">📱</span> Mobile/Web
+        <span role="img" aria-label="sécurité">
+          🔒
+        </span>{" "}
+        Sécurisé |{" "}
+        <span role="img" aria-label="accessibilité">
+          ♿
+        </span>{" "}
+        Accessible |{" "}
+        <span role="img" aria-label="mobile">
+          📱
+        </span>{" "}
+        Mobile/Web
         <br />
         <span style={{ fontSize: "0.93em" }}>
           Design avancé, navigation clavier, SEO optimisé, branding Achiri.

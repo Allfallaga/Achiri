@@ -18,7 +18,7 @@ export async function sendEmergencyAlertMock(userId, type, details) {
         details,
         timestamp: new Date().toISOString(),
       });
-    }, 700)
+    }, 700),
   );
 }
 
@@ -45,6 +45,6 @@ export async function getEmergencyHistoryMock(userId) {
           timestamp: "2025-04-20T18:30:00Z",
         },
       ]);
-    }, 600)
+    }, 600),
   );
 }

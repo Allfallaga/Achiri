@@ -56,7 +56,9 @@ const QuizBot = ({ classroomId, userId }) => {
     setAnswer("");
     setTimeout(() => {
       // Prend une question non posée au hasard
-      const available = mockQuestions.filter(q => !askedQuestions.includes(q.id));
+      const available = mockQuestions.filter(
+        (q) => !askedQuestions.includes(q.id),
+      );
       if (available.length === 0) {
         setError("Plus de questions disponibles.");
         setLoading(false);
@@ -65,7 +67,7 @@ const QuizBot = ({ classroomId, userId }) => {
       const q = available[Math.floor(Math.random() * available.length)];
       setQuestion(q);
       setQuizStarted(true);
-      setAskedQuestions(prev => [...prev, q.id]);
+      setAskedQuestions((prev) => [...prev, q.id]);
       setLoading(false);
     }, 500);
   };
@@ -77,10 +79,15 @@ const QuizBot = ({ classroomId, userId }) => {
     setLoading(true);
     setError("");
     setTimeout(() => {
-      const isCorrect = answer.trim().toLowerCase() === question.answer.toLowerCase();
-      setFeedback(isCorrect ? "Bonne réponse !" : `Mauvaise réponse. La bonne réponse était : ${question.answer}`);
-      setScore(prev => (isCorrect ? prev + 1 : prev));
-      setHistory(prev => [
+      const isCorrect =
+        answer.trim().toLowerCase() === question.answer.toLowerCase();
+      setFeedback(
+        isCorrect
+          ? "Bonne réponse !"
+          : `Mauvaise réponse. La bonne réponse était : ${question.answer}`,
+      );
+      setScore((prev) => (isCorrect ? prev + 1 : prev));
+      setHistory((prev) => [
         ...prev,
         {
           question: question.text,
@@ -106,16 +113,24 @@ const QuizBot = ({ classroomId, userId }) => {
         borderRadius: 14,
         boxShadow: "0 2px 16px #1976d233",
         padding: "2rem",
-        outline: "none"
+        outline: "none",
       }}
       aria-label="QuizBot IA interactif"
       tabIndex={0}
     >
-      <h2 style={{ color: "#1976d2", fontWeight: 700, fontSize: "1.4em", marginBottom: 8 }}>
+      <h2
+        style={{
+          color: "#1976d2",
+          fontWeight: 700,
+          fontSize: "1.4em",
+          marginBottom: 8,
+        }}
+      >
         🎓 QuizBot IA
       </h2>
       <p style={{ color: "#444", marginBottom: 18 }}>
-        Teste tes connaissances grâce à l’IA ! Lance un quiz, réponds et découvre la correction instantanée.
+        Teste tes connaissances grâce à l’IA ! Lance un quiz, réponds et
+        découvre la correction instantanée.
       </p>
       <div style={{ marginBottom: 18, color: "#43a047", fontWeight: 600 }}>
         <b>Score actuel :</b> {score}
@@ -133,13 +148,20 @@ const QuizBot = ({ classroomId, userId }) => {
             padding: "0.7em 2em",
             fontWeight: "bold",
             fontSize: "1.1em",
-            cursor: loading || askedQuestions.length === mockQuestions.length ? "not-allowed" : "pointer",
+            cursor:
+              loading || askedQuestions.length === mockQuestions.length
+                ? "not-allowed"
+                : "pointer",
             marginBottom: 16,
-            transition: "background 0.2s"
+            transition: "background 0.2s",
           }}
           aria-label="Nouvelle question"
         >
-          {loading ? "Chargement..." : askedQuestions.length === mockQuestions.length ? "Terminé" : "Nouvelle question"}
+          {loading
+            ? "Chargement..."
+            : askedQuestions.length === mockQuestions.length
+              ? "Terminé"
+              : "Nouvelle question"}
         </button>
       )}
       {question && (
@@ -151,7 +173,7 @@ const QuizBot = ({ classroomId, userId }) => {
           <input
             type="text"
             value={answer}
-            onChange={e => setAnswer(e.target.value)}
+            onChange={(e) => setAnswer(e.target.value)}
             placeholder="Ta réponse"
             required
             style={{
@@ -160,7 +182,7 @@ const QuizBot = ({ classroomId, userId }) => {
               borderRadius: 8,
               border: "1px solid #bbdefb",
               fontSize: 16,
-              marginBottom: 8
+              marginBottom: 8,
             }}
             aria-label="Réponse"
             autoFocus
@@ -177,7 +199,7 @@ const QuizBot = ({ classroomId, userId }) => {
               fontWeight: "bold",
               fontSize: "1.1em",
               cursor: loading ? "not-allowed" : "pointer",
-              transition: "background 0.2s"
+              transition: "background 0.2s",
             }}
             aria-label="Valider la réponse"
           >
@@ -193,14 +215,16 @@ const QuizBot = ({ classroomId, userId }) => {
             borderRadius: 8,
             marginTop: 10,
             fontSize: "1.1em",
-            color: feedback.startsWith("Bonne") ? "#43a047" : "#d63031"
+            color: feedback.startsWith("Bonne") ? "#43a047" : "#d63031",
           }}
           aria-live="polite"
         >
           <b>Correction :</b> {feedback}
         </div>
       )}
-      <h3 style={{ marginTop: 24, color: "#1976d2", fontWeight: 600 }}>Historique</h3>
+      <h3 style={{ marginTop: 24, color: "#1976d2", fontWeight: 600 }}>
+        Historique
+      </h3>
       <div
         style={{
           maxHeight: 120,
@@ -218,10 +242,14 @@ const QuizBot = ({ classroomId, userId }) => {
           <ul style={{ paddingLeft: 18, margin: 0 }}>
             {history.map((h, i) => (
               <li key={i} style={{ marginBottom: 6 }}>
-                <b>Q:</b> {h.question}<br />
+                <b>Q:</b> {h.question}
+                <br />
                 <b>Ta réponse:</b> {h.yourAnswer} {h.correct ? "✅" : "❌"}
                 {h.correction && (
-                  <span> <b>Correction:</b> {h.correction}</span>
+                  <span>
+                    {" "}
+                    <b>Correction:</b> {h.correction}
+                  </span>
                 )}
               </li>
             ))}

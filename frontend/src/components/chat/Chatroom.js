@@ -1,12 +1,12 @@
-import React, { useEffect, useState, useContext } from 'react';
-import { useParams } from 'react-router-dom';
+import React, { useEffect, useState, useContext } from "react";
+import { useParams } from "react-router-dom";
 
-import AuthContext from '../../context/AuthProvider';
-import AdminArea from '../admin/AdminArea.js';
-import Moderation from '../moderation/Moderation.js';
-import Sfu from '../video/Sfu.js';
+import AuthContext from "../../context/AuthProvider";
+import AdminArea from "../admin/AdminArea.js";
+import Moderation from "../moderation/Moderation.js";
+import Sfu from "../video/Sfu.js";
 
-import ChatBox from './ChatBox';
+import ChatBox from "./ChatBox";
 
 /**
  * Chatroom – Achiri
@@ -28,7 +28,7 @@ function Chatroom({ socket }) {
 
     const user = {
       room_id: id,
-      user: auth
+      user: auth,
     };
 
     socket.emit("join_room", user);
@@ -37,11 +37,11 @@ function Chatroom({ socket }) {
       setUsersList(usersList.users || []);
     };
 
-    socket.on('list_members', handleListMembers);
+    socket.on("list_members", handleListMembers);
 
     return () => {
       socket.emit("leave_room", user);
-      socket.off('list_members', handleListMembers);
+      socket.off("list_members", handleListMembers);
     };
   }, [socket, id, auth]);
 
@@ -57,7 +57,7 @@ function Chatroom({ socket }) {
         padding: "2.5rem 0 1.5rem 0",
         display: "flex",
         flexDirection: "column",
-        alignItems: "center"
+        alignItems: "center",
       }}
     >
       {/* Zone admin si admin */}
@@ -71,7 +71,7 @@ function Chatroom({ socket }) {
             borderRadius: 12,
             boxShadow: "0 2px 12px #1976d222",
             background: "#fff",
-            padding: "1.2rem"
+            padding: "1.2rem",
           }}
         >
           <AdminArea />
@@ -87,7 +87,7 @@ function Chatroom({ socket }) {
           borderRadius: 12,
           boxShadow: "0 2px 12px #1976d222",
           background: "#fff",
-          padding: "1.2rem"
+          padding: "1.2rem",
         }}
       >
         <Sfu isAdmin={isAdmin} roomName={id} user={auth} />
@@ -101,7 +101,7 @@ function Chatroom({ socket }) {
           width: "100%",
           maxWidth: 1200,
           margin: "0 auto",
-          alignItems: "flex-start"
+          alignItems: "flex-start",
         }}
         aria-label="Zone modération et chat"
       >
@@ -112,7 +112,7 @@ function Chatroom({ socket }) {
             borderRadius: 10,
             boxShadow: "0 1px 6px #1976d211",
             padding: "1rem",
-            minHeight: 320
+            minHeight: 320,
           }}
           aria-label="Modération"
         >
@@ -126,7 +126,7 @@ function Chatroom({ socket }) {
             background: "#fff",
             borderRadius: 10,
             boxShadow: "0 1px 6px #1976d211",
-            padding: "1rem"
+            padding: "1rem",
           }}
           aria-label="Chat principal"
         >
@@ -135,10 +135,14 @@ function Chatroom({ socket }) {
             user={auth}
             targetUser={null}
             ttsEnabled={true}
-            speak={window.speechSynthesis ? (text) => {
-              const utter = new window.SpeechSynthesisUtterance(text);
-              window.speechSynthesis.speak(utter);
-            } : undefined}
+            speak={
+              window.speechSynthesis
+                ? (text) => {
+                    const utter = new window.SpeechSynthesisUtterance(text);
+                    window.speechSynthesis.speak(utter);
+                  }
+                : undefined
+            }
           />
         </section>
       </section>

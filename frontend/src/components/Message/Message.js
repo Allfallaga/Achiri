@@ -1,7 +1,7 @@
-import React from 'react';
-import PropTypes from 'prop-types';
+import React from "react";
+import PropTypes from "prop-types";
 
-import AuthContext from '../../context/AuthProvider';
+import AuthContext from "../../context/AuthProvider";
 
 /**
  * Message – Achiri
@@ -34,13 +34,13 @@ function Message({ messagesList }) {
       tabIndex={0}
       style={{
         flex: 1,
-        overflowY: 'auto',
-        padding: '1em 0.5em',
-        background: '#f8fafc',
+        overflowY: "auto",
+        padding: "1em 0.5em",
+        background: "#f8fafc",
         borderRadius: 10,
         minHeight: 0,
-        outline: 'none',
-        transition: 'background 0.2s, color 0.2s'
+        outline: "none",
+        transition: "background 0.2s, color 0.2s",
       }}
     >
       {messagesList.length === 0 && (
@@ -50,7 +50,7 @@ function Message({ messagesList }) {
             color: "#888",
             fontStyle: "italic",
             marginTop: 30,
-            fontSize: 16
+            fontSize: 16,
           }}
           aria-live="polite"
         >
@@ -64,47 +64,59 @@ function Message({ messagesList }) {
             key={msg.time + msg.nickname + idx}
             className={isSelf ? "chat-message-right" : "chat-message-left"}
             style={{
-              display: 'flex',
-              flexDirection: isSelf ? 'row-reverse' : 'row',
-              alignItems: 'flex-end',
+              display: "flex",
+              flexDirection: isSelf ? "row-reverse" : "row",
+              alignItems: "flex-end",
               marginBottom: 12,
               gap: 10,
-              outline: 'none'
+              outline: "none",
             }}
             aria-current={isSelf ? "true" : undefined}
             tabIndex={0}
           >
             <img
-              src={msg.avatar || "https://bootdey.com/img/Content/avatar/avatar3.png"}
+              src={
+                msg.avatar ||
+                "https://bootdey.com/img/Content/avatar/avatar3.png"
+              }
               className="message-avatar"
               alt={msg.nickname ? `Avatar de ${msg.nickname}` : "Utilisateur"}
               width="40"
               height="40"
               style={{
-                borderRadius: '50%',
-                objectFit: 'cover',
-                boxShadow: '0 1px 4px #0001',
-                border: isSelf ? "2px solid #1976d2" : "1px solid #e3e3e3"
+                borderRadius: "50%",
+                objectFit: "cover",
+                boxShadow: "0 1px 4px #0001",
+                border: isSelf ? "2px solid #1976d2" : "1px solid #e3e3e3",
               }}
             />
-            <div className="message-data" style={{ maxWidth: '75%' }}>
-              <div className="message-header" style={{ display: 'flex', alignItems: 'center', gap: 8 }}>
+            <div className="message-data" style={{ maxWidth: "75%" }}>
+              <div
+                className="message-header"
+                style={{ display: "flex", alignItems: "center", gap: 8 }}
+              >
                 <span
                   className="message-nickname"
                   style={{
-                    fontWeight: 'bold',
-                    color: isSelf ? '#1976d2' : '#222',
+                    fontWeight: "bold",
+                    color: isSelf ? "#1976d2" : "#222",
                     fontSize: 15,
                   }}
                 >
                   {msg.nickname}
-                  {isSelf && <span style={{ fontSize: 12, color: "#43a047", marginLeft: 6 }}>(Vous)</span>}
+                  {isSelf && (
+                    <span
+                      style={{ fontSize: 12, color: "#43a047", marginLeft: 6 }}
+                    >
+                      (Vous)
+                    </span>
+                  )}
                 </span>
                 <span
                   className="message-time"
                   style={{
                     fontSize: 12,
-                    color: '#888',
+                    color: "#888",
                   }}
                   aria-label={`Envoyé à ${msg.time}`}
                 >
@@ -114,14 +126,14 @@ function Message({ messagesList }) {
               <div
                 className="message-content"
                 style={{
-                  background: isSelf ? '#e3f2fd' : '#fff',
+                  background: isSelf ? "#e3f2fd" : "#fff",
                   borderRadius: 8,
-                  padding: '0.6em 1em',
+                  padding: "0.6em 1em",
                   marginTop: 2,
                   fontSize: 15,
-                  wordBreak: 'break-word',
-                  boxShadow: isSelf ? '0 1px 4px #1976d222' : '0 1px 4px #0001',
-                  color: "#222"
+                  wordBreak: "break-word",
+                  boxShadow: isSelf ? "0 1px 4px #1976d222" : "0 1px 4px #0001",
+                  color: "#222",
                 }}
                 aria-label={`Message de ${msg.nickname}`}
               >
@@ -171,7 +183,7 @@ Message.propTypes = {
       avatar: PropTypes.string,
       message: PropTypes.string,
       time: PropTypes.string,
-    })
+    }),
   ).isRequired,
 };
 

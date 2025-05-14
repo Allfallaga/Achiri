@@ -19,7 +19,7 @@ const RoomCategoryFilter = ({
   categories = [],
   selected = "",
   onChange,
-  showReset = true
+  showReset = true,
 }) => {
   // Handler pour éviter les appels onChange inutiles si on clique sur la catégorie déjà sélectionnée
   const handleCategoryClick = (categoryId) => {
@@ -37,17 +37,14 @@ const RoomCategoryFilter = ({
 
   return (
     // Utilisation de <nav> pour la sémantique de navigation/filtrage
-    <nav
-      className="room-category-filter"
-      aria-label="Filtrer par catégorie"
-    >
+    <nav className="room-category-filter" aria-label="Filtrer par catégorie">
       {/* Label du filtre avec icône */}
       <span className="room-category-filter-label">
         <FaFilter aria-hidden="true" /> Catégories&nbsp;:
       </span>
 
       {/* Mappe les catégories pour créer les boutons */}
-      {categories.map(cat => (
+      {categories.map((cat) => (
         <button
           key={cat.id}
           // Applique la classe 'selected' si la catégorie est sélectionnée
@@ -80,21 +77,23 @@ const RoomCategoryFilter = ({
 
 // Définition des types de props pour la validation et la documentation
 RoomCategoryFilter.propTypes = {
-  categories: PropTypes.arrayOf(PropTypes.shape({
-    id: PropTypes.string.isRequired,
-    name: PropTypes.string.isRequired,
-    icon: PropTypes.node // L'icône est optionnelle
-  })),
+  categories: PropTypes.arrayOf(
+    PropTypes.shape({
+      id: PropTypes.string.isRequired,
+      name: PropTypes.string.isRequired,
+      icon: PropTypes.node, // L'icône est optionnelle
+    }),
+  ),
   selected: PropTypes.string,
   onChange: PropTypes.func.isRequired, // onChange est requis pour que le filtre fonctionne
-  showReset: PropTypes.bool
+  showReset: PropTypes.bool,
 };
 
 // Valeurs par défaut pour les props optionnelles
 RoomCategoryFilter.defaultProps = {
   categories: [],
   selected: "",
-  showReset: true
+  showReset: true,
 };
 
 export default RoomCategoryFilter;

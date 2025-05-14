@@ -1,8 +1,18 @@
 import React, { useState } from "react";
 import PropTypes from "prop-types";
 import {
-  FaUsers, FaMusic, FaGamepad, FaChalkboardTeacher, FaPalette,
-  FaMicrophone, FaGlobe, FaHeart, FaPlusCircle, FaSearch, FaMoon, FaPalette as FaPaletteIcon
+  FaUsers,
+  FaMusic,
+  FaGamepad,
+  FaChalkboardTeacher,
+  FaPalette,
+  FaMicrophone,
+  FaGlobe,
+  FaHeart,
+  FaPlusCircle,
+  FaSearch,
+  FaMoon,
+  FaPalette as FaPaletteIcon,
 } from "react-icons/fa";
 import { motion } from "framer-motion";
 
@@ -24,56 +34,56 @@ const defaultCategories = [
     id: "general",
     name: "Général",
     icon: <FaUsers />,
-    description: "Discussions libres, rencontres, échanges variés."
+    description: "Discussions libres, rencontres, échanges variés.",
   },
   {
     id: "music",
     name: "Musique",
     icon: <FaMusic />,
-    description: "Partage, écoute, création musicale."
+    description: "Partage, écoute, création musicale.",
   },
   {
     id: "gaming",
     name: "Gaming",
     icon: <FaGamepad />,
-    description: "Jeux vidéo, tournois, parties entre amis."
+    description: "Jeux vidéo, tournois, parties entre amis.",
   },
   {
     id: "education",
     name: "Éducation",
     icon: <FaChalkboardTeacher />,
-    description: "Cours, tutoriels, entraide scolaire."
+    description: "Cours, tutoriels, entraide scolaire.",
   },
   {
     id: "art",
     name: "Art & Création",
     icon: <FaPalette />,
-    description: "Dessin, peinture, photo, créativité."
+    description: "Dessin, peinture, photo, créativité.",
   },
   {
     id: "podcast",
     name: "Podcast & Talk",
     icon: <FaMicrophone />,
-    description: "Débats, podcasts, talk-shows."
+    description: "Débats, podcasts, talk-shows.",
   },
   {
     id: "international",
     name: "International",
     icon: <FaGlobe />,
-    description: "Langues, cultures, échanges mondiaux."
+    description: "Langues, cultures, échanges mondiaux.",
   },
   {
     id: "social",
     name: "Social & Bien-être",
     icon: <FaHeart />,
-    description: "Soutien, bien-être, entraide, amitié."
-  }
+    description: "Soutien, bien-être, entraide, amitié.",
+  },
 ];
 
 const RoomCategories = ({
   categories = defaultCategories,
   onSelect,
-  onCreate
+  onCreate,
 }) => {
   const [search, setSearch] = useState("");
   const [selected, setSelected] = useState(null);
@@ -81,14 +91,18 @@ const RoomCategories = ({
   const [feedback, setFeedback] = useState("");
 
   // Filtrage par nom ou description
-  const filteredCategories = categories.filter(cat =>
-    cat.name.toLowerCase().includes(search.toLowerCase()) ||
-    (cat.description && cat.description.toLowerCase().includes(search.toLowerCase()))
+  const filteredCategories = categories.filter(
+    (cat) =>
+      cat.name.toLowerCase().includes(search.toLowerCase()) ||
+      (cat.description &&
+        cat.description.toLowerCase().includes(search.toLowerCase())),
   );
 
   const handleSelect = (id) => {
     setSelected(id);
-    setFeedback(`Catégorie "${categories.find(c => c.id === id)?.name || id}" sélectionnée.`);
+    setFeedback(
+      `Catégorie "${categories.find((c) => c.id === id)?.name || id}" sélectionnée.`,
+    );
     if (onSelect) onSelect(id);
     setTimeout(() => setFeedback(""), 2000);
   };
@@ -120,37 +134,60 @@ const RoomCategories = ({
         margin: "2rem auto",
         outline: "none",
         color: darkMode ? "#ffe082" : "#222",
-        transition: "background 0.3s, color 0.3s"
+        transition: "background 0.3s, color 0.3s",
       }}
     >
-      <div style={{ display: "flex", alignItems: "center", justifyContent: "space-between", marginBottom: 10 }}>
-        <h2 className="text-2xl font-bold" style={{ color: darkMode ? "#ffe082" : "#1976d2", textAlign: "center", margin: 0 }}>
+      <div
+        style={{
+          display: "flex",
+          alignItems: "center",
+          justifyContent: "space-between",
+          marginBottom: 10,
+        }}
+      >
+        <h2
+          className="text-2xl font-bold"
+          style={{
+            color: darkMode ? "#ffe082" : "#1976d2",
+            textAlign: "center",
+            margin: 0,
+          }}
+        >
           <FaUsers style={{ marginRight: 8 }} />
           Catégories de Rooms
         </h2>
         <button
           type="button"
           onClick={handleDarkMode}
-          aria-label={darkMode ? "Désactiver le mode sombre" : "Activer le mode sombre"}
+          aria-label={
+            darkMode ? "Désactiver le mode sombre" : "Activer le mode sombre"
+          }
           style={{
             background: "none",
             border: "none",
             color: darkMode ? "#ffe082" : "#1976d2",
             cursor: "pointer",
             fontSize: 22,
-            marginLeft: 12
+            marginLeft: 12,
           }}
           tabIndex={0}
         >
           {darkMode ? <FaPaletteIcon /> : <FaMoon />}
         </button>
       </div>
-      <div style={{ display: "flex", alignItems: "center", marginBottom: 24, gap: 8 }}>
+      <div
+        style={{
+          display: "flex",
+          alignItems: "center",
+          marginBottom: 24,
+          gap: 8,
+        }}
+      >
         <FaSearch style={{ color: "#1976d2" }} aria-hidden="true" />
         <input
           type="search"
           value={search}
-          onChange={e => setSearch(e.target.value)}
+          onChange={(e) => setSearch(e.target.value)}
           placeholder="Rechercher une catégorie..."
           aria-label="Rechercher une catégorie"
           className="room-categories-search"
@@ -161,7 +198,7 @@ const RoomCategories = ({
             padding: "0.6em 1em",
             fontSize: "1em",
             background: darkMode ? "#181f2a" : "#fff",
-            color: darkMode ? "#ffe082" : "#222"
+            color: darkMode ? "#ffe082" : "#222",
           }}
         />
         <button
@@ -179,7 +216,7 @@ const RoomCategories = ({
             display: "flex",
             alignItems: "center",
             gap: 6,
-            cursor: "pointer"
+            cursor: "pointer",
           }}
         >
           <FaPlusCircle style={{ marginRight: 4 }} /> Créer
@@ -191,7 +228,7 @@ const RoomCategories = ({
             color: "#43a047",
             marginBottom: 10,
             fontWeight: 500,
-            fontSize: "1em"
+            fontSize: "1em",
           }}
           aria-live="polite"
         >
@@ -206,49 +243,78 @@ const RoomCategories = ({
           gap: 18,
           listStyle: "none",
           padding: 0,
-          margin: 0
+          margin: 0,
         }}
       >
         {filteredCategories.length === 0 && (
-          <li style={{ opacity: 0.7, fontStyle: "italic", textAlign: "center", gridColumn: "1/-1" }}>
+          <li
+            style={{
+              opacity: 0.7,
+              fontStyle: "italic",
+              textAlign: "center",
+              gridColumn: "1/-1",
+            }}
+          >
             Aucune catégorie trouvée.
           </li>
         )}
-        {filteredCategories.map(cat => (
+        {filteredCategories.map((cat) => (
           <li
             key={cat.id}
             className={`room-category-card${selected === cat.id ? " selected" : ""}`}
             style={{
-              background: selected === cat.id
-                ? (darkMode ? "#1e293b" : "#e3f2fd")
-                : (darkMode ? "#181f2a" : "#f9fafb"),
+              background:
+                selected === cat.id
+                  ? darkMode
+                    ? "#1e293b"
+                    : "#e3f2fd"
+                  : darkMode
+                    ? "#181f2a"
+                    : "#f9fafb",
               border: `2px solid ${selected === cat.id ? (darkMode ? "#ffe082" : "#1976d2") : "transparent"}`,
               borderRadius: 10,
               padding: "1.1rem 1rem",
               cursor: "pointer",
-              boxShadow: selected === cat.id
-                ? "0 2px 10px 0 rgba(33,150,243,0.10)"
-                : "0 1px 4px 0 rgba(33,150,243,0.06)",
+              boxShadow:
+                selected === cat.id
+                  ? "0 2px 10px 0 rgba(33,150,243,0.10)"
+                  : "0 1px 4px 0 rgba(33,150,243,0.06)",
               color: darkMode ? "#ffe082" : "#222",
               display: "flex",
               flexDirection: "column",
               alignItems: "flex-start",
-              transition: "box-shadow 0.2s, background 0.2s, border 0.2s"
+              transition: "box-shadow 0.2s, background 0.2s, border 0.2s",
             }}
             tabIndex={0}
             aria-label={`Voir la catégorie ${cat.name}`}
             onClick={() => handleSelect(cat.id)}
-            onKeyDown={e => (e.key === "Enter" || e.key === " ") && handleSelect(cat.id)}
+            onKeyDown={(e) =>
+              (e.key === "Enter" || e.key === " ") && handleSelect(cat.id)
+            }
             role="button"
             aria-pressed={selected === cat.id}
           >
-            <div style={{ fontSize: 28, marginBottom: 8, color: darkMode ? "#ffe082" : "#1976d2" }}>
+            <div
+              style={{
+                fontSize: 28,
+                marginBottom: 8,
+                color: darkMode ? "#ffe082" : "#1976d2",
+              }}
+            >
               {cat.icon}
             </div>
-            <div style={{ fontWeight: 600, fontSize: "1.08em", marginBottom: 2 }}>
+            <div
+              style={{ fontWeight: 600, fontSize: "1.08em", marginBottom: 2 }}
+            >
               {cat.name}
             </div>
-            <div style={{ fontSize: "0.97em", color: darkMode ? "#bbb" : "#555", marginBottom: 4 }}>
+            <div
+              style={{
+                fontSize: "0.97em",
+                color: darkMode ? "#bbb" : "#555",
+                marginBottom: 4,
+              }}
+            >
               {cat.description}
             </div>
           </li>
@@ -259,10 +325,21 @@ const RoomCategories = ({
           marginTop: 24,
           color: darkMode ? "#ffe082" : "#888",
           fontSize: "0.93em",
-          textAlign: "center"
+          textAlign: "center",
         }}
       >
-        <span role="img" aria-label="sécurité">🔒</span> Sécurisé | <span role="img" aria-label="accessibilité">♿</span> Accessible | <span role="img" aria-label="mobile">📱</span> Mobile/Web
+        <span role="img" aria-label="sécurité">
+          🔒
+        </span>{" "}
+        Sécurisé |{" "}
+        <span role="img" aria-label="accessibilité">
+          ♿
+        </span>{" "}
+        Accessible |{" "}
+        <span role="img" aria-label="mobile">
+          📱
+        </span>{" "}
+        Mobile/Web
       </footer>
       <style>{`
         .room-categories-container:focus {
@@ -295,7 +372,7 @@ const RoomCategories = ({
 RoomCategories.propTypes = {
   categories: PropTypes.array,
   onSelect: PropTypes.func,
-  onCreate: PropTypes.func
+  onCreate: PropTypes.func,
 };
 
 export default RoomCategories;

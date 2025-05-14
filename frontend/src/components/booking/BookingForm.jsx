@@ -15,12 +15,10 @@ const defaultOptions = [
   { value: "pmr", label: "Accès PMR (fauteuil roulant)" },
   { value: "aide", label: "Besoin d’un accompagnateur" },
   { value: "lsf", label: "Interprète LSF" },
-  { value: "animal", label: "Animal d’assistance" }
+  { value: "animal", label: "Animal d’assistance" },
 ];
 
-const BookingForm = ({
-  onSubmit
-}) => {
+const BookingForm = ({ onSubmit }) => {
   const [name, setName] = useState("");
   const [email, setEmail] = useState("");
   const [date, setDate] = useState("");
@@ -33,9 +31,7 @@ const BookingForm = ({
   // Gestion des options d’accessibilité cochées
   const handleOptionChange = (value) => {
     setOptions((prev) =>
-      prev.includes(value)
-        ? prev.filter((o) => o !== value)
-        : [...prev, value]
+      prev.includes(value) ? prev.filter((o) => o !== value) : [...prev, value],
     );
   };
 
@@ -77,7 +73,7 @@ const BookingForm = ({
         borderRadius: 18,
         boxShadow: "0 2px 18px #1976d233",
         padding: "2.2rem",
-        outline: "none"
+        outline: "none",
       }}
       aria-label="Formulaire de réservation Achiri"
       tabIndex={0}
@@ -90,24 +86,32 @@ const BookingForm = ({
           marginBottom: 16,
           display: "flex",
           alignItems: "center",
-          gap: 10
+          gap: 10,
         }}
         tabIndex={0}
         aria-label="Formulaire de réservation accessible"
       >
-        <span role="img" aria-label="réservation">📋</span>
+        <span role="img" aria-label="réservation">
+          📋
+        </span>
         Formulaire de Réservation Accessible
       </h2>
       <form onSubmit={handleSubmit} autoComplete="off">
         <div style={{ marginBottom: 18 }}>
-          <label htmlFor="booking-name" style={{ fontWeight: 600, display: "block", marginBottom: 6 }}>
-            Nom <span aria-hidden="true" style={{ color: "#b71c1c" }}>*</span>
+          <label
+            htmlFor="booking-name"
+            style={{ fontWeight: 600, display: "block", marginBottom: 6 }}
+          >
+            Nom{" "}
+            <span aria-hidden="true" style={{ color: "#b71c1c" }}>
+              *
+            </span>
           </label>
           <input
             id="booking-name"
             type="text"
             value={name}
-            onChange={e => setName(e.target.value)}
+            onChange={(e) => setName(e.target.value)}
             placeholder="Votre nom"
             aria-label="Nom"
             required
@@ -116,20 +120,26 @@ const BookingForm = ({
               borderRadius: 8,
               border: "1px solid #1976d2",
               padding: "0.7em 1em",
-              fontSize: 15
+              fontSize: 15,
             }}
             disabled={loading}
           />
         </div>
         <div style={{ marginBottom: 18 }}>
-          <label htmlFor="booking-email" style={{ fontWeight: 600, display: "block", marginBottom: 6 }}>
-            Email <span aria-hidden="true" style={{ color: "#b71c1c" }}>*</span>
+          <label
+            htmlFor="booking-email"
+            style={{ fontWeight: 600, display: "block", marginBottom: 6 }}
+          >
+            Email{" "}
+            <span aria-hidden="true" style={{ color: "#b71c1c" }}>
+              *
+            </span>
           </label>
           <input
             id="booking-email"
             type="email"
             value={email}
-            onChange={e => setEmail(e.target.value)}
+            onChange={(e) => setEmail(e.target.value)}
             placeholder="Votre email"
             aria-label="Email"
             required
@@ -138,21 +148,27 @@ const BookingForm = ({
               borderRadius: 8,
               border: "1px solid #1976d2",
               padding: "0.7em 1em",
-              fontSize: 15
+              fontSize: 15,
             }}
             disabled={loading}
           />
         </div>
         <div style={{ marginBottom: 18, display: "flex", gap: 12 }}>
           <div style={{ flex: 1 }}>
-            <label htmlFor="booking-date" style={{ fontWeight: 600, display: "block", marginBottom: 6 }}>
-              Date <span aria-hidden="true" style={{ color: "#b71c1c" }}>*</span>
+            <label
+              htmlFor="booking-date"
+              style={{ fontWeight: 600, display: "block", marginBottom: 6 }}
+            >
+              Date{" "}
+              <span aria-hidden="true" style={{ color: "#b71c1c" }}>
+                *
+              </span>
             </label>
             <input
               id="booking-date"
               type="date"
               value={date}
-              onChange={e => setDate(e.target.value)}
+              onChange={(e) => setDate(e.target.value)}
               aria-label="Date"
               required
               style={{
@@ -160,20 +176,26 @@ const BookingForm = ({
                 borderRadius: 8,
                 border: "1px solid #1976d2",
                 padding: "0.7em 1em",
-                fontSize: 15
+                fontSize: 15,
               }}
               disabled={loading}
             />
           </div>
           <div style={{ flex: 1 }}>
-            <label htmlFor="booking-time" style={{ fontWeight: 600, display: "block", marginBottom: 6 }}>
-              Heure <span aria-hidden="true" style={{ color: "#b71c1c" }}>*</span>
+            <label
+              htmlFor="booking-time"
+              style={{ fontWeight: 600, display: "block", marginBottom: 6 }}
+            >
+              Heure{" "}
+              <span aria-hidden="true" style={{ color: "#b71c1c" }}>
+                *
+              </span>
             </label>
             <input
               id="booking-time"
               type="time"
               value={time}
-              onChange={e => setTime(e.target.value)}
+              onChange={(e) => setTime(e.target.value)}
               aria-label="Heure"
               required
               style={{
@@ -181,17 +203,22 @@ const BookingForm = ({
                 borderRadius: 8,
                 border: "1px solid #1976d2",
                 padding: "0.7em 1em",
-                fontSize: 15
+                fontSize: 15,
               }}
               disabled={loading}
             />
           </div>
         </div>
         <div style={{ marginBottom: 18 }}>
-          <span style={{ fontWeight: 600, marginBottom: 6, display: "block" }}>Options d’accessibilité :</span>
+          <span style={{ fontWeight: 600, marginBottom: 6, display: "block" }}>
+            Options d’accessibilité :
+          </span>
           <div style={{ display: "flex", gap: 16, flexWrap: "wrap" }}>
             {defaultOptions.map((o) => (
-              <label key={o.value} style={{ display: "flex", alignItems: "center", gap: 6 }}>
+              <label
+                key={o.value}
+                style={{ display: "flex", alignItems: "center", gap: 6 }}
+              >
                 <input
                   type="checkbox"
                   checked={options.includes(o.value)}
@@ -207,13 +234,16 @@ const BookingForm = ({
           </div>
         </div>
         <div style={{ marginBottom: 18 }}>
-          <label htmlFor="booking-message" style={{ fontWeight: 600, display: "block", marginBottom: 6 }}>
+          <label
+            htmlFor="booking-message"
+            style={{ fontWeight: 600, display: "block", marginBottom: 6 }}
+          >
             Message (optionnel)
           </label>
           <textarea
             id="booking-message"
             value={message}
-            onChange={e => setMessage(e.target.value)}
+            onChange={(e) => setMessage(e.target.value)}
             placeholder="Précisez vos besoins ou questions…"
             aria-label="Message optionnel"
             rows={3}
@@ -224,7 +254,7 @@ const BookingForm = ({
               border: "1px solid #1976d2",
               padding: "0.7em 1em",
               fontSize: 15,
-              resize: "vertical"
+              resize: "vertical",
             }}
             disabled={loading}
           />
@@ -241,7 +271,7 @@ const BookingForm = ({
             fontWeight: "bold",
             fontSize: "1.1em",
             cursor: loading ? "not-allowed" : "pointer",
-            transition: "background 0.2s"
+            transition: "background 0.2s",
           }}
           aria-label="Envoyer la réservation"
         >
@@ -252,7 +282,7 @@ const BookingForm = ({
             style={{
               color: feedback.includes("envoyée") ? "#388e3c" : "#b71c1c",
               fontWeight: 500,
-              marginTop: 12
+              marginTop: 12,
             }}
             aria-live="polite"
             tabIndex={0}
@@ -261,18 +291,47 @@ const BookingForm = ({
           </div>
         )}
       </form>
-      <div style={{ marginTop: 24, fontSize: 14, color: "#555", background: "#f0f4f8", borderRadius: 8, padding: "0.7em 1em" }}>
-        <b>À propos :</b> Ce formulaire permet de réserver un service ou un créneau en tenant compte de vos besoins d’accessibilité. <a href="https://www.service-public.fr/particuliers/vosdroits/F32012" target="_blank" rel="noopener noreferrer" style={{ color: "#1976d2", textDecoration: "underline" }}>En savoir plus</a>
+      <div
+        style={{
+          marginTop: 24,
+          fontSize: 14,
+          color: "#555",
+          background: "#f0f4f8",
+          borderRadius: 8,
+          padding: "0.7em 1em",
+        }}
+      >
+        <b>À propos :</b> Ce formulaire permet de réserver un service ou un
+        créneau en tenant compte de vos besoins d’accessibilité.{" "}
+        <a
+          href="https://www.service-public.fr/particuliers/vosdroits/F32012"
+          target="_blank"
+          rel="noopener noreferrer"
+          style={{ color: "#1976d2", textDecoration: "underline" }}
+        >
+          En savoir plus
+        </a>
       </div>
       <footer
         style={{
           marginTop: 18,
           color: "#888",
           fontSize: "0.93em",
-          textAlign: "center"
+          textAlign: "center",
         }}
       >
-        <span role="img" aria-label="sécurité">🔒</span> Sécurisé | <span role="img" aria-label="accessibilité">♿</span> Accessible | <span role="img" aria-label="mobile">📱</span> Mobile/Web
+        <span role="img" aria-label="sécurité">
+          🔒
+        </span>{" "}
+        Sécurisé |{" "}
+        <span role="img" aria-label="accessibilité">
+          ♿
+        </span>{" "}
+        Accessible |{" "}
+        <span role="img" aria-label="mobile">
+          📱
+        </span>{" "}
+        Mobile/Web
       </footer>
     </section>
   );

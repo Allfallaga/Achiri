@@ -30,7 +30,8 @@ const mockTracks = [
     title: "Sunrise Beat",
     artist: "Alice",
     url: "/music/sunrise-beat.mp3",
-    cover: "https://images.unsplash.com/photo-1511671782779-c97d3d27a1d4?auto=format&fit=facearea&w=80&h=80",
+    cover:
+      "https://images.unsplash.com/photo-1511671782779-c97d3d27a1d4?auto=format&fit=facearea&w=80&h=80",
     uploadedAt: "2025-04-20",
     favorite: false,
     playlist: null,
@@ -40,7 +41,8 @@ const mockTracks = [
     title: "Dream Flow",
     artist: "Bob",
     url: "/music/dream-flow.mp3",
-    cover: "https://images.unsplash.com/photo-1508214751196-bcfd4ca60f91?auto=format&fit=facearea&w=80&h=80",
+    cover:
+      "https://images.unsplash.com/photo-1508214751196-bcfd4ca60f91?auto=format&fit=facearea&w=80&h=80",
     uploadedAt: "2025-04-18",
     favorite: true,
     playlist: "Chill",
@@ -71,9 +73,11 @@ const MusicLibrary = () => {
   // Filtrage des morceaux
   const filteredTracks = tracks.filter(
     (track) =>
-      (playlistFilter === "all" || track.playlist === playlistFilter || (playlistFilter === "favoris" && favorites.includes(track.id))) &&
+      (playlistFilter === "all" ||
+        track.playlist === playlistFilter ||
+        (playlistFilter === "favoris" && favorites.includes(track.id))) &&
       (track.title.toLowerCase().includes(search.toLowerCase()) ||
-        track.artist.toLowerCase().includes(search.toLowerCase()))
+        track.artist.toLowerCase().includes(search.toLowerCase())),
   );
 
   // Gestion de l'upload (mock)
@@ -87,7 +91,8 @@ const MusicLibrary = () => {
         title: selectedFile.name.replace(/\.[^/.]+$/, ""),
         artist: "Vous",
         url: URL.createObjectURL(selectedFile),
-        cover: "https://images.unsplash.com/photo-1465101046530-73398c7f28ca?auto=format&fit=facearea&w=80&h=80",
+        cover:
+          "https://images.unsplash.com/photo-1465101046530-73398c7f28ca?auto=format&fit=facearea&w=80&h=80",
         uploadedAt: new Date().toISOString().slice(0, 10),
         favorite: false,
         playlist: null,
@@ -126,23 +131,21 @@ const MusicLibrary = () => {
   // Favoris
   const toggleFavorite = (id) => {
     setFavorites((prev) =>
-      prev.includes(id) ? prev.filter((fid) => fid !== id) : [...prev, id]
+      prev.includes(id) ? prev.filter((fid) => fid !== id) : [...prev, id],
     );
     setTracks((prev) =>
-      prev.map((t) =>
-        t.id === id ? { ...t, favorite: !t.favorite } : t
-      )
+      prev.map((t) => (t.id === id ? { ...t, favorite: !t.favorite } : t)),
     );
-    setFeedback(favorites.includes(id) ? "Retiré des favoris." : "Ajouté aux favoris !");
+    setFeedback(
+      favorites.includes(id) ? "Retiré des favoris." : "Ajouté aux favoris !",
+    );
     setTimeout(() => setFeedback(""), 1200);
   };
 
   // Playlists (mock)
   const assignPlaylist = (id, playlist) => {
     setTracks((prev) =>
-      prev.map((t) =>
-        t.id === id ? { ...t, playlist } : t
-      )
+      prev.map((t) => (t.id === id ? { ...t, playlist } : t)),
     );
     setFeedback(`Ajouté à la playlist "${playlist}"`);
     setTimeout(() => setFeedback(""), 1200);
@@ -159,7 +162,10 @@ const MusicLibrary = () => {
     >
       <Helmet>
         <title>Bibliothèque musicale | Achiri</title>
-        <meta name="description" content="Bibliothèque musicale Achiri : upload, lecture, recherche, favoris, playlists, accessibilité, sécurité, responsive, SEO, design avancé." />
+        <meta
+          name="description"
+          content="Bibliothèque musicale Achiri : upload, lecture, recherche, favoris, playlists, accessibilité, sécurité, responsive, SEO, design avancé."
+        />
       </Helmet>
       <div className="flex items-center justify-between mb-4">
         <h2
@@ -181,7 +187,17 @@ const MusicLibrary = () => {
 
       {/* Feedback utilisateur */}
       {feedback && (
-        <div aria-live="polite" style={{ color: "#43a047", marginBottom: 8, fontWeight: 600, display: "flex", alignItems: "center", gap: 6 }}>
+        <div
+          aria-live="polite"
+          style={{
+            color: "#43a047",
+            marginBottom: 8,
+            fontWeight: 600,
+            display: "flex",
+            alignItems: "center",
+            gap: 6,
+          }}
+        >
           {feedback}
         </div>
       )}
@@ -258,7 +274,9 @@ const MusicLibrary = () => {
       {/* Liste des morceaux */}
       <div className="music-list space-y-3">
         {filteredTracks.length === 0 ? (
-          <div className="text-gray-400 text-center py-8">Aucun morceau trouvé.</div>
+          <div className="text-gray-400 text-center py-8">
+            Aucun morceau trouvé.
+          </div>
         ) : (
           filteredTracks.map((track) => (
             <div
@@ -277,17 +295,25 @@ const MusicLibrary = () => {
                   {track.title}
                   <button
                     className="ml-1 text-yellow-500"
-                    aria-label={favorites.includes(track.id) ? "Retirer des favoris" : "Ajouter aux favoris"}
+                    aria-label={
+                      favorites.includes(track.id)
+                        ? "Retirer des favoris"
+                        : "Ajouter aux favoris"
+                    }
                     style={{
                       background: "none",
                       border: "none",
                       cursor: "pointer",
                       fontSize: 18,
-                      outline: "none"
+                      outline: "none",
                     }}
                     onClick={() => toggleFavorite(track.id)}
                   >
-                    <FaStar style={{ opacity: favorites.includes(track.id) ? 1 : 0.3 }} />
+                    <FaStar
+                      style={{
+                        opacity: favorites.includes(track.id) ? 1 : 0.3,
+                      }}
+                    />
                   </button>
                   {track.playlist && (
                     <span
@@ -296,7 +322,7 @@ const MusicLibrary = () => {
                         background: "#e3f2fd",
                         color: "#1976d2",
                         fontWeight: 600,
-                        marginLeft: 4
+                        marginLeft: 4,
                       }}
                     >
                       <FaListUl style={{ marginRight: 2 }} /> {track.playlist}
@@ -311,9 +337,15 @@ const MusicLibrary = () => {
               <button
                 className="play-btn text-blue-600 dark:text-blue-300 ml-2"
                 onClick={() => handlePlay(track.id)}
-                aria-label={audio.id === track.id && audio.playing ? "Pause" : "Lecture"}
+                aria-label={
+                  audio.id === track.id && audio.playing ? "Pause" : "Lecture"
+                }
               >
-                {audio.id === track.id && audio.playing ? <FaPause /> : <FaPlay />}
+                {audio.id === track.id && audio.playing ? (
+                  <FaPause />
+                ) : (
+                  <FaPlay />
+                )}
               </button>
               <button
                 className="delete-btn text-red-500 ml-2"
@@ -323,7 +355,7 @@ const MusicLibrary = () => {
                   background: "none",
                   border: "none",
                   fontSize: 18,
-                  cursor: "pointer"
+                  cursor: "pointer",
                 }}
               >
                 <FaTrashAlt />
@@ -332,13 +364,15 @@ const MusicLibrary = () => {
               <select
                 className="ml-2 px-1 py-0.5 rounded border text-xs"
                 value={track.playlist || ""}
-                onChange={e => assignPlaylist(track.id, e.target.value)}
+                onChange={(e) => assignPlaylist(track.id, e.target.value)}
                 aria-label="Ajouter à une playlist"
                 style={{ minWidth: 80 }}
               >
                 <option value="">Playlist</option>
-                {mockPlaylists.map(pl => (
-                  <option key={pl.name} value={pl.name}>{pl.name}</option>
+                {mockPlaylists.map((pl) => (
+                  <option key={pl.name} value={pl.name}>
+                    {pl.name}
+                  </option>
                 ))}
               </select>
               <audio
@@ -357,7 +391,8 @@ const MusicLibrary = () => {
       <div className="mt-6 p-3 bg-blue-50 dark:bg-blue-900 rounded text-blue-800 dark:text-blue-200 flex items-center">
         <FaHeadphones className="mr-2" />
         <span>
-          Utilisez vos sons dans les <b>rooms vidéo</b>, jeux ou interactions Achiri !
+          Utilisez vos sons dans les <b>rooms vidéo</b>, jeux ou interactions
+          Achiri !
         </span>
       </div>
       <footer
@@ -365,10 +400,21 @@ const MusicLibrary = () => {
           marginTop: 18,
           color: "#888",
           fontSize: "0.93em",
-          textAlign: "center"
+          textAlign: "center",
         }}
       >
-        <span role="img" aria-label="sécurité">🔒</span> Sécurisé | <span role="img" aria-label="accessibilité">♿</span> Accessible | <span role="img" aria-label="mobile">📱</span> Mobile/Web
+        <span role="img" aria-label="sécurité">
+          🔒
+        </span>{" "}
+        Sécurisé |{" "}
+        <span role="img" aria-label="accessibilité">
+          ♿
+        </span>{" "}
+        Accessible |{" "}
+        <span role="img" aria-label="mobile">
+          📱
+        </span>{" "}
+        Mobile/Web
         <br />
         <span style={{ fontSize: "0.93em" }}>
           Design avancé, navigation clavier, SEO optimisé, branding Achiri.

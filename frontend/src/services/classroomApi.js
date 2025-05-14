@@ -32,7 +32,7 @@ export async function quizMock(classroomId, userId) {
           },
         ],
       });
-    }, 600)
+    }, 600),
   );
 }
 
@@ -49,9 +49,10 @@ export async function factCheckMock(text) {
         original: text,
         verdict: "vrai",
         confidence: 0.92,
-        explanation: "L'affirmation est correcte selon les sources officielles.",
+        explanation:
+          "L'affirmation est correcte selon les sources officielles.",
       });
-    }, 700)
+    }, 700),
   );
 }
 
@@ -67,7 +68,7 @@ export async function summarizeMock(text) {
       resolve({
         summary: "Ceci est un résumé simulé du texte fourni.",
       });
-    }, 500)
+    }, 500),
   );
 }
 
@@ -87,7 +88,7 @@ export async function techWatchMock(topic) {
           { title: "Lancement d'une plateforme inclusive", date: "2025-04-24" },
         ],
       });
-    }, 700)
+    }, 700),
   );
 }
 
@@ -105,7 +106,7 @@ export async function getClassroomMembersMock(classroomId) {
         { id: "u2", name: "Bob", role: "professeur" },
         { id: "u3", name: "Charlie", role: "élève" },
       ]);
-    }, 400)
+    }, 400),
   );
 }
 

@@ -1,7 +1,7 @@
 import React, { useRef, useState } from "react";
 import { Helmet } from "react-helmet-async";
 
-import visionApi from "../services/visionApi";
+import visionApi from "../../services/visionApi.js";
 
 /**
  * ChallengeBox (ex CameraDescription) – Achiri
@@ -37,7 +37,7 @@ const ChallengeBox = ({
       }
     })();
     return () => {
-      if (stream) stream.getTracks().forEach(track => track.stop());
+      if (stream) stream.getTracks().forEach((track) => track.stop());
       setCameraActive(false);
     };
   }, []);
@@ -52,7 +52,9 @@ const ChallengeBox = ({
       const video = videoRef.current;
       canvas.width = video.videoWidth;
       canvas.height = video.videoHeight;
-      canvas.getContext("2d").drawImage(video, 0, 0, canvas.width, canvas.height);
+      canvas
+        .getContext("2d")
+        .drawImage(video, 0, 0, canvas.width, canvas.height);
       const dataUrl = canvas.toDataURL("image/jpeg");
       const result = await visionApi.describe({ image: dataUrl });
       setDescription(result.description || "Aucune description générée.");
@@ -86,14 +88,17 @@ const ChallengeBox = ({
         borderRadius: 16,
         boxShadow: "0 2px 16px #1976d233",
         padding: "2rem",
-        outline: "none"
+        outline: "none",
       }}
       aria-label="Défi accessibilité IA"
       tabIndex={0}
     >
       <Helmet>
         <title>{challengeTitle} | Achiri</title>
-        <meta name="description" content="Accessibilité avancée : description visuelle IA pour personnes aveugles/malvoyantes. Design moderne, sécurité, mobile/web." />
+        <meta
+          name="description"
+          content="Accessibilité avancée : description visuelle IA pour personnes aveugles/malvoyantes. Design moderne, sécurité, mobile/web."
+        />
       </Helmet>
       <h2
         style={{
@@ -102,7 +107,7 @@ const ChallengeBox = ({
           textAlign: "center",
           fontWeight: 700,
           fontSize: "1.25em",
-          letterSpacing: "0.01em"
+          letterSpacing: "0.01em",
         }}
         tabIndex={0}
         aria-label="Titre défi accessibilité IA"
@@ -116,7 +121,7 @@ const ChallengeBox = ({
             color: "#555",
             marginBottom: 18,
             textAlign: "center",
-            fontSize: "1.05em"
+            fontSize: "1.05em",
           }}
           tabIndex={0}
           aria-label="Description du défi"
@@ -134,7 +139,7 @@ const ChallengeBox = ({
           background: "#222",
           minHeight: 180,
           marginBottom: 12,
-          outline: "none"
+          outline: "none",
         }}
         aria-label="Webcam en direct"
         tabIndex={0}
@@ -153,12 +158,16 @@ const ChallengeBox = ({
           cursor: loading || !cameraActive ? "not-allowed" : "pointer",
           transition: "background 0.2s",
           fontWeight: 600,
-          outline: "none"
+          outline: "none",
         }}
         aria-label="Décrire la scène"
         tabIndex={0}
-        onKeyDown={e => {
-          if ((e.key === "Enter" || e.key === " ") && !loading && cameraActive) {
+        onKeyDown={(e) => {
+          if (
+            (e.key === "Enter" || e.key === " ") &&
+            !loading &&
+            cameraActive
+          ) {
             e.preventDefault();
             handleDescribe();
           }
@@ -174,7 +183,7 @@ const ChallengeBox = ({
             borderRadius: 6,
             marginTop: 10,
             fontSize: "1.1em",
-            color: "#1976d2"
+            color: "#1976d2",
           }}
           aria-live="polite"
           tabIndex={0}
@@ -183,7 +192,11 @@ const ChallengeBox = ({
         </div>
       )}
       {error && (
-        <div style={{ color: "#b71c1c", marginTop: 10 }} role="alert" tabIndex={0}>
+        <div
+          style={{ color: "#b71c1c", marginTop: 10 }}
+          role="alert"
+          tabIndex={0}
+        >
           {error}
         </div>
       )}
@@ -192,16 +205,30 @@ const ChallengeBox = ({
           Autorisez l'accès à la caméra pour utiliser cette fonctionnalité.
         </div>
       )}
-      <footer style={{
-        marginTop: 18,
-        color: "#888",
-        fontSize: "0.98em",
-        textAlign: "center"
-      }}>
-        <span role="img" aria-label="sécurité">🔒</span> Sécurisé | <span role="img" aria-label="accessibilité">♿</span> Accessible | <span role="img" aria-label="mobile">📱</span> Mobile/Web
+      <footer
+        style={{
+          marginTop: 18,
+          color: "#888",
+          fontSize: "0.98em",
+          textAlign: "center",
+        }}
+      >
+        <span role="img" aria-label="sécurité">
+          🔒
+        </span>{" "}
+        Sécurisé |{" "}
+        <span role="img" aria-label="accessibilité">
+          ♿
+        </span>{" "}
+        Accessible |{" "}
+        <span role="img" aria-label="mobile">
+          📱
+        </span>{" "}
+        Mobile/Web
         <br />
         <span style={{ fontSize: "0.93em" }}>
-          Design avancé, navigation clavier, SEO optimisé, accessibilité IA Achiri.
+          Design avancé, navigation clavier, SEO optimisé, accessibilité IA
+          Achiri.
         </span>
       </footer>
     </section>

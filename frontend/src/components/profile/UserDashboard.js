@@ -39,8 +39,20 @@ const mockUser = {
 };
 
 const accessibilityIcons = {
-  "Sous-titres": <FaUniversalAccess title="Sous-titres" aria-label="Sous-titres" style={{ color: "#1976d2" }} />,
-  "Lecture vocale": <FaUniversalAccess title="Lecture vocale" aria-label="Lecture vocale" style={{ color: "#43a047" }} />,
+  "Sous-titres": (
+    <FaUniversalAccess
+      title="Sous-titres"
+      aria-label="Sous-titres"
+      style={{ color: "#1976d2" }}
+    />
+  ),
+  "Lecture vocale": (
+    <FaUniversalAccess
+      title="Lecture vocale"
+      aria-label="Lecture vocale"
+      style={{ color: "#43a047" }}
+    />
+  ),
 };
 
 const UserDashboard = () => {
@@ -68,16 +80,38 @@ const UserDashboard = () => {
       tabIndex={0}
     >
       {/* Profil utilisateur */}
-      <div className="flex items-center mb-6" style={{ display: "flex", alignItems: "center", marginBottom: "1.5rem" }}>
+      <div
+        className="flex items-center mb-6"
+        style={{
+          display: "flex",
+          alignItems: "center",
+          marginBottom: "1.5rem",
+        }}
+      >
         <img
           src={user.avatar}
           alt="Avatar utilisateur"
           className="w-16 h-16 rounded-full border-2 border-blue-400 mr-4"
-          style={{ width: 64, height: 64, borderRadius: "50%", border: "2px solid #2563eb", marginRight: 16, objectFit: "cover" }}
+          style={{
+            width: 64,
+            height: 64,
+            borderRadius: "50%",
+            border: "2px solid #2563eb",
+            marginRight: 16,
+            objectFit: "cover",
+          }}
         />
         <div>
-          <div className="text-xl font-bold text-gray-800 dark:text-white" style={{ fontSize: "1.3em", fontWeight: 700 }}>{user.name}</div>
-          <div className="flex gap-2 mt-1" style={{ display: "flex", gap: 8, marginTop: 4 }}>
+          <div
+            className="text-xl font-bold text-gray-800 dark:text-white"
+            style={{ fontSize: "1.3em", fontWeight: 700 }}
+          >
+            {user.name}
+          </div>
+          <div
+            className="flex gap-2 mt-1"
+            style={{ display: "flex", gap: 8, marginTop: 4 }}
+          >
             {user.badges.map((badge, idx) => (
               <span
                 key={idx}
@@ -90,7 +124,7 @@ const UserDashboard = () => {
                   padding: "2px 8px",
                   fontSize: 13,
                   fontWeight: 600,
-                  display: "inline-block"
+                  display: "inline-block",
                 }}
                 aria-label={`Badge ${badge}`}
               >
@@ -100,17 +134,47 @@ const UserDashboard = () => {
           </div>
           {/* Accessibilité utilisateur */}
           <div style={{ display: "flex", gap: 8, marginTop: 6 }}>
-            {user.accessibility && user.accessibility.map((a, i) => (
-              <span key={i} style={{ fontSize: 18 }}>{accessibilityIcons[a]}</span>
-            ))}
+            {user.accessibility &&
+              user.accessibility.map((a, i) => (
+                <span key={i} style={{ fontSize: 18 }}>
+                  {accessibilityIcons[a]}
+                </span>
+              ))}
           </div>
         </div>
-        <div className="ml-auto flex flex-col items-end" style={{ marginLeft: "auto", display: "flex", flexDirection: "column", alignItems: "flex-end" }}>
-          <span className="flex items-center text-yellow-600 dark:text-yellow-300 font-bold" style={{ color: "#fbbf24", fontWeight: 600, display: "flex", alignItems: "center" }}>
-            <FaWallet className="mr-1" style={{ marginRight: 4 }} /> {user.points} pts
+        <div
+          className="ml-auto flex flex-col items-end"
+          style={{
+            marginLeft: "auto",
+            display: "flex",
+            flexDirection: "column",
+            alignItems: "flex-end",
+          }}
+        >
+          <span
+            className="flex items-center text-yellow-600 dark:text-yellow-300 font-bold"
+            style={{
+              color: "#fbbf24",
+              fontWeight: 600,
+              display: "flex",
+              alignItems: "center",
+            }}
+          >
+            <FaWallet className="mr-1" style={{ marginRight: 4 }} />{" "}
+            {user.points} pts
           </span>
-          <span className="flex items-center text-red-500 text-xs mt-1" style={{ color: "#ef4444", fontSize: 13, marginTop: 4, display: "flex", alignItems: "center" }}>
-            <FaBell className="mr-1" style={{ marginRight: 4 }} /> {user.notifications} notif.
+          <span
+            className="flex items-center text-red-500 text-xs mt-1"
+            style={{
+              color: "#ef4444",
+              fontSize: 13,
+              marginTop: 4,
+              display: "flex",
+              alignItems: "center",
+            }}
+          >
+            <FaBell className="mr-1" style={{ marginRight: 4 }} />{" "}
+            {user.notifications} notif.
           </span>
         </div>
       </div>
@@ -128,7 +192,7 @@ const UserDashboard = () => {
           display: "flex",
           flexWrap: "wrap",
           alignItems: "center",
-          gap: 18
+          gap: 18,
         }}
         aria-label="Progression et activité"
       >
@@ -143,7 +207,7 @@ const UserDashboard = () => {
               height: 12,
               width: "100%",
               maxWidth: 220,
-              position: "relative"
+              position: "relative",
             }}
             aria-label={`Barre de progression activité ${user.activity}%`}
           >
@@ -153,11 +217,20 @@ const UserDashboard = () => {
                 width: `${user.activity}%`,
                 height: "100%",
                 borderRadius: 6,
-                transition: "width 0.5s"
+                transition: "width 0.5s",
               }}
             />
           </div>
-          <span style={{ color: "#1976d2", fontWeight: 600, fontSize: 14, marginLeft: 6 }}>{user.activity}%</span>
+          <span
+            style={{
+              color: "#1976d2",
+              fontWeight: 600,
+              fontSize: 14,
+              marginLeft: 6,
+            }}
+          >
+            {user.activity}%
+          </span>
         </div>
         <div style={{ flex: 2, minWidth: 180 }}>
           <div style={{ fontWeight: 600, color: "#1976d2", marginBottom: 4 }}>
@@ -167,7 +240,12 @@ const UserDashboard = () => {
             width="100%"
             height="40"
             viewBox="0 0 120 40"
-            style={{ display: "block", marginTop: 2, marginBottom: 2, maxWidth: 220 }}
+            style={{
+              display: "block",
+              marginTop: 2,
+              marginBottom: 2,
+              maxWidth: 220,
+            }}
             aria-label="Graphique de progression"
             role="img"
           >
@@ -176,14 +254,14 @@ const UserDashboard = () => {
               stroke="#1976d2"
               strokeWidth="3"
               points={user.progression
-                .map((v, i) => `${i * 30},${40 - (v * 0.4)}`)
+                .map((v, i) => `${i * 30},${40 - v * 0.4}`)
                 .join(" ")}
             />
             {user.progression.map((v, i) => (
               <circle
                 key={i}
                 cx={i * 30}
-                cy={40 - (v * 0.4)}
+                cy={40 - v * 0.4}
                 r="3.5"
                 fill="#43a047"
               />
@@ -193,7 +271,10 @@ const UserDashboard = () => {
       </div>
 
       {/* Navigation rapide */}
-      <nav aria-label="Navigation rapide" className="quick-links grid grid-cols-2 gap-4 mb-6">
+      <nav
+        aria-label="Navigation rapide"
+        className="quick-links grid grid-cols-2 gap-4 mb-6"
+      >
         {quickLinks.map((link, idx) => (
           <a
             key={idx}
@@ -213,12 +294,12 @@ const UserDashboard = () => {
               fontSize: "1em",
               textDecoration: "none",
               boxShadow: "0 1px 4px #2563eb11",
-              transition: "background 0.18s"
+              transition: "background 0.18s",
             }}
-            onFocus={e => e.currentTarget.style.background = "#e0e7ff"}
-            onBlur={e => e.currentTarget.style.background = "#f1f5fd"}
-            onMouseOver={e => e.currentTarget.style.background = "#e0e7ff"}
-            onMouseOut={e => e.currentTarget.style.background = "#f1f5fd"}
+            onFocus={(e) => (e.currentTarget.style.background = "#e0e7ff")}
+            onBlur={(e) => (e.currentTarget.style.background = "#f1f5fd")}
+            onMouseOver={(e) => (e.currentTarget.style.background = "#e0e7ff")}
+            onMouseOut={(e) => (e.currentTarget.style.background = "#f1f5fd")}
           >
             {link.icon}
             <span>{link.label}</span>
@@ -227,7 +308,8 @@ const UserDashboard = () => {
       </nav>
 
       {/* Astuce */}
-      <div className="mt-4 p-3 bg-green-50 dark:bg-green-900 rounded text-green-800 dark:text-green-200 flex items-center"
+      <div
+        className="mt-4 p-3 bg-green-50 dark:bg-green-900 rounded text-green-800 dark:text-green-200 flex items-center"
         style={{
           marginTop: 16,
           padding: "12px",
@@ -235,13 +317,14 @@ const UserDashboard = () => {
           borderRadius: 8,
           color: "#065f46",
           display: "flex",
-          alignItems: "center"
+          alignItems: "center",
         }}
         aria-live="polite"
       >
         <FaChalkboardTeacher className="mr-2" style={{ marginRight: 8 }} />
         <span>
-          Astuce : Consulte tes défis, récompenses et cours pour progresser chaque semaine sur Achiri !
+          Astuce : Consulte tes défis, récompenses et cours pour progresser
+          chaque semaine sur Achiri !
         </span>
       </div>
 
@@ -252,12 +335,21 @@ const UserDashboard = () => {
           marginTop: 24,
           color: "#888",
           fontSize: "0.93em",
-          textAlign: "center"
+          textAlign: "center",
         }}
         aria-label="Feedback utilisateur"
       >
         <FaCheckCircle style={{ color: "#43a047", marginRight: 6 }} />
-        Tes données sont sécurisées et accessibles. <span role="img" aria-label="sécurité">🔒</span> <span role="img" aria-label="accessibilité">♿</span> <span role="img" aria-label="mobile">📱</span>
+        Tes données sont sécurisées et accessibles.{" "}
+        <span role="img" aria-label="sécurité">
+          🔒
+        </span>{" "}
+        <span role="img" aria-label="accessibilité">
+          ♿
+        </span>{" "}
+        <span role="img" aria-label="mobile">
+          📱
+        </span>
       </div>
       <style>{`
         .user-dashboard-container:focus {

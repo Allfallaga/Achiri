@@ -15,7 +15,7 @@ import {
   FaRegClock,
   FaStar,
   FaMoon,
-  FaPalette
+  FaPalette,
 } from "react-icons/fa";
 import { motion } from "framer-motion";
 import "./VirtualClassroom.css";
@@ -35,7 +35,8 @@ const mockCourses = [
     title: "Introduction à l'IA",
     teacher: "Alice",
     date: "2025-04-25",
-    description: "Découvre les bases de l'intelligence artificielle avec quiz interactif.",
+    description:
+      "Découvre les bases de l'intelligence artificielle avec quiz interactif.",
     language: "fr",
     video: "/videos/intro-ia.mp4",
     quiz: [
@@ -44,7 +45,12 @@ const mockCourses = [
     ],
     duration: "45 min",
     rating: 4.8,
-    accessibility: ["Sous-titres", "Lecture vocale", "Traduction", "Gamification"]
+    accessibility: [
+      "Sous-titres",
+      "Lecture vocale",
+      "Traduction",
+      "Gamification",
+    ],
   },
   {
     id: 2,
@@ -55,19 +61,26 @@ const mockCourses = [
     language: "fr",
     video: "/videos/post-viral.mp4",
     quiz: [
-      { q: "Quel est le meilleur moment pour poster ?", a: "Quand ton audience est active" },
+      {
+        q: "Quel est le meilleur moment pour poster ?",
+        a: "Quand ton audience est active",
+      },
     ],
     duration: "30 min",
     rating: 4.6,
-    accessibility: ["Sous-titres", "Lecture vocale", "Traduction"]
+    accessibility: ["Sous-titres", "Lecture vocale", "Traduction"],
   },
 ];
 
 const accessibilityIcons = {
-  "Sous-titres": <FaUniversalAccess title="Sous-titres" aria-label="Sous-titres" />,
-  "Lecture vocale": <FaVolumeUp title="Lecture vocale" aria-label="Lecture vocale" />,
-  "Traduction": <FaLanguage title="Traduction" aria-label="Traduction" />,
-  "Gamification": <FaGamepad title="Gamification" aria-label="Gamification" />
+  "Sous-titres": (
+    <FaUniversalAccess title="Sous-titres" aria-label="Sous-titres" />
+  ),
+  "Lecture vocale": (
+    <FaVolumeUp title="Lecture vocale" aria-label="Lecture vocale" />
+  ),
+  Traduction: <FaLanguage title="Traduction" aria-label="Traduction" />,
+  Gamification: <FaGamepad title="Gamification" aria-label="Gamification" />,
 };
 
 const VirtualClassroom = () => {
@@ -117,7 +130,7 @@ const VirtualClassroom = () => {
         background: darkMode ? "#232b3b" : "#fff",
         color: darkMode ? "#ffe082" : "#222",
         minHeight: "100vh",
-        transition: "background 0.3s, color 0.3s"
+        transition: "background 0.3s, color 0.3s",
       }}
     >
       <header
@@ -126,7 +139,7 @@ const VirtualClassroom = () => {
           display: "flex",
           alignItems: "center",
           justifyContent: "space-between",
-          marginBottom: 24
+          marginBottom: 24,
         }}
       >
         <h1
@@ -136,11 +149,12 @@ const VirtualClassroom = () => {
             alignItems: "center",
             fontWeight: 700,
             fontSize: "1.4em",
-            color: darkMode ? "#ffe082" : "#1976d2"
+            color: darkMode ? "#ffe082" : "#1976d2",
           }}
           tabIndex={0}
         >
-          <FaChalkboardTeacher className="mr-2" style={{ marginRight: 8 }} /> Virtual Classroom
+          <FaChalkboardTeacher className="mr-2" style={{ marginRight: 8 }} />{" "}
+          Virtual Classroom
         </h1>
         <div style={{ display: "flex", alignItems: "center", gap: 16 }}>
           <span
@@ -149,21 +163,24 @@ const VirtualClassroom = () => {
               display: "flex",
               alignItems: "center",
               color: darkMode ? "#ffe082" : "#2563eb",
-              fontWeight: 500
+              fontWeight: 500,
             }}
           >
-            <FaBookOpen className="mr-1" style={{ marginRight: 6 }} /> {courses.length} cours
+            <FaBookOpen className="mr-1" style={{ marginRight: 6 }} />{" "}
+            {courses.length} cours
           </span>
           <button
             type="button"
             onClick={handleDarkMode}
-            aria-label={darkMode ? "Désactiver le mode sombre" : "Activer le mode sombre"}
+            aria-label={
+              darkMode ? "Désactiver le mode sombre" : "Activer le mode sombre"
+            }
             style={{
               background: "none",
               border: "none",
               color: darkMode ? "#ffe082" : "#1976d2",
               cursor: "pointer",
-              fontSize: 20
+              fontSize: 20,
             }}
             tabIndex={0}
           >
@@ -182,7 +199,9 @@ const VirtualClassroom = () => {
               onClick={() => handleSelect(course.id)}
               tabIndex={0}
               aria-label={`Voir le cours ${course.title}`}
-              onKeyDown={e => (e.key === "Enter" || e.key === " ") && handleSelect(course.id)}
+              onKeyDown={(e) =>
+                (e.key === "Enter" || e.key === " ") && handleSelect(course.id)
+              }
               style={{
                 cursor: "pointer",
                 background: darkMode ? "#181f2a" : "#f8fafc",
@@ -195,30 +214,71 @@ const VirtualClassroom = () => {
                 alignItems: "flex-start",
                 gap: 18,
                 outline: "none",
-                color: darkMode ? "#ffe082" : "#222"
+                color: darkMode ? "#ffe082" : "#222",
               }}
               role="button"
               aria-pressed="false"
             >
               <div style={{ flex: 1 }}>
-                <div className="font-semibold text-gray-800 dark:text-white" style={{ fontWeight: 600, fontSize: 18, color: darkMode ? "#ffe082" : "#1976d2" }}>{course.title}</div>
-                <div className="text-xs text-gray-500 flex items-center" style={{ display: "flex", alignItems: "center", gap: 8, fontSize: 14 }}>
-                  <FaUsers className="mr-1" style={{ marginRight: 4 }} /> {course.teacher} &nbsp;|&nbsp;
-                  <FaRegClock style={{ marginRight: 4 }} /> {course.duration} &nbsp;|&nbsp;
-                  <FaStar style={{ color: "#43a047", marginRight: 4 }} /> {course.rating}
+                <div
+                  className="font-semibold text-gray-800 dark:text-white"
+                  style={{
+                    fontWeight: 600,
+                    fontSize: 18,
+                    color: darkMode ? "#ffe082" : "#1976d2",
+                  }}
+                >
+                  {course.title}
+                </div>
+                <div
+                  className="text-xs text-gray-500 flex items-center"
+                  style={{
+                    display: "flex",
+                    alignItems: "center",
+                    gap: 8,
+                    fontSize: 14,
+                  }}
+                >
+                  <FaUsers className="mr-1" style={{ marginRight: 4 }} />{" "}
+                  {course.teacher} &nbsp;|&nbsp;
+                  <FaRegClock style={{ marginRight: 4 }} /> {course.duration}{" "}
+                  &nbsp;|&nbsp;
+                  <FaStar style={{ color: "#43a047", marginRight: 4 }} />{" "}
+                  {course.rating}
                   &nbsp;|&nbsp;
                   <span className="ml-1">{course.date}</span>
                 </div>
-                <div className="text-xs text-gray-400 mt-1" style={{ color: "#888", marginTop: 4 }}>{course.description}</div>
+                <div
+                  className="text-xs text-gray-400 mt-1"
+                  style={{ color: "#888", marginTop: 4 }}
+                >
+                  {course.description}
+                </div>
                 <div style={{ marginTop: 8, display: "flex", gap: 10 }}>
                   {course.accessibility.map((a, i) => (
-                    <span key={i} style={{ fontSize: 18 }}>{accessibilityIcons[a]}</span>
+                    <span key={i} style={{ fontSize: 18 }}>
+                      {accessibilityIcons[a]}
+                    </span>
                   ))}
                 </div>
               </div>
-              <div className="flex flex-col items-end" style={{ display: "flex", flexDirection: "column", alignItems: "flex-end" }}>
-                <span className="text-xs text-blue-500 flex items-center" style={{ color: darkMode ? "#ffe082" : "#2563eb", fontWeight: 500 }}>
-                  <FaLanguage className="mr-1" style={{ marginRight: 4 }} /> {course.language.toUpperCase()}
+              <div
+                className="flex flex-col items-end"
+                style={{
+                  display: "flex",
+                  flexDirection: "column",
+                  alignItems: "flex-end",
+                }}
+              >
+                <span
+                  className="text-xs text-blue-500 flex items-center"
+                  style={{
+                    color: darkMode ? "#ffe082" : "#2563eb",
+                    fontWeight: 500,
+                  }}
+                >
+                  <FaLanguage className="mr-1" style={{ marginRight: 4 }} />{" "}
+                  {course.language.toUpperCase()}
                 </span>
                 <button
                   className="mt-2 px-2 py-1 bg-blue-600 text-white rounded text-xs"
@@ -230,7 +290,7 @@ const VirtualClassroom = () => {
                     border: "none",
                     borderRadius: 6,
                     fontSize: 13,
-                    cursor: "pointer"
+                    cursor: "pointer",
                   }}
                   tabIndex={-1}
                   aria-hidden="true"
@@ -245,7 +305,11 @@ const VirtualClassroom = () => {
 
       {/* Détail du cours */}
       {selected && (
-        <article className="course-detail" aria-label={`Détail du cours ${selected.title}`} tabIndex={0}>
+        <article
+          className="course-detail"
+          aria-label={`Détail du cours ${selected.title}`}
+          tabIndex={0}
+        >
           <button
             className="mb-3 text-blue-600 dark:text-blue-300 text-sm"
             onClick={() => setSelected(null)}
@@ -258,28 +322,65 @@ const VirtualClassroom = () => {
               display: "flex",
               alignItems: "center",
               marginBottom: 12,
-              padding: 0
+              padding: 0,
             }}
             aria-label="Retour aux cours"
           >
             <FaArrowLeft style={{ marginRight: 6 }} /> Retour aux cours
           </button>
-          <div className="font-bold text-lg text-gray-800 dark:text-white mb-1" style={{ fontWeight: 700, fontSize: "1.2em", color: darkMode ? "#ffe082" : "#1976d2", marginBottom: 6 }}>{selected.title}</div>
-          <div className="text-xs text-gray-500 mb-2 flex items-center" style={{ display: "flex", alignItems: "center", gap: 8, marginBottom: 8 }}>
-            <FaUsers className="mr-1" style={{ marginRight: 4 }} /> {selected.teacher} &nbsp;|&nbsp; {selected.date}
+          <div
+            className="font-bold text-lg text-gray-800 dark:text-white mb-1"
+            style={{
+              fontWeight: 700,
+              fontSize: "1.2em",
+              color: darkMode ? "#ffe082" : "#1976d2",
+              marginBottom: 6,
+            }}
+          >
+            {selected.title}
           </div>
-          <div className="mb-3 text-gray-700 dark:text-gray-200">{selected.description}</div>
-          <div className="mb-3 flex gap-3" style={{ display: "flex", gap: 16, marginBottom: 16 }}>
-            <span className="flex items-center text-blue-500" style={{ color: darkMode ? "#ffe082" : "#2563eb" }}>
-              <FaLanguage className="mr-1" style={{ marginRight: 4 }} /> {selected.language.toUpperCase()}
+          <div
+            className="text-xs text-gray-500 mb-2 flex items-center"
+            style={{
+              display: "flex",
+              alignItems: "center",
+              gap: 8,
+              marginBottom: 8,
+            }}
+          >
+            <FaUsers className="mr-1" style={{ marginRight: 4 }} />{" "}
+            {selected.teacher} &nbsp;|&nbsp; {selected.date}
+          </div>
+          <div className="mb-3 text-gray-700 dark:text-gray-200">
+            {selected.description}
+          </div>
+          <div
+            className="mb-3 flex gap-3"
+            style={{ display: "flex", gap: 16, marginBottom: 16 }}
+          >
+            <span
+              className="flex items-center text-blue-500"
+              style={{ color: darkMode ? "#ffe082" : "#2563eb" }}
+            >
+              <FaLanguage className="mr-1" style={{ marginRight: 4 }} />{" "}
+              {selected.language.toUpperCase()}
             </span>
-            <span className="flex items-center text-green-500" style={{ color: "#43a047" }}>
+            <span
+              className="flex items-center text-green-500"
+              style={{ color: "#43a047" }}
+            >
               <FaVideo className="mr-1" style={{ marginRight: 4 }} /> Vidéo
             </span>
-            <span className="flex items-center text-purple-500" style={{ color: "#a259f7" }}>
+            <span
+              className="flex items-center text-purple-500"
+              style={{ color: "#a259f7" }}
+            >
               <FaMicrophone className="mr-1" style={{ marginRight: 4 }} /> Audio
             </span>
-            <span className="flex items-center text-orange-500" style={{ color: "#ff9800" }}>
+            <span
+              className="flex items-center text-orange-500"
+              style={{ color: "#ff9800" }}
+            >
               <FaComments className="mr-1" style={{ marginRight: 4 }} /> Chat
             </span>
           </div>
@@ -289,7 +390,12 @@ const VirtualClassroom = () => {
             controls
             className="w-full rounded mb-4"
             aria-label="Vidéo du cours"
-            style={{ width: "100%", borderRadius: 8, marginBottom: 16, background: "#000" }}
+            style={{
+              width: "100%",
+              borderRadius: 8,
+              marginBottom: 16,
+              background: "#000",
+            }}
           />
           {/* Quiz IA */}
           <div className="mb-4">
@@ -305,30 +411,37 @@ const VirtualClassroom = () => {
                 fontSize: "1em",
                 cursor: "pointer",
                 display: "flex",
-                alignItems: "center"
+                alignItems: "center",
               }}
               onClick={() => setShowQuiz(!showQuiz)}
               aria-expanded={showQuiz}
               aria-controls="quiz-section"
             >
-              <FaQuestionCircle className="mr-1" style={{ marginRight: 8 }} /> {showQuiz ? "Fermer le quiz" : "Quiz IA"}
+              <FaQuestionCircle className="mr-1" style={{ marginRight: 8 }} />{" "}
+              {showQuiz ? "Fermer le quiz" : "Quiz IA"}
             </button>
             {showQuiz && (
               <form
                 id="quiz-section"
                 className="mt-3 space-y-2"
-                onSubmit={e => { e.preventDefault(); handleQuizSubmit(); }}
+                onSubmit={(e) => {
+                  e.preventDefault();
+                  handleQuizSubmit();
+                }}
                 style={{ marginTop: 12 }}
               >
                 {selected.quiz.map((q, idx) => (
                   <div key={idx} style={{ marginBottom: 10 }}>
-                    <label className="block text-gray-700 dark:text-gray-200 mb-1" style={{ display: "block", marginBottom: 4 }}>
+                    <label
+                      className="block text-gray-700 dark:text-gray-200 mb-1"
+                      style={{ display: "block", marginBottom: 4 }}
+                    >
                       {q.q}
                     </label>
                     <input
                       type="text"
                       value={answers[idx] || ""}
-                      onChange={e => handleAnswer(idx, e.target.value)}
+                      onChange={(e) => handleAnswer(idx, e.target.value)}
                       className="border rounded px-2 py-1 w-full"
                       style={{
                         border: "1px solid #d1d5db",
@@ -337,7 +450,7 @@ const VirtualClassroom = () => {
                         fontSize: "1em",
                         width: "100%",
                         background: darkMode ? "#181f2a" : "#fff",
-                        color: darkMode ? "#ffe082" : "#222"
+                        color: darkMode ? "#ffe082" : "#222",
                       }}
                       aria-label={`Réponse à la question ${idx + 1}`}
                     />
@@ -355,7 +468,7 @@ const VirtualClassroom = () => {
                     padding: "8px 24px",
                     fontWeight: 600,
                     fontSize: "1em",
-                    cursor: "pointer"
+                    cursor: "pointer",
                   }}
                 >
                   Soumettre
@@ -363,13 +476,17 @@ const VirtualClassroom = () => {
               </form>
             )}
             {quizSubmitted && (
-              <div style={{ color: "#43a047", marginTop: 12, fontWeight: 500 }} aria-live="polite">
+              <div
+                style={{ color: "#43a047", marginTop: 12, fontWeight: 500 }}
+                aria-live="polite"
+              >
                 Quiz soumis ! (Mock)
               </div>
             )}
           </div>
           {/* Accessibilité */}
-          <div className="accessibility-info bg-blue-50 dark:bg-blue-900 rounded p-3 text-blue-800 dark:text-blue-200 flex items-center gap-3"
+          <div
+            className="accessibility-info bg-blue-50 dark:bg-blue-900 rounded p-3 text-blue-800 dark:text-blue-200 flex items-center gap-3"
             style={{
               marginTop: 24,
               fontSize: "0.98em",
@@ -379,10 +496,12 @@ const VirtualClassroom = () => {
               display: "flex",
               alignItems: "center",
               gap: "1rem",
-              color: darkMode ? "#ffe082" : "#1976d2"
+              color: darkMode ? "#ffe082" : "#1976d2",
             }}
           >
-            <FaUniversalAccess /> Sous-titres &nbsp;|&nbsp; <FaVolumeUp /> Lecture vocale &nbsp;|&nbsp; <FaLanguage /> Traduction automatique &nbsp;|&nbsp; <FaGamepad /> Cours gamifiés
+            <FaUniversalAccess /> Sous-titres &nbsp;|&nbsp; <FaVolumeUp />{" "}
+            Lecture vocale &nbsp;|&nbsp; <FaLanguage /> Traduction automatique
+            &nbsp;|&nbsp; <FaGamepad /> Cours gamifiés
           </div>
         </article>
       )}
@@ -391,10 +510,21 @@ const VirtualClassroom = () => {
           marginTop: 32,
           color: darkMode ? "#ffe082" : "#888",
           fontSize: "0.93em",
-          textAlign: "center"
+          textAlign: "center",
         }}
       >
-        <span role="img" aria-label="sécurité">🔒</span> Sécurisé | <span role="img" aria-label="accessibilité">♿</span> Accessible | <span role="img" aria-label="mobile">📱</span> Mobile/Web
+        <span role="img" aria-label="sécurité">
+          🔒
+        </span>{" "}
+        Sécurisé |{" "}
+        <span role="img" aria-label="accessibilité">
+          ♿
+        </span>{" "}
+        Accessible |{" "}
+        <span role="img" aria-label="mobile">
+          📱
+        </span>{" "}
+        Mobile/Web
       </footer>
       <style>{`
         .virtual-classroom-container:focus {

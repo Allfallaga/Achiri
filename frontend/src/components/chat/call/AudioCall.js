@@ -48,22 +48,26 @@ const AudioCall = ({
       aria-label="Appel audio"
       tabIndex={0}
     >
-      <h2 style={{
-        color: "#1976d2",
-        marginBottom: 12,
-        fontWeight: 700,
-        fontSize: "1.2em"
-      }}>
+      <h2
+        style={{
+          color: "#1976d2",
+          marginBottom: 12,
+          fontWeight: 700,
+          fontSize: "1.2em",
+        }}
+      >
         <FaPhone style={{ marginRight: 8 }} />
         Appel audio {active ? "en cours" : ended ? "terminé" : ""}
       </h2>
-      <div style={{
-        display: "flex",
-        flexDirection: "column",
-        gap: 12,
-        width: "100%",
-        alignItems: "center"
-      }}>
+      <div
+        style={{
+          display: "flex",
+          flexDirection: "column",
+          gap: 12,
+          width: "100%",
+          alignItems: "center",
+        }}
+      >
         <audio
           ref={remoteAudioRef}
           autoPlay
@@ -71,11 +75,15 @@ const AudioCall = ({
           style={{ display: "none" }}
           aria-label={`Audio de ${remoteName}`}
         />
-        <span style={{
-          color: "#1976d2",
-          fontWeight: 600,
-          fontSize: "1em"
-        }}>{remoteName}</span>
+        <span
+          style={{
+            color: "#1976d2",
+            fontWeight: 600,
+            fontSize: "1em",
+          }}
+        >
+          {remoteName}
+        </span>
         <audio
           ref={localAudioRef}
           autoPlay
@@ -86,12 +94,14 @@ const AudioCall = ({
         />
         <span className="sr-only">{userName}</span>
       </div>
-      <div style={{
-        marginTop: 24,
-        display: "flex",
-        justifyContent: "center",
-        gap: 16
-      }}>
+      <div
+        style={{
+          marginTop: 24,
+          display: "flex",
+          justifyContent: "center",
+          gap: 16,
+        }}
+      >
         <button
           onClick={onEndCall}
           disabled={ended}
@@ -111,18 +121,20 @@ const AudioCall = ({
             boxShadow: "0 2px 8px #b71c1c22",
             cursor: ended ? "not-allowed" : "pointer",
             outline: "none",
-            transition: "background 0.2s, color 0.2s, box-shadow 0.2s"
+            transition: "background 0.2s, color 0.2s, box-shadow 0.2s",
           }}
         >
           <FaPhoneSlash />
         </button>
       </div>
       {ended && (
-        <div style={{
-          color: "#b71c1c",
-          marginTop: 18,
-          fontWeight: 600
-        }}>
+        <div
+          style={{
+            color: "#b71c1c",
+            marginTop: 18,
+            fontWeight: 600,
+          }}
+        >
           Appel terminé
         </div>
       )}

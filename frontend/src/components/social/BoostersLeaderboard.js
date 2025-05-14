@@ -1,4 +1,4 @@
-import React from 'react';
+import React from "react";
 
 /**
  * BoostersLeaderboard – Achiri
@@ -25,15 +25,28 @@ function BoostersLeaderboard({ boosters = [], role = "user" }) {
         padding: "2rem",
         maxWidth: 500,
         margin: "2rem auto",
-        outline: "none"
+        outline: "none",
       }}
     >
-      <h2 style={{ color: "#1976d2", marginBottom: 24, textAlign: "center", fontWeight: 700, fontSize: "1.3em", display: "flex", alignItems: "center", gap: 8 }}>
+      <h2
+        style={{
+          color: "#1976d2",
+          marginBottom: 24,
+          textAlign: "center",
+          fontWeight: 700,
+          fontSize: "1.3em",
+          display: "flex",
+          alignItems: "center",
+          gap: 8,
+        }}
+      >
         🚀 Classement des Boosters
       </h2>
       <ul style={{ listStyle: "none", padding: 0, margin: 0 }}>
         {boosters.length === 0 && (
-          <li style={{ color: "#888", textAlign: "center", fontStyle: "italic" }}>
+          <li
+            style={{ color: "#888", textAlign: "center", fontStyle: "italic" }}
+          >
             Aucun booster pour le moment.
           </li>
         )}
@@ -50,7 +63,7 @@ function BoostersLeaderboard({ boosters = [], role = "user" }) {
               boxShadow: b.isCurrentUser ? "0 2px 8px #1976d222" : "none",
               border: b.isCurrentUser ? "2px solid #1976d2" : "none",
               outline: b.isCurrentUser ? "2px solid #1976d2" : "none",
-              fontWeight: i < 3 ? "bold" : "normal"
+              fontWeight: i < 3 ? "bold" : "normal",
             }}
             aria-current={b.isCurrentUser ? "true" : undefined}
             tabIndex={0}
@@ -59,10 +72,17 @@ function BoostersLeaderboard({ boosters = [], role = "user" }) {
               style={{
                 fontSize: 22,
                 fontWeight: "bold",
-                color: i === 0 ? "#ffd600" : i === 1 ? "#bdbdbd" : i === 2 ? "#ff7043" : "#1976d2",
+                color:
+                  i === 0
+                    ? "#ffd600"
+                    : i === 1
+                      ? "#bdbdbd"
+                      : i === 2
+                        ? "#ff7043"
+                        : "#1976d2",
                 marginRight: 16,
                 width: 24,
-                textAlign: "center"
+                textAlign: "center",
               }}
               aria-label={`Rang ${i + 1}`}
             >
@@ -79,7 +99,7 @@ function BoostersLeaderboard({ boosters = [], role = "user" }) {
                 display: "flex",
                 alignItems: "center",
                 justifyContent: "center",
-                border: "1.5px solid #bbdefb"
+                border: "1.5px solid #bbdefb",
               }}
               aria-label={`Avatar de ${b.name}`}
             >
@@ -90,10 +110,13 @@ function BoostersLeaderboard({ boosters = [], role = "user" }) {
                 style={{
                   fontWeight: b.isCurrentUser ? "bold" : 500,
                   fontSize: 17,
-                  color: b.isCurrentUser ? "#1976d2" : "#222"
+                  color: b.isCurrentUser ? "#1976d2" : "#222",
                 }}
               >
-                {b.name} {b.isCurrentUser && <span style={{ fontSize: 13, color: "#43a047" }}>(Moi)</span>}
+                {b.name}{" "}
+                {b.isCurrentUser && (
+                  <span style={{ fontSize: 13, color: "#43a047" }}>(Moi)</span>
+                )}
               </div>
               <div style={{ fontSize: 13, color: "#888" }}>
                 {b.interactions} interactions
@@ -107,7 +130,7 @@ function BoostersLeaderboard({ boosters = [], role = "user" }) {
                 padding: "0.3em 1em",
                 fontWeight: "bold",
                 fontSize: 15,
-                marginLeft: 10
+                marginLeft: 10,
               }}
               aria-label={`Points : ${b.points}`}
             >
@@ -125,7 +148,7 @@ function BoostersLeaderboard({ boosters = [], role = "user" }) {
             borderRadius: 8,
             padding: "0.7em 1em",
             fontWeight: "bold",
-            textAlign: "center"
+            textAlign: "center",
           }}
           aria-label="Mode admin activé"
         >
@@ -137,10 +160,21 @@ function BoostersLeaderboard({ boosters = [], role = "user" }) {
           marginTop: 18,
           color: "#888",
           fontSize: "0.93em",
-          textAlign: "center"
+          textAlign: "center",
         }}
       >
-        <span role="img" aria-label="sécurité">🔒</span> Sécurisé | <span role="img" aria-label="accessibilité">♿</span> Accessible | <span role="img" aria-label="mobile">📱</span> Mobile/Web
+        <span role="img" aria-label="sécurité">
+          🔒
+        </span>{" "}
+        Sécurisé |{" "}
+        <span role="img" aria-label="accessibilité">
+          ♿
+        </span>{" "}
+        Accessible |{" "}
+        <span role="img" aria-label="mobile">
+          📱
+        </span>{" "}
+        Mobile/Web
       </footer>
     </section>
   );

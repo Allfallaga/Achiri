@@ -11,8 +11,16 @@ import React, { useState } from "react";
 const phrases = [
   { text: "Bonjour", video: "/assets/lsf/bonjour.gif", desc: "Bonjour en LSF" },
   { text: "Merci", video: "/assets/lsf/merci.gif", desc: "Merci en LSF" },
-  { text: "Bienvenue", video: "/assets/lsf/bienvenue.gif", desc: "Bienvenue en LSF" },
-  { text: "Comment ça va ?", video: "/assets/lsf/ca-va.gif", desc: "Comment ça va ? en LSF" }
+  {
+    text: "Bienvenue",
+    video: "/assets/lsf/bienvenue.gif",
+    desc: "Bienvenue en LSF",
+  },
+  {
+    text: "Comment ça va ?",
+    video: "/assets/lsf/ca-va.gif",
+    desc: "Comment ça va ? en LSF",
+  },
 ];
 
 const SignLanguageAvatar = () => {
@@ -28,7 +36,7 @@ const SignLanguageAvatar = () => {
         borderRadius: 16,
         boxShadow: "0 2px 16px #1976d233",
         padding: "2rem",
-        outline: "none"
+        outline: "none",
       }}
       aria-label="Avatar Langue des Signes Française"
       tabIndex={0}
@@ -41,12 +49,14 @@ const SignLanguageAvatar = () => {
           marginBottom: 14,
           display: "flex",
           alignItems: "center",
-          gap: 8
+          gap: 8,
         }}
         tabIndex={0}
         aria-label="Avatar animé LSF"
       >
-        <span role="img" aria-label="langue des signes">🤟</span>
+        <span role="img" aria-label="langue des signes">
+          🤟
+        </span>
         Avatar animé LSF
       </h2>
       <div style={{ textAlign: "center", marginBottom: 18 }}>
@@ -58,7 +68,7 @@ const SignLanguageAvatar = () => {
             maxWidth: 220,
             borderRadius: 12,
             background: "#e3f2fd",
-            boxShadow: "0 1px 8px #1976d222"
+            boxShadow: "0 1px 8px #1976d222",
           }}
           aria-label={phrases[selected].desc}
         />
@@ -66,7 +76,14 @@ const SignLanguageAvatar = () => {
           {phrases[selected].text}
         </div>
       </div>
-      <div style={{ display: "flex", gap: 10, flexWrap: "wrap", justifyContent: "center" }}>
+      <div
+        style={{
+          display: "flex",
+          gap: 10,
+          flexWrap: "wrap",
+          justifyContent: "center",
+        }}
+      >
         {phrases.map((p, i) => (
           <button
             key={i}
@@ -81,7 +98,7 @@ const SignLanguageAvatar = () => {
               fontSize: 15,
               cursor: "pointer",
               outline: selected === i ? "2px solid #1976d2" : "none",
-              transition: "background 0.2s"
+              transition: "background 0.2s",
             }}
             aria-label={`Voir "${p.text}" en LSF`}
             aria-pressed={selected === i}
@@ -96,10 +113,21 @@ const SignLanguageAvatar = () => {
           marginTop: 18,
           color: "#888",
           fontSize: "0.93em",
-          textAlign: "center"
+          textAlign: "center",
         }}
       >
-        <span role="img" aria-label="sécurité">🔒</span> Sécurisé | <span role="img" aria-label="accessibilité">♿</span> Accessible | <span role="img" aria-label="mobile">📱</span> Mobile/Web
+        <span role="img" aria-label="sécurité">
+          🔒
+        </span>{" "}
+        Sécurisé |{" "}
+        <span role="img" aria-label="accessibilité">
+          ♿
+        </span>{" "}
+        Accessible |{" "}
+        <span role="img" aria-label="mobile">
+          📱
+        </span>{" "}
+        Mobile/Web
       </footer>
     </section>
   );

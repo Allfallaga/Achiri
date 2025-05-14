@@ -6,7 +6,7 @@
  * - Design moderne, SEO friendly, documentation claire.
  */
 
-import React, { useState, useRef, useEffect } from "react";
+import React, { useState, useRef, useEffect, useCallback } from "react"; // Ajout de useCallback
 import { Helmet } from "react-helmet-async";
 import "../../styles/assistantVoice.css";
 
@@ -58,19 +58,22 @@ function AssistantVoice({ onTranscript, ttsEnabled = true, lang = "fr-FR" }) {
     setListening(false);
   };
 
-  // Lecture vocale (TTS)
-  const speak = (text) => {
-    if (!ttsEnabled || !window.speechSynthesis) return;
-    const utter = new window.SpeechSynthesisUtterance(text);
-    utter.lang = selectedLang;
-    window.speechSynthesis.speak(utter);
-  };
+  // Lecture vocale (TTS) - Utilisation de useCallback pour stabiliser la référence
+  const speak = useCallback(
+    (text) => {
+      if (!ttsEnabled || !window.speechSynthesis) return;
+      const utter = new window.SpeechSynthesisUtterance(text);
+      utter.lang = selectedLang;
+      window.speechSynthesis.speak(utter);
+    },
+    [ttsEnabled, selectedLang],
+  ); // Dépendances de speak
 
   // Accessibilité : lecture automatique si texte à lire
   useEffect(() => {
     if (ttsEnabled && ttsText) speak(ttsText);
-     
-  }, [ttsText, ttsEnabled, selectedLang]);
+    // Ajout de 'speak' aux dépendances
+  }, [ttsText, ttsEnabled, selectedLang, speak]);
 
   // Gestion du changement de langue
   const handleLangChange = (e) => setSelectedLang(e.target.value);
@@ -83,11 +86,17 @@ function AssistantVoice({ onTranscript, ttsEnabled = true, lang = "fr-FR" }) {
     >
       <Helmet>
         <title>Assistant Vocal Achiri | Dictée, TTS, accessibilité</title>
-        <meta name="description" content="Module vocal de l'assistant Achiri : dictée, commandes vocales, lecture TTS, multilingue, accessibilité avancée, mobile/web." />
+        <meta
+          name="description"
+          content="Module vocal de l'assistant Achiri : dictée, commandes vocales, lecture TTS, multilingue, accessibilité avancée, mobile/web."
+        />
       </Helmet>
       <header className="voice-header">
         <h2>
-          <span role="img" aria-label="microphone">🎤</span> Assistant Vocal
+          <span role="img" aria-label="microphone">
+            🎤
+          </span>{" "}
+          Assistant Vocal
         </h2>
         <select
           aria-label="Choisir la langue vocale"
@@ -96,7 +105,9 @@ function AssistantVoice({ onTranscript, ttsEnabled = true, lang = "fr-FR" }) {
           style={{ marginLeft: 12, borderRadius: 6 }}
         >
           {LANGUAGES.map((l) => (
-            <option key={l.code} value={l.code}>{l.label}</option>
+            <option key={l.code} value={l.code}>
+              {l.label}
+            </option>
           ))}
         </select>
       </header>
@@ -105,7 +116,9 @@ function AssistantVoice({ onTranscript, ttsEnabled = true, lang = "fr-FR" }) {
           className={`btn-voice${listening ? " active" : ""}`}
           onClick={listening ? stopListening : startListening}
           aria-pressed={listening}
-          aria-label={listening ? "Arrêter la dictée vocale" : "Démarrer la dictée vocale"}
+          aria-label={
+            listening ? "Arrêter la dictée vocale" : "Démarrer la dictée vocale"
+          }
         >
           {listening ? "⏹️ Stop" : "🎙️ Parler"}
         </button>
@@ -149,7 +162,18 @@ function AssistantVoice({ onTranscript, ttsEnabled = true, lang = "fr-FR" }) {
       </div>
       <footer className="voice-footer">
         <small>
-          <span role="img" aria-label="sécurité">🔒</span> Sécurisé | <span role="img" aria-label="accessibilité">♿</span> Accessible | <span role="img" aria-label="mobile">📱</span> Mobile/Web
+          <span role="img" aria-label="sécurité">
+            🔒
+          </span>{" "}
+          Sécurisé |{" "}
+          <span role="img" aria-label="accessibilité">
+            ♿
+          </span>{" "}
+          Accessible |{" "}
+          <span role="img" aria-label="mobile">
+            📱
+          </span>{" "}
+          Mobile/Web
         </small>
       </footer>
     </section>

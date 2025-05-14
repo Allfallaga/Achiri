@@ -17,7 +17,7 @@ const tones = [
   { value: "humoristique", label: "Humoristique" },
   { value: "informatif", label: "Informatif" },
   { value: "motivant", label: "Motivant" },
-  { value: "persuasif", label: "Persuasif" }
+  { value: "persuasif", label: "Persuasif" },
 ];
 
 const SeoContentGenerator = ({ userId }) => {
@@ -47,7 +47,7 @@ const SeoContentGenerator = ({ userId }) => {
       // Génération simulée (mock IA)
       setResult(
         `Voici un contenu ${tone} sur "${topic}" :\n\n` +
-        `Découvre comment "${topic}" peut transformer ta vie ! #${tone}`
+          `Découvre comment "${topic}" peut transformer ta vie ! #${tone}`,
       );
       setLoading(false);
     }, 1000);
@@ -70,12 +70,19 @@ const SeoContentGenerator = ({ userId }) => {
         borderRadius: 14,
         boxShadow: "0 2px 16px #1976d233",
         padding: "2rem",
-        outline: "none"
+        outline: "none",
       }}
       aria-label="Générateur de contenu IA"
       tabIndex={0}
     >
-      <h2 style={{ color: "#1976d2", fontWeight: 700, fontSize: "1.3em", marginBottom: 14 }}>
+      <h2
+        style={{
+          color: "#1976d2",
+          fontWeight: 700,
+          fontSize: "1.3em",
+          marginBottom: 14,
+        }}
+      >
         📝 Générateur de Contenu IA
       </h2>
       <form onSubmit={handleGenerate} style={{ marginBottom: 18 }}>
@@ -85,7 +92,7 @@ const SeoContentGenerator = ({ userId }) => {
             type="text"
             placeholder="Sujet ou mot-clé (ex: bien-être, tech...)"
             value={topic}
-            onChange={e => setTopic(e.target.value)}
+            onChange={(e) => setTopic(e.target.value)}
             required
             style={{
               width: "100%",
@@ -93,28 +100,35 @@ const SeoContentGenerator = ({ userId }) => {
               borderRadius: 8,
               border: "1px solid #bbdefb",
               fontSize: 16,
-              marginBottom: 8
+              marginBottom: 8,
             }}
             aria-label="Sujet ou mot-clé"
             autoComplete="off"
           />
         </div>
         <div style={{ marginBottom: 14 }}>
-          <label htmlFor="tone-select" style={{ marginRight: 10, fontWeight: "bold" }}>Ton :</label>
+          <label
+            htmlFor="tone-select"
+            style={{ marginRight: 10, fontWeight: "bold" }}
+          >
+            Ton :
+          </label>
           <select
             id="tone-select"
             value={tone}
-            onChange={e => setTone(e.target.value)}
+            onChange={(e) => setTone(e.target.value)}
             style={{
               borderRadius: 6,
               padding: "0.4em 1em",
               fontSize: 15,
-              border: "1px solid #bbdefb"
+              border: "1px solid #bbdefb",
             }}
             aria-label="Choisir le ton"
           >
-            {tones.map(t => (
-              <option key={t.value} value={t.value}>{t.label}</option>
+            {tones.map((t) => (
+              <option key={t.value} value={t.value}>
+                {t.label}
+              </option>
             ))}
           </select>
         </div>
@@ -130,7 +144,7 @@ const SeoContentGenerator = ({ userId }) => {
             fontWeight: "bold",
             fontSize: "1.1em",
             cursor: loading ? "not-allowed" : "pointer",
-            transition: "background 0.2s"
+            transition: "background 0.2s",
           }}
           aria-label="Générer le contenu"
         >
@@ -144,7 +158,7 @@ const SeoContentGenerator = ({ userId }) => {
             padding: "1em",
             borderRadius: 8,
             marginTop: 10,
-            fontSize: "1.1em"
+            fontSize: "1.1em",
           }}
           aria-live="polite"
         >
@@ -161,7 +175,7 @@ const SeoContentGenerator = ({ userId }) => {
               padding: "0.5em 1.3em",
               fontWeight: "bold",
               fontSize: 15,
-              cursor: "pointer"
+              cursor: "pointer",
             }}
             aria-label="Copier le contenu généré"
           >

@@ -1,6 +1,6 @@
-import React from 'react';
+import React from "react";
 
-import Member from '../moderation/Member.js';
+import Member from "../moderation/Member.js";
 
 /**
  * Moderation – Achiri
@@ -10,7 +10,7 @@ import Member from '../moderation/Member.js';
  */
 
 function Moderation({ members = [], onMute, onVideoOff, onEject }) {
-  const onlineMembers = members.filter(mbr => mbr.loggedIn);
+  const onlineMembers = members.filter((mbr) => mbr.loggedIn);
 
   return (
     <aside
@@ -24,7 +24,7 @@ function Moderation({ members = [], onMute, onVideoOff, onEject }) {
         margin: "0.7rem 0",
         maxHeight: "70vh",
         overflowY: "auto",
-        outline: "none"
+        outline: "none",
       }}
       aria-label="Liste des membres connectés"
       tabIndex={0}
@@ -36,7 +36,7 @@ function Moderation({ members = [], onMute, onVideoOff, onEject }) {
           fontSize: "1.13em",
           marginBottom: 10,
           textAlign: "center",
-          letterSpacing: "0.01em"
+          letterSpacing: "0.01em",
         }}
         tabIndex={0}
         aria-label="Membres en ligne"
@@ -49,7 +49,7 @@ function Moderation({ members = [], onMute, onVideoOff, onEject }) {
         aria-live="polite"
         aria-label="Membres en ligne"
       >
-        {onlineMembers.map(mbr => (
+        {onlineMembers.map((mbr) => (
           <Member
             key={mbr.id || mbr.nickname}
             member={mbr}
@@ -73,10 +73,21 @@ function Moderation({ members = [], onMute, onVideoOff, onEject }) {
           marginTop: 12,
           color: "#888",
           fontSize: "0.93em",
-          textAlign: "center"
+          textAlign: "center",
         }}
       >
-        <span role="img" aria-label="sécurité">🔒</span> Sécurisé | <span role="img" aria-label="accessibilité">♿</span> Accessible | <span role="img" aria-label="mobile">📱</span> Mobile/Web
+        <span role="img" aria-label="sécurité">
+          🔒
+        </span>{" "}
+        Sécurisé |{" "}
+        <span role="img" aria-label="accessibilité">
+          ♿
+        </span>{" "}
+        Accessible |{" "}
+        <span role="img" aria-label="mobile">
+          📱
+        </span>{" "}
+        Mobile/Web
       </footer>
     </aside>
   );

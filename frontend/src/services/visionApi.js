@@ -11,7 +11,8 @@ export async function describeImageMock(imageDataUrl) {
   await new Promise((resolve) => setTimeout(resolve, 1200));
   // Retourne une description factice
   return {
-    description: "Une personne souriante devant un ordinateur portable, fond lumineux."
+    description:
+      "Une personne souriante devant un ordinateur portable, fond lumineux.",
   };
 }
 
@@ -21,8 +22,8 @@ export async function detectObjectsMock(imageDataUrl) {
   return {
     objects: [
       { label: "ordinateur portable", confidence: 0.98 },
-      { label: "personne", confidence: 0.95 }
-    ]
+      { label: "personne", confidence: 0.95 },
+    ],
   };
 }
 
@@ -30,9 +31,7 @@ export async function detectObjectsMock(imageDataUrl) {
 export async function detectGesturesMock(imageDataUrl) {
   await new Promise((resolve) => setTimeout(resolve, 800));
   return {
-    gestures: [
-      { label: "main levée", confidence: 0.87 }
-    ]
+    gestures: [{ label: "main levée", confidence: 0.87 }],
   };
 }
 
@@ -40,7 +39,7 @@ export async function detectGesturesMock(imageDataUrl) {
 export async function ocrTextMock(imageDataUrl) {
   await new Promise((resolve) => setTimeout(resolve, 1000));
   return {
-    text: "Bienvenue sur Achiri !"
+    text: "Bienvenue sur Achiri !",
   };
 }
 
@@ -48,7 +47,7 @@ export async function ocrTextMock(imageDataUrl) {
 export async function signToTextMock(imageDataUrl) {
   await new Promise((resolve) => setTimeout(resolve, 1100));
   return {
-    text: "Bonjour, comment puis-je vous aider ?"
+    text: "Bonjour, comment puis-je vous aider ?",
   };
 }
 

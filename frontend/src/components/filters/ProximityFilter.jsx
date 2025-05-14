@@ -24,9 +24,8 @@ const ProximityFilter = ({
   max = 100,
   step = 1,
   onChange,
-  showReset = true
+  showReset = true,
 }) => {
-
   // Handler pour le changement de valeur du slider
   const handleSliderChange = (event) => {
     if (onChange) {
@@ -44,10 +43,7 @@ const ProximityFilter = ({
 
   return (
     // Utilisation de <nav> pour la sémantique de navigation/filtrage
-    <nav
-      className="proximity-filter"
-      aria-label="Filtrer par proximité"
-    >
+    <nav className="proximity-filter" aria-label="Filtrer par proximité">
       {/* Label du filtre */}
       <span className="proximity-filter-label">
         <FaMapMarkerAlt aria-hidden="true" /> Proximité&nbsp;:
@@ -74,15 +70,16 @@ const ProximityFilter = ({
       </span>
 
       {/* Bouton Reset (conditionnel) */}
-      {showReset && value > min && ( // Affiche seulement si showReset est vrai ET si la valeur n'est pas déjà au minimum
-        <button
-          className="proximity-filter-reset"
-          onClick={handleResetClick}
-          aria-label="Réinitialiser le filtre de proximité"
-        >
-          <FaSyncAlt aria-hidden="true" /> Réinitialiser
-        </button>
-      )}
+      {showReset &&
+        value > min && ( // Affiche seulement si showReset est vrai ET si la valeur n'est pas déjà au minimum
+          <button
+            className="proximity-filter-reset"
+            onClick={handleResetClick}
+            aria-label="Réinitialiser le filtre de proximité"
+          >
+            <FaSyncAlt aria-hidden="true" /> Réinitialiser
+          </button>
+        )}
     </nav>
   );
 };
@@ -94,7 +91,7 @@ ProximityFilter.propTypes = {
   max: PropTypes.number,
   step: PropTypes.number,
   onChange: PropTypes.func.isRequired,
-  showReset: PropTypes.bool
+  showReset: PropTypes.bool,
 };
 
 // Valeurs par défaut
@@ -103,7 +100,7 @@ ProximityFilter.defaultProps = {
   min: 1,
   max: 100,
   step: 1,
-  showReset: true
+  showReset: true,
 };
 
 export default ProximityFilter;

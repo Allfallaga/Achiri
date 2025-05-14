@@ -44,7 +44,14 @@ export function useUser(defaultName = "", defaultRole = "user") {
 
   // Couleur d'utilisateur (pour UI)
   const color = (() => {
-    const palette = ["#FFB300", "#1E88E5", "#43A047", "#E53935", "#8E24AA", "#F4511E"];
+    const palette = [
+      "#FFB300",
+      "#1E88E5",
+      "#43A047",
+      "#E53935",
+      "#8E24AA",
+      "#F4511E",
+    ];
     let hash = 0;
     for (let i = 0; i < name.length; i++) {
       hash = name.charCodeAt(i) + ((hash << 5) - hash);
@@ -90,7 +97,7 @@ export function useUser(defaultName = "", defaultRole = "user") {
 
   // Mise à jour des préférences d'accessibilité
   const updateAccessibility = (prefs) => {
-    setAccessibility(prev => ({ ...prev, ...prefs }));
+    setAccessibility((prev) => ({ ...prev, ...prefs }));
   };
 
   // Permet d'étendre facilement (auth, logout, accessibilité, etc.)

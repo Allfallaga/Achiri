@@ -1,7 +1,7 @@
-import React from 'react';
-import { Link, Navigate, useLocation } from 'react-router-dom';
+import React from "react";
+import { Link, Navigate, useLocation } from "react-router-dom";
 
-import AuthContext from '../../context/AuthProvider';
+import AuthContext from "../../context/AuthProvider";
 
 /**
  * Navbar – Achiri
@@ -19,8 +19,8 @@ function Navbar(props) {
 
   const logout = () => {
     setAuth({ loggedIn: false });
-    localStorage.setItem('auth', '');
-    if (props.socket) props.socket.emit('disconnect');
+    localStorage.setItem("auth", "");
+    if (props.socket) props.socket.emit("disconnect");
     setRedirect(true);
   };
 
@@ -34,21 +34,21 @@ function Navbar(props) {
 
   // Liens principaux (adaptés pour couvrir toutes les pages du frontend)
   const navLinks = [
-    { to: '/dashboard', label: 'Dashboard' },
-    { to: '/wallet', label: 'Wallet' },
-    { to: '/rooms', label: 'Rooms' },
-    { to: '/challenges', label: 'Challenges' },
-    { to: '/settings', label: 'Paramètres' },
-    { to: '/moderation', label: 'Modération' },
-    { to: '/music', label: 'Musique' },
-    { to: '/virtual-classroom', label: 'Classes Virtuelles' },
-    { to: '/creator-tools', label: 'Creator Tools' },
-    { to: '/notifications', label: 'Notifications' },
-    { to: '/accessibilite', label: 'Accessibilité' },
-    { to: '/leaderboard', label: 'Classement' },
-    { to: '/profile', label: 'Profil' },
-    { to: '/reseaux-sociaux', label: 'Réseaux Sociaux' },
-    { to: '/social-interactions', label: 'Interactions Sociales' }
+    { to: "/dashboard", label: "Dashboard" },
+    { to: "/wallet", label: "Wallet" },
+    { to: "/rooms", label: "Rooms" },
+    { to: "/challenges", label: "Challenges" },
+    { to: "/settings", label: "Paramètres" },
+    { to: "/moderation", label: "Modération" },
+    { to: "/music", label: "Musique" },
+    { to: "/virtual-classroom", label: "Classes Virtuelles" },
+    { to: "/creator-tools", label: "Creator Tools" },
+    { to: "/notifications", label: "Notifications" },
+    { to: "/accessibilite", label: "Accessibilité" },
+    { to: "/leaderboard", label: "Classement" },
+    { to: "/profile", label: "Profil" },
+    { to: "/reseaux-sociaux", label: "Réseaux Sociaux" },
+    { to: "/social-interactions", label: "Interactions Sociales" },
   ];
 
   return (
@@ -56,16 +56,19 @@ function Navbar(props) {
       className="navbar"
       style={{
         background: "#fff",
-        boxShadow: '0 2px 8px #eee',
+        boxShadow: "0 2px 8px #eee",
         marginBottom: 8,
         position: "sticky",
         top: 0,
-        zIndex: 100
+        zIndex: 100,
       }}
       aria-label="Barre de navigation principale"
       tabIndex={0}
     >
-      <div className="container-fluid" style={{ display: "flex", alignItems: "center", flexWrap: "wrap" }}>
+      <div
+        className="container-fluid"
+        style={{ display: "flex", alignItems: "center", flexWrap: "wrap" }}
+      >
         <Link
           className="navbar-brand fw-bold"
           to="/"
@@ -74,7 +77,7 @@ function Navbar(props) {
             fontSize: "1.3em",
             textDecoration: "none",
             fontWeight: 700,
-            letterSpacing: "0.02em"
+            letterSpacing: "0.02em",
           }}
           aria-label="Accueil Achiri"
         >
@@ -92,7 +95,7 @@ function Navbar(props) {
             background: "transparent",
             fontSize: 26,
             marginLeft: "auto",
-            display: "none"
+            display: "none",
           }}
         >
           <span className="navbar-toggler-icon" />
@@ -105,10 +108,19 @@ function Navbar(props) {
             flexDirection: "row",
             flexWrap: "wrap",
             alignItems: "center",
-            width: "100%"
+            width: "100%",
           }}
         >
-          <ul className="navbar-nav me-auto mb-2 mb-lg-0" style={{ display: "flex", flexWrap: "wrap", gap: 6, margin: 0, padding: 0 }}>
+          <ul
+            className="navbar-nav me-auto mb-2 mb-lg-0"
+            style={{
+              display: "flex",
+              flexWrap: "wrap",
+              gap: 6,
+              margin: 0,
+              padding: 0,
+            }}
+          >
             {navLinks.map((link) => (
               <li className="nav-item" key={link.to}>
                 <Link
@@ -119,11 +131,14 @@ function Navbar(props) {
                     fontWeight: location.pathname === link.to ? 700 : 500,
                     padding: "0.5em 1em",
                     borderRadius: 8,
-                    background: location.pathname === link.to ? "#e3f2fd" : "transparent",
+                    background:
+                      location.pathname === link.to ? "#e3f2fd" : "transparent",
                     textDecoration: "none",
-                    transition: "background 0.2s"
+                    transition: "background 0.2s",
                   }}
-                  aria-current={location.pathname === link.to ? "page" : undefined}
+                  aria-current={
+                    location.pathname === link.to ? "page" : undefined
+                  }
                   tabIndex={0}
                 >
                   {link.label}
@@ -131,22 +146,43 @@ function Navbar(props) {
               </li>
             ))}
           </ul>
-          <ul className="navbar-nav ms-auto" style={{ display: "flex", alignItems: "center", gap: 10, margin: 0, padding: 0 }}>
+          <ul
+            className="navbar-nav ms-auto"
+            style={{
+              display: "flex",
+              alignItems: "center",
+              gap: 10,
+              margin: 0,
+              padding: 0,
+            }}
+          >
             {auth?.loggedIn ? (
               <>
-                <li className="nav-item" style={{ display: "flex", alignItems: "center", gap: 8 }}>
+                <li
+                  className="nav-item"
+                  style={{ display: "flex", alignItems: "center", gap: 8 }}
+                >
                   <img
-                    src={auth.avatar || "https://bootdey.com/img/Content/avatar/avatar3.png"}
+                    src={
+                      auth.avatar ||
+                      "https://bootdey.com/img/Content/avatar/avatar3.png"
+                    }
                     alt="Votre avatar"
                     width="36"
                     height="36"
                     style={{
                       borderRadius: "50%",
                       objectFit: "cover",
-                      border: "2px solid #1976d2"
+                      border: "2px solid #1976d2",
                     }}
                   />
-                  <span style={{ fontWeight: 600, color: "#1976d2", fontSize: "1em" }}>
+                  <span
+                    style={{
+                      fontWeight: 600,
+                      color: "#1976d2",
+                      fontSize: "1em",
+                    }}
+                  >
                     {auth.nickname}
                   </span>
                 </li>
@@ -163,7 +199,7 @@ function Navbar(props) {
                       color: "#b71c1c",
                       background: "#fff",
                       padding: "0.4em 1.2em",
-                      cursor: "pointer"
+                      cursor: "pointer",
                     }}
                   >
                     Logout
@@ -183,7 +219,7 @@ function Navbar(props) {
                     color: "#1976d2",
                     background: "#fff",
                     padding: "0.4em 1.2em",
-                    cursor: "pointer"
+                    cursor: "pointer",
                   }}
                 >
                   Login

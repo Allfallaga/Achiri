@@ -10,7 +10,11 @@ import PropTypes from "prop-types";
  * - trigger : clé pour déclencher une animation (optionnel)
  */
 
-export default function AnimationsManager({ accessibility = {}, type, trigger }) {
+export default function AnimationsManager({
+  accessibility = {},
+  type,
+  trigger,
+}) {
   const canvasRef = useRef(null);
 
   // Exemple d’animation : confettis (désactivé si reduceMotion)

@@ -1,5 +1,12 @@
 import React, { useState } from "react";
-import { FaStar, FaTrophy, FaFire, FaCalendarDay, FaMedal, FaCheckCircle } from "react-icons/fa";
+import {
+  FaStar,
+  FaTrophy,
+  FaFire,
+  FaCalendarDay,
+  FaMedal,
+  FaCheckCircle,
+} from "react-icons/fa";
 import { motion } from "framer-motion";
 import { Helmet } from "react-helmet-async";
 import "./Challenges.css";
@@ -76,12 +83,15 @@ const Challenges = ({
         padding: "2.2rem 1.5rem",
         maxWidth: 540,
         margin: "2.5rem auto",
-        outline: "none"
+        outline: "none",
       }}
     >
       <Helmet>
         <title>Défis & Classement | Achiri</title>
-        <meta name="description" content="Défis quotidiens, hebdo, mensuels et classement Achiri. Gagne des points, monte dans le classement ! Design avancé, accessibilité, sécurité, mobile/web." />
+        <meta
+          name="description"
+          content="Défis quotidiens, hebdo, mensuels et classement Achiri. Gagne des points, monte dans le classement ! Design avancé, accessibilité, sécurité, mobile/web."
+        />
       </Helmet>
       <header
         className="flex items-center justify-between mb-4"
@@ -89,7 +99,7 @@ const Challenges = ({
           display: "flex",
           justifyContent: "space-between",
           alignItems: "center",
-          marginBottom: 24
+          marginBottom: 24,
         }}
       >
         <h2
@@ -99,15 +109,19 @@ const Challenges = ({
             alignItems: "center",
             fontSize: 24,
             fontWeight: 700,
-            color: "#1976d2"
+            color: "#1976d2",
           }}
           tabIndex={0}
           aria-label="Défis et classement Achiri"
           ref={titleRef}
         >
-          <FaFire style={{ marginRight: 8, color: "#f59e42" }} /> Défis & Classements
+          <FaFire style={{ marginRight: 8, color: "#f59e42" }} /> Défis &
+          Classements
         </h2>
-        <nav aria-label="Navigation défis/classement" style={{ display: "flex", gap: 8 }}>
+        <nav
+          aria-label="Navigation défis/classement"
+          style={{ display: "flex", gap: 8 }}
+        >
           <button
             className={`tab-btn${tab === "challenges" ? " active" : ""}`}
             onClick={() => setTab("challenges")}
@@ -123,7 +137,7 @@ const Challenges = ({
               fontWeight: 600,
               fontSize: "1em",
               cursor: "pointer",
-              transition: "background 0.18s"
+              transition: "background 0.18s",
             }}
           >
             <FaStar style={{ marginRight: 4 }} /> Défis
@@ -143,7 +157,7 @@ const Challenges = ({
               fontWeight: 600,
               fontSize: "1em",
               cursor: "pointer",
-              transition: "background 0.18s"
+              transition: "background 0.18s",
             }}
           >
             <FaTrophy style={{ marginRight: 4 }} /> Classement
@@ -155,7 +169,11 @@ const Challenges = ({
       {tab === "challenges" && (
         <section className="challenge-list" style={{ marginTop: 16 }}>
           {challenges.length === 0 ? (
-            <div style={{ color: "#888", textAlign: "center", padding: "2em 0" }}>Aucun défi en cours.</div>
+            <div
+              style={{ color: "#888", textAlign: "center", padding: "2em 0" }}
+            >
+              Aucun défi en cours.
+            </div>
           ) : (
             challenges.map((challenge) => (
               <article
@@ -170,30 +188,63 @@ const Challenges = ({
                   borderRadius: 8,
                   padding: "0.8rem 1rem",
                   marginBottom: 12,
-                  borderLeft: challenge.status === "réussi" ? "4px solid #22c55e" : "4px solid #f59e42",
+                  borderLeft:
+                    challenge.status === "réussi"
+                      ? "4px solid #22c55e"
+                      : "4px solid #f59e42",
                   boxShadow: "0 1px 4px 0 rgba(37,99,235,0.04)",
-                  outline: "none"
+                  outline: "none",
                 }}
                 aria-label={`Défi ${challenge.type} : ${challenge.title}`}
               >
                 <div style={{ fontSize: "1.3em" }}>
-                  {challenge.type === "quotidien" && <FaCalendarDay title="Défi quotidien" style={{ color: "#2563eb" }} />}
-                  {challenge.type === "hebdo" && <FaMedal title="Défi hebdo" style={{ color: "#a78bfa" }} />}
-                  {challenge.type === "mensuel" && <FaTrophy title="Défi mensuel" style={{ color: "#fbbf24" }} />}
+                  {challenge.type === "quotidien" && (
+                    <FaCalendarDay
+                      title="Défi quotidien"
+                      style={{ color: "#2563eb" }}
+                    />
+                  )}
+                  {challenge.type === "hebdo" && (
+                    <FaMedal title="Défi hebdo" style={{ color: "#a78bfa" }} />
+                  )}
+                  {challenge.type === "mensuel" && (
+                    <FaTrophy
+                      title="Défi mensuel"
+                      style={{ color: "#fbbf24" }}
+                    />
+                  )}
                 </div>
                 <div style={{ flex: 1 }}>
-                  <div style={{ fontWeight: 600, fontSize: "1.08em", color: "#222" }}>{challenge.title}</div>
+                  <div
+                    style={{
+                      fontWeight: 600,
+                      fontSize: "1.08em",
+                      color: "#222",
+                    }}
+                  >
+                    {challenge.title}
+                  </div>
                   <div style={{ fontSize: "0.92em", color: "#64748b" }}>
-                    Récompense : <b>{challenge.reward} pts</b> &nbsp;|&nbsp; À faire avant le <span>{challenge.deadline}</span>
+                    Récompense : <b>{challenge.reward} pts</b> &nbsp;|&nbsp; À
+                    faire avant le <span>{challenge.deadline}</span>
                   </div>
                 </div>
                 <div>
                   {challenge.status === "réussi" ? (
-                    <span style={{ color: "#43a047", display: "flex", alignItems: "center", fontWeight: 600 }}>
+                    <span
+                      style={{
+                        color: "#43a047",
+                        display: "flex",
+                        alignItems: "center",
+                        fontWeight: 600,
+                      }}
+                    >
                       <FaCheckCircle style={{ marginRight: 4 }} /> Réussi
                     </span>
                   ) : (
-                    <span style={{ color: "#f59e42", fontWeight: 600 }}>En cours</span>
+                    <span style={{ color: "#f59e42", fontWeight: 600 }}>
+                      En cours
+                    </span>
                   )}
                 </div>
                 {onValidate && challenge.status !== "réussi" && (
@@ -208,7 +259,7 @@ const Challenges = ({
                       padding: "6px 14px",
                       fontWeight: 600,
                       cursor: "pointer",
-                      fontSize: "0.98em"
+                      fontSize: "0.98em",
                     }}
                     aria-label={`Valider le défi ${challenge.title}`}
                   >
@@ -223,8 +274,24 @@ const Challenges = ({
 
       {/* Classement */}
       {tab === "leaderboard" && (
-        <section className="challenge-leaderboard" style={{ marginTop: 24, background: "#f1f5f9", borderRadius: 8, padding: "1rem 1.2rem" }}>
-          <h3 style={{ fontWeight: 600, marginBottom: 8, display: "flex", alignItems: "center", color: "#1976d2" }}>
+        <section
+          className="challenge-leaderboard"
+          style={{
+            marginTop: 24,
+            background: "#f1f5f9",
+            borderRadius: 8,
+            padding: "1rem 1.2rem",
+          }}
+        >
+          <h3
+            style={{
+              fontWeight: 600,
+              marginBottom: 8,
+              display: "flex",
+              alignItems: "center",
+              color: "#1976d2",
+            }}
+          >
             <FaTrophy style={{ marginRight: 4 }} /> Fame Ladder
           </h3>
           <ol style={{ paddingLeft: "1.2em", margin: 0 }}>
@@ -238,7 +305,7 @@ const Challenges = ({
                   padding: "0.3em 0",
                   borderBottom: "1px solid #e5e7eb",
                   fontWeight: user.name === currentUser ? 700 : 400,
-                  color: user.name === currentUser ? "#2563eb" : "#222"
+                  color: user.name === currentUser ? "#2563eb" : "#222",
                 }}
                 aria-label={`#${idx + 1} ${user.name}, ${user.points} points`}
                 tabIndex={0}
@@ -247,7 +314,8 @@ const Challenges = ({
                   #{idx + 1} {user.name}
                 </span>
                 <span style={{ display: "flex", alignItems: "center" }}>
-                  <FaStar style={{ marginRight: 4, color: "#fbbf24" }} /> {user.points}
+                  <FaStar style={{ marginRight: 4, color: "#fbbf24" }} />{" "}
+                  {user.points}
                 </span>
               </li>
             ))}
@@ -255,13 +323,26 @@ const Challenges = ({
         </section>
       )}
 
-      <footer style={{
-        marginTop: 32,
-        color: "#888",
-        fontSize: "0.98em",
-        textAlign: "center"
-      }}>
-        <span role="img" aria-label="sécurité">🔒</span> Sécurisé | <span role="img" aria-label="accessibilité">♿</span> Accessible | <span role="img" aria-label="mobile">📱</span> Mobile/Web
+      <footer
+        style={{
+          marginTop: 32,
+          color: "#888",
+          fontSize: "0.98em",
+          textAlign: "center",
+        }}
+      >
+        <span role="img" aria-label="sécurité">
+          🔒
+        </span>{" "}
+        Sécurisé |{" "}
+        <span role="img" aria-label="accessibilité">
+          ♿
+        </span>{" "}
+        Accessible |{" "}
+        <span role="img" aria-label="mobile">
+          📱
+        </span>{" "}
+        Mobile/Web
         <br />
         <span style={{ fontSize: "0.93em" }}>
           Design avancé, navigation clavier, SEO optimisé, gamification Achiri.

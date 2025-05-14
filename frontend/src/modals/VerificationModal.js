@@ -1,4 +1,4 @@
-import React from 'react';
+import React from "react";
 
 /**
  * VerificationModal – Achiri
@@ -17,36 +17,57 @@ import React from 'react';
  *   - onValidate : fonction appelée quand l'utilisateur clique sur "J'ai terminé" ou OAuth
  */
 
-function VerificationModal({ open, onClose, platform, code, method = "bio", onValidate }) {
-  if (!open) return null;
+function VerificationModal({
+  open,
+  onClose,
+  platform,
+  code,
+  method = "bio",
+  onValidate,
+}) {
+  // --- Hooks déplacés au niveau supérieur ---
+  const mainBtnRef = React.useRef();
 
   // Focus sur le bouton principal à l'ouverture
-  const mainBtnRef = React.useRef();
   React.useEffect(() => {
+    // La logique ne s'exécute que si 'open' est vrai
     if (open && mainBtnRef.current) {
       mainBtnRef.current.focus();
     }
-  }, [open]);
+  }, [open]); // Dépend de 'open'
 
   // Fermer avec la touche Escape
   React.useEffect(() => {
     const handleKeyDown = (e) => {
       if (e.key === "Escape") onClose();
     };
+    // L'écouteur n'est ajouté que si 'open' est vrai
     if (open) {
       window.addEventListener("keydown", handleKeyDown);
+      // La fonction de nettoyage est retournée pour supprimer l'écouteur
       return () => window.removeEventListener("keydown", handleKeyDown);
     }
-  }, [open, onClose]);
+    // Si 'open' est faux, rien ne se passe et aucun nettoyage n'est nécessaire pour cet effet
+  }, [open, onClose]); // Dépend de 'open' et 'onClose'
 
   // Empêche le scroll du body quand le modal est ouvert (UX mobile/web)
   React.useEffect(() => {
+    // La modification du style ne se fait que si 'open' est vrai
     if (open) {
       document.body.style.overflow = "hidden";
-      return () => { document.body.style.overflow = ""; };
+      // La fonction de nettoyage est retournée pour restaurer le style
+      return () => {
+        document.body.style.overflow = "";
+      };
     }
-  }, [open]);
+    // Si 'open' est faux, rien ne se passe et aucun nettoyage n'est nécessaire pour cet effet
+  }, [open]); // Dépend de 'open'
+  // --- Fin des Hooks ---
 
+  // Retour précoce si le modal n'est pas ouvert
+  if (!open) return null;
+
+  // Détermination des instructions (logique métier)
   let instructions = "";
   if (method === "bio") {
     instructions = `Ajoute le code ci-dessous dans la bio ou la description de ton profil ${platform}, puis clique sur "J'ai terminé".`;
@@ -56,6 +77,7 @@ function VerificationModal({ open, onClose, platform, code, method = "bio", onVa
     instructions = `Connecte-toi à ${platform} via le bouton ci-dessous pour vérifier automatiquement la propriété.`;
   }
 
+  // Le reste du rendu du composant
   return (
     <div
       role="dialog"
@@ -64,12 +86,15 @@ function VerificationModal({ open, onClose, platform, code, method = "bio", onVa
       aria-describedby="verification-modal-desc"
       style={{
         position: "fixed",
-        top: 0, left: 0, right: 0, bottom: 0,
+        top: 0,
+        left: 0,
+        right: 0,
+        bottom: 0,
         background: "#0008",
         zIndex: 9999,
         display: "flex",
         alignItems: "center",
-        justifyContent: "center"
+        justifyContent: "center",
       }}
       tabIndex={-1}
     >
@@ -81,7 +106,7 @@ function VerificationModal({ open, onClose, platform, code, method = "bio", onVa
           padding: "2.2rem 2.5rem",
           minWidth: 340,
           maxWidth: "90vw",
-          position: "relative"
+          position: "relative",
         }}
       >
         <button
@@ -98,36 +123,46 @@ function VerificationModal({ open, onClose, platform, code, method = "bio", onVa
             height: 32,
             fontWeight: "bold",
             fontSize: 18,
-            cursor: "pointer"
+            cursor: "pointer",
           }}
           aria-label="Fermer la fenêtre de vérification"
-        >✕</button>
-        <h2 id="verification-modal-title" style={{ color: "#1976d2", marginBottom: 18, textAlign: "center" }}>
+        >
+          ✕
+        </button>
+        <h2
+          id="verification-modal-title"
+          style={{ color: "#1976d2", marginBottom: 18, textAlign: "center" }}
+        >
           Vérification {platform}
         </h2>
-        <p id="verification-modal-desc" style={{ fontSize: 16, marginBottom: 18, color: "#222" }}>
+        <p
+          id="verification-modal-desc"
+          style={{ fontSize: 16, marginBottom: 18, color: "#222" }}
+        >
           {instructions}
         </p>
         {method !== "oauth" && (
-          <div style={{
-            background: "#f5f7fa",
-            border: "1.5px dashed #1976d2",
-            borderRadius: 10,
-            padding: "1em",
-            textAlign: "center",
-            fontSize: 18,
-            fontWeight: "bold",
-            letterSpacing: 1.5,
-            color: "#1976d2",
-            marginBottom: 20,
-            userSelect: "all"
-          }}>
+          <div
+            style={{
+              background: "#f5f7fa",
+              border: "1.5px dashed #1976d2",
+              borderRadius: 10,
+              padding: "1em",
+              textAlign: "center",
+              fontSize: 18,
+              fontWeight: "bold",
+              letterSpacing: 1.5,
+              color: "#1976d2",
+              marginBottom: 20,
+              userSelect: "all",
+            }}
+          >
             {code}
           </div>
         )}
         {method === "oauth" && (
           <button
-            ref={mainBtnRef}
+            ref={mainBtnRef} // La ref est assignée ici conditionnellement, mais le Hook useRef est appelé plus haut
             style={{
               background: "linear-gradient(90deg, #1976d2 0%, #43a047 100%)",
               color: "#fff",
@@ -137,7 +172,7 @@ function VerificationModal({ open, onClose, platform, code, method = "bio", onVa
               fontWeight: "bold",
               fontSize: 16,
               cursor: "pointer",
-              marginBottom: 18
+              marginBottom: 18,
             }}
             onClick={onValidate}
             aria-label={`Se connecter à ${platform}`}
@@ -146,24 +181,26 @@ function VerificationModal({ open, onClose, platform, code, method = "bio", onVa
           </button>
         )}
         <div style={{ textAlign: "center" }}>
-          <button
-            ref={method !== "oauth" ? mainBtnRef : undefined}
-            onClick={onValidate}
-            style={{
-              background: "#43a047",
-              color: "#fff",
-              border: "none",
-              borderRadius: 8,
-              padding: "0.5em 1.5em",
-              fontWeight: "bold",
-              fontSize: 16,
-              cursor: "pointer",
-              marginRight: 10
-            }}
-            aria-label="J'ai terminé"
-          >
-            J'ai terminé
-          </button>
+          {method !== "oauth" && ( // Affichage conditionnel du bouton "J'ai terminé"
+            <button
+              ref={mainBtnRef} // La ref est assignée ici conditionnellement
+              onClick={onValidate}
+              style={{
+                background: "#43a047",
+                color: "#fff",
+                border: "none",
+                borderRadius: 8,
+                padding: "0.5em 1.5em",
+                fontWeight: "bold",
+                fontSize: 16,
+                cursor: "pointer",
+                marginRight: 10,
+              }}
+              aria-label="J'ai terminé"
+            >
+              J'ai terminé
+            </button>
+          )}
           <button
             onClick={onClose}
             style={{
@@ -174,7 +211,7 @@ function VerificationModal({ open, onClose, platform, code, method = "bio", onVa
               padding: "0.5em 1.2em",
               fontWeight: "bold",
               fontSize: 15,
-              cursor: "pointer"
+              cursor: "pointer",
             }}
             aria-label="Annuler"
           >

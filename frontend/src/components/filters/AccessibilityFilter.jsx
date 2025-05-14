@@ -1,6 +1,12 @@
 import React from "react";
 import PropTypes from "prop-types";
-import { FaUniversalAccess, FaSignLanguage, FaVolumeUp, FaLowVision, FaSyncAlt } from "react-icons/fa";
+import {
+  FaUniversalAccess,
+  FaSignLanguage,
+  FaVolumeUp,
+  FaLowVision,
+  FaSyncAlt,
+} from "react-icons/fa";
 // Importe le fichier CSS dédié
 import "./AccessibilityFilter.css";
 
@@ -26,9 +32,8 @@ const defaultFilters = {
 const AccessibilityFilter = ({
   filters = defaultFilters, // Utilise les valeurs par défaut si non fournies
   onChange,
-  showReset = true
+  showReset = true,
 }) => {
-
   // Handler pour basculer l'état d'un filtre
   const handleToggle = (key) => {
     if (onChange) {
@@ -40,13 +45,18 @@ const AccessibilityFilter = ({
   // Handler pour réinitialiser tous les filtres aux valeurs par défaut
   const handleReset = () => {
     // Vérifie si un changement est nécessaire avant d'appeler onChange
-    if (onChange && JSON.stringify(filters) !== JSON.stringify(defaultFilters)) {
+    if (
+      onChange &&
+      JSON.stringify(filters) !== JSON.stringify(defaultFilters)
+    ) {
       onChange({ ...defaultFilters });
     }
   };
 
   // Vérifie si au moins un filtre est actif pour conditionner l'affichage du reset
-  const isAnyFilterActive = Object.values(filters).some(value => value === true);
+  const isAnyFilterActive = Object.values(filters).some(
+    (value) => value === true,
+  );
 
   return (
     // Utilisation de <nav> pour la sémantique de navigation/filtrage
@@ -100,15 +110,16 @@ const AccessibilityFilter = ({
       </label>
 
       {/* Bouton Reset (conditionnel) */}
-      {showReset && isAnyFilterActive && ( // Affiche si showReset est vrai ET au moins un filtre est actif
-        <button
-          className="accessibility-filter-reset"
-          onClick={handleReset}
-          aria-label="Réinitialiser les filtres d'accessibilité"
-        >
-          <FaSyncAlt aria-hidden="true" /> Réinitialiser
-        </button>
-      )}
+      {showReset &&
+        isAnyFilterActive && ( // Affiche si showReset est vrai ET au moins un filtre est actif
+          <button
+            className="accessibility-filter-reset"
+            onClick={handleReset}
+            aria-label="Réinitialiser les filtres d'accessibilité"
+          >
+            <FaSyncAlt aria-hidden="true" /> Réinitialiser
+          </button>
+        )}
     </nav>
   );
 };
@@ -121,13 +132,13 @@ AccessibilityFilter.propTypes = {
     highContrast: PropTypes.bool,
   }),
   onChange: PropTypes.func.isRequired, // onChange est requis pour l'interactivité
-  showReset: PropTypes.bool
+  showReset: PropTypes.bool,
 };
 
 // Valeurs par défaut pour les props optionnelles
 AccessibilityFilter.defaultProps = {
   filters: defaultFilters, // Utilise l'objet défini plus haut
-  showReset: true
+  showReset: true,
 };
 
 export default AccessibilityFilter;

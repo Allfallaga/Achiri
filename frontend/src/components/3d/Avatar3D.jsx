@@ -35,12 +35,15 @@ function Avatar3D({
         margin: "0 auto",
         width: "100px",
         height: "100px",
-        background: "none"
+        background: "none",
       }}
     >
       <Helmet>
         <title>Avatar 3D | Classe virtuelle Achiri</title>
-        <meta name="description" content="Avatar 3D interactif pour la classe virtuelle Achiri : statut, accessibilité, badges, points, mobile/web." />
+        <meta
+          name="description"
+          content="Avatar 3D interactif pour la classe virtuelle Achiri : statut, accessibilité, badges, points, mobile/web."
+        />
       </Helmet>
       <div
         className={`avatar3d${speaking ? " active" : ""}${muted ? " muted" : ""}${isCurrentUser ? " current" : ""}`}
@@ -51,24 +54,69 @@ function Avatar3D({
           {user?.avatar || (isCurrentUser ? "🧑‍💻" : "🧑‍🎓")}
         </span>
         {/* Statuts dynamiques */}
-        {speaking && <span className="avatar3d-status speaking" title="Parle" aria-label="Parle">💬</span>}
-        {muted && <span className="avatar3d-status muted" title="Muet" aria-label="Muet">🔇</span>}
-        {handRaised && <span className="avatar3d-status hand" title="Main levée" aria-label="Main levée">✋</span>}
+        {speaking && (
+          <span
+            className="avatar3d-status speaking"
+            title="Parle"
+            aria-label="Parle"
+          >
+            💬
+          </span>
+        )}
+        {muted && (
+          <span
+            className="avatar3d-status muted"
+            title="Muet"
+            aria-label="Muet"
+          >
+            🔇
+          </span>
+        )}
+        {handRaised && (
+          <span
+            className="avatar3d-status hand"
+            title="Main levée"
+            aria-label="Main levée"
+          >
+            ✋
+          </span>
+        )}
         {/* Overlay modération/notification */}
         {overlay && <div className="avatar3d-overlay">{overlay}</div>}
       </div>
       <div className="avatar3d-info">
-        <div className="avatar3d-name" aria-label={`Nom : ${user?.name || user}`}>
+        <div
+          className="avatar3d-name"
+          aria-label={`Nom : ${user?.name || user}`}
+        >
           {user?.name || user}
-          {isCurrentUser && <span className="avatar3d-me" title="Moi" aria-label="Moi">(Moi)</span>}
+          {isCurrentUser && (
+            <span className="avatar3d-me" title="Moi" aria-label="Moi">
+              (Moi)
+            </span>
+          )}
         </div>
-        <div className="avatar3d-badges" aria-label={badges.length > 0 ? `Badges : ${badges.join(", ")}` : undefined}>
-          {badges && badges.map((b, idx) => (
-            <span key={idx} className="avatar3d-badge" aria-label={`Badge ${b}`}>{b}</span>
-          ))}
+        <div
+          className="avatar3d-badges"
+          aria-label={
+            badges.length > 0 ? `Badges : ${badges.join(", ")}` : undefined
+          }
+        >
+          {badges &&
+            badges.map((b, idx) => (
+              <span
+                key={idx}
+                className="avatar3d-badge"
+                aria-label={`Badge ${b}`}
+              >
+                {b}
+              </span>
+            ))}
         </div>
         {points > 0 && (
-          <div className="avatar3d-points" aria-label={`Points : ${points}`}>{points} pts</div>
+          <div className="avatar3d-points" aria-label={`Points : ${points}`}>
+            {points} pts
+          </div>
         )}
       </div>
     </div>

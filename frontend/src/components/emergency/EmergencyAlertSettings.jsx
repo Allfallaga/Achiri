@@ -11,14 +11,15 @@ import React, { useState } from "react";
 const defaultChannels = [
   { value: "sms", label: "SMS" },
   { value: "email", label: "E-mail" },
-  { value: "push", label: "Notification Push" }
+  { value: "push", label: "Notification Push" },
 ];
 
 const EmergencyAlertSettings = ({
   enabled: initialEnabled = false,
   channels: initialChannels = ["sms"],
-  message: initialMessage = "Alerte d’urgence Achiri : besoin d’aide immédiate.",
-  onSave
+  message:
+    initialMessage = "Alerte d’urgence Achiri : besoin d’aide immédiate.",
+  onSave,
 }) => {
   const [enabled, setEnabled] = useState(initialEnabled);
   const [channels, setChannels] = useState(initialChannels);
@@ -29,9 +30,7 @@ const EmergencyAlertSettings = ({
   // Gestion des canaux cochés
   const handleChannelChange = (value) => {
     setChannels((prev) =>
-      prev.includes(value)
-        ? prev.filter((c) => c !== value)
-        : [...prev, value]
+      prev.includes(value) ? prev.filter((c) => c !== value) : [...prev, value],
     );
   };
 
@@ -63,7 +62,7 @@ const EmergencyAlertSettings = ({
         borderRadius: 18,
         boxShadow: "0 2px 18px #b71c1c33",
         padding: "2.2rem",
-        outline: "none"
+        outline: "none",
       }}
       aria-label="Paramètres d’alerte d’urgence"
       tabIndex={0}
@@ -76,21 +75,30 @@ const EmergencyAlertSettings = ({
           marginBottom: 16,
           display: "flex",
           alignItems: "center",
-          gap: 10
+          gap: 10,
         }}
         tabIndex={0}
         aria-label="Paramètres d’alerte d’urgence"
       >
-        <span role="img" aria-label="urgence">🚨</span>
+        <span role="img" aria-label="urgence">
+          🚨
+        </span>
         Paramètres d’Alerte d’Urgence
       </h2>
       <form onSubmit={handleSave} autoComplete="off">
         <div style={{ marginBottom: 18 }}>
-          <label style={{ fontWeight: 600, display: "flex", alignItems: "center", gap: 8 }}>
+          <label
+            style={{
+              fontWeight: 600,
+              display: "flex",
+              alignItems: "center",
+              gap: 8,
+            }}
+          >
             <input
               type="checkbox"
               checked={enabled}
-              onChange={e => setEnabled(e.target.checked)}
+              onChange={(e) => setEnabled(e.target.checked)}
               aria-checked={enabled}
               aria-label="Activer les alertes d’urgence"
               style={{ accentColor: "#b71c1c" }}
@@ -99,10 +107,15 @@ const EmergencyAlertSettings = ({
           </label>
         </div>
         <div style={{ marginBottom: 18 }}>
-          <span style={{ fontWeight: 600, marginBottom: 6, display: "block" }}>Canaux d’alerte :</span>
+          <span style={{ fontWeight: 600, marginBottom: 6, display: "block" }}>
+            Canaux d’alerte :
+          </span>
           <div style={{ display: "flex", gap: 16, flexWrap: "wrap" }}>
             {defaultChannels.map((c) => (
-              <label key={c.value} style={{ display: "flex", alignItems: "center", gap: 6 }}>
+              <label
+                key={c.value}
+                style={{ display: "flex", alignItems: "center", gap: 6 }}
+              >
                 <input
                   type="checkbox"
                   checked={channels.includes(c.value)}
@@ -118,13 +131,16 @@ const EmergencyAlertSettings = ({
           </div>
         </div>
         <div style={{ marginBottom: 18 }}>
-          <label htmlFor="emergency-message" style={{ fontWeight: 600, display: "block", marginBottom: 6 }}>
+          <label
+            htmlFor="emergency-message"
+            style={{ fontWeight: 600, display: "block", marginBottom: 6 }}
+          >
             Message personnalisé :
           </label>
           <textarea
             id="emergency-message"
             value={message}
-            onChange={e => setMessage(e.target.value)}
+            onChange={(e) => setMessage(e.target.value)}
             rows={3}
             maxLength={180}
             disabled={!enabled}
@@ -137,7 +153,7 @@ const EmergencyAlertSettings = ({
               fontSize: 15,
               resize: "vertical",
               background: enabled ? "#fff" : "#f5f5f5",
-              color: enabled ? "#222" : "#aaa"
+              color: enabled ? "#222" : "#aaa",
             }}
           />
         </div>
@@ -154,7 +170,7 @@ const EmergencyAlertSettings = ({
               fontWeight: "bold",
               fontSize: "1.1em",
               cursor: enabled ? "pointer" : "not-allowed",
-              transition: "background 0.2s"
+              transition: "background 0.2s",
             }}
             aria-label="Enregistrer les paramètres"
           >
@@ -173,7 +189,7 @@ const EmergencyAlertSettings = ({
               fontWeight: "bold",
               fontSize: "1.1em",
               cursor: enabled && !testing ? "pointer" : "not-allowed",
-              transition: "background 0.2s"
+              transition: "background 0.2s",
             }}
             aria-label="Tester l’alerte"
           >
@@ -185,7 +201,7 @@ const EmergencyAlertSettings = ({
             style={{
               color: feedback.includes("enregistré") ? "#388e3c" : "#b71c1c",
               fontWeight: 500,
-              marginBottom: 8
+              marginBottom: 8,
             }}
             aria-live="polite"
             tabIndex={0}
@@ -194,18 +210,47 @@ const EmergencyAlertSettings = ({
           </div>
         )}
       </form>
-      <div style={{ marginTop: 24, fontSize: 14, color: "#555", background: "#f0f4f8", borderRadius: 8, padding: "0.7em 1em" }}>
-        <b>À propos :</b> Les alertes d’urgence permettent de prévenir rapidement vos contacts ou services en cas de besoin. <a href="https://www.service-public.fr/particuliers/vosdroits/F21358" target="_blank" rel="noopener noreferrer" style={{ color: "#1976d2", textDecoration: "underline" }}>En savoir plus</a>
+      <div
+        style={{
+          marginTop: 24,
+          fontSize: 14,
+          color: "#555",
+          background: "#f0f4f8",
+          borderRadius: 8,
+          padding: "0.7em 1em",
+        }}
+      >
+        <b>À propos :</b> Les alertes d’urgence permettent de prévenir
+        rapidement vos contacts ou services en cas de besoin.{" "}
+        <a
+          href="https://www.service-public.fr/particuliers/vosdroits/F21358"
+          target="_blank"
+          rel="noopener noreferrer"
+          style={{ color: "#1976d2", textDecoration: "underline" }}
+        >
+          En savoir plus
+        </a>
       </div>
       <footer
         style={{
           marginTop: 18,
           color: "#888",
           fontSize: "0.93em",
-          textAlign: "center"
+          textAlign: "center",
         }}
       >
-        <span role="img" aria-label="sécurité">🔒</span> Sécurisé | <span role="img" aria-label="accessibilité">♿</span> Accessible | <span role="img" aria-label="mobile">📱</span> Mobile/Web
+        <span role="img" aria-label="sécurité">
+          🔒
+        </span>{" "}
+        Sécurisé |{" "}
+        <span role="img" aria-label="accessibilité">
+          ♿
+        </span>{" "}
+        Accessible |{" "}
+        <span role="img" aria-label="mobile">
+          📱
+        </span>{" "}
+        Mobile/Web
       </footer>
     </section>
   );

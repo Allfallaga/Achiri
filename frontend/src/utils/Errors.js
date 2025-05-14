@@ -1,4 +1,4 @@
-import React from 'react';
+import React from "react";
 
 /**
  * Errors – Achiri
@@ -35,12 +35,14 @@ function Errors({ errors }) {
         boxShadow: "0 2px 12px #b71c1c22",
         maxWidth: 520,
         marginLeft: "auto",
-        marginRight: "auto"
+        marginRight: "auto",
       }}
     >
       <ul style={{ margin: 0, paddingLeft: "1.2em" }}>
         {errorList.map((err, idx) => (
-          <li key={idx} style={{ marginBottom: 2 }}>{err}</li>
+          <li key={idx} style={{ marginBottom: 2 }}>
+            {err}
+          </li>
         ))}
       </ul>
     </div>

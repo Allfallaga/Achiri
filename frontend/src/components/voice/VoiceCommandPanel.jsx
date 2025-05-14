@@ -17,7 +17,8 @@ const VoiceCommandPanel = () => {
 
   // Initialisation de la reconnaissance vocale
   const getRecognition = () => {
-    const SpeechRecognition = window.SpeechRecognition || window.webkitSpeechRecognition;
+    const SpeechRecognition =
+      window.SpeechRecognition || window.webkitSpeechRecognition;
     if (!SpeechRecognition) return null;
     if (!recognitionRef.current) {
       recognitionRef.current = new SpeechRecognition();
@@ -27,7 +28,7 @@ const VoiceCommandPanel = () => {
       recognitionRef.current.onresult = (event) => {
         const text = event.results[0][0].transcript;
         setTranscript(text);
-        setHistory(h => [{ date: new Date(), text }, ...h].slice(0, 5));
+        setHistory((h) => [{ date: new Date(), text }, ...h].slice(0, 5));
       };
       recognitionRef.current.onerror = (event) => {
         setError("Erreur de reconnaissance vocale : " + event.error);
@@ -68,7 +69,7 @@ const VoiceCommandPanel = () => {
         borderRadius: 18,
         boxShadow: "0 2px 18px #1976d233",
         padding: "2.2rem",
-        outline: "none"
+        outline: "none",
       }}
       aria-label="Panneau Commandes Vocales Achiri"
       tabIndex={0}
@@ -81,16 +82,20 @@ const VoiceCommandPanel = () => {
           marginBottom: 16,
           display: "flex",
           alignItems: "center",
-          gap: 10
+          gap: 10,
         }}
         tabIndex={0}
         aria-label="Commandes vocales accessibilité"
       >
-        <span role="img" aria-label="microphone">🎤</span>
+        <span role="img" aria-label="microphone">
+          🎤
+        </span>
         Commandes Vocales IA
       </h2>
       <p style={{ color: "#555", fontSize: 15, marginBottom: 18 }}>
-        Utilisez votre voix pour contrôler l’application, dicter du texte ou déclencher des actions. Compatible mobile/web, sécurisé, respect de la vie privée.
+        Utilisez votre voix pour contrôler l’application, dicter du texte ou
+        déclencher des actions. Compatible mobile/web, sécurisé, respect de la
+        vie privée.
       </p>
       <div style={{ display: "flex", gap: 12, marginBottom: 18 }}>
         <button
@@ -105,7 +110,7 @@ const VoiceCommandPanel = () => {
             fontWeight: "bold",
             fontSize: "1.1em",
             cursor: listening ? "not-allowed" : "pointer",
-            transition: "background 0.2s"
+            transition: "background 0.2s",
           }}
           aria-label="Démarrer la reconnaissance vocale"
         >
@@ -123,7 +128,7 @@ const VoiceCommandPanel = () => {
             fontWeight: "bold",
             fontSize: "1.1em",
             cursor: !listening ? "not-allowed" : "pointer",
-            transition: "background 0.2s"
+            transition: "background 0.2s",
           }}
           aria-label="Arrêter la reconnaissance vocale"
         >
@@ -138,7 +143,7 @@ const VoiceCommandPanel = () => {
             borderRadius: 8,
             marginBottom: 10,
             fontSize: "1.1em",
-            color: "#1976d2"
+            color: "#1976d2",
           }}
           aria-live="polite"
           tabIndex={0}
@@ -147,7 +152,11 @@ const VoiceCommandPanel = () => {
         </div>
       )}
       {error && (
-        <div style={{ color: "#b71c1c", marginBottom: 10 }} role="alert" tabIndex={0}>
+        <div
+          style={{ color: "#b71c1c", marginBottom: 10 }}
+          role="alert"
+          tabIndex={0}
+        >
           {error}
         </div>
       )}
@@ -155,7 +164,14 @@ const VoiceCommandPanel = () => {
       {history.length > 0 && (
         <div style={{ marginTop: 18 }}>
           <b>Historique (5 dernières) :</b>
-          <ul style={{ fontSize: 15, color: "#1976d2", paddingLeft: 18, margin: 0 }}>
+          <ul
+            style={{
+              fontSize: 15,
+              color: "#1976d2",
+              paddingLeft: 18,
+              margin: 0,
+            }}
+          >
             {history.map((h, i) => (
               <li key={i}>
                 <span style={{ color: "#888", fontSize: 13, marginRight: 8 }}>
@@ -168,18 +184,47 @@ const VoiceCommandPanel = () => {
         </div>
       )}
       {/* Documentation & sensibilisation */}
-      <div style={{ marginTop: 24, fontSize: 14, color: "#555", background: "#f0f4f8", borderRadius: 8, padding: "0.7em 1em" }}>
-        <b>À propos :</b> Les commandes vocales facilitent l’accès à l’information et l’autonomie numérique. <a href="https://www.accessibility.afnor.org/" target="_blank" rel="noopener noreferrer" style={{ color: "#1976d2", textDecoration: "underline" }}>En savoir plus</a>
+      <div
+        style={{
+          marginTop: 24,
+          fontSize: 14,
+          color: "#555",
+          background: "#f0f4f8",
+          borderRadius: 8,
+          padding: "0.7em 1em",
+        }}
+      >
+        <b>À propos :</b> Les commandes vocales facilitent l’accès à
+        l’information et l’autonomie numérique.{" "}
+        <a
+          href="https://www.accessibility.afnor.org/"
+          target="_blank"
+          rel="noopener noreferrer"
+          style={{ color: "#1976d2", textDecoration: "underline" }}
+        >
+          En savoir plus
+        </a>
       </div>
       <footer
         style={{
           marginTop: 18,
           color: "#888",
           fontSize: "0.93em",
-          textAlign: "center"
+          textAlign: "center",
         }}
       >
-        <span role="img" aria-label="sécurité">🔒</span> Sécurisé | <span role="img" aria-label="accessibilité">♿</span> Accessible | <span role="img" aria-label="mobile">📱</span> Mobile/Web
+        <span role="img" aria-label="sécurité">
+          🔒
+        </span>{" "}
+        Sécurisé |{" "}
+        <span role="img" aria-label="accessibilité">
+          ♿
+        </span>{" "}
+        Accessible |{" "}
+        <span role="img" aria-label="mobile">
+          📱
+        </span>{" "}
+        Mobile/Web
       </footer>
     </section>
   );

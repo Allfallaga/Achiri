@@ -1,4 +1,4 @@
-import React, { useState, useRef, useEffect } from 'react';
+import React, { useState, useRef, useEffect } from "react";
 
 /**
  * SocialNetworkCard – Achiri
@@ -21,12 +21,12 @@ import React, { useState, useRef, useEffect } from 'react';
 const statusColors = {
   "non-verifie": "#bdbdbd",
   "en-attente": "#fbc02d",
-  "verifie": "#43a047"
+  verifie: "#43a047",
 };
 const statusLabels = {
   "non-verifie": "Non vérifié",
   "en-attente": "En attente",
-  "verifie": "Vérifié"
+  verifie: "Vérifié",
 };
 
 function SocialNetworkCard({
@@ -37,7 +37,7 @@ function SocialNetworkCard({
   onUrlChange,
   onVerify,
   onBoost,
-  role = "user"
+  role = "user",
 }) {
   const [url, setUrl] = useState(profileUrl || "");
   const [feedback, setFeedback] = useState("");
@@ -49,7 +49,7 @@ function SocialNetworkCard({
     if (cardRef.current) cardRef.current.focus();
   }, []);
 
-  const handleChange = e => {
+  const handleChange = (e) => {
     setUrl(e.target.value);
     onUrlChange && onUrlChange(e.target.value);
     setFeedback("");
@@ -58,7 +58,11 @@ function SocialNetworkCard({
   const handleVerify = (force) => {
     if (onVerify) {
       onVerify(force);
-      setFeedback(force ? "Vérification forcée envoyée." : "Demande de vérification envoyée.");
+      setFeedback(
+        force
+          ? "Vérification forcée envoyée."
+          : "Demande de vérification envoyée.",
+      );
     }
   };
 
@@ -86,7 +90,7 @@ function SocialNetworkCard({
         gap: 18,
         minWidth: 260,
         maxWidth: 520,
-        outline: "none"
+        outline: "none",
       }}
     >
       <div
@@ -98,14 +102,16 @@ function SocialNetworkCard({
           height: 60,
           display: "flex",
           alignItems: "center",
-          justifyContent: "center"
+          justifyContent: "center",
         }}
         aria-label={`Icône ${name}`}
       >
         {icon}
       </div>
       <div style={{ flex: 1 }}>
-        <div style={{ fontWeight: "bold", fontSize: 18, marginBottom: 6 }}>{name}</div>
+        <div style={{ fontWeight: "bold", fontSize: 18, marginBottom: 6 }}>
+          {name}
+        </div>
         <input
           ref={inputRef}
           type="url"
@@ -121,21 +127,30 @@ function SocialNetworkCard({
             padding: "0.4em 1em",
             fontSize: 15,
             marginBottom: 8,
-            background: status === "verifie" ? "#f5f5f5" : "#fff"
+            background: status === "verifie" ? "#f5f5f5" : "#fff",
           }}
           autoComplete="off"
           spellCheck={false}
           inputMode="url"
         />
-        <div style={{ display: "flex", alignItems: "center", gap: 10, flexWrap: "wrap" }}>
-          <span style={{
-            fontSize: 13,
-            color: "#fff",
-            background: statusColors[status],
-            borderRadius: 8,
-            padding: "2px 10px",
-            fontWeight: "bold"
-          }}>
+        <div
+          style={{
+            display: "flex",
+            alignItems: "center",
+            gap: 10,
+            flexWrap: "wrap",
+          }}
+        >
+          <span
+            style={{
+              fontSize: 13,
+              color: "#fff",
+              background: statusColors[status],
+              borderRadius: 8,
+              padding: "2px 10px",
+              fontWeight: "bold",
+            }}
+          >
             {statusLabels[status]}
           </span>
           {status === "non-verifie" && (
@@ -149,7 +164,7 @@ function SocialNetworkCard({
                 padding: "0.3em 1.2em",
                 fontWeight: "bold",
                 fontSize: 15,
-                cursor: "pointer"
+                cursor: "pointer",
               }}
               aria-label={`Vérifier la propriété du profil ${name}`}
             >
@@ -167,7 +182,7 @@ function SocialNetworkCard({
                 padding: "0.3em 1.2em",
                 fontWeight: "bold",
                 fontSize: 15,
-                cursor: "pointer"
+                cursor: "pointer",
               }}
               aria-label={`Booster le profil ${name}`}
             >
@@ -184,7 +199,7 @@ function SocialNetworkCard({
                 padding: "0.3em 1em",
                 fontWeight: "bold",
                 fontSize: 14,
-                cursor: "pointer"
+                cursor: "pointer",
               }}
               title="Forcer la vérification (admin)"
               aria-label={`Forcer la vérification du profil ${name} (admin)`}
@@ -195,7 +210,10 @@ function SocialNetworkCard({
           )}
         </div>
         {feedback && (
-          <div aria-live="polite" style={{ color: "#43a047", marginTop: 8, fontSize: 14 }}>
+          <div
+            aria-live="polite"
+            style={{ color: "#43a047", marginTop: 8, fontSize: 14 }}
+          >
             {feedback}
           </div>
         )}

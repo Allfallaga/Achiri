@@ -31,7 +31,7 @@ const CameraDescription = () => {
       }
     })();
     return () => {
-      if (stream) stream.getTracks().forEach(track => track.stop());
+      if (stream) stream.getTracks().forEach((track) => track.stop());
       setCameraActive(false);
     };
   }, []);
@@ -46,7 +46,9 @@ const CameraDescription = () => {
       const video = videoRef.current;
       canvas.width = video.videoWidth;
       canvas.height = video.videoHeight;
-      canvas.getContext("2d").drawImage(video, 0, 0, canvas.width, canvas.height);
+      canvas
+        .getContext("2d")
+        .drawImage(video, 0, 0, canvas.width, canvas.height);
       const dataUrl = canvas.toDataURL("image/jpeg");
       const result = await describeImageMock(dataUrl); // Correction : appel de la fonction nommée
       setDescription(result.description || "Aucune description générée.");
@@ -72,18 +74,20 @@ const CameraDescription = () => {
         borderRadius: 16,
         boxShadow: "0 2px 16px #1976d233",
         padding: "2rem",
-        outline: "none"
+        outline: "none",
       }}
       aria-label="Description visuelle IA"
       tabIndex={0}
     >
-      <h2 style={{
-        color: "#1976d2",
-        marginBottom: 18,
-        textAlign: "center",
-        fontWeight: 700,
-        fontSize: "1.3em"
-      }}>
+      <h2
+        style={{
+          color: "#1976d2",
+          marginBottom: 18,
+          textAlign: "center",
+          fontWeight: 700,
+          fontSize: "1.3em",
+        }}
+      >
         👁️ Description visuelle IA
       </h2>
       <video
@@ -95,7 +99,7 @@ const CameraDescription = () => {
           borderRadius: 8,
           background: "#222",
           minHeight: 180,
-          marginBottom: 12
+          marginBottom: 12,
         }}
         aria-label="Webcam en direct"
       />
@@ -112,7 +116,7 @@ const CameraDescription = () => {
           border: "none",
           cursor: loading || !cameraActive ? "not-allowed" : "pointer",
           fontWeight: 600,
-          transition: "background 0.2s"
+          transition: "background 0.2s",
         }}
         aria-label="Décrire la scène"
       >
@@ -126,7 +130,7 @@ const CameraDescription = () => {
             borderRadius: 6,
             marginTop: 10,
             fontSize: "1.1em",
-            color: "#1976d2"
+            color: "#1976d2",
           }}
           aria-live="polite"
         >
@@ -148,10 +152,21 @@ const CameraDescription = () => {
           marginTop: 18,
           color: "#888",
           fontSize: "0.93em",
-          textAlign: "center"
+          textAlign: "center",
         }}
       >
-        <span role="img" aria-label="sécurité">🔒</span> Sécurisé | <span role="img" aria-label="accessibilité">♿</span> Accessible | <span role="img" aria-label="mobile">📱</span> Mobile/Web
+        <span role="img" aria-label="sécurité">
+          🔒
+        </span>{" "}
+        Sécurisé |{" "}
+        <span role="img" aria-label="accessibilité">
+          ♿
+        </span>{" "}
+        Accessible |{" "}
+        <span role="img" aria-label="mobile">
+          📱
+        </span>{" "}
+        Mobile/Web
       </footer>
     </section>
   );

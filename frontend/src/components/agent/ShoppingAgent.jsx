@@ -12,12 +12,12 @@ const defaultSuggestions = [
   "Trouver un produit accessible",
   "Quels sont les meilleurs prix ?",
   "Aide pour finaliser ma commande",
-  "Conseils pour un achat sécurisé"
+  "Conseils pour un achat sécurisé",
 ];
 
 const ShoppingAgent = ({
   user = "Utilisateur",
-  onSend // callback(optionnel) pour intégration future
+  onSend, // callback(optionnel) pour intégration future
 }) => {
   const [input, setInput] = useState("");
   const [history, setHistory] = useState([]);
@@ -27,16 +27,24 @@ const ShoppingAgent = ({
   const handleSend = async (msg) => {
     if (!msg.trim()) return;
     setLoading(true);
-    setHistory(h => [...h, { from: "user", text: msg }]);
+    setHistory((h) => [...h, { from: "user", text: msg }]);
     setInput("");
     setTimeout(() => {
       // Réponse simulée IA
       let response = "Merci pour votre demande. (Simulation IA)";
-      if (/accessibl/i.test(msg)) response = "Voici des produits accessibles : clavier braille, souris ergonomique, etc.";
-      if (/prix|meilleur/i.test(msg)) response = "Les meilleurs prix sont affichés en temps réel sur la page Achiri Shopping.";
-      if (/commande|finaliser/i.test(msg)) response = "Pour finaliser votre commande, vérifiez votre panier puis cliquez sur 'Valider'.";
-      if (/sécur/i.test(msg)) response = "Pour un achat sécurisé : vérifiez le cadenas dans la barre d’adresse et privilégiez les paiements sécurisés.";
-      setHistory(h => [...h, { from: "agent", text: response }]);
+      if (/accessibl/i.test(msg))
+        response =
+          "Voici des produits accessibles : clavier braille, souris ergonomique, etc.";
+      if (/prix|meilleur/i.test(msg))
+        response =
+          "Les meilleurs prix sont affichés en temps réel sur la page Achiri Shopping.";
+      if (/commande|finaliser/i.test(msg))
+        response =
+          "Pour finaliser votre commande, vérifiez votre panier puis cliquez sur 'Valider'.";
+      if (/sécur/i.test(msg))
+        response =
+          "Pour un achat sécurisé : vérifiez le cadenas dans la barre d’adresse et privilégiez les paiements sécurisés.";
+      setHistory((h) => [...h, { from: "agent", text: response }]);
       setLoading(false);
       onSend && onSend(msg, response);
     }, 1200);
@@ -60,7 +68,7 @@ const ShoppingAgent = ({
         borderRadius: 16,
         boxShadow: "0 2px 16px #1976d233",
         padding: "2rem",
-        outline: "none"
+        outline: "none",
       }}
       aria-label="Agent virtuel Achats"
       tabIndex={0}
@@ -73,24 +81,27 @@ const ShoppingAgent = ({
           marginBottom: 14,
           display: "flex",
           alignItems: "center",
-          gap: 8
+          gap: 8,
         }}
         tabIndex={0}
         aria-label="Agent Achats IA"
       >
-        <span role="img" aria-label="assistant achats">🛒</span>
+        <span role="img" aria-label="assistant achats">
+          🛒
+        </span>
         Agent Achats IA
       </h2>
-      <div style={{
-        background: "#fff",
-        borderRadius: 10,
-        minHeight: 120,
-        maxHeight: 220,
-        overflowY: "auto",
-        padding: "1em",
-        marginBottom: 14,
-        border: "1px solid #e3f2fd"
-      }}
+      <div
+        style={{
+          background: "#fff",
+          borderRadius: 10,
+          minHeight: 120,
+          maxHeight: 220,
+          overflowY: "auto",
+          padding: "1em",
+          marginBottom: 14,
+          border: "1px solid #e3f2fd",
+        }}
         aria-live="polite"
         tabIndex={0}
       >
@@ -100,37 +111,47 @@ const ShoppingAgent = ({
           </div>
         )}
         {history.map((msg, i) => (
-          <div key={i} style={{
-            marginBottom: 10,
-            textAlign: msg.from === "user" ? "right" : "left"
-          }}>
-            <span style={{
-              display: "inline-block",
-              background: msg.from === "user" ? "#1976d2" : "#e3f2fd",
-              color: msg.from === "user" ? "#fff" : "#1976d2",
-              borderRadius: 8,
-              padding: "0.5em 1em",
-              fontSize: 15,
-              maxWidth: "80%",
-              wordBreak: "break-word"
-            }}>
+          <div
+            key={i}
+            style={{
+              marginBottom: 10,
+              textAlign: msg.from === "user" ? "right" : "left",
+            }}
+          >
+            <span
+              style={{
+                display: "inline-block",
+                background: msg.from === "user" ? "#1976d2" : "#e3f2fd",
+                color: msg.from === "user" ? "#fff" : "#1976d2",
+                borderRadius: 8,
+                padding: "0.5em 1em",
+                fontSize: 15,
+                maxWidth: "80%",
+                wordBreak: "break-word",
+              }}
+            >
               {msg.text}
             </span>
           </div>
         ))}
         {loading && (
-          <div style={{ color: "#1976d2", fontStyle: "italic" }}>L’agent réfléchit...</div>
+          <div style={{ color: "#1976d2", fontStyle: "italic" }}>
+            L’agent réfléchit...
+          </div>
         )}
       </div>
       <form
-        onSubmit={e => { e.preventDefault(); handleSend(input); }}
+        onSubmit={(e) => {
+          e.preventDefault();
+          handleSend(input);
+        }}
         style={{ display: "flex", gap: 8, marginBottom: 10 }}
         autoComplete="off"
       >
         <input
           type="text"
           value={input}
-          onChange={e => setInput(e.target.value)}
+          onChange={(e) => setInput(e.target.value)}
           onKeyDown={handleKeyDown}
           placeholder="Posez votre question achats…"
           aria-label="Saisir une question achats"
@@ -141,7 +162,7 @@ const ShoppingAgent = ({
             border: "1px solid #1976d2",
             padding: "0.6em 1em",
             fontSize: 15,
-            background: "#fff"
+            background: "#fff",
           }}
         />
         <button
@@ -157,13 +178,15 @@ const ShoppingAgent = ({
             fontWeight: "bold",
             fontSize: 15,
             cursor: loading || !input.trim() ? "not-allowed" : "pointer",
-            transition: "background 0.2s"
+            transition: "background 0.2s",
           }}
         >
           Envoyer
         </button>
       </form>
-      <div style={{ marginBottom: 12, display: "flex", flexWrap: "wrap", gap: 8 }}>
+      <div
+        style={{ marginBottom: 12, display: "flex", flexWrap: "wrap", gap: 8 }}
+      >
         {defaultSuggestions.map((s, i) => (
           <button
             key={i}
@@ -180,7 +203,7 @@ const ShoppingAgent = ({
               fontWeight: "bold",
               fontSize: 14,
               cursor: loading ? "not-allowed" : "pointer",
-              transition: "background 0.2s"
+              transition: "background 0.2s",
             }}
           >
             {s}
@@ -192,10 +215,21 @@ const ShoppingAgent = ({
           marginTop: 16,
           color: "#888",
           fontSize: "0.93em",
-          textAlign: "center"
+          textAlign: "center",
         }}
       >
-        <span role="img" aria-label="sécurité">🔒</span> Sécurisé | <span role="img" aria-label="accessibilité">♿</span> Accessible | <span role="img" aria-label="mobile">📱</span> Mobile/Web
+        <span role="img" aria-label="sécurité">
+          🔒
+        </span>{" "}
+        Sécurisé |{" "}
+        <span role="img" aria-label="accessibilité">
+          ♿
+        </span>{" "}
+        Accessible |{" "}
+        <span role="img" aria-label="mobile">
+          📱
+        </span>{" "}
+        Mobile/Web
       </footer>
     </section>
   );

@@ -91,7 +91,7 @@ const Notifications = () => {
 
   const handleMarkRead = (id) => {
     setNotifications((prev) =>
-      prev.map((n) => (n.id === id ? { ...n, read: true } : n))
+      prev.map((n) => (n.id === id ? { ...n, read: true } : n)),
     );
     setSuccess("Notification marquée comme lue !");
     setTimeout(() => setSuccess(""), 1500);
@@ -117,7 +117,7 @@ const Notifications = () => {
 
   // Filtrage notifications
   const filtered = notifications.filter(
-    (n) => filter === "all" || n.type === filter
+    (n) => filter === "all" || n.type === filter,
   );
 
   return (
@@ -132,12 +132,29 @@ const Notifications = () => {
     >
       <Helmet>
         <title>Notifications | Achiri</title>
-        <meta name="description" content="Centre de notifications Achiri : affichage, marquer comme lu, suppression, filtres, accessibilité, sécurité, responsive, SEO, design avancé." />
+        <meta
+          name="description"
+          content="Centre de notifications Achiri : affichage, marquer comme lu, suppression, filtres, accessibilité, sécurité, responsive, SEO, design avancé."
+        />
       </Helmet>
-      <header className="flex items-center justify-between mb-4" style={{ display: "flex", alignItems: "center", justifyContent: "space-between", marginBottom: 18 }}>
+      <header
+        className="flex items-center justify-between mb-4"
+        style={{
+          display: "flex",
+          alignItems: "center",
+          justifyContent: "space-between",
+          marginBottom: 18,
+        }}
+      >
         <h2
           className="text-2xl font-bold text-gray-800 dark:text-white flex items-center"
-          style={{ fontWeight: 700, fontSize: "1.3em", color: "#1976d2", display: "flex", alignItems: "center" }}
+          style={{
+            fontWeight: 700,
+            fontSize: "1.3em",
+            color: "#1976d2",
+            display: "flex",
+            alignItems: "center",
+          }}
           tabIndex={0}
           aria-label="Titre centre de notifications"
           ref={titleRef}
@@ -179,16 +196,20 @@ const Notifications = () => {
           <button
             className="darkmode-btn"
             onClick={() => setDarkMode((d) => !d)}
-            aria-label={darkMode ? "Désactiver le mode sombre" : "Activer le mode sombre"}
+            aria-label={
+              darkMode ? "Désactiver le mode sombre" : "Activer le mode sombre"
+            }
             style={{
               background: "none",
               border: "none",
               color: darkMode ? "#ffd600" : "#1976d2",
               fontSize: 18,
               marginLeft: 6,
-              cursor: "pointer"
+              cursor: "pointer",
             }}
-            title={darkMode ? "Désactiver le mode sombre" : "Activer le mode sombre"}
+            title={
+              darkMode ? "Désactiver le mode sombre" : "Activer le mode sombre"
+            }
           >
             {darkMode ? <FaSun /> : <FaMoon />}
           </button>
@@ -196,8 +217,19 @@ const Notifications = () => {
       </header>
 
       {/* Filtres */}
-      <nav aria-label="Filtres notifications" style={{ marginBottom: 16, display: "flex", gap: 8, flexWrap: "wrap" }}>
-        <span style={{ color: "#888", fontSize: 15, display: "flex", alignItems: "center", gap: 4 }}>
+      <nav
+        aria-label="Filtres notifications"
+        style={{ marginBottom: 16, display: "flex", gap: 8, flexWrap: "wrap" }}
+      >
+        <span
+          style={{
+            color: "#888",
+            fontSize: 15,
+            display: "flex",
+            alignItems: "center",
+            gap: 4,
+          }}
+        >
           <FaFilter /> Filtrer :
         </span>
         {Object.entries(typeLabels).map(([key, label]) => (
@@ -215,7 +247,7 @@ const Notifications = () => {
               outline: filter === key ? "2px solid #1976d2" : "none",
               boxShadow: filter === key ? "0 2px 8px #1976d233" : undefined,
               fontSize: 14,
-              transition: "background 0.2s, color 0.2s"
+              transition: "background 0.2s, color 0.2s",
             }}
             aria-pressed={filter === key}
             aria-label={`Filtrer par ${label}`}
@@ -227,17 +259,35 @@ const Notifications = () => {
       </nav>
 
       {success && (
-        <div aria-live="polite" style={{ color: "#43a047", marginBottom: 8, fontWeight: 600, display: "flex", alignItems: "center", gap: 6 }}>
+        <div
+          aria-live="polite"
+          style={{
+            color: "#43a047",
+            marginBottom: 8,
+            fontWeight: 600,
+            display: "flex",
+            alignItems: "center",
+            gap: 6,
+          }}
+        >
           <FaCheckCircle /> {success}
         </div>
       )}
       {error && (
-        <div aria-live="assertive" style={{ color: "red", marginBottom: 8 }}>{error}</div>
+        <div aria-live="assertive" style={{ color: "red", marginBottom: 8 }}>
+          {error}
+        </div>
       )}
 
-      <div className="notification-list space-y-3" style={{ display: "flex", flexDirection: "column", gap: 12 }}>
+      <div
+        className="notification-list space-y-3"
+        style={{ display: "flex", flexDirection: "column", gap: 12 }}
+      >
         {filtered.length === 0 ? (
-          <div className="text-gray-400 text-center py-8" style={{ color: "#888", textAlign: "center", padding: "2em 0" }}>
+          <div
+            className="text-gray-400 text-center py-8"
+            style={{ color: "#888", textAlign: "center", padding: "2em 0" }}
+          >
             Aucune notification.
           </div>
         ) : (
@@ -258,12 +308,22 @@ const Notifications = () => {
               aria-current={!notif.read ? "true" : undefined}
               tabIndex={0}
             >
-              <div className="mr-3" style={{ marginRight: 12, fontSize: 22 }}>{notif.icon}</div>
+              <div className="mr-3" style={{ marginRight: 12, fontSize: 22 }}>
+                {notif.icon}
+              </div>
               <div className="flex-1">
-                <div className="text-gray-800 dark:text-white" style={{ fontWeight: notif.read ? 400 : 600 }}>
+                <div
+                  className="text-gray-800 dark:text-white"
+                  style={{ fontWeight: notif.read ? 400 : 600 }}
+                >
                   {notif.message}
                 </div>
-                <div className="text-xs text-gray-500" style={{ fontSize: 12, color: "#888" }}>{notif.date}</div>
+                <div
+                  className="text-xs text-gray-500"
+                  style={{ fontSize: 12, color: "#888" }}
+                >
+                  {notif.date}
+                </div>
               </div>
               {!notif.read && (
                 <button
@@ -276,7 +336,7 @@ const Notifications = () => {
                     color: "#43a047",
                     fontSize: 20,
                     marginLeft: 8,
-                    cursor: "pointer"
+                    cursor: "pointer",
                   }}
                 >
                   <FaCheckCircle />
@@ -292,7 +352,7 @@ const Notifications = () => {
                   color: "#e53935",
                   fontSize: 18,
                   marginLeft: 8,
-                  cursor: "pointer"
+                  cursor: "pointer",
                 }}
               >
                 <FaTrashAlt />
@@ -306,10 +366,21 @@ const Notifications = () => {
           marginTop: 18,
           color: "#888",
           fontSize: "0.93em",
-          textAlign: "center"
+          textAlign: "center",
         }}
       >
-        <span role="img" aria-label="sécurité">🔒</span> Sécurisé | <span role="img" aria-label="accessibilité">♿</span> Accessible | <span role="img" aria-label="mobile">📱</span> Mobile/Web
+        <span role="img" aria-label="sécurité">
+          🔒
+        </span>{" "}
+        Sécurisé |{" "}
+        <span role="img" aria-label="accessibilité">
+          ♿
+        </span>{" "}
+        Accessible |{" "}
+        <span role="img" aria-label="mobile">
+          📱
+        </span>{" "}
+        Mobile/Web
         <br />
         <span style={{ fontSize: "0.93em" }}>
           Design avancé, navigation clavier, SEO optimisé, branding Achiri.

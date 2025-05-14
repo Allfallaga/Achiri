@@ -55,7 +55,9 @@ const HealthMonitor = ({ userId }) => {
     setAnalysis("");
     setError("");
     setTimeout(() => {
-      setAnalysis("Votre santé est stable. Continuez à bien dormir et à gérer votre stress !");
+      setAnalysis(
+        "Votre santé est stable. Continuez à bien dormir et à gérer votre stress !",
+      );
       setAnalyzing(false);
     }, 1200);
   };
@@ -70,24 +72,28 @@ const HealthMonitor = ({ userId }) => {
         borderRadius: 16,
         boxShadow: "0 2px 16px #1976d233",
         padding: "2rem",
-        outline: "none"
+        outline: "none",
       }}
       aria-label="Suivi santé IA"
       tabIndex={0}
     >
-      <h2 style={{
-        color: "#1976d2",
-        fontWeight: 700,
-        fontSize: "1.5em",
-        marginBottom: 12,
-        display: "flex",
-        alignItems: "center",
-        gap: 8
-      }}>
+      <h2
+        style={{
+          color: "#1976d2",
+          fontWeight: 700,
+          fontSize: "1.5em",
+          marginBottom: 12,
+          display: "flex",
+          alignItems: "center",
+          gap: 8,
+        }}
+      >
         🩺 Suivi Santé IA
       </h2>
       {loading ? (
-        <p style={{ color: "#888", fontStyle: "italic" }}>Chargement des données santé...</p>
+        <p style={{ color: "#888", fontStyle: "italic" }}>
+          Chargement des données santé...
+        </p>
       ) : health ? (
         <div
           style={{
@@ -96,7 +102,7 @@ const HealthMonitor = ({ userId }) => {
             padding: "1em",
             marginBottom: 16,
             fontSize: "1.1em",
-            boxShadow: "0 1px 4px #1976d211"
+            boxShadow: "0 1px 4px #1976d211",
           }}
         >
           <div>
@@ -109,7 +115,10 @@ const HealthMonitor = ({ userId }) => {
             <b>Sommeil :</b> {health.sleepHours ?? "?"} h
           </div>
           <div>
-            <b>Dernière mesure :</b> {health.timestamp ? new Date(health.timestamp).toLocaleString() : "?"}
+            <b>Dernière mesure :</b>{" "}
+            {health.timestamp
+              ? new Date(health.timestamp).toLocaleString()
+              : "?"}
           </div>
         </div>
       ) : (
@@ -130,7 +139,7 @@ const HealthMonitor = ({ userId }) => {
           cursor: analyzing ? "not-allowed" : "pointer",
           fontWeight: 600,
           boxShadow: "0 2px 8px #00b89422",
-          transition: "background 0.2s, box-shadow 0.2s"
+          transition: "background 0.2s, box-shadow 0.2s",
         }}
         aria-label="Analyser ma santé"
       >
@@ -147,7 +156,7 @@ const HealthMonitor = ({ userId }) => {
             marginBottom: 16,
             fontSize: "1.05em",
             border: "1px solid #b7e4c7",
-            textAlign: "center"
+            textAlign: "center",
           }}
           aria-live="polite"
         >
@@ -155,7 +164,16 @@ const HealthMonitor = ({ userId }) => {
         </div>
       )}
 
-      <h3 style={{ marginTop: 24, color: "#1976d2", fontWeight: 600, fontSize: "1.1em" }}>Historique</h3>
+      <h3
+        style={{
+          marginTop: 24,
+          color: "#1976d2",
+          fontWeight: 600,
+          fontSize: "1.1em",
+        }}
+      >
+        Historique
+      </h3>
       <div
         style={{
           maxHeight: 120,
@@ -164,7 +182,7 @@ const HealthMonitor = ({ userId }) => {
           borderRadius: 6,
           padding: "0.5em",
           fontSize: "0.98em",
-          boxShadow: "0 1px 2px #1976d211"
+          boxShadow: "0 1px 2px #1976d211",
         }}
         aria-label="Historique santé"
       >
@@ -175,7 +193,8 @@ const HealthMonitor = ({ userId }) => {
             {history.map((h, i) => (
               <li key={i}>
                 {h.date ? new Date(h.date).toLocaleDateString() : "?"} :{" "}
-                <b>{h.heartRate ?? "?"} bpm</b>, Stress: {h.stressLevel ?? "?"}, Sommeil: {h.sleepHours ?? "?"}h
+                <b>{h.heartRate ?? "?"} bpm</b>, Stress: {h.stressLevel ?? "?"},
+                Sommeil: {h.sleepHours ?? "?"}h
               </li>
             ))}
           </ul>
@@ -191,13 +210,27 @@ const HealthMonitor = ({ userId }) => {
           marginTop: 18,
           color: "#888",
           fontSize: "0.93em",
-          textAlign: "center"
+          textAlign: "center",
         }}
       >
-        <span role="img" aria-label="sécurité">🔒</span> Sécurisé | <span role="img" aria-label="accessibilité">♿</span> Accessible | <span role="img" aria-label="mobile">📱</span> Mobile/Web
+        <span role="img" aria-label="sécurité">
+          🔒
+        </span>{" "}
+        Sécurisé |{" "}
+        <span role="img" aria-label="accessibilité">
+          ♿
+        </span>{" "}
+        Accessible |{" "}
+        <span role="img" aria-label="mobile">
+          📱
+        </span>{" "}
+        Mobile/Web
       </footer>
       <div style={{ color: "#888", fontSize: "0.97em", marginTop: 10 }}>
-        <span role="img" aria-label="info">ℹ️</span> Données simulées pour la démo.
+        <span role="img" aria-label="info">
+          ℹ️
+        </span>{" "}
+        Données simulées pour la démo.
       </div>
     </section>
   );

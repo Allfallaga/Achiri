@@ -55,31 +55,52 @@ export default function LoginPage() {
         boxShadow: "0 2px 16px #1976d233",
         fontFamily: "'Segoe UI', Arial, sans-serif",
         color: darkMode ? "#e3f2fd" : "#222",
-        transition: "background 0.3s, color 0.3s"
+        transition: "background 0.3s, color 0.3s",
       }}
       aria-label="Connexion utilisateur"
       tabIndex={0}
     >
       <Helmet>
         <title>Connexion | Achiri</title>
-        <meta name="description" content="Connectez-vous à votre compte Achiri. Plateforme IA inclusive, accessible et sécurisée." />
+        <meta
+          name="description"
+          content="Connectez-vous à votre compte Achiri. Plateforme IA inclusive, accessible et sécurisée."
+        />
         <html lang="fr" />
       </Helmet>
-      <div style={{ display: "flex", alignItems: "center", justifyContent: "space-between", marginBottom: 8 }}>
-        <h2 style={{ textAlign: "center", color: darkMode ? "#ffd600" : "#1976d2", fontWeight: 700, fontSize: "2rem", margin: 0, flex: 1 }}>
+      <div
+        style={{
+          display: "flex",
+          alignItems: "center",
+          justifyContent: "space-between",
+          marginBottom: 8,
+        }}
+      >
+        <h2
+          style={{
+            textAlign: "center",
+            color: darkMode ? "#ffd600" : "#1976d2",
+            fontWeight: 700,
+            fontSize: "2rem",
+            margin: 0,
+            flex: 1,
+          }}
+        >
           Connexion
         </h2>
         <button
           type="button"
           onClick={handleDarkMode}
-          aria-label={darkMode ? "Désactiver le mode sombre" : "Activer le mode sombre"}
+          aria-label={
+            darkMode ? "Désactiver le mode sombre" : "Activer le mode sombre"
+          }
           style={{
             background: "none",
             border: "none",
             color: darkMode ? "#ffd600" : "#1976d2",
             cursor: "pointer",
             fontSize: 22,
-            marginLeft: 12
+            marginLeft: 12,
           }}
           tabIndex={0}
         >
@@ -88,12 +109,18 @@ export default function LoginPage() {
       </div>
       <form onSubmit={handleLogin} aria-label="Formulaire de connexion">
         <div style={{ marginBottom: 18 }}>
-          <label style={{ fontWeight: 500, color: darkMode ? "#ffd600" : "#333", display: "block" }}>
+          <label
+            style={{
+              fontWeight: 500,
+              color: darkMode ? "#ffd600" : "#333",
+              display: "block",
+            }}
+          >
             Nom d'utilisateur
             <input
               type="text"
               value={username}
-              onChange={e => setUsername(e.target.value)}
+              onChange={(e) => setUsername(e.target.value)}
               placeholder="Votre pseudo"
               style={{
                 width: "100%",
@@ -104,7 +131,7 @@ export default function LoginPage() {
                 fontSize: "1em",
                 marginBottom: 8,
                 background: darkMode ? "#181f2a" : "#fff",
-                color: darkMode ? "#ffd600" : "#222"
+                color: darkMode ? "#ffd600" : "#222",
               }}
               maxLength={32}
               aria-label="Nom d'utilisateur"
@@ -114,12 +141,18 @@ export default function LoginPage() {
           </label>
         </div>
         <div style={{ marginBottom: 18 }}>
-          <label style={{ fontWeight: 500, color: darkMode ? "#ffd600" : "#333", display: "block" }}>
+          <label
+            style={{
+              fontWeight: 500,
+              color: darkMode ? "#ffd600" : "#333",
+              display: "block",
+            }}
+          >
             Mot de passe
             <input
               type="password"
               value={password}
-              onChange={e => setPassword(e.target.value)}
+              onChange={(e) => setPassword(e.target.value)}
               placeholder="Mot de passe"
               style={{
                 width: "100%",
@@ -130,7 +163,7 @@ export default function LoginPage() {
                 fontSize: "1em",
                 marginBottom: 8,
                 background: darkMode ? "#181f2a" : "#fff",
-                color: darkMode ? "#ffd600" : "#222"
+                color: darkMode ? "#ffd600" : "#222",
               }}
               maxLength={32}
               aria-label="Mot de passe"
@@ -141,11 +174,17 @@ export default function LoginPage() {
         </div>
         {/* Sélecteur de rôle pour tests/accès multi-rôles */}
         <div style={{ marginBottom: 18 }}>
-          <label style={{ fontWeight: 500, color: darkMode ? "#ffd600" : "#333", display: "block" }}>
+          <label
+            style={{
+              fontWeight: 500,
+              color: darkMode ? "#ffd600" : "#333",
+              display: "block",
+            }}
+          >
             Rôle
             <select
               value={role}
-              onChange={e => setRole(e.target.value)}
+              onChange={(e) => setRole(e.target.value)}
               style={{
                 width: "100%",
                 padding: "0.7em",
@@ -155,7 +194,7 @@ export default function LoginPage() {
                 fontSize: "1em",
                 marginBottom: 8,
                 background: darkMode ? "#181f2a" : "#fff",
-                color: darkMode ? "#ffd600" : "#222"
+                color: darkMode ? "#ffd600" : "#222",
               }}
               aria-label="Choisir le rôle"
             >
@@ -172,7 +211,7 @@ export default function LoginPage() {
               background: "#ffcdd2",
               borderRadius: 6,
               padding: 8,
-              marginBottom: 12
+              marginBottom: 12,
             }}
             role="alert"
             aria-live="assertive"
@@ -195,7 +234,7 @@ export default function LoginPage() {
             marginTop: 8,
             letterSpacing: 1,
             boxShadow: "0 1px 4px #1976d211",
-            transition: "opacity 0.2s"
+            transition: "opacity 0.2s",
           }}
           aria-label="Se connecter"
         >
@@ -203,34 +242,140 @@ export default function LoginPage() {
         </button>
       </form>
       {/* Liens de navigation rapide */}
-      <nav style={{ marginTop: 32, textAlign: "center", display: "flex", flexWrap: "wrap", gap: 8, justifyContent: "center" }} aria-label="Navigation principale">
-        <Link to="/" style={{ margin: 8, color: darkMode ? "#ffd600" : "#1976d2" }}>Accueil</Link>
-        <Link to="/dashboard" style={{ margin: 8, color: darkMode ? "#ffd600" : "#1976d2" }}>Dashboard</Link>
-        <Link to="/profile" style={{ margin: 8, color: darkMode ? "#ffd600" : "#1976d2" }}>Profil</Link>
-        <Link to="/settings" style={{ margin: 8, color: darkMode ? "#ffd600" : "#1976d2" }}>Paramètres</Link>
-        <Link to="/accessibilite" style={{ margin: 8, color: darkMode ? "#ffd600" : "#1976d2" }}>Accessibilité</Link>
-        <Link to="/challenges" style={{ margin: 8, color: darkMode ? "#ffd600" : "#1976d2" }}>Challenges</Link>
-        <Link to="/friends" style={{ margin: 8, color: darkMode ? "#ffd600" : "#1976d2" }}>Amis</Link>
-        <Link to="/leaderboard" style={{ margin: 8, color: darkMode ? "#ffd600" : "#1976d2" }}>Classement</Link>
-        <Link to="/creator-tools" style={{ margin: 8, color: darkMode ? "#ffd600" : "#1976d2" }}>Creator Tools</Link>
-        <Link to="/admin" style={{ margin: 8, color: darkMode ? "#ffd600" : "#1976d2" }}>Admin</Link>
-        <Link to="/music" style={{ margin: 8, color: darkMode ? "#ffd600" : "#1976d2" }}>Musique</Link>
-        <Link to="/notifications" style={{ margin: 8, color: darkMode ? "#ffd600" : "#1976d2" }}>Notifications</Link>
-        <Link to="/social-interactions" style={{ margin: 8, color: darkMode ? "#ffd600" : "#1976d2" }}>Interactions Sociales</Link>
-        <Link to="/reseaux-sociaux" style={{ margin: 8, color: darkMode ? "#ffd600" : "#1976d2" }}>Réseaux Sociaux</Link>
-        <Link to="/rooms" style={{ margin: 8, color: darkMode ? "#ffd600" : "#1976d2" }}>Rooms</Link>
-        <Link to="/virtual-classroom" style={{ margin: 8, color: darkMode ? "#ffd600" : "#1976d2" }}>Classes Virtuelles</Link>
-        <Link to="/wallet" style={{ margin: 8, color: darkMode ? "#ffd600" : "#1976d2" }}>Wallet</Link>
+      <nav
+        style={{
+          marginTop: 32,
+          textAlign: "center",
+          display: "flex",
+          flexWrap: "wrap",
+          gap: 8,
+          justifyContent: "center",
+        }}
+        aria-label="Navigation principale"
+      >
+        <Link
+          to="/"
+          style={{ margin: 8, color: darkMode ? "#ffd600" : "#1976d2" }}
+        >
+          Accueil
+        </Link>
+        <Link
+          to="/dashboard"
+          style={{ margin: 8, color: darkMode ? "#ffd600" : "#1976d2" }}
+        >
+          Dashboard
+        </Link>
+        <Link
+          to="/profile"
+          style={{ margin: 8, color: darkMode ? "#ffd600" : "#1976d2" }}
+        >
+          Profil
+        </Link>
+        <Link
+          to="/settings"
+          style={{ margin: 8, color: darkMode ? "#ffd600" : "#1976d2" }}
+        >
+          Paramètres
+        </Link>
+        <Link
+          to="/accessibilite"
+          style={{ margin: 8, color: darkMode ? "#ffd600" : "#1976d2" }}
+        >
+          Accessibilité
+        </Link>
+        <Link
+          to="/challenges"
+          style={{ margin: 8, color: darkMode ? "#ffd600" : "#1976d2" }}
+        >
+          Challenges
+        </Link>
+        <Link
+          to="/friends"
+          style={{ margin: 8, color: darkMode ? "#ffd600" : "#1976d2" }}
+        >
+          Amis
+        </Link>
+        <Link
+          to="/leaderboard"
+          style={{ margin: 8, color: darkMode ? "#ffd600" : "#1976d2" }}
+        >
+          Classement
+        </Link>
+        <Link
+          to="/creator-tools"
+          style={{ margin: 8, color: darkMode ? "#ffd600" : "#1976d2" }}
+        >
+          Creator Tools
+        </Link>
+        <Link
+          to="/admin"
+          style={{ margin: 8, color: darkMode ? "#ffd600" : "#1976d2" }}
+        >
+          Admin
+        </Link>
+        <Link
+          to="/music"
+          style={{ margin: 8, color: darkMode ? "#ffd600" : "#1976d2" }}
+        >
+          Musique
+        </Link>
+        <Link
+          to="/notifications"
+          style={{ margin: 8, color: darkMode ? "#ffd600" : "#1976d2" }}
+        >
+          Notifications
+        </Link>
+        <Link
+          to="/social-interactions"
+          style={{ margin: 8, color: darkMode ? "#ffd600" : "#1976d2" }}
+        >
+          Interactions Sociales
+        </Link>
+        <Link
+          to="/reseaux-sociaux"
+          style={{ margin: 8, color: darkMode ? "#ffd600" : "#1976d2" }}
+        >
+          Réseaux Sociaux
+        </Link>
+        <Link
+          to="/rooms"
+          style={{ margin: 8, color: darkMode ? "#ffd600" : "#1976d2" }}
+        >
+          Rooms
+        </Link>
+        <Link
+          to="/virtual-classroom"
+          style={{ margin: 8, color: darkMode ? "#ffd600" : "#1976d2" }}
+        >
+          Classes Virtuelles
+        </Link>
+        <Link
+          to="/wallet"
+          style={{ margin: 8, color: darkMode ? "#ffd600" : "#1976d2" }}
+        >
+          Wallet
+        </Link>
       </nav>
       <footer
         style={{
           marginTop: 24,
           color: darkMode ? "#ffd600" : "#888",
           fontSize: "0.93em",
-          textAlign: "center"
+          textAlign: "center",
         }}
       >
-        <span role="img" aria-label="sécurité">🔒</span> Sécurisé | <span role="img" aria-label="accessibilité">♿</span> Accessible | <span role="img" aria-label="mobile">📱</span> Mobile/Web
+        <span role="img" aria-label="sécurité">
+          🔒
+        </span>{" "}
+        Sécurisé |{" "}
+        <span role="img" aria-label="accessibilité">
+          ♿
+        </span>{" "}
+        Accessible |{" "}
+        <span role="img" aria-label="mobile">
+          📱
+        </span>{" "}
+        Mobile/Web
       </footer>
       <style>{`
         main[aria-label="Connexion utilisateur"]:focus {

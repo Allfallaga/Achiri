@@ -31,7 +31,7 @@ export default function Scoreboard({ classroomId, fetchScores }) {
         data = [
           { userId: "Alice", score: 12, avatar: "🦊", badge: "Expert" },
           { userId: "Bob", score: 9, avatar: "🐼" },
-          { userId: "Charlie", score: 7, avatar: "🐧" }
+          { userId: "Charlie", score: 7, avatar: "🐧" },
         ];
         await new Promise((r) => setTimeout(r, 700));
       }
@@ -63,7 +63,7 @@ export default function Scoreboard({ classroomId, fetchScores }) {
         maxWidth: 440,
         background: "#fafdff",
         outline: "none",
-        boxShadow: "0 2px 16px #1976d220"
+        boxShadow: "0 2px 16px #1976d220",
       }}
       aria-label="Classement des scores"
       tabIndex={0}
@@ -75,7 +75,7 @@ export default function Scoreboard({ classroomId, fetchScores }) {
           fontWeight: 700,
           fontSize: "1.22em",
           marginBottom: 14,
-          outline: "none"
+          outline: "none",
         }}
         tabIndex={-1}
       >
@@ -107,11 +107,13 @@ export default function Scoreboard({ classroomId, fetchScores }) {
               alignItems: "center",
               fontWeight: idx === 0 ? 700 : 500,
               color: idx === 0 ? "#1976d2" : "#333",
-              boxShadow: idx === 0 ? "0 2px 8px #1976d220" : "none"
+              boxShadow: idx === 0 ? "0 2px 8px #1976d220" : "none",
             }}
             aria-label={`Utilisateur ${s.userId}, score ${s.score}${s.badge ? `, badge ${s.badge}` : ""}`}
           >
-            <span style={{ minWidth: 28, display: "inline-block", fontSize: 22 }}>
+            <span
+              style={{ minWidth: 28, display: "inline-block", fontSize: 22 }}
+            >
               {idx === 0 ? "🥇" : idx === 1 ? "🥈" : idx === 2 ? "🥉" : idx + 1}
             </span>
             <span style={{ minWidth: 30, fontSize: 22, marginRight: 6 }}>
@@ -128,7 +130,7 @@ export default function Scoreboard({ classroomId, fetchScores }) {
                   fontWeight: 600,
                   padding: "2px 8px",
                   marginRight: 8,
-                  marginLeft: 4
+                  marginLeft: 4,
                 }}
                 aria-label={`Badge ${s.badge}`}
               >

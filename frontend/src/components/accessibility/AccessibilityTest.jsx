@@ -91,12 +91,20 @@ export default function AccessibilityTest({ userId }) {
         borderRadius: 14,
         maxWidth: 540,
         background: "#f8fafc",
-        boxShadow: "0 2px 12px #1976d222"
+        boxShadow: "0 2px 12px #1976d222",
       }}
       aria-label="Test interactif accessibilité IA"
       tabIndex={0}
     >
-      <h2 style={{ color: "#1976d2", marginBottom: 18, display: "flex", alignItems: "center", gap: 10 }}>
+      <h2
+        style={{
+          color: "#1976d2",
+          marginBottom: 18,
+          display: "flex",
+          alignItems: "center",
+          gap: 10,
+        }}
+      >
         <FaUniversalAccess /> Accessibilité IA : Démo interactive
       </h2>
       {userId && (
@@ -104,10 +112,23 @@ export default function AccessibilityTest({ userId }) {
           Utilisateur : <strong>{userId}</strong>
         </div>
       )}
-      {error && <div style={{ color: "#b71c1c", marginBottom: 10 }} role="alert">{error}</div>}
+      {error && (
+        <div style={{ color: "#b71c1c", marginBottom: 10 }} role="alert">
+          {error}
+        </div>
+      )}
 
       {/* LSF */}
-      <form onSubmit={handleLsf} style={{ marginBottom: 18, display: "flex", alignItems: "center", gap: 10, flexWrap: "wrap" }}>
+      <form
+        onSubmit={handleLsf}
+        style={{
+          marginBottom: 18,
+          display: "flex",
+          alignItems: "center",
+          gap: 10,
+          flexWrap: "wrap",
+        }}
+      >
         <label htmlFor="lsf-input" style={{ fontWeight: 600, minWidth: 140 }}>
           <FaSignLanguage style={{ marginRight: 6 }} /> Traduction en LSF :
         </label>
@@ -115,7 +136,7 @@ export default function AccessibilityTest({ userId }) {
           id="lsf-input"
           type="text"
           value={lsfInput}
-          onChange={e => setLsfInput(e.target.value)}
+          onChange={(e) => setLsfInput(e.target.value)}
           placeholder="Texte à traduire en LSF"
           style={{
             flex: 1,
@@ -123,7 +144,7 @@ export default function AccessibilityTest({ userId }) {
             border: "1px solid #bbdefb",
             borderRadius: 8,
             padding: "0.4em 1em",
-            fontSize: 15
+            fontSize: 15,
           }}
           required
           aria-label="Texte à traduire en LSF"
@@ -139,7 +160,7 @@ export default function AccessibilityTest({ userId }) {
             padding: "0.4em 1.2em",
             fontWeight: "bold",
             fontSize: 15,
-            cursor: loadingLsf ? "not-allowed" : "pointer"
+            cursor: loadingLsf ? "not-allowed" : "pointer",
           }}
           aria-label="Traduire en LSF"
         >
@@ -153,7 +174,16 @@ export default function AccessibilityTest({ userId }) {
       )}
 
       {/* TTS */}
-      <form onSubmit={handleTts} style={{ marginBottom: 18, display: "flex", alignItems: "center", gap: 10, flexWrap: "wrap" }}>
+      <form
+        onSubmit={handleTts}
+        style={{
+          marginBottom: 18,
+          display: "flex",
+          alignItems: "center",
+          gap: 10,
+          flexWrap: "wrap",
+        }}
+      >
         <label htmlFor="tts-input" style={{ fontWeight: 600, minWidth: 170 }}>
           <FaVolumeUp style={{ marginRight: 6 }} /> Lecture vocale (TTS) :
         </label>
@@ -161,7 +191,7 @@ export default function AccessibilityTest({ userId }) {
           id="tts-input"
           type="text"
           value={ttsInput}
-          onChange={e => setTtsInput(e.target.value)}
+          onChange={(e) => setTtsInput(e.target.value)}
           placeholder="Texte à lire"
           style={{
             flex: 1,
@@ -169,7 +199,7 @@ export default function AccessibilityTest({ userId }) {
             border: "1px solid #bbdefb",
             borderRadius: 8,
             padding: "0.4em 1em",
-            fontSize: 15
+            fontSize: 15,
           }}
           required
           aria-label="Texte à lire vocalement"
@@ -185,7 +215,7 @@ export default function AccessibilityTest({ userId }) {
             padding: "0.4em 1.2em",
             fontWeight: "bold",
             fontSize: 15,
-            cursor: loadingTts || ttsSpeaking ? "not-allowed" : "pointer"
+            cursor: loadingTts || ttsSpeaking ? "not-allowed" : "pointer",
           }}
           aria-label="Lire vocalement"
         >
@@ -204,7 +234,7 @@ export default function AccessibilityTest({ userId }) {
               fontWeight: "bold",
               fontSize: 15,
               marginLeft: 8,
-              cursor: "pointer"
+              cursor: "pointer",
             }}
             aria-label="Arrêter la lecture vocale"
           >
@@ -229,12 +259,21 @@ export default function AccessibilityTest({ userId }) {
           boxShadow: "0 1px 8px #1976d211",
           color: "#1976d2",
           fontWeight: 500,
-          fontSize: 15
+          fontSize: 15,
         }}
         aria-live="polite"
         tabIndex={0}
       >
-        <div style={{ marginBottom: 8, fontWeight: 700, fontSize: 16, display: "flex", alignItems: "center", gap: 8 }}>
+        <div
+          style={{
+            marginBottom: 8,
+            fontWeight: 700,
+            fontSize: 16,
+            display: "flex",
+            alignItems: "center",
+            gap: 8,
+          }}
+        >
           <FaUniversalAccess /> Rapport IA d’accessibilité (démo)
         </div>
         <ul style={{ margin: 0, paddingLeft: 18 }}>
@@ -254,10 +293,21 @@ export default function AccessibilityTest({ userId }) {
           marginTop: 18,
           color: "#888",
           fontSize: "0.93em",
-          textAlign: "center"
+          textAlign: "center",
         }}
       >
-        <span role="img" aria-label="sécurité">🔒</span> Sécurisé | <span role="img" aria-label="accessibilité">♿</span> Accessible | <span role="img" aria-label="mobile">📱</span> Mobile/Web
+        <span role="img" aria-label="sécurité">
+          🔒
+        </span>{" "}
+        Sécurisé |{" "}
+        <span role="img" aria-label="accessibilité">
+          ♿
+        </span>{" "}
+        Accessible |{" "}
+        <span role="img" aria-label="mobile">
+          📱
+        </span>{" "}
+        Mobile/Web
       </footer>
       <style>{`
         .accessibility-ia-demo:focus {

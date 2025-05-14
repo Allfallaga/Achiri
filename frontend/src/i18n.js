@@ -36,18 +36,18 @@ const resources = {
       "acces-refuse": "Accès refusé",
       "non-trouve": "Page non trouvée",
       "retour-accueil": "Retour à l'accueil",
-      "envoyer": "Envoyer",
-      "annuler": "Annuler",
-      "sauvegarder": "Sauvegarder",
-      "supprimer": "Supprimer",
-      "confirmer": "Confirmer",
+      envoyer: "Envoyer",
+      annuler: "Annuler",
+      sauvegarder: "Sauvegarder",
+      supprimer: "Supprimer",
+      confirmer: "Confirmer",
       "alerte-urgence": "Alerte d'urgence",
       "traduction-lsf": "Traduction LSF",
       "generateur-seo": "Générateur SEO",
-      "planificateur": "Planificateur",
-      "filtrer": "Filtrer",
-      "ajouter": "Ajouter",
-      "modifier": "Modifier",
+      planificateur: "Planificateur",
+      filtrer: "Filtrer",
+      ajouter: "Ajouter",
+      modifier: "Modifier",
       "voir-plus": "Voir plus",
       "aucune-notification": "Aucune notification",
       "nouveau-challenge": "Nouveau défi disponible",
@@ -55,11 +55,11 @@ const resources = {
       "accessibilite-desactivee": "Accessibilité désactivée",
       "mode-contraste-eleve": "Mode contraste élevé",
       "mode-sombre": "Mode sombre",
-      "langue": "Langue",
-      "francais": "Français",
-      "anglais": "Anglais"
+      langue: "Langue",
+      francais: "Français",
+      anglais: "Anglais",
       // Ajoutez ici toutes les clés utiles à votre projet
-    }
+    },
   },
   en: {
     translation: {
@@ -88,18 +88,18 @@ const resources = {
       "acces-refuse": "Access denied",
       "non-trouve": "Page not found",
       "retour-accueil": "Back to home",
-      "envoyer": "Send",
-      "annuler": "Cancel",
-      "sauvegarder": "Save",
-      "supprimer": "Delete",
-      "confirmer": "Confirm",
+      envoyer: "Send",
+      annuler: "Cancel",
+      sauvegarder: "Save",
+      supprimer: "Delete",
+      confirmer: "Confirm",
       "alerte-urgence": "Emergency alert",
       "traduction-lsf": "Sign Language Translation",
       "generateur-seo": "SEO Generator",
-      "planificateur": "Scheduler",
-      "filtrer": "Filter",
-      "ajouter": "Add",
-      "modifier": "Edit",
+      planificateur: "Scheduler",
+      filtrer: "Filter",
+      ajouter: "Add",
+      modifier: "Edit",
       "voir-plus": "See more",
       "aucune-notification": "No notifications",
       "nouveau-challenge": "New challenge available",
@@ -107,28 +107,26 @@ const resources = {
       "accessibilite-desactivee": "Accessibility disabled",
       "mode-contraste-eleve": "High contrast mode",
       "mode-sombre": "Dark mode",
-      "langue": "Language",
-      "francais": "French",
-      "anglais": "English"
+      langue: "Language",
+      francais: "French",
+      anglais: "English",
       // Add all useful keys for your project here
-    }
-  }
+    },
+  },
 };
 
-i18n
-  .use(initReactI18next)
-  .init({
-    resources,
-    lng: "fr", // Langue par défaut
-    fallbackLng: "en",
-    interpolation: {
-      escapeValue: false // Sécurité XSS gérée par React
-    },
-    detection: {
-      // Prêt pour extension: détection automatique de la langue navigateur
-      // (nécessite i18next-browser-languagedetector)
-    }
-  });
+i18n.use(initReactI18next).init({
+  resources,
+  lng: "fr", // Langue par défaut
+  fallbackLng: "en",
+  interpolation: {
+    escapeValue: false, // Sécurité XSS gérée par React
+  },
+  detection: {
+    // Prêt pour extension: détection automatique de la langue navigateur
+    // (nécessite i18next-browser-languagedetector)
+  },
+});
 
 export default i18n;
 

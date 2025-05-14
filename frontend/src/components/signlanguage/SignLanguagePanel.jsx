@@ -30,7 +30,7 @@ const SignLanguagePanel = () => {
       }
     })();
     return () => {
-      if (stream) stream.getTracks().forEach(track => track.stop());
+      if (stream) stream.getTracks().forEach((track) => track.stop());
       setCameraActive(false);
     };
   }, []);
@@ -44,7 +44,9 @@ const SignLanguagePanel = () => {
       setTimeout(() => {
         const simulated = "Bonjour (simulation IA)";
         setTranslation(simulated);
-        setHistory(h => [{ date: new Date(), text: simulated }, ...h].slice(0, 5));
+        setHistory((h) =>
+          [{ date: new Date(), text: simulated }, ...h].slice(0, 5),
+        );
         setLoading(false);
       }, 1200);
     } catch (err) {
@@ -63,7 +65,7 @@ const SignLanguagePanel = () => {
         borderRadius: 18,
         boxShadow: "0 2px 18px #1976d233",
         padding: "2.2rem",
-        outline: "none"
+        outline: "none",
       }}
       aria-label="Panneau Langue des Signes Française IA"
       tabIndex={0}
@@ -76,16 +78,20 @@ const SignLanguagePanel = () => {
           marginBottom: 16,
           display: "flex",
           alignItems: "center",
-          gap: 10
+          gap: 10,
         }}
         tabIndex={0}
         aria-label="Traduction et sensibilisation LSF"
       >
-        <span role="img" aria-label="langue des signes">🤟</span>
+        <span role="img" aria-label="langue des signes">
+          🤟
+        </span>
         Panneau Langue des Signes IA
       </h2>
       <p style={{ color: "#555", fontSize: 15, marginBottom: 18 }}>
-        Traduisez vos gestes en texte grâce à l’IA (simulation). Sensibilisation à la LSF, accessibilité universelle, sécurité et respect de la vie privée.
+        Traduisez vos gestes en texte grâce à l’IA (simulation). Sensibilisation
+        à la LSF, accessibilité universelle, sécurité et respect de la vie
+        privée.
       </p>
       <video
         ref={videoRef}
@@ -96,7 +102,7 @@ const SignLanguagePanel = () => {
           borderRadius: 10,
           background: "#222",
           minHeight: 180,
-          outline: cameraActive ? "2px solid #1976d2" : "2px dashed #b71c1c"
+          outline: cameraActive ? "2px solid #1976d2" : "2px dashed #b71c1c",
         }}
         aria-label="Webcam en direct"
         tabIndex={0}
@@ -114,11 +120,15 @@ const SignLanguagePanel = () => {
           border: "none",
           cursor: loading || !cameraActive ? "not-allowed" : "pointer",
           fontWeight: "bold",
-          transition: "background 0.2s"
+          transition: "background 0.2s",
         }}
         aria-label="Traduire le geste en texte"
       >
-        {loading ? "Analyse..." : cameraActive ? "Traduire le geste" : "Caméra inactive"}
+        {loading
+          ? "Analyse..."
+          : cameraActive
+            ? "Traduire le geste"
+            : "Caméra inactive"}
       </button>
       {translation && (
         <div
@@ -128,7 +138,7 @@ const SignLanguagePanel = () => {
             borderRadius: 8,
             marginTop: 10,
             fontSize: "1.1em",
-            color: "#1976d2"
+            color: "#1976d2",
           }}
           aria-live="polite"
           tabIndex={0}
@@ -137,7 +147,11 @@ const SignLanguagePanel = () => {
         </div>
       )}
       {error && (
-        <div style={{ color: "#b71c1c", marginTop: 10 }} role="alert" tabIndex={0}>
+        <div
+          style={{ color: "#b71c1c", marginTop: 10 }}
+          role="alert"
+          tabIndex={0}
+        >
           {error}
         </div>
       )}
@@ -146,7 +160,14 @@ const SignLanguagePanel = () => {
       {history.length > 0 && (
         <div style={{ marginTop: 18 }}>
           <b>Historique (5 dernières) :</b>
-          <ul style={{ fontSize: 15, color: "#1976d2", paddingLeft: 18, margin: 0 }}>
+          <ul
+            style={{
+              fontSize: 15,
+              color: "#1976d2",
+              paddingLeft: 18,
+              margin: 0,
+            }}
+          >
             {history.map((h, i) => (
               <li key={i}>
                 <span style={{ color: "#888", fontSize: 13, marginRight: 8 }}>
@@ -160,8 +181,27 @@ const SignLanguagePanel = () => {
       )}
 
       {/* Documentation & sensibilisation */}
-      <div style={{ marginTop: 24, fontSize: 14, color: "#555", background: "#f0f4f8", borderRadius: 8, padding: "0.7em 1em" }}>
-        <b>À propos de la LSF :</b> La Langue des Signes Française est une langue à part entière, essentielle pour l’inclusion des personnes sourdes et malentendantes. <a href="https://www.france-langue-signes.fr/" target="_blank" rel="noopener noreferrer" style={{ color: "#1976d2", textDecoration: "underline" }}>En savoir plus</a>
+      <div
+        style={{
+          marginTop: 24,
+          fontSize: 14,
+          color: "#555",
+          background: "#f0f4f8",
+          borderRadius: 8,
+          padding: "0.7em 1em",
+        }}
+      >
+        <b>À propos de la LSF :</b> La Langue des Signes Française est une
+        langue à part entière, essentielle pour l’inclusion des personnes
+        sourdes et malentendantes.{" "}
+        <a
+          href="https://www.france-langue-signes.fr/"
+          target="_blank"
+          rel="noopener noreferrer"
+          style={{ color: "#1976d2", textDecoration: "underline" }}
+        >
+          En savoir plus
+        </a>
       </div>
 
       <footer
@@ -169,10 +209,21 @@ const SignLanguagePanel = () => {
           marginTop: 18,
           color: "#888",
           fontSize: "0.93em",
-          textAlign: "center"
+          textAlign: "center",
         }}
       >
-        <span role="img" aria-label="sécurité">🔒</span> Sécurisé | <span role="img" aria-label="accessibilité">♿</span> Accessible | <span role="img" aria-label="mobile">📱</span> Mobile/Web
+        <span role="img" aria-label="sécurité">
+          🔒
+        </span>{" "}
+        Sécurisé |{" "}
+        <span role="img" aria-label="accessibilité">
+          ♿
+        </span>{" "}
+        Accessible |{" "}
+        <span role="img" aria-label="mobile">
+          📱
+        </span>{" "}
+        Mobile/Web
       </footer>
     </section>
   );

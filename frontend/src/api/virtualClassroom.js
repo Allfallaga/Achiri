@@ -46,7 +46,7 @@ export async function updateClassroom(classroomId, data) {
 export async function deleteClassroom(classroomId) {
   const res = await fetch(`/api/virtual-classroom/${classroomId}`, {
     method: "DELETE",
-    headers: { "Accept": "application/json" },
+    headers: { Accept: "application/json" },
   });
   if (!res.ok) throw new Error("Erreur lors de la suppression de la classe");
   return await res.json();
@@ -65,10 +65,13 @@ export async function joinClassroom(classroomId, userId) {
 
 // Quitter une classe
 export async function leaveClassroom(classroomId, userId) {
-  const res = await fetch(`/api/virtual-classroom/${classroomId}/users/${userId}`, {
-    method: "DELETE",
-    headers: { "Accept": "application/json" },
-  });
+  const res = await fetch(
+    `/api/virtual-classroom/${classroomId}/users/${userId}`,
+    {
+      method: "DELETE",
+      headers: { Accept: "application/json" },
+    },
+  );
   if (!res.ok) throw new Error("Erreur lors du départ de la classe");
   return await res.json();
 }

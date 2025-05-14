@@ -41,11 +41,7 @@ const CallButton = ({
       aria-label={ariaLabel}
       title={ariaLabel}
       style={{
-        background: ended
-          ? "#ffebee"
-          : active
-          ? "#e3f2fd"
-          : "#fff",
+        background: ended ? "#ffebee" : active ? "#e3f2fd" : "#fff",
         color,
         border: "none",
         borderRadius: "50%",
@@ -54,9 +50,7 @@ const CallButton = ({
         display: "flex",
         alignItems: "center",
         justifyContent: "center",
-        boxShadow: active
-          ? "0 0 0 3px #1976d244"
-          : "0 2px 8px #1976d211",
+        boxShadow: active ? "0 0 0 3px #1976d244" : "0 2px 8px #1976d211",
         cursor: disabled ? "not-allowed" : "pointer",
         outline: "none",
         transition: "background 0.2s, color 0.2s, box-shadow 0.2s",

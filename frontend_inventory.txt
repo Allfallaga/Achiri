@@ -1,0 +1,329 @@
+frontend
+├── README.md
+├── eslint.config.js
+├── package-lock.json
+├── package.json
+├── package.json   # (wird durch die Installation aktualisiert)
+├── public
+│   ├── favicon.ico
+│   ├── index.html
+│   ├── logo192.png
+│   ├── logo512.png
+│   ├── manifest.json
+│   └── robots.txt
+└── src
+    ├── App.js
+    ├── App.test.js
+    ├── App.test.js   # (Datei anpassen, um HelmetProvider zu verwenden)
+    ├── ErrorBoundary.js
+    ├── api
+    │   ├── README.md
+    │   ├── accessibility.js
+    │   ├── axios.js
+    │   ├── profile.js
+    │   ├── upload.js
+    │   ├── virtualClassroom.js
+    │   └── wallet.js
+    ├── app.scss
+    ├── assets
+    │   ├── README.md
+    │   ├── css
+    │   │   ├── README.md
+    │   │   ├── animation.css
+    │   │   ├── app.css
+    │   │   ├── fontello.css
+    │   │   ├── index.css
+    │   │   └── styles_ltr.css
+    │   └── images
+    │       ├── README.md
+    │       └── bg_app.jpg
+    ├── components
+    │   ├── 3d
+    │   │   ├── Avatar3D.jsx
+    │   │   ├── README.md
+    │   │   ├── VideoClassRoom3D.jsx
+    │   │   └── Whiteboard3D.jsx
+    │   ├── Message
+    │   │   ├── Message.js
+    │   │   ├── MessageInput.js
+    │   │   ├── Messages.scss
+    │   │   └── README.md
+    │   ├── Navbar
+    │   │   ├── Navbar.js
+    │   │   ├── Navbar.jsx
+    │   │   └── README.md
+    │   ├── accessibility
+    │   │   ├── AccessPanel.js
+    │   │   ├── Accessibility.css
+    │   │   ├── Accessibility.js
+    │   │   ├── AccessibilityTest.js
+    │   │   ├── AccessibilityTest.jsx
+    │   │   ├── AccessibilityTools.jsx
+    │   │   ├── README.md
+    │   │   └── SignLanguageTranslator.jsx
+    │   ├── admin
+    │   │   ├── AdminArea.js
+    │   │   ├── AdminArea.scss
+    │   │   ├── AdminPanel.js
+    │   │   └── README.md
+    │   ├── agent
+    │   │   ├── AccessibilityAgent.jsx
+    │   │   ├── README.md
+    │   │   ├── ShoppingAgent.jsx
+    │   │   └── TransportAgent.jsx
+    │   ├── alerts
+    │   │   ├── ContentViolationAlert.jsx
+    │   │   ├── HealthAlert.jsx
+    │   │   └── README.md
+    │   ├── assistant
+    │   │   ├── AccueilAgent.jsx
+    │   │   ├── AssistantAgent.jsx
+    │   │   ├── AssistantMemory.js
+    │   │   ├── AssistantPanel.jsx
+    │   │   ├── AssistantSignLanguage.jsx
+    │   │   ├── AssistantVoice.jsx
+    │   │   └── README.md
+    │   ├── booking
+    │   │   ├── BookingForm.jsx
+    │   │   ├── BookingPanel.jsx
+    │   │   └── README.md
+    │   ├── call
+    │   │   ├── CallButton.js
+    │   │   └── README.md
+    │   ├── categories
+    │   │   ├── README.md
+    │   │   └── RoomCategories.js
+    │   ├── chat
+    │   │   ├── Chat.js
+    │   │   ├── Chat.scss
+    │   │   ├── ChatBox.js
+    │   │   ├── Chatroom.js
+    │   │   ├── Chatroom.scss
+    │   │   ├── README.md
+    │   │   ├── call
+    │   │   │   ├── AudioCall.js
+    │   │   │   ├── CallButton.js
+    │   │   │   └── VideoCall.js
+    │   │   └── chat.css
+    │   ├── common
+    │   │   ├── CreatorTools.css
+    │   │   ├── CreatorTools.js
+    │   │   ├── Footer.js
+    │   │   ├── Header.js
+    │   │   ├── README.md
+    │   │   ├── Settings.css
+    │   │   ├── Settings.js
+    │   │   ├── Sidebar.js
+    │   │   ├── Sidebar.jsx
+    │   │   ├── UploadFile.jsx
+    │   │   └── UserList.js
+    │   ├── domotic
+    │   │   ├── CameraDescription.jsx
+    │   │   ├── EmergencyAlert.jsx
+    │   │   ├── HealthMonitor.jsx
+    │   │   ├── README.md
+    │   │   └── UniversalRemote.jsx
+    │   ├── emergency
+    │   │   ├── EmergencyAlertSettings.jsx
+    │   │   ├── EmergencyButton.jsx
+    │   │   ├── EmergencyCriteriaForm.jsx
+    │   │   └── README.md
+    │   ├── filters
+    │   │   ├── AccessibilityFilter.css
+    │   │   ├── AccessibilityFilter.jsx
+    │   │   ├── ProximityFilter.css
+    │   │   ├── ProximityFilter.jsx
+    │   │   ├── README.md
+    │   │   ├── RoomCategoryFilter.css
+    │   │   └── RoomCategoryFilter.jsx
+    │   ├── forms
+    │   │   ├── CreateRoomForm.jsx
+    │   │   ├── ProfileForm.jsx
+    │   │   └── README.md
+    │   ├── hotel
+    │   │   ├── HotelDetails.jsx
+    │   │   ├── HotelList.jsx
+    │   │   └── README.md
+    │   ├── moderation
+    │   │   ├── Member.js
+    │   │   ├── Moderation.js
+    │   │   ├── Moderation.scss
+    │   │   ├── ModerationPanel.css
+    │   │   ├── ModerationPanel.js
+    │   │   └── README.md
+    │   ├── music
+    │   │   ├── MusicLibrary.css
+    │   │   ├── MusicLibrary.js
+    │   │   └── README.md
+    │   ├── notifications
+    │   │   ├── NotificationPanel.jsx
+    │   │   ├── Notifications.css
+    │   │   ├── Notifications.js
+    │   │   └── README.md
+    │   ├── profile
+    │   │   ├── BadgesManager.jsx
+    │   │   ├── ProfileAnalysis.js
+    │   │   ├── ProfileAnalysis.jsx
+    │   │   ├── README.md
+    │   │   ├── UserDashboard.css
+    │   │   ├── UserDashboard.js
+    │   │   └── UserSettingsPanel.jsx
+    │   ├── rooms
+    │   │   ├── ChallengeBox.js
+    │   │   ├── Challenges.css
+    │   │   ├── Challenges.js
+    │   │   ├── README.md
+    │   │   ├── Room.js
+    │   │   ├── Room.scss
+    │   │   ├── RoomList.js
+    │   │   └── Rooms.js
+    │   ├── settings
+    │   │   ├── NotificationSettings.jsx
+    │   │   ├── README.md
+    │   │   └── UserSettings.jsx
+    │   ├── signlanguage
+    │   │   ├── README.md
+    │   │   ├── SignLanguageAvatar.jsx
+    │   │   └── SignLanguagePanel.jsx
+    │   ├── social
+    │   │   ├── BoostersLeaderboard.js
+    │   │   ├── Leaderboard.js
+    │   │   ├── PointsDashboard.js
+    │   │   ├── README.md
+    │   │   └── SocialNetworkCard.js
+    │   ├── transport
+    │   │   ├── README.md
+    │   │   ├── TransportDetails.jsx
+    │   │   └── TransportList.jsx
+    │   ├── video
+    │   │   ├── AccessibilityOptions.js
+    │   │   ├── AnimationsManager.js
+    │   │   ├── AudioCall.js
+    │   │   ├── BreakoutRoomsPanel.js
+    │   │   ├── MediaAdmin.js
+    │   │   ├── MediaRcv.js
+    │   │   ├── MediaRcv.scss
+    │   │   ├── NotificationBanner.js
+    │   │   ├── ParticipantList.js
+    │   │   ├── PeerRefactoring1-1.js
+    │   │   ├── README.md
+    │   │   ├── RoomControls.js
+    │   │   ├── RoomHeader.js
+    │   │   ├── ScreenSharePanel.js
+    │   │   ├── Sfu.js
+    │   │   ├── Sfu.scss
+    │   │   ├── Sfu_Bu.js
+    │   │   ├── Sfu_final.js
+    │   │   ├── SubtitlesPanel.js
+    │   │   ├── VideoCall.js
+    │   │   └── VideoRoom.js
+    │   ├── virtualclassroom
+    │   │   ├── README.md
+    │   │   ├── VirtualClassroom.css
+    │   │   ├── VirtualClassroom.js
+    │   │   ├── VirtualClassroomDetail.jsx
+    │   │   ├── VirtualClassroomList.js
+    │   │   └── VirtualClassroomList.jsx
+    │   ├── voice
+    │   │   ├── README.md
+    │   │   ├── VoiceCommandPanel.jsx
+    │   │   └── VoiceInput.jsx
+    │   └── wallet
+    │       ├── README.md
+    │       ├── TransactionList.js
+    │       ├── TransactionList.jsx
+    │       ├── Wallet.css
+    │       ├── Wallet.js
+    │       └── Wallet.jsx
+    ├── context
+    │   ├── AccessibilityContext.js
+    │   ├── AssistantContext.js
+    │   ├── AuthProvider.js
+    │   ├── EmergencyContext.js
+    │   ├── README.md
+    │   ├── RoomContext.js
+    │   ├── UserContext.js
+    │   └── WalletContext.js
+    ├── hooks
+    │   ├── README.md
+    │   ├── useUser.js
+    │   └── useVideoChat.js
+    ├── i18n.js
+    ├── index.css
+    ├── index.js
+    ├── logo.svg
+    ├── modals
+    │   ├── InteractionConfirmModal.js
+    │   ├── README.md
+    │   └── VerificationModal.js
+    ├── pages
+    │   ├── AccessibilityPage.jsx
+    │   ├── Accueil.jsx
+    │   ├── AnalyzeProfilePage.jsx
+    │   ├── ChallengesPage.jsx
+    │   ├── CreatorToolsPage.jsx
+    │   ├── Dashboard.jsx
+    │   ├── EmergencySettings.jsx
+    │   ├── FriendsPage.js
+    │   ├── HomePage.js
+    │   ├── LeaderboardPage.jsx
+    │   ├── LoginPage.jsx
+    │   ├── ModerationPage.jsx
+    │   ├── MusicPage.jsx
+    │   ├── NotFound.js
+    │   ├── NotFound.jsx
+    │   ├── NotificationsPage.jsx
+    │   ├── Profile.jsx
+    │   ├── README.md
+    │   ├── RoomsPage.jsx
+    │   ├── SettingsPage.jsx
+    │   ├── SocialInteractionsPage.js
+    │   ├── SocialNetworksPage.js
+    │   ├── SocialNetworksPage.jsx
+    │   ├── VideoRooms.jsx
+    │   ├── VirtualClassroomPage.jsx
+    │   └── WalletPage.jsx
+    ├── reportWebVitals.js
+    ├── services
+    │   ├── 3dService.js
+    │   ├── README.md
+    │   ├── assistantService.js
+    │   ├── classroomApi.js
+    │   ├── domoticApi.js
+    │   ├── emergencyApi.js
+    │   ├── emergencyService.js
+    │   ├── healthApi.js
+    │   ├── quizApi.js
+    │   ├── roomService.js
+    │   ├── signLanguageService.js
+    │   ├── socialApi.js
+    │   ├── speechApi.js
+    │   ├── visionApi.js
+    │   └── voiceService.js
+    ├── setupTests.js
+    ├── store.js
+    ├── styles
+    │   ├── README.md
+    │   ├── accueilAgent.css
+    │   ├── assistantAgent.css
+    │   ├── assistantPanel.css
+    │   ├── assistantSignLanguage.css
+    │   ├── assistantVoice.css
+    │   ├── avatar3d.css
+    │   ├── index.css
+    │   ├── mediaRcv.css
+    │   ├── variables.css
+    │   ├── videoClassRoom3D.css
+    │   ├── videocall.css
+    │   ├── videochat.css
+    │   └── whiteboard3d.css
+    └── utils
+        ├── Errors.js
+        ├── Quiz.jsx
+        ├── QuizBot.jsx
+        ├── README.md
+        ├── Scoreboard.jsx
+        ├── SeoContentGenerator.jsx
+        └── api.js
+
+46 directories, 280 files

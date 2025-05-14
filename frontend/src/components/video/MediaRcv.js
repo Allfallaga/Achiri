@@ -38,11 +38,18 @@ function MediaRcv({
   // Attache les tracks au composant vidéo
   useEffect(() => {
     const stream = new MediaStream();
+    const currentVideoRef = videoRef.current; // Copie de la ref
+
     if (videoTrack?.track) stream.addTrack(videoTrack.track);
     if (audioTrack?.track) stream.addTrack(audioTrack.track);
-    if (videoRef.current) videoRef.current.srcObject = stream;
+
+    if (currentVideoRef) {
+      currentVideoRef.srcObject = stream;
+    }
+
+    // Nettoyage
     return () => {
-      if (videoRef.current) videoRef.current.srcObject = null;
+      if (currentVideoRef) currentVideoRef.srcObject = null; // Utilisation de la copie
     };
   }, [videoTrack, audioTrack]);
 
@@ -70,9 +77,21 @@ function MediaRcv({
   const renderBadges = () =>
     Array.isArray(badges) && badges.length > 0
       ? badges.map((b) => (
-          <span key={b} className="badge" aria-label={`Badge ${b}`} style={{
-            marginLeft: 4, background: "#e3f2fd", color: "#1976d2", borderRadius: 6, padding: "0 6px", fontSize: "0.95em"
-          }}>{b}</span>
+          <span
+            key={b}
+            className="badge"
+            aria-label={`Badge ${b}`}
+            style={{
+              marginLeft: 4,
+              background: "#e3f2fd",
+              color: "#1976d2",
+              borderRadius: 6,
+              padding: "0 6px",
+              fontSize: "0.95em",
+            }}
+          >
+            {b}
+          </span>
         ))
       : null;
 
@@ -85,14 +104,17 @@ function MediaRcv({
         background: darkMode ? "#181c24" : "#fff",
         borderRadius: 12,
         boxShadow: "0 2px 16px #1976d244",
-        overflow: "hidden"
+        overflow: "hidden",
       }}
       aria-label="Flux média reçu"
       tabIndex={0}
     >
       <Helmet>
         <title>Flux vidéo/audio reçu | Achiri</title>
-        <meta name="description" content="Composant de réception vidéo/audio Achiri : contrôle, accessibilité, modération, mobile/web." />
+        <meta
+          name="description"
+          content="Composant de réception vidéo/audio Achiri : contrôle, accessibilité, modération, mobile/web."
+        />
       </Helmet>
       {/* Infos utilisateur */}
       {user && (
@@ -107,7 +129,7 @@ function MediaRcv({
             background: "rgba(0,0,0,0.35)",
             borderRadius: 8,
             padding: "2px 10px",
-            zIndex: 3
+            zIndex: 3,
           }}
         >
           <span
@@ -121,9 +143,18 @@ function MediaRcv({
           </span>
           {renderBadges()}
           {points > 0 && (
-            <span className="points" aria-label={`Points: ${points}`} style={{
-              marginLeft: 8, color: "#ffd600", fontWeight: 600, fontSize: "0.98em"
-            }}>{points} pts</span>
+            <span
+              className="points"
+              aria-label={`Points: ${points}`}
+              style={{
+                marginLeft: 8,
+                color: "#ffd600",
+                fontWeight: 600,
+                fontSize: "0.98em",
+              }}
+            >
+              {points} pts
+            </span>
           )}
         </div>
       )}
@@ -134,7 +165,10 @@ function MediaRcv({
           style={{ position: "absolute", top: 10, right: 16, zIndex: 2 }}
           aria-label="Contrôles de modération"
         >
-          <div className="moderation-controls" style={{ display: "flex", gap: 12 }}>
+          <div
+            className="moderation-controls"
+            style={{ display: "flex", gap: 12 }}
+          >
             <button
               type="button"
               onClick={toggleSound}
@@ -149,9 +183,11 @@ function MediaRcv({
                 border: "none",
                 padding: 0,
                 color: "inherit",
-                outline: "none"
+                outline: "none",
               }}
-              onKeyDown={e => (e.key === "Enter" || e.key === " ") && toggleSound()}
+              onKeyDown={(e) =>
+                (e.key === "Enter" || e.key === " ") && toggleSound()
+              }
             >
               {audioEnabled ? <IoVolumeHighSharp /> : <IoVolumeMuteSharp />}
             </button>
@@ -169,9 +205,11 @@ function MediaRcv({
                 border: "none",
                 padding: 0,
                 color: "inherit",
-                outline: "none"
+                outline: "none",
               }}
-              onKeyDown={e => (e.key === "Enter" || e.key === " ") && toggleVideo()}
+              onKeyDown={(e) =>
+                (e.key === "Enter" || e.key === " ") && toggleVideo()
+              }
             >
               {videoEnabled ? <IoVideocam /> : <IoVideocamOffSharp />}
             </button>
@@ -203,13 +241,15 @@ function MediaRcv({
             left: 0,
             right: 0,
             bottom: 70,
-            background: darkMode ? "rgba(24,28,36,0.95)" : "rgba(255,255,255,0.95)",
+            background: darkMode
+              ? "rgba(24,28,36,0.95)"
+              : "rgba(255,255,255,0.95)",
             color: darkMode ? "#ffd600" : "#222",
             borderRadius: 8,
             fontSize: "1.08em",
             padding: "4px 12px",
             textAlign: "center",
-            zIndex: 10
+            zIndex: 10,
           }}
         >
           {subtitles}
@@ -227,7 +267,7 @@ function MediaRcv({
             background: "rgba(255,255,255,0.8)",
             borderRadius: 10,
             padding: 6,
-            zIndex: 11
+            zIndex: 11,
           }}
         >
           {signLanguage}
@@ -244,11 +284,22 @@ function MediaRcv({
           color: "#fff",
           fontSize: "0.85em",
           textAlign: "center",
-          padding: "2px 0"
+          padding: "2px 0",
         }}
       >
         <small>
-          <span role="img" aria-label="sécurité">🔒</span> Sécurisé | <span role="img" aria-label="accessibilité">♿</span> Accessible | <span role="img" aria-label="mobile">📱</span> Mobile/Web
+          <span role="img" aria-label="sécurité">
+            🔒
+          </span>{" "}
+          Sécurisé |{" "}
+          <span role="img" aria-label="accessibilité">
+            ♿
+          </span>{" "}
+          Accessible |{" "}
+          <span role="img" aria-label="mobile">
+            📱
+          </span>{" "}
+          Mobile/Web
         </small>
       </footer>
       <style>{`

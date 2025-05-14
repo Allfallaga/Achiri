@@ -20,7 +20,7 @@ export async function getDevicesMock(userId) {
         { id: 2, name: "Prise Cuisine", type: "plug", status: "off" },
         { id: 3, name: "Thermostat", type: "thermostat", status: "22°C" },
       ]);
-    }, 600)
+    }, 600),
   );
 }
 
@@ -36,7 +36,7 @@ export async function controlDeviceMock(userId, deviceId, action) {
   return new Promise((resolve) =>
     setTimeout(() => {
       resolve({ success: true, deviceId, action });
-    }, 400)
+    }, 400),
   );
 }
 
@@ -51,7 +51,7 @@ export async function addDeviceMock(userId, device) {
   return new Promise((resolve) =>
     setTimeout(() => {
       resolve({ success: true, device });
-    }, 400)
+    }, 400),
   );
 }
 
@@ -66,7 +66,7 @@ export async function removeDeviceMock(userId, deviceId) {
   return new Promise((resolve) =>
     setTimeout(() => {
       resolve({ success: true, deviceId });
-    }, 400)
+    }, 400),
   );
 }
 
@@ -85,7 +85,7 @@ export async function getDeviceTypesMock() {
         { type: "camera", label: "Caméra", icon: "📷" },
         { type: "door", label: "Porte", icon: "🚪" },
       ]);
-    }, 300)
+    }, 300),
   );
 }
 

@@ -1,5 +1,5 @@
-import React from 'react';
-import PropTypes from 'prop-types';
+import React from "react";
+import PropTypes from "prop-types";
 // Importe les composants UI nécessaires (ex: Material UI, ou tes composants custom)
 // import { Avatar, Box, Typography, Button, IconButton, Menu, MenuItem } from '@mui/material';
 // import MoreVertIcon from '@mui/icons-material/MoreVert';
@@ -10,7 +10,13 @@ import PropTypes from 'prop-types';
  * Affiche un membre individuel dans un contexte de modération.
  * Permet d'effectuer des actions de modération sur ce membre.
  */
-const Member = ({ member, onKick, onBan, onMute, onWarn /*, autres callbacks ... */ }) => {
+const Member = ({
+  member,
+  onKick,
+  onBan,
+  onMute,
+  onWarn /*, autres callbacks ... */,
+}) => {
   // State pour gérer l'ouverture d'un menu d'actions, si besoin
   // const [anchorEl, setAnchorEl] = React.useState(null);
   // const open = Boolean(anchorEl);
@@ -59,16 +65,26 @@ const Member = ({ member, onKick, onBan, onMute, onWarn /*, autres callbacks ...
   return (
     // Utilise ici tes composants UI (Box, div, etc.) et styles
     // Exemple simple avec des div et des boutons:
-    <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', padding: '8px', borderBottom: '1px solid #eee' }}>
-      <div style={{ display: 'flex', alignItems: 'center' }}>
+    <div
+      style={{
+        display: "flex",
+        alignItems: "center",
+        justifyContent: "space-between",
+        padding: "8px",
+        borderBottom: "1px solid #eee",
+      }}
+    >
+      <div style={{ display: "flex", alignItems: "center" }}>
         {/* Affiche l'avatar */}
         {/* <Avatar src={member.avatarUrl} alt={member.name} sx={{ mr: 2 }} /> */}
-        <span style={{ marginRight: '16px' }}>{member.avatarUrl ? '👤' : '❓'}</span> {/* Placeholder simple */}
-
+        <span style={{ marginRight: "16px" }}>
+          {member.avatarUrl ? "👤" : "❓"}
+        </span>{" "}
+        {/* Placeholder simple */}
         {/* Affiche le nom et potentiellement le rôle ou statut */}
         <div>
           {/* <Typography variant="body1">{member.name}</Typography> */}
-          <p style={{ margin: 0 }}>{member.name || 'Unknown User'}</p>
+          <p style={{ margin: 0 }}>{member.name || "Unknown User"}</p>
           {/* {member.role && <Typography variant="caption" color="text.secondary">{member.role}</Typography>} */}
         </div>
       </div>
@@ -76,10 +92,26 @@ const Member = ({ member, onKick, onBan, onMute, onWarn /*, autres callbacks ...
       {/* Actions de modération */}
       <div>
         {/* Option 1: Boutons directs (si peu d'actions) */}
-        {onWarn && <button onClick={handleWarn} aria-label={`Warn ${member.name}`}>Warn</button>}
-        {onMute && <button onClick={handleMute} aria-label={`Mute ${member.name}`}>Mute</button>}
-        {onKick && <button onClick={handleKick} aria-label={`Kick ${member.name}`}>Kick</button>}
-        {onBan && <button onClick={handleBan} aria-label={`Ban ${member.name}`}>Ban</button>}
+        {onWarn && (
+          <button onClick={handleWarn} aria-label={`Warn ${member.name}`}>
+            Warn
+          </button>
+        )}
+        {onMute && (
+          <button onClick={handleMute} aria-label={`Mute ${member.name}`}>
+            Mute
+          </button>
+        )}
+        {onKick && (
+          <button onClick={handleKick} aria-label={`Kick ${member.name}`}>
+            Kick
+          </button>
+        )}
+        {onBan && (
+          <button onClick={handleBan} aria-label={`Ban ${member.name}`}>
+            Ban
+          </button>
+        )}
 
         {/* Option 2: Menu "Plus d'options" (si beaucoup d'actions) */}
         {/* <IconButton

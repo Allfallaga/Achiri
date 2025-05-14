@@ -24,7 +24,7 @@ export async function getProfileMock(userId) {
         followers: 42,
         following: 17,
       });
-    }, 500)
+    }, 500),
   );
 }
 
@@ -39,7 +39,7 @@ export async function updateProfileMock(userId, data) {
   return new Promise((resolve) =>
     setTimeout(() => {
       resolve({ ...data, id: userId, updated: true });
-    }, 400)
+    }, 400),
   );
 }
 
@@ -53,7 +53,7 @@ export async function verifyProfileMock(userId) {
   return new Promise((resolve) =>
     setTimeout(() => {
       resolve({ userId, verified: true });
-    }, 600)
+    }, 600),
   );
 }
 
@@ -67,7 +67,7 @@ export async function regenerateCodeMock(userId) {
   return new Promise((resolve) =>
     setTimeout(() => {
       resolve({ userId, code: Math.floor(100000 + Math.random() * 900000) });
-    }, 400)
+    }, 400),
   );
 }
 
@@ -81,10 +81,20 @@ export async function getSocialFeedMock(userId) {
   return new Promise((resolve) =>
     setTimeout(() => {
       resolve([
-        { id: 1, author: "Alice", content: "Bienvenue sur Achiri !", date: "2025-04-25" },
-        { id: 2, author: "Bob", content: "Nouveau défi IA lancé !", date: "2025-04-24" },
+        {
+          id: 1,
+          author: "Alice",
+          content: "Bienvenue sur Achiri !",
+          date: "2025-04-25",
+        },
+        {
+          id: 2,
+          author: "Bob",
+          content: "Nouveau défi IA lancé !",
+          date: "2025-04-24",
+        },
       ]);
-    }, 500)
+    }, 500),
   );
 }
 
@@ -99,7 +109,7 @@ export async function followUserMock(userId, targetId) {
   return new Promise((resolve) =>
     setTimeout(() => {
       resolve({ success: true, following: true });
-    }, 350)
+    }, 350),
   );
 }
 
@@ -114,7 +124,7 @@ export async function unfollowUserMock(userId, targetId) {
   return new Promise((resolve) =>
     setTimeout(() => {
       resolve({ success: true, following: false });
-    }, 350)
+    }, 350),
   );
 }
 
@@ -129,7 +139,7 @@ export async function likePostMock(userId, postId) {
   return new Promise((resolve) =>
     setTimeout(() => {
       resolve({ success: true, liked: true });
-    }, 300)
+    }, 300),
   );
 }
 
@@ -154,7 +164,7 @@ export async function commentPostMock(userId, postId, comment) {
           date: new Date().toISOString(),
         },
       });
-    }, 350)
+    }, 350),
   );
 }
 

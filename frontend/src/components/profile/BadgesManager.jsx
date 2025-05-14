@@ -1,5 +1,11 @@
 import React, { useState } from "react";
-import { FaMedal, FaStar, FaPlusCircle, FaCheckCircle, FaTimesCircle } from "react-icons/fa";
+import {
+  FaMedal,
+  FaStar,
+  FaPlusCircle,
+  FaCheckCircle,
+  FaTimesCircle,
+} from "react-icons/fa";
 
 /**
  * BadgesManager – Achiri
@@ -14,10 +20,26 @@ import { FaMedal, FaStar, FaPlusCircle, FaCheckCircle, FaTimesCircle } from "rea
  */
 
 const allBadges = [
-  { value: "Créateur", label: "Créateur", icon: <FaMedal style={{ color: "#1976d2" }} /> },
-  { value: "Artiste", label: "Artiste", icon: <FaStar style={{ color: "#fbbf24" }} /> },
-  { value: "Ambassadeur", label: "Ambassadeur", icon: <FaMedal style={{ color: "#43a047" }} /> },
-  { value: "Expert", label: "Expert", icon: <FaStar style={{ color: "#ef4444" }} /> }
+  {
+    value: "Créateur",
+    label: "Créateur",
+    icon: <FaMedal style={{ color: "#1976d2" }} />,
+  },
+  {
+    value: "Artiste",
+    label: "Artiste",
+    icon: <FaStar style={{ color: "#fbbf24" }} />,
+  },
+  {
+    value: "Ambassadeur",
+    label: "Ambassadeur",
+    icon: <FaMedal style={{ color: "#43a047" }} />,
+  },
+  {
+    value: "Expert",
+    label: "Expert",
+    icon: <FaStar style={{ color: "#ef4444" }} />,
+  },
 ];
 
 export default function BadgesManager({ badges = [], onChange }) {
@@ -47,7 +69,7 @@ export default function BadgesManager({ badges = [], onChange }) {
   };
 
   const handleRemove = (badge) => {
-    const newBadges = userBadges.filter(b => b !== badge);
+    const newBadges = userBadges.filter((b) => b !== badge);
     setUserBadges(newBadges);
     if (onChange) onChange(newBadges);
     setSuccess("Badge retiré !");
@@ -64,30 +86,76 @@ export default function BadgesManager({ badges = [], onChange }) {
         maxWidth: 500,
         margin: "2rem auto",
         boxShadow: "0 4px 24px 0 rgba(33,150,243,0.08)",
-        fontFamily: "'Segoe UI', Arial, sans-serif"
+        fontFamily: "'Segoe UI', Arial, sans-serif",
       }}
       aria-label="Gestionnaire de badges"
       tabIndex={0}
     >
-      <h2 style={{ color: "#1976d2", fontWeight: 700, fontSize: "1.2em", display: "flex", alignItems: "center", gap: 8 }}>
+      <h2
+        style={{
+          color: "#1976d2",
+          fontWeight: 700,
+          fontSize: "1.2em",
+          display: "flex",
+          alignItems: "center",
+          gap: 8,
+        }}
+      >
         <FaMedal /> Mes badges
       </h2>
-      {error && <div style={{ color: "red", marginBottom: 8 }} aria-live="assertive">{error}</div>}
+      {error && (
+        <div style={{ color: "red", marginBottom: 8 }} aria-live="assertive">
+          {error}
+        </div>
+      )}
       {success && (
-        <div style={{ color: "#43a047", marginBottom: 8, display: "flex", alignItems: "center", gap: 6 }} aria-live="polite">
+        <div
+          style={{
+            color: "#43a047",
+            marginBottom: 8,
+            display: "flex",
+            alignItems: "center",
+            gap: 6,
+          }}
+          aria-live="polite"
+        >
           <FaCheckCircle /> {success}
         </div>
       )}
       <div style={{ marginBottom: 18, marginTop: 10 }}>
         {userBadges.length === 0 && (
-          <span style={{ color: "#888", fontStyle: "italic" }}>Aucun badge attribué</span>
+          <span style={{ color: "#888", fontStyle: "italic" }}>
+            Aucun badge attribué
+          </span>
         )}
-        <ul style={{ display: "flex", gap: 16, listStyle: "none", padding: 0, margin: 0, flexWrap: "wrap" }}>
+        <ul
+          style={{
+            display: "flex",
+            gap: 16,
+            listStyle: "none",
+            padding: 0,
+            margin: 0,
+            flexWrap: "wrap",
+          }}
+        >
           {userBadges.map((badge, idx) => {
-            const badgeObj = allBadges.find(b => b.value === badge);
+            const badgeObj = allBadges.find((b) => b.value === badge);
             return (
-              <li key={badge} style={{ display: "flex", alignItems: "center", gap: 6, background: "#e3f2fd", borderRadius: 8, padding: "6px 12px", fontWeight: 500 }}>
-                <span style={{ fontSize: 18 }}>{badgeObj ? badgeObj.icon : <FaMedal />}</span>
+              <li
+                key={badge}
+                style={{
+                  display: "flex",
+                  alignItems: "center",
+                  gap: 6,
+                  background: "#e3f2fd",
+                  borderRadius: 8,
+                  padding: "6px 12px",
+                  fontWeight: 500,
+                }}
+              >
+                <span style={{ fontSize: 18 }}>
+                  {badgeObj ? badgeObj.icon : <FaMedal />}
+                </span>
                 {badgeObj ? badgeObj.label : badge}
                 <button
                   type="button"
@@ -101,7 +169,7 @@ export default function BadgesManager({ badges = [], onChange }) {
                     cursor: "pointer",
                     fontSize: 16,
                     display: "flex",
-                    alignItems: "center"
+                    alignItems: "center",
                   }}
                   tabIndex={0}
                   title="Retirer"
@@ -113,26 +181,38 @@ export default function BadgesManager({ badges = [], onChange }) {
           })}
         </ul>
       </div>
-      <form onSubmit={handleAdd} style={{ display: "flex", alignItems: "center", gap: 12, marginTop: 10 }}>
-        <label htmlFor="badge-select" style={{ fontWeight: 500 }}>Ajouter un badge</label>
+      <form
+        onSubmit={handleAdd}
+        style={{
+          display: "flex",
+          alignItems: "center",
+          gap: 12,
+          marginTop: 10,
+        }}
+      >
+        <label htmlFor="badge-select" style={{ fontWeight: 500 }}>
+          Ajouter un badge
+        </label>
         <select
           id="badge-select"
           value={selected}
-          onChange={e => setSelected(e.target.value)}
+          onChange={(e) => setSelected(e.target.value)}
           aria-label="Sélectionner un badge à ajouter"
           style={{
             borderRadius: 8,
             border: "1px solid #1976d2",
             padding: "0.5em 1em",
             fontSize: 15,
-            minWidth: 120
+            minWidth: 120,
           }}
         >
           <option value="">Choisir…</option>
           {allBadges
-            .filter(b => !userBadges.includes(b.value))
-            .map(badge => (
-              <option key={badge.value} value={badge.value}>{badge.label}</option>
+            .filter((b) => !userBadges.includes(b.value))
+            .map((badge) => (
+              <option key={badge.value} value={badge.value}>
+                {badge.label}
+              </option>
             ))}
         </select>
         <button
@@ -149,7 +229,7 @@ export default function BadgesManager({ badges = [], onChange }) {
             cursor: "pointer",
             display: "flex",
             alignItems: "center",
-            gap: 6
+            gap: 6,
           }}
         >
           <FaPlusCircle /> Ajouter
@@ -160,10 +240,21 @@ export default function BadgesManager({ badges = [], onChange }) {
           marginTop: 24,
           color: "#888",
           fontSize: "0.93em",
-          textAlign: "center"
+          textAlign: "center",
         }}
       >
-        <span role="img" aria-label="sécurité">🔒</span> Sécurisé | <span role="img" aria-label="accessibilité">♿</span> Accessible | <span role="img" aria-label="mobile">📱</span> Mobile/Web
+        <span role="img" aria-label="sécurité">
+          🔒
+        </span>{" "}
+        Sécurisé |{" "}
+        <span role="img" aria-label="accessibilité">
+          ♿
+        </span>{" "}
+        Accessible |{" "}
+        <span role="img" aria-label="mobile">
+          📱
+        </span>{" "}
+        Mobile/Web
       </footer>
     </section>
   );

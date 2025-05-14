@@ -1,6 +1,6 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useState } from "react";
 
-import Moderation from './Moderation';
+import Moderation from "./Moderation";
 
 /**
  * ModerationPanel – Achiri
@@ -11,9 +11,9 @@ import Moderation from './Moderation';
  */
 
 const mockMembers = [
-  { nickname: 'Alice', loggedIn: true, role: 'user', id: 1 },
-  { nickname: 'Bob', loggedIn: true, role: 'moderator', id: 2 },
-  { nickname: 'Charlie', loggedIn: false, role: 'user', id: 3 },
+  { nickname: "Alice", loggedIn: true, role: "user", id: 1 },
+  { nickname: "Bob", loggedIn: true, role: "moderator", id: 2 },
+  { nickname: "Charlie", loggedIn: false, role: "user", id: 3 },
 ];
 
 function ModerationPanel({ members, onMute, onVideoOff, onEject }) {
@@ -33,7 +33,7 @@ function ModerationPanel({ members, onMute, onVideoOff, onEject }) {
         width: "100%",
         maxWidth: 340,
         margin: "0 auto",
-        background: "transparent"
+        background: "transparent",
       }}
     >
       <Moderation

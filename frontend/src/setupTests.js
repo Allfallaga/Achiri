@@ -9,10 +9,10 @@
  * - Documentation : https://github.com/testing-library/jest-dom
  */
 
-import '@testing-library/jest-dom/extend-expect';
+import "@testing-library/jest-dom";
 
 // Nettoyage automatique du DOM après chaque test
-import { cleanup } from '@testing-library/react';
+import { cleanup } from "@testing-library/react";
 
 afterEach(() => {
   cleanup();

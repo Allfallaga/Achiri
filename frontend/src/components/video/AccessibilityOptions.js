@@ -10,11 +10,16 @@ import PropTypes from "prop-types";
  * - onClose : callback pour fermer le panel
  */
 
-export default function AccessibilityOptions({ accessibility = {}, setAccessibility, onClose }) {
+export default function AccessibilityOptions({
+  accessibility = {},
+  setAccessibility,
+  onClose,
+}) {
   const [localOptions, setLocalOptions] = useState(accessibility);
 
   const handleChange = (key) => (e) => {
-    const value = e.target.type === "checkbox" ? e.target.checked : e.target.value;
+    const value =
+      e.target.type === "checkbox" ? e.target.checked : e.target.value;
     setLocalOptions((prev) => ({ ...prev, [key]: value }));
     if (setAccessibility) setAccessibility({ ...localOptions, [key]: value });
   };
@@ -43,7 +48,9 @@ export default function AccessibilityOptions({ accessibility = {}, setAccessibil
       aria-label="Options d'accessibilité"
       tabIndex={-1}
     >
-      <h2 style={{ marginTop: 0, fontSize: "1.3em" }}>Options d’accessibilité</h2>
+      <h2 style={{ marginTop: 0, fontSize: "1.3em" }}>
+        Options d’accessibilité
+      </h2>
       <form style={{ display: "flex", flexDirection: "column", gap: 14 }}>
         <label style={{ display: "flex", alignItems: "center", gap: 8 }}>
           <input

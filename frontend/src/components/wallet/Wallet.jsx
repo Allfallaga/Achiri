@@ -1,5 +1,12 @@
 import React, { useState } from "react";
-import { FaCoins, FaLock, FaUnlock, FaGift, FaPlusCircle, FaTrophy } from "react-icons/fa";
+import {
+  FaCoins,
+  FaLock,
+  FaUnlock,
+  FaGift,
+  FaPlusCircle,
+  FaTrophy,
+} from "react-icons/fa";
 import { MdOutlineLeaderboard } from "react-icons/md";
 import { motion } from "framer-motion";
 import "./Wallet.css";
@@ -23,7 +30,12 @@ export default function Wallet({ userId }) {
     locked: false,
     lastUpdate: new Date().toISOString(),
     rewards: [
-      { id: 1, label: "Badge Créateur", icon: <FaTrophy />, date: "2025-04-01" },
+      {
+        id: 1,
+        label: "Badge Créateur",
+        icon: <FaTrophy />,
+        date: "2025-04-01",
+      },
       { id: 2, label: "Drop produit", icon: <FaGift />, date: "2025-04-15" },
     ],
     leaderboard: [
@@ -76,15 +88,15 @@ export default function Wallet({ userId }) {
         setLoading(false);
         return;
       }
-      setWallet(prev => ({
+      setWallet((prev) => ({
         ...prev,
         balance: prev.balance + amt,
         lastUpdate: new Date().toISOString(),
-        leaderboard: prev.leaderboard.map(u =>
-          u.name === "Vous" ? { ...u, points: prev.balance + amt } : u
+        leaderboard: prev.leaderboard.map((u) =>
+          u.name === "Vous" ? { ...u, points: prev.balance + amt } : u,
         ),
       }));
-      setTransactions(prev => [
+      setTransactions((prev) => [
         {
           id: prev.length + 1,
           type: amt > 0 ? "Crédit" : "Débit",
@@ -114,7 +126,7 @@ export default function Wallet({ userId }) {
         setLoading(false);
         return;
       }
-      setWallet(prev => ({
+      setWallet((prev) => ({
         ...prev,
         balance: prev.balance + amt,
         lastUpdate: new Date().toISOString(),
@@ -127,11 +139,11 @@ export default function Wallet({ userId }) {
           },
           ...prev.rewards,
         ],
-        leaderboard: prev.leaderboard.map(u =>
-          u.name === "Vous" ? { ...u, points: prev.balance + amt } : u
+        leaderboard: prev.leaderboard.map((u) =>
+          u.name === "Vous" ? { ...u, points: prev.balance + amt } : u,
         ),
       }));
-      setTransactions(prev => [
+      setTransactions((prev) => [
         {
           id: prev.length + 1,
           type: "Récompense",
@@ -157,54 +169,127 @@ export default function Wallet({ userId }) {
       aria-label="Mon Wallet Achiri"
       tabIndex={0}
     >
-      <header style={{ display: "flex", alignItems: "center", justifyContent: "space-between", marginBottom: 24 }}>
-        <h2 style={{ fontWeight: 700, fontSize: "1.5em", color: "#f59e42", display: "flex", alignItems: "center" }}>
+      <header
+        style={{
+          display: "flex",
+          alignItems: "center",
+          justifyContent: "space-between",
+          marginBottom: 24,
+        }}
+      >
+        <h2
+          style={{
+            fontWeight: 700,
+            fontSize: "1.5em",
+            color: "#f59e42",
+            display: "flex",
+            alignItems: "center",
+          }}
+        >
           <FaCoins style={{ marginRight: 10 }} /> Mon Wallet
         </h2>
-        <span style={{ color: "#888", fontSize: "0.98em" }}>Utilisateur : <strong>{userId}</strong></span>
+        <span style={{ color: "#888", fontSize: "0.98em" }}>
+          Utilisateur : <strong>{userId}</strong>
+        </span>
       </header>
       {loading && <div aria-live="polite">Chargement...</div>}
-      {error && <div style={{ color: "red", marginBottom: 8 }} aria-live="assertive">{error}</div>}
-      {success && <div style={{ color: "#43a047", marginBottom: 8 }} aria-live="polite">{success}</div>}
+      {error && (
+        <div style={{ color: "red", marginBottom: 8 }} aria-live="assertive">
+          {error}
+        </div>
+      )}
+      {success && (
+        <div style={{ color: "#43a047", marginBottom: 8 }} aria-live="polite">
+          {success}
+        </div>
+      )}
       {wallet && (
-        <div className="wallet-balance" style={{ marginBottom: 16, display: "flex", flexWrap: "wrap", alignItems: "center", gap: 16 }}>
-          <span style={{ fontWeight: 600, fontSize: "1.15em", display: "flex", alignItems: "center" }}>
+        <div
+          className="wallet-balance"
+          style={{
+            marginBottom: 16,
+            display: "flex",
+            flexWrap: "wrap",
+            alignItems: "center",
+            gap: 16,
+          }}
+        >
+          <span
+            style={{
+              fontWeight: 600,
+              fontSize: "1.15em",
+              display: "flex",
+              alignItems: "center",
+            }}
+          >
             Solde : <FaCoins style={{ color: "#f59e42", margin: "0 4px" }} />
             {wallet.balance} {wallet.currency}
           </span>
-          <span style={{ color: wallet.locked ? "#e53935" : "#43a047", display: "flex", alignItems: "center" }}>
-            {wallet.locked ? <FaLock style={{ marginRight: 4 }} /> : <FaUnlock style={{ marginRight: 4 }} />}
+          <span
+            style={{
+              color: wallet.locked ? "#e53935" : "#43a047",
+              display: "flex",
+              alignItems: "center",
+            }}
+          >
+            {wallet.locked ? (
+              <FaLock style={{ marginRight: 4 }} />
+            ) : (
+              <FaUnlock style={{ marginRight: 4 }} />
+            )}
             {wallet.locked ? "Verrouillé" : "Déverrouillé"}
           </span>
           <span style={{ fontSize: "0.95em", color: "#888" }}>
-            Dernière maj : {wallet.lastUpdate && new Date(wallet.lastUpdate).toLocaleString()}
+            Dernière maj :{" "}
+            {wallet.lastUpdate && new Date(wallet.lastUpdate).toLocaleString()}
           </span>
         </div>
       )}
 
       {/* Créditer/Débiter */}
-      <form onSubmit={handleAdjust} style={{ marginBottom: 16, display: "flex", flexWrap: "wrap", alignItems: "center", gap: 8 }}>
+      <form
+        onSubmit={handleAdjust}
+        style={{
+          marginBottom: 16,
+          display: "flex",
+          flexWrap: "wrap",
+          alignItems: "center",
+          gap: 8,
+        }}
+      >
         <input
           type="number"
           value={amount}
-          onChange={e => setAmount(e.target.value)}
+          onChange={(e) => setAmount(e.target.value)}
           placeholder="Montant (+ ou -)"
           required
           className="input-recharge"
           aria-label="Montant à créditer ou débiter"
           min="-999999"
           max="999999"
-          style={{ borderRadius: 8, border: "1px solid #1976d2", padding: "0.6em 1em", fontSize: 15, width: 120 }}
+          style={{
+            borderRadius: 8,
+            border: "1px solid #1976d2",
+            padding: "0.6em 1em",
+            fontSize: 15,
+            width: 120,
+          }}
         />
         <input
           type="text"
           value={desc}
-          onChange={e => setDesc(e.target.value)}
+          onChange={(e) => setDesc(e.target.value)}
           placeholder="Description"
           className="input-recharge"
           aria-label="Description de l'opération"
           maxLength={60}
-          style={{ borderRadius: 8, border: "1px solid #bdbdbd", padding: "0.6em 1em", fontSize: 15, width: 180 }}
+          style={{
+            borderRadius: 8,
+            border: "1px solid #bdbdbd",
+            padding: "0.6em 1em",
+            fontSize: 15,
+            width: 180,
+          }}
         />
         <button
           type="submit"
@@ -221,7 +306,7 @@ export default function Wallet({ userId }) {
             fontSize: "1em",
             cursor: loading ? "not-allowed" : "pointer",
             display: "flex",
-            alignItems: "center"
+            alignItems: "center",
           }}
         >
           <FaPlusCircle style={{ marginRight: 4 }} /> Créditer/Débiter
@@ -229,28 +314,49 @@ export default function Wallet({ userId }) {
       </form>
 
       {/* Récompenser */}
-      <form onSubmit={handleReward} style={{ marginBottom: 16, display: "flex", flexWrap: "wrap", alignItems: "center", gap: 8 }}>
+      <form
+        onSubmit={handleReward}
+        style={{
+          marginBottom: 16,
+          display: "flex",
+          flexWrap: "wrap",
+          alignItems: "center",
+          gap: 8,
+        }}
+      >
         <input
           type="number"
           value={rewardAmount}
-          onChange={e => setRewardAmount(e.target.value)}
+          onChange={(e) => setRewardAmount(e.target.value)}
           placeholder="Montant récompense"
           required
           className="input-recharge"
           aria-label="Montant de la récompense"
           min="1"
           max="999999"
-          style={{ borderRadius: 8, border: "1px solid #43a047", padding: "0.6em 1em", fontSize: 15, width: 120 }}
+          style={{
+            borderRadius: 8,
+            border: "1px solid #43a047",
+            padding: "0.6em 1em",
+            fontSize: 15,
+            width: 120,
+          }}
         />
         <input
           type="text"
           value={rewardDesc}
-          onChange={e => setRewardDesc(e.target.value)}
+          onChange={(e) => setRewardDesc(e.target.value)}
           placeholder="Description"
           className="input-recharge"
           aria-label="Description de la récompense"
           maxLength={60}
-          style={{ borderRadius: 8, border: "1px solid #bdbdbd", padding: "0.6em 1em", fontSize: 15, width: 180 }}
+          style={{
+            borderRadius: 8,
+            border: "1px solid #bdbdbd",
+            padding: "0.6em 1em",
+            fontSize: 15,
+            width: 180,
+          }}
         />
         <button
           type="submit"
@@ -267,7 +373,7 @@ export default function Wallet({ userId }) {
             fontSize: "1em",
             cursor: loading ? "not-allowed" : "pointer",
             display: "flex",
-            alignItems: "center"
+            alignItems: "center",
           }}
         >
           <FaGift style={{ marginRight: 4 }} /> Récompenser
@@ -288,9 +394,9 @@ export default function Wallet({ userId }) {
             fontWeight: 600,
             cursor: "pointer",
             display: "flex",
-            alignItems: "center"
+            alignItems: "center",
           }}
-          onClick={() => setShowLeaderboard(v => !v)}
+          onClick={() => setShowLeaderboard((v) => !v)}
         >
           <MdOutlineLeaderboard style={{ marginRight: 6 }} /> Classement
         </button>
@@ -306,9 +412,9 @@ export default function Wallet({ userId }) {
             fontWeight: 600,
             cursor: "pointer",
             display: "flex",
-            alignItems: "center"
+            alignItems: "center",
           }}
-          onClick={() => setShowRewards(v => !v)}
+          onClick={() => setShowRewards((v) => !v)}
         >
           <FaTrophy style={{ marginRight: 6 }} /> Récompenses
         </button>
@@ -316,9 +422,20 @@ export default function Wallet({ userId }) {
 
       {/* Classement */}
       {showLeaderboard && (
-        <div className="wallet-leaderboard bg-gray-50 dark:bg-gray-800 rounded p-3 mb-3" style={{ marginBottom: 16 }}>
-          <h3 style={{ fontWeight: 600, marginBottom: 10, display: "flex", alignItems: "center" }}>
-            <MdOutlineLeaderboard style={{ marginRight: 6 }} /> Classement hebdomadaire
+        <div
+          className="wallet-leaderboard bg-gray-50 dark:bg-gray-800 rounded p-3 mb-3"
+          style={{ marginBottom: 16 }}
+        >
+          <h3
+            style={{
+              fontWeight: 600,
+              marginBottom: 10,
+              display: "flex",
+              alignItems: "center",
+            }}
+          >
+            <MdOutlineLeaderboard style={{ marginRight: 6 }} /> Classement
+            hebdomadaire
           </h3>
           <ol>
             {wallet.leaderboard.map((user, idx) => (
@@ -330,14 +447,15 @@ export default function Wallet({ userId }) {
                   alignItems: "center",
                   padding: "0.3em 0",
                   fontWeight: user.name === "Vous" ? 700 : 400,
-                  color: user.name === "Vous" ? "#1976d2" : "#222"
+                  color: user.name === "Vous" ? "#1976d2" : "#222",
                 }}
               >
                 <span>
                   #{idx + 1} {user.name}
                 </span>
                 <span style={{ display: "flex", alignItems: "center" }}>
-                  <FaCoins style={{ marginRight: 4, color: "#f59e42" }} /> {user.points}
+                  <FaCoins style={{ marginRight: 4, color: "#f59e42" }} />{" "}
+                  {user.points}
                 </span>
               </li>
             ))}
@@ -347,13 +465,25 @@ export default function Wallet({ userId }) {
 
       {/* Récompenses */}
       {showRewards && (
-        <div className="wallet-rewards bg-gray-50 dark:bg-gray-800 rounded p-3 mb-3" style={{ marginBottom: 16 }}>
-          <h3 style={{ fontWeight: 600, marginBottom: 10, display: "flex", alignItems: "center" }}>
+        <div
+          className="wallet-rewards bg-gray-50 dark:bg-gray-800 rounded p-3 mb-3"
+          style={{ marginBottom: 16 }}
+        >
+          <h3
+            style={{
+              fontWeight: 600,
+              marginBottom: 10,
+              display: "flex",
+              alignItems: "center",
+            }}
+          >
             <FaTrophy style={{ marginRight: 6 }} /> Vos Récompenses
           </h3>
           <div style={{ display: "flex", flexWrap: "wrap", gap: 8 }}>
             {wallet.rewards.length === 0 ? (
-              <span style={{ color: "#bbb" }}>Aucune récompense pour le moment.</span>
+              <span style={{ color: "#bbb" }}>
+                Aucune récompense pour le moment.
+              </span>
             ) : (
               wallet.rewards.map((reward) => (
                 <div
@@ -369,12 +499,16 @@ export default function Wallet({ userId }) {
                     padding: "0.3em 0.8em",
                     marginRight: 8,
                     marginBottom: 8,
-                    fontSize: 15
+                    fontSize: 15,
                   }}
                 >
                   <span style={{ marginRight: 6 }}>{reward.icon}</span>
                   <span>{reward.label}</span>
-                  <span style={{ marginLeft: 8, color: "#888", fontSize: "0.92em" }}>{reward.date}</span>
+                  <span
+                    style={{ marginLeft: 8, color: "#888", fontSize: "0.92em" }}
+                  >
+                    {reward.date}
+                  </span>
                 </div>
               ))
             )}
@@ -383,13 +517,33 @@ export default function Wallet({ userId }) {
       )}
 
       {/* Historique des transactions */}
-      <div className="wallet-history" aria-label="Historique des transactions" style={{ marginBottom: 24 }}>
-        <h3 style={{ fontWeight: 600, fontSize: "1.1em", marginBottom: 10, display: "flex", alignItems: "center" }}>
-          <FaTrophy style={{ marginRight: 6, color: "#f59e42" }} /> Historique des transactions
+      <div
+        className="wallet-history"
+        aria-label="Historique des transactions"
+        style={{ marginBottom: 24 }}
+      >
+        <h3
+          style={{
+            fontWeight: 600,
+            fontSize: "1.1em",
+            marginBottom: 10,
+            display: "flex",
+            alignItems: "center",
+          }}
+        >
+          <FaTrophy style={{ marginRight: 6, color: "#f59e42" }} /> Historique
+          des transactions
         </h3>
-        <ul style={{ maxHeight: 220, overflowY: "auto", padding: 0, listStyle: "none" }}>
+        <ul
+          style={{
+            maxHeight: 220,
+            overflowY: "auto",
+            padding: 0,
+            listStyle: "none",
+          }}
+        >
           {transactions.length === 0 && <li>Aucune transaction</li>}
-          {transactions.map(tx => (
+          {transactions.map((tx) => (
             <li
               key={tx.id}
               style={{
@@ -399,11 +553,12 @@ export default function Wallet({ userId }) {
                 display: "flex",
                 justifyContent: "space-between",
                 alignItems: "center",
-                fontSize: 15
+                fontSize: 15,
               }}
             >
               <div>
-                <strong>{tx.type}</strong> : {tx.amount > 0 ? "+" : ""}{tx.amount} {wallet?.currency}
+                <strong>{tx.type}</strong> : {tx.amount > 0 ? "+" : ""}
+                {tx.amount} {wallet?.currency}
                 <div style={{ fontSize: 12 }}>{tx.description}</div>
                 <div style={{ fontSize: 11, color: "#888" }}>
                   {new Date(tx.date).toLocaleString()}
@@ -418,10 +573,21 @@ export default function Wallet({ userId }) {
           marginTop: 12,
           color: "#888",
           fontSize: "0.93em",
-          textAlign: "center"
+          textAlign: "center",
         }}
       >
-        <span role="img" aria-label="sécurité">🔒</span> Sécurisé | <span role="img" aria-label="accessibilité">♿</span> Accessible | <span role="img" aria-label="mobile">📱</span> Mobile/Web
+        <span role="img" aria-label="sécurité">
+          🔒
+        </span>{" "}
+        Sécurisé |{" "}
+        <span role="img" aria-label="accessibilité">
+          ♿
+        </span>{" "}
+        Accessible |{" "}
+        <span role="img" aria-label="mobile">
+          📱
+        </span>{" "}
+        Mobile/Web
       </footer>
       <style>{`
         .wallet-container:focus {

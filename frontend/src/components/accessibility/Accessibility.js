@@ -5,7 +5,7 @@ import {
   FaSignLanguage,
   FaVolumeUp,
   FaAdjust,
-  FaLanguage
+  FaLanguage,
 } from "react-icons/fa";
 import { motion } from "framer-motion";
 import "./Accessibility.css";
@@ -50,8 +50,8 @@ const Accessibility = () => {
         lang === "fr"
           ? "Mode lecture vocale activé. Utilisez tabulation pour naviguer et les options d'accessibilité pour personnaliser votre expérience."
           : lang === "en"
-          ? "Voice over mode enabled. Use tab to navigate and accessibility options to customize your experience."
-          : "Modo de lectura activado. Usa tabulación para navegar y las opciones de accesibilidad para personalizar tu experiencia."
+            ? "Voice over mode enabled. Use tab to navigate and accessibility options to customize your experience."
+            : "Modo de lectura activado. Usa tabulación para navegar y las opciones de accesibilidad para personalizar tu experiencia.",
       );
       msg.lang = lang === "fr" ? "fr-FR" : lang === "en" ? "en-US" : "es-ES";
       window.speechSynthesis.speak(msg);
@@ -86,13 +86,21 @@ const Accessibility = () => {
       aria-label="Accessibilité Achiri"
       tabIndex={0}
     >
-      <h2 className="flex items-center mb-4" tabIndex={0} aria-label="Accessibilité universelle">
+      <h2
+        className="flex items-center mb-4"
+        tabIndex={0}
+        aria-label="Accessibilité universelle"
+      >
         <FaUniversalAccess className="accessibility-icon mr-2" />
         Accessibilité universelle
       </h2>
 
       {/* Contraste élevé */}
-      <div className="accessibility-option" tabIndex={0} aria-label="Contraste élevé">
+      <div
+        className="accessibility-option"
+        tabIndex={0}
+        aria-label="Contraste élevé"
+      >
         <FaAdjust className="accessibility-icon" />
         <div>
           <div>Contraste élevé</div>
@@ -109,7 +117,11 @@ const Accessibility = () => {
       </div>
 
       {/* Taille de police */}
-      <div className="accessibility-option" tabIndex={0} aria-label="Taille de police">
+      <div
+        className="accessibility-option"
+        tabIndex={0}
+        aria-label="Taille de police"
+      >
         <FaLowVision className="accessibility-icon" />
         <div>
           <div>Taille de police</div>
@@ -130,7 +142,11 @@ const Accessibility = () => {
       </div>
 
       {/* LSF / Langue des signes */}
-      <div className="accessibility-option" tabIndex={0} aria-label="Traduction LSF">
+      <div
+        className="accessibility-option"
+        tabIndex={0}
+        aria-label="Traduction LSF"
+      >
         <FaSignLanguage className="accessibility-icon" />
         <div>
           <div>Traduction LSF (Langue des Signes Française)</div>
@@ -153,12 +169,17 @@ const Accessibility = () => {
       )}
 
       {/* Voice Over */}
-      <div className="accessibility-option" tabIndex={0} aria-label="Lecture vocale">
+      <div
+        className="accessibility-option"
+        tabIndex={0}
+        aria-label="Lecture vocale"
+      >
         <FaVolumeUp className="accessibility-icon" />
         <div>
           <div>Lecture vocale</div>
           <div className="accessibility-desc">
-            Active la lecture vocale des contenus pour les utilisateurs non-voyants.
+            Active la lecture vocale des contenus pour les utilisateurs
+            non-voyants.
           </div>
         </div>
         <input
@@ -170,7 +191,11 @@ const Accessibility = () => {
       </div>
 
       {/* Langue */}
-      <div className="accessibility-option" tabIndex={0} aria-label="Langue de l'interface">
+      <div
+        className="accessibility-option"
+        tabIndex={0}
+        aria-label="Langue de l'interface"
+      >
         <FaLanguage className="accessibility-icon" />
         <div>
           <div>Langue de l&apos;interface</div>
@@ -178,15 +203,38 @@ const Accessibility = () => {
             Choisissez la langue d&apos;affichage de l&apos;application.
           </div>
         </div>
-        <select value={lang} onChange={handleLang} aria-label="Changer la langue">
+        <select
+          value={lang}
+          onChange={handleLang}
+          aria-label="Changer la langue"
+        >
           <option value="fr">Français</option>
           <option value="en">English</option>
           <option value="es">Español</option>
         </select>
       </div>
 
-      <footer className="accessibility-footer" style={{ marginTop: 18, color: "#888", fontSize: "0.93em", textAlign: "center" }}>
-        <span role="img" aria-label="sécurité">🔒</span> Sécurisé | <span role="img" aria-label="accessibilité">♿</span> Accessible | <span role="img" aria-label="mobile">📱</span> Mobile/Web
+      <footer
+        className="accessibility-footer"
+        style={{
+          marginTop: 18,
+          color: "#888",
+          fontSize: "0.93em",
+          textAlign: "center",
+        }}
+      >
+        <span role="img" aria-label="sécurité">
+          🔒
+        </span>{" "}
+        Sécurisé |{" "}
+        <span role="img" aria-label="accessibilité">
+          ♿
+        </span>{" "}
+        Accessible |{" "}
+        <span role="img" aria-label="mobile">
+          📱
+        </span>{" "}
+        Mobile/Web
       </footer>
     </motion.section>
   );

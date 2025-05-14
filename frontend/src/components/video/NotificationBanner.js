@@ -17,7 +17,11 @@ const COLORS = {
   warning: "#ffa000",
 };
 
-export default function NotificationBanner({ notification, duration = 4000, onClose }) {
+export default function NotificationBanner({
+  notification,
+  duration = 4000,
+  onClose,
+}) {
   useEffect(() => {
     if (!notification) return;
     const timer = setTimeout(() => {

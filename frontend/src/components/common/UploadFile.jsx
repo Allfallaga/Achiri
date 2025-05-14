@@ -19,7 +19,12 @@ export default function UploadFile() {
   // Validation type/taille (ex: max 10Mo, images/sons uniquement)
   const validateFiles = (files) => {
     const allowedTypes = [
-      "image/jpeg", "image/png", "image/gif", "audio/mpeg", "audio/mp3", "audio/wav"
+      "image/jpeg",
+      "image/png",
+      "image/gif",
+      "audio/mpeg",
+      "audio/mp3",
+      "audio/wav",
     ];
     const maxSize = 10 * 1024 * 1024; // 10 Mo
     for (let file of files) {
@@ -74,7 +79,7 @@ export default function UploadFile() {
     setSuccess("");
     setTimeout(() => {
       setSuccess("Upload réussi !");
-      setUploadedFiles([...uploadedFiles, ...selectedFiles.map(f => f.name)]);
+      setUploadedFiles([...uploadedFiles, ...selectedFiles.map((f) => f.name)]);
       setSelectedFiles([]);
       setUploading(false);
       if (inputRef.current) inputRef.current.value = "";
@@ -89,7 +94,8 @@ export default function UploadFile() {
   // Suppression d'un fichier sélectionné avant upload
   const handleRemoveSelected = (fileName) => {
     setSelectedFiles((prev) => prev.filter((f) => f.name !== fileName));
-    if (selectedFiles.length === 1 && inputRef.current) inputRef.current.value = "";
+    if (selectedFiles.length === 1 && inputRef.current)
+      inputRef.current.value = "";
   };
 
   return (
@@ -103,18 +109,38 @@ export default function UploadFile() {
         maxWidth: 420,
         background: "#fafcff",
         outline: "none",
-        boxShadow: "0 2px 12px #1976d222"
+        boxShadow: "0 2px 12px #1976d222",
       }}
       aria-label="Uploader des fichiers"
       tabIndex={0}
       onDrop={handleDrop}
       onDragOver={handleDragOver}
     >
-      <h2 style={{ color: "#1976d2", fontWeight: 700, fontSize: "1.2em", marginBottom: 14, display: "flex", alignItems: "center" }}>
-        <span role="img" aria-label="Upload">📤</span>&nbsp;Uploader des fichiers (images, sons)
+      <h2
+        style={{
+          color: "#1976d2",
+          fontWeight: 700,
+          fontSize: "1.2em",
+          marginBottom: 14,
+          display: "flex",
+          alignItems: "center",
+        }}
+      >
+        <span role="img" aria-label="Upload">
+          📤
+        </span>
+        &nbsp;Uploader des fichiers (images, sons)
       </h2>
       <form onSubmit={handleUpload} style={{ marginBottom: 18 }}>
-        <label htmlFor="file-upload" style={{ fontWeight: 500, color: "#1976d2", display: "block", marginBottom: 6 }}>
+        <label
+          htmlFor="file-upload"
+          style={{
+            fontWeight: 500,
+            color: "#1976d2",
+            display: "block",
+            marginBottom: 6,
+          }}
+        >
           Sélectionner ou glisser-déposer des fichiers :
         </label>
         <input
@@ -130,13 +156,21 @@ export default function UploadFile() {
             marginBottom: 12,
             borderRadius: 8,
             border: "1px solid #bbdefb",
-            padding: "0.5em"
+            padding: "0.5em",
           }}
         />
         {selectedFiles.length > 0 && (
           <ul style={{ listStyle: "none", padding: 0, marginBottom: 10 }}>
             {selectedFiles.map((file, idx) => (
-              <li key={idx} style={{ marginBottom: 6, display: "flex", alignItems: "center", gap: 8 }}>
+              <li
+                key={idx}
+                style={{
+                  marginBottom: 6,
+                  display: "flex",
+                  alignItems: "center",
+                  gap: 8,
+                }}
+              >
                 <span style={{ fontSize: 14 }}>{file.name}</span>
                 <button
                   type="button"
@@ -147,7 +181,7 @@ export default function UploadFile() {
                     border: "none",
                     color: "#e53935",
                     fontSize: 18,
-                    cursor: "pointer"
+                    cursor: "pointer",
                   }}
                   tabIndex={0}
                   title="Retirer ce fichier"
@@ -169,28 +203,52 @@ export default function UploadFile() {
             padding: "0.7em 2em",
             fontWeight: "bold",
             fontSize: "1.1em",
-            cursor: uploading || !selectedFiles.length ? "not-allowed" : "pointer",
-            transition: "background 0.2s"
+            cursor:
+              uploading || !selectedFiles.length ? "not-allowed" : "pointer",
+            transition: "background 0.2s",
           }}
           aria-label="Uploader les fichiers sélectionnés"
         >
           {uploading ? "Envoi..." : "Uploader"}
         </button>
       </form>
-      {error && <div style={{ color: "red", marginTop: 8 }} role="alert">{error}</div>}
-      {success && <div style={{ color: "green", marginTop: 8 }} aria-live="polite">{success}</div>}
+      {error && (
+        <div style={{ color: "red", marginTop: 8 }} role="alert">
+          {error}
+        </div>
+      )}
+      {success && (
+        <div style={{ color: "green", marginTop: 8 }} aria-live="polite">
+          {success}
+        </div>
+      )}
       {uploadedFiles.length > 0 && (
         <div style={{ marginTop: 16 }}>
-          <h4 style={{ color: "#1976d2", marginBottom: 8 }}>Fichiers uploadés :</h4>
+          <h4 style={{ color: "#1976d2", marginBottom: 8 }}>
+            Fichiers uploadés :
+          </h4>
           <ul style={{ listStyle: "none", padding: 0 }}>
             {uploadedFiles.map((file, idx) => (
-              <li key={idx} style={{ marginBottom: 10, display: "flex", alignItems: "center", gap: 8 }}>
+              <li
+                key={idx}
+                style={{
+                  marginBottom: 10,
+                  display: "flex",
+                  alignItems: "center",
+                  gap: 8,
+                }}
+              >
                 {file.match(/\.(jpg|jpeg|png|gif)$/i) ? (
                   <span>
                     <img
                       src={`https://dummyimage.com/120x80/cccccc/000000&text=${encodeURIComponent(file)}`}
                       alt={file}
-                      style={{ maxWidth: 120, maxHeight: 80, borderRadius: 6, marginBottom: 4 }}
+                      style={{
+                        maxWidth: 120,
+                        maxHeight: 80,
+                        borderRadius: 6,
+                        marginBottom: 4,
+                      }}
                     />
                     <br />
                     <span style={{ fontSize: 14 }}>{file}</span>
@@ -216,7 +274,7 @@ export default function UploadFile() {
                     border: "none",
                     color: "#e53935",
                     fontSize: 18,
-                    cursor: "pointer"
+                    cursor: "pointer",
                   }}
                   tabIndex={0}
                   title="Supprimer ce fichier"
@@ -228,8 +286,26 @@ export default function UploadFile() {
           </ul>
         </div>
       )}
-      <div style={{ marginTop: 18, color: "#888", fontSize: "0.93em", textAlign: "center" }}>
-        <span role="img" aria-label="sécurité">🔒</span> Sécurisé | <span role="img" aria-label="accessibilité">♿</span> Accessible | <span role="img" aria-label="mobile">📱</span> Mobile/Web
+      <div
+        style={{
+          marginTop: 18,
+          color: "#888",
+          fontSize: "0.93em",
+          textAlign: "center",
+        }}
+      >
+        <span role="img" aria-label="sécurité">
+          🔒
+        </span>{" "}
+        Sécurisé |{" "}
+        <span role="img" aria-label="accessibilité">
+          ♿
+        </span>{" "}
+        Accessible |{" "}
+        <span role="img" aria-label="mobile">
+          📱
+        </span>{" "}
+        Mobile/Web
         <br />
         <span style={{ fontSize: "0.93em" }}>
           Drag & drop, feedback visuel, design avancé, branding Achiri.

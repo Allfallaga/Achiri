@@ -21,7 +21,7 @@ export async function textToSpeechMock(text, lang = "fr") {
         lang,
         text,
       });
-    }, 700)
+    }, 700),
   );
 }
 
@@ -40,7 +40,7 @@ export async function transcribeAudioMock(file, lang = "fr") {
         lang,
         confidence: 0.95,
       });
-    }, 900)
+    }, 900),
   );
 }
 
@@ -57,7 +57,7 @@ export async function detectEmotionMock(file) {
         emotion: "heureux",
         confidence: 0.88,
       });
-    }, 600)
+    }, 600),
   );
 }
 

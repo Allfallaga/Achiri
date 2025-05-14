@@ -13,7 +13,13 @@ import "../../styles/whiteboard3d.css";
 
 // Couleurs accessibles pour le dessin
 const COLORS = [
-  "#222", "#4f8cff", "#ff4f4f", "#2ecc40", "#ffb347", "#fff", "#000"
+  "#222",
+  "#4f8cff",
+  "#ff4f4f",
+  "#2ecc40",
+  "#ffb347",
+  "#fff",
+  "#000",
 ];
 
 function Whiteboard3D({
@@ -107,7 +113,9 @@ function Whiteboard3D({
     notifications.length > 0 ? (
       <div className="whiteboard3d-notifications" aria-live="polite">
         {notifications.map((n, i) => (
-          <div key={i} className="whiteboard3d-notification">{n}</div>
+          <div key={i} className="whiteboard3d-notification">
+            {n}
+          </div>
         ))}
       </div>
     ) : null;
@@ -117,9 +125,17 @@ function Whiteboard3D({
     users.length > 0 ? (
       <div className="whiteboard3d-users" aria-label="Utilisateurs connectés">
         {users.map((u, idx) => (
-          <div key={idx} className="whiteboard3d-user-avatar" title={u.name || u}>
-            <span role="img" aria-label="avatar">{u.avatar || "👤"}</span>
-            {u.badge && <span className="whiteboard3d-user-badge">{u.badge}</span>}
+          <div
+            key={idx}
+            className="whiteboard3d-user-avatar"
+            title={u.name || u}
+          >
+            <span role="img" aria-label="avatar">
+              {u.avatar || "👤"}
+            </span>
+            {u.badge && (
+              <span className="whiteboard3d-user-badge">{u.badge}</span>
+            )}
           </div>
         ))}
       </div>
@@ -134,18 +150,27 @@ function Whiteboard3D({
     >
       <Helmet>
         <title>Tableau Blanc 3D Achiri | Collaboration, accessibilité</title>
-        <meta name="description" content="Tableau blanc collaboratif 3D Achiri : dessin, annotation, accessibilité, mobile/web, sécurisé." />
+        <meta
+          name="description"
+          content="Tableau blanc collaboratif 3D Achiri : dessin, annotation, accessibilité, mobile/web, sécurisé."
+        />
       </Helmet>
       <header className="whiteboard3d-header">
         <h2>
-          <span role="img" aria-label="tableau blanc">📝</span> Tableau Blanc 3D
+          <span role="img" aria-label="tableau blanc">
+            📝
+          </span>{" "}
+          Tableau Blanc 3D
         </h2>
         <div className="whiteboard3d-tools" aria-label="Outils de dessin">
           {COLORS.map((c) => (
             <button
               key={c}
               className={`whiteboard3d-tool-btn${color === c ? " active" : ""}`}
-              style={{ background: c, border: color === c ? "2px solid #222" : "1px solid #ccc" }}
+              style={{
+                background: c,
+                border: color === c ? "2px solid #222" : "1px solid #ccc",
+              }}
               aria-label={`Choisir la couleur ${c}`}
               onClick={() => setColor(c)}
               disabled={readOnly}
@@ -156,25 +181,36 @@ function Whiteboard3D({
             aria-label="Outil crayon"
             onClick={() => setTool("pen")}
             disabled={readOnly}
-          >✏️</button>
+          >
+            ✏️
+          </button>
           <button
             className={`whiteboard3d-tool-btn${tool === "eraser" ? " active" : ""}`}
             aria-label="Outil gomme"
             onClick={() => setTool("eraser")}
             disabled={readOnly}
-          >🧽</button>
+          >
+            🧽
+          </button>
           <button
             className="whiteboard3d-tool-btn"
             aria-label="Exporter le tableau"
             onClick={handleExport}
             disabled={readOnly}
-          >📤 Exporter</button>
+          >
+            📤 Exporter
+          </button>
           <button
             className="whiteboard3d-tool-btn"
             aria-label="Effacer tout"
-            onClick={() => { setLines([]); if (onClear) onClear(); }}
+            onClick={() => {
+              setLines([]);
+              if (onClear) onClear();
+            }}
             disabled={readOnly}
-          >🗑️ Effacer</button>
+          >
+            🗑️ Effacer
+          </button>
         </div>
         {renderUsers()}
       </header>
@@ -193,7 +229,7 @@ function Whiteboard3D({
             width: "100%",
             maxWidth: width,
             maxHeight: height,
-            outline: "none"
+            outline: "none",
           }}
           onMouseDown={handlePointerDown}
           onMouseMove={handlePointerMove}
@@ -210,17 +246,38 @@ function Whiteboard3D({
       {renderNotifications()}
       <footer className="whiteboard3d-footer">
         <small>
-          <span role="img" aria-label="sécurité">🔒</span> Sécurisé | <span role="img" aria-label="accessibilité">♿</span> Accessible | <span role="img" aria-label="mobile">📱</span> Mobile/Web
+          <span role="img" aria-label="sécurité">
+            🔒
+          </span>{" "}
+          Sécurisé |{" "}
+          <span role="img" aria-label="accessibilité">
+            ♿
+          </span>{" "}
+          Accessible |{" "}
+          <span role="img" aria-label="mobile">
+            📱
+          </span>{" "}
+          Mobile/Web
         </small>
         {badges.length > 0 && (
-          <span className="whiteboard3d-badges" aria-label={`Badges : ${badges.join(", ")}`}>
+          <span
+            className="whiteboard3d-badges"
+            aria-label={`Badges : ${badges.join(", ")}`}
+          >
             {badges.map((b, i) => (
-              <span key={i} className="whiteboard3d-user-badge">{b}</span>
+              <span key={i} className="whiteboard3d-user-badge">
+                {b}
+              </span>
             ))}
           </span>
         )}
         {points > 0 && (
-          <span className="whiteboard3d-points" aria-label={`Points : ${points}`}>{points} pts</span>
+          <span
+            className="whiteboard3d-points"
+            aria-label={`Points : ${points}`}
+          >
+            {points} pts
+          </span>
         )}
       </footer>
     </section>

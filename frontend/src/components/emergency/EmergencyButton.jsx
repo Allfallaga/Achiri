@@ -16,7 +16,7 @@ import React, { useState } from "react";
 const EmergencyButton = ({
   onTrigger,
   label = "Alerte d’Urgence",
-  disabled = false
+  disabled = false,
 }) => {
   const [sending, setSending] = useState(false);
   const [feedback, setFeedback] = useState("");
@@ -42,7 +42,7 @@ const EmergencyButton = ({
         flexDirection: "column",
         alignItems: "center",
         margin: "2rem auto",
-        maxWidth: 320
+        maxWidth: 320,
       }}
       aria-label="Bouton d’alerte d’urgence"
       tabIndex={0}
@@ -61,14 +61,16 @@ const EmergencyButton = ({
           boxShadow: "0 2px 16px #b71c1c33",
           cursor: disabled || sending ? "not-allowed" : "pointer",
           outline: sending ? "2px solid #b71c1c" : "none",
-          transition: "background 0.2s"
+          transition: "background 0.2s",
         }}
         aria-label={label}
         aria-busy={sending}
         aria-disabled={disabled || sending}
         autoFocus
       >
-        <span role="img" aria-label="urgence" style={{ marginRight: 8 }}>🚨</span>
+        <span role="img" aria-label="urgence" style={{ marginRight: 8 }}>
+          🚨
+        </span>
         {sending ? "Envoi..." : label}
       </button>
       {feedback && (
@@ -77,7 +79,7 @@ const EmergencyButton = ({
             color: "#388e3c",
             fontWeight: 500,
             marginTop: 14,
-            fontSize: 16
+            fontSize: 16,
           }}
           aria-live="polite"
           tabIndex={0}
@@ -90,10 +92,21 @@ const EmergencyButton = ({
           marginTop: 16,
           color: "#888",
           fontSize: "0.93em",
-          textAlign: "center"
+          textAlign: "center",
         }}
       >
-        <span role="img" aria-label="sécurité">🔒</span> Sécurisé | <span role="img" aria-label="accessibilité">♿</span> Accessible | <span role="img" aria-label="mobile">📱</span> Mobile/Web
+        <span role="img" aria-label="sécurité">
+          🔒
+        </span>{" "}
+        Sécurisé |{" "}
+        <span role="img" aria-label="accessibilité">
+          ♿
+        </span>{" "}
+        Accessible |{" "}
+        <span role="img" aria-label="mobile">
+          📱
+        </span>{" "}
+        Mobile/Web
       </footer>
     </div>
   );

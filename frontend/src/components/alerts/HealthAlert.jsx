@@ -16,7 +16,7 @@ import React from "react";
 const HealthAlert = ({
   message = "Attention à votre bien-être.",
   advice = "",
-  onAcknowledge
+  onAcknowledge,
 }) => {
   return (
     <section
@@ -30,22 +30,29 @@ const HealthAlert = ({
         boxShadow: "0 2px 16px #43a04722",
         padding: "1.5rem",
         color: "#1976d2",
-        outline: "none"
+        outline: "none",
       }}
       aria-label="Alerte santé ou bien-être"
       tabIndex={0}
       role="alertdialog"
       aria-modal="true"
     >
-      <div style={{ display: "flex", alignItems: "center", gap: 10, marginBottom: 10 }}>
-        <span role="img" aria-label="Santé">💚</span>
+      <div
+        style={{
+          display: "flex",
+          alignItems: "center",
+          gap: 10,
+          marginBottom: 10,
+        }}
+      >
+        <span role="img" aria-label="Santé">
+          💚
+        </span>
         <h3 style={{ margin: 0, fontSize: 20, color: "#388e3c" }}>
           Alerte Santé / Bien-être
         </h3>
       </div>
-      <div style={{ fontWeight: 500, marginBottom: 8 }}>
-        {message}
-      </div>
+      <div style={{ fontWeight: 500, marginBottom: 8 }}>{message}</div>
       {advice && (
         <div style={{ fontSize: 15, color: "#388e3c", marginBottom: 12 }}>
           {advice}
@@ -63,7 +70,7 @@ const HealthAlert = ({
           fontSize: 15,
           cursor: "pointer",
           marginTop: 8,
-          transition: "background 0.2s"
+          transition: "background 0.2s",
         }}
         aria-label="Fermer l’alerte"
         autoFocus
@@ -75,10 +82,21 @@ const HealthAlert = ({
           marginTop: 16,
           color: "#888",
           fontSize: "0.93em",
-          textAlign: "center"
+          textAlign: "center",
         }}
       >
-        <span role="img" aria-label="sécurité">🔒</span> Sécurisé | <span role="img" aria-label="accessibilité">♿</span> Accessible | <span role="img" aria-label="mobile">📱</span> Mobile/Web
+        <span role="img" aria-label="sécurité">
+          🔒
+        </span>{" "}
+        Sécurisé |{" "}
+        <span role="img" aria-label="accessibilité">
+          ♿
+        </span>{" "}
+        Accessible |{" "}
+        <span role="img" aria-label="mobile">
+          📱
+        </span>{" "}
+        Mobile/Web
       </footer>
     </section>
   );

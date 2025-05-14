@@ -1,7 +1,7 @@
-import React, { useRef, useContext, useState } from 'react';
-import { IoSendSharp } from 'react-icons/io5';
+import React, { useRef, useContext, useState } from "react";
+import { IoSendSharp } from "react-icons/io5";
 
-import AuthContext from '../../context/AuthProvider';
+import AuthContext from "../../context/AuthProvider";
 
 /**
  * MessageInput – Achiri
@@ -26,13 +26,13 @@ function MessageInput(props) {
     if (!value || sending) return;
     setSending(true);
     const now = new Date();
-    const pad = (n) => n.toString().padStart(2, '0');
+    const pad = (n) => n.toString().padStart(2, "0");
     const messageData = {
       room: props.room,
       nickname: auth.nickname,
       message: value,
       time: `${pad(now.getHours())}:${pad(now.getMinutes())}`,
-      avatar: auth.avatar
+      avatar: auth.avatar,
     };
     await props.socket.emit("send_message", messageData);
     props.setMessagesListCallback(messageData);
@@ -56,7 +56,7 @@ function MessageInput(props) {
         marginTop: 8,
         display: "flex",
         alignItems: "center",
-        gap: 8
+        gap: 8,
       }}
     >
       <div className="input-group" style={{ flex: 1, display: "flex", gap: 8 }}>
@@ -66,7 +66,7 @@ function MessageInput(props) {
           placeholder="Écrivez votre message"
           ref={msgElement}
           disabled={sending}
-          onKeyDown={e => {
+          onKeyDown={(e) => {
             if (e.key === "Enter" && !e.shiftKey) send(e);
           }}
           aria-label="Écrivez votre message"
@@ -79,7 +79,7 @@ function MessageInput(props) {
             padding: "0.6em 1em",
             fontSize: "1em",
             outline: "none",
-            transition: "border 0.2s"
+            transition: "border 0.2s",
           }}
         />
         <button
@@ -101,7 +101,7 @@ function MessageInput(props) {
             alignItems: "center",
             justifyContent: "center",
             cursor: sending ? "not-allowed" : "pointer",
-            transition: "background 0.2s"
+            transition: "background 0.2s",
           }}
         >
           <IoSendSharp />

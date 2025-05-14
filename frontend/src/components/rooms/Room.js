@@ -32,18 +32,21 @@ function Room({ data }) {
         minHeight: 120,
         cursor: "pointer",
         outline: "none",
-        position: "relative"
+        position: "relative",
       }}
       tabIndex={0}
       aria-label={`Entrer dans le salon ${data.name}${data.status ? `, statut ${data.status}` : ""}`}
-      onKeyDown={e => {
+      onKeyDown={(e) => {
         if (e.key === "Enter" || e.key === " ") {
           e.preventDefault();
           e.currentTarget.click();
         }
       }}
-      onFocus={e => e.currentTarget.style.boxShadow = "0 0 0 3px #1976d288, 0 2px 16px #1976d222"}
-      onBlur={e => e.currentTarget.style.boxShadow = "0 2px 16px #1976d222"}
+      onFocus={(e) =>
+        (e.currentTarget.style.boxShadow =
+          "0 0 0 3px #1976d288, 0 2px 16px #1976d222")
+      }
+      onBlur={(e) => (e.currentTarget.style.boxShadow = "0 2px 16px #1976d222")}
       role="listitem"
     >
       <div style={{ display: "flex", alignItems: "center", width: "100%" }}>
@@ -63,7 +66,7 @@ function Room({ data }) {
             minWidth: 0,
             overflow: "hidden",
             textOverflow: "ellipsis",
-            whiteSpace: "nowrap"
+            whiteSpace: "nowrap",
           }}
           tabIndex={-1}
           aria-hidden="true"
@@ -84,7 +87,7 @@ function Room({ data }) {
                     fontSize: "0.85em",
                     marginLeft: i > 0 ? 2 : 0,
                     background: "#e3f2fd",
-                    color: "#1976d2"
+                    color: "#1976d2",
                   }}
                   aria-label={`Badge ${badge}`}
                 />
@@ -103,7 +106,7 @@ function Room({ data }) {
           fontWeight: 500,
           maxWidth: 320,
           overflow: "hidden",
-          textOverflow: "ellipsis"
+          textOverflow: "ellipsis",
         }}
       >
         {data.description || "Aucune description"}
@@ -114,7 +117,7 @@ function Room({ data }) {
             color: "#43a047",
             fontWeight: 600,
             fontSize: "1.05rem",
-            letterSpacing: "0.01em"
+            letterSpacing: "0.01em",
           }}
           aria-label="Rejoindre ce salon"
         >
@@ -126,7 +129,7 @@ function Room({ data }) {
               color: "#1976d2",
               fontWeight: 500,
               fontSize: "0.98em",
-              marginLeft: 6
+              marginLeft: 6,
             }}
             aria-label={`Nombre de membres : ${data.members.length}`}
           >
@@ -135,13 +138,19 @@ function Room({ data }) {
         )}
         {data.status && (
           <Chip
-            label={data.status === "open" ? "Ouvert" : data.status === "locked" ? "Privé" : data.status}
+            label={
+              data.status === "open"
+                ? "Ouvert"
+                : data.status === "locked"
+                  ? "Privé"
+                  : data.status
+            }
             color={data.status === "open" ? "success" : "warning"}
             size="small"
             style={{
               fontWeight: 600,
               fontSize: "0.85em",
-              marginLeft: 6
+              marginLeft: 6,
             }}
             aria-label={`Statut : ${data.status}`}
           />

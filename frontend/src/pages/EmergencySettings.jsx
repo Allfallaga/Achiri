@@ -24,9 +24,9 @@ export default function EmergencySettings({ userId = "demo-user" }) {
 
   const handleChange = (e) => {
     const { name, value, type, checked } = e.target;
-    setEmergency(prev => ({
+    setEmergency((prev) => ({
       ...prev,
-      [name]: type === "checkbox" ? checked : value
+      [name]: type === "checkbox" ? checked : value,
     }));
     setSaved(false);
   };
@@ -60,31 +60,53 @@ export default function EmergencySettings({ userId = "demo-user" }) {
         padding: "2.5rem 2rem",
         fontFamily: "'Segoe UI', Arial, sans-serif",
         color: darkMode ? "#e3f2fd" : "#222",
-        transition: "background 0.3s, color 0.3s"
+        transition: "background 0.3s, color 0.3s",
       }}
       aria-label="Paramètres d'urgence"
       tabIndex={0}
     >
       <Helmet>
         <title>Paramètres d'urgence | Achiri</title>
-        <meta name="description" content="Configurez vos contacts d'urgence, alertes et options de sécurité sur Achiri. Plateforme IA inclusive, accessible et sécurisée." />
+        <meta
+          name="description"
+          content="Configurez vos contacts d'urgence, alertes et options de sécurité sur Achiri. Plateforme IA inclusive, accessible et sécurisée."
+        />
         <html lang="fr" />
       </Helmet>
-      <div style={{ display: "flex", alignItems: "center", justifyContent: "space-between", marginBottom: 8 }}>
-        <h2 style={{ color: darkMode ? "#ffd600" : "#d32f2f", marginBottom: 24, textAlign: "center", fontWeight: 700, fontSize: "2rem", margin: 0, flex: 1 }}>
+      <div
+        style={{
+          display: "flex",
+          alignItems: "center",
+          justifyContent: "space-between",
+          marginBottom: 8,
+        }}
+      >
+        <h2
+          style={{
+            color: darkMode ? "#ffd600" : "#d32f2f",
+            marginBottom: 24,
+            textAlign: "center",
+            fontWeight: 700,
+            fontSize: "2rem",
+            margin: 0,
+            flex: 1,
+          }}
+        >
           🚨 Paramètres d'urgence
         </h2>
         <button
           type="button"
           onClick={handleDarkMode}
-          aria-label={darkMode ? "Désactiver le mode sombre" : "Activer le mode sombre"}
+          aria-label={
+            darkMode ? "Désactiver le mode sombre" : "Activer le mode sombre"
+          }
           style={{
             background: "none",
             border: "none",
             color: darkMode ? "#ffd600" : "#d32f2f",
             cursor: "pointer",
             fontSize: 22,
-            marginLeft: 12
+            marginLeft: 12,
           }}
           tabIndex={0}
         >
@@ -93,7 +115,12 @@ export default function EmergencySettings({ userId = "demo-user" }) {
       </div>
       <form onSubmit={handleSubmit} aria-label="Formulaire d'urgence">
         <div style={{ marginBottom: 18 }}>
-          <label style={{ fontWeight: "bold", color: darkMode ? "#ffd600" : "#d32f2f" }}>
+          <label
+            style={{
+              fontWeight: "bold",
+              color: darkMode ? "#ffd600" : "#d32f2f",
+            }}
+          >
             Nom du contact d'urgence
             <input
               type="text"
@@ -108,7 +135,7 @@ export default function EmergencySettings({ userId = "demo-user" }) {
                 fontSize: 16,
                 marginTop: 4,
                 background: darkMode ? "#181f2a" : "#fff",
-                color: darkMode ? "#ffd600" : "#222"
+                color: darkMode ? "#ffd600" : "#222",
               }}
               maxLength={48}
               aria-label="Nom du contact d'urgence"
@@ -118,7 +145,12 @@ export default function EmergencySettings({ userId = "demo-user" }) {
           </label>
         </div>
         <div style={{ marginBottom: 18 }}>
-          <label style={{ fontWeight: "bold", color: darkMode ? "#ffd600" : "#d32f2f" }}>
+          <label
+            style={{
+              fontWeight: "bold",
+              color: darkMode ? "#ffd600" : "#d32f2f",
+            }}
+          >
             Téléphone du contact d'urgence
             <input
               type="tel"
@@ -133,7 +165,7 @@ export default function EmergencySettings({ userId = "demo-user" }) {
                 fontSize: 16,
                 marginTop: 4,
                 background: darkMode ? "#181f2a" : "#fff",
-                color: darkMode ? "#ffd600" : "#222"
+                color: darkMode ? "#ffd600" : "#222",
               }}
               maxLength={20}
               aria-label="Téléphone du contact d'urgence"
@@ -145,7 +177,12 @@ export default function EmergencySettings({ userId = "demo-user" }) {
           </label>
         </div>
         <div style={{ marginBottom: 18 }}>
-          <label style={{ fontWeight: "bold", color: darkMode ? "#ffd600" : "#d32f2f" }}>
+          <label
+            style={{
+              fontWeight: "bold",
+              color: darkMode ? "#ffd600" : "#d32f2f",
+            }}
+          >
             Informations médicales importantes (allergies, traitements…)
             <textarea
               name="medicalInfo"
@@ -161,7 +198,7 @@ export default function EmergencySettings({ userId = "demo-user" }) {
                 minHeight: 60,
                 resize: "vertical",
                 background: darkMode ? "#181f2a" : "#fff",
-                color: darkMode ? "#ffd600" : "#222"
+                color: darkMode ? "#ffd600" : "#222",
               }}
               maxLength={256}
               aria-label="Informations médicales importantes"
@@ -169,23 +206,35 @@ export default function EmergencySettings({ userId = "demo-user" }) {
             />
           </label>
         </div>
-        <div style={{
-          marginBottom: 24,
-          display: "flex",
-          alignItems: "center",
-          gap: 10
-        }}>
+        <div
+          style={{
+            marginBottom: 24,
+            display: "flex",
+            alignItems: "center",
+            gap: 10,
+          }}
+        >
           <input
             type="checkbox"
             name="shareLocation"
             checked={emergency.shareLocation}
             onChange={handleChange}
             id="shareLocation"
-            style={{ accentColor: darkMode ? "#ffd600" : "#d32f2f", width: 18, height: 18 }}
+            style={{
+              accentColor: darkMode ? "#ffd600" : "#d32f2f",
+              width: 18,
+              height: 18,
+            }}
             aria-checked={emergency.shareLocation}
             aria-label="Partager ma localisation en cas d'urgence"
           />
-          <label htmlFor="shareLocation" style={{ color: darkMode ? "#ffd600" : "#d32f2f", fontWeight: "bold" }}>
+          <label
+            htmlFor="shareLocation"
+            style={{
+              color: darkMode ? "#ffd600" : "#d32f2f",
+              fontWeight: "bold",
+            }}
+          >
             Partager ma localisation en cas d'urgence
           </label>
         </div>
@@ -203,7 +252,7 @@ export default function EmergencySettings({ userId = "demo-user" }) {
             cursor: "pointer",
             marginTop: 10,
             boxShadow: "0 2px 8px #d32f2f22",
-            transition: "opacity 0.2s"
+            transition: "opacity 0.2s",
           }}
           aria-label="Sauvegarder les paramètres d'urgence"
         >
@@ -218,7 +267,7 @@ export default function EmergencySettings({ userId = "demo-user" }) {
               padding: 8,
               marginTop: 16,
               textAlign: "center",
-              fontWeight: "bold"
+              fontWeight: "bold",
             }}
             role="status"
             aria-live="polite"
@@ -228,33 +277,134 @@ export default function EmergencySettings({ userId = "demo-user" }) {
         )}
       </form>
       {/* Navigation rapide vers les principales pages */}
-      <nav style={{ marginTop: 32, textAlign: "center", display: "flex", flexWrap: "wrap", gap: 8, justifyContent: "center" }} aria-label="Navigation principale">
-        <Link to="/" style={{ margin: 8, color: darkMode ? "#ffd600" : "#d32f2f" }}>Accueil</Link>
-        <Link to="/dashboard" style={{ margin: 8, color: darkMode ? "#ffd600" : "#d32f2f" }}>Dashboard</Link>
-        <Link to="/profile" style={{ margin: 8, color: darkMode ? "#ffd600" : "#d32f2f" }}>Profil</Link>
-        <Link to="/settings" style={{ margin: 8, color: darkMode ? "#ffd600" : "#d32f2f" }}>Paramètres</Link>
-        <Link to="/accessibilite" style={{ margin: 8, color: darkMode ? "#ffd600" : "#d32f2f" }}>Accessibilité</Link>
-        <Link to="/friends" style={{ margin: 8, color: darkMode ? "#ffd600" : "#d32f2f" }}>Amis</Link>
-        <Link to="/leaderboard" style={{ margin: 8, color: darkMode ? "#ffd600" : "#d32f2f" }}>Classement</Link>
-        <Link to="/creator-tools" style={{ margin: 8, color: darkMode ? "#ffd600" : "#d32f2f" }}>Creator Tools</Link>
-        <Link to="/admin" style={{ margin: 8, color: darkMode ? "#ffd600" : "#d32f2f" }}>Admin</Link>
-        <Link to="/music" style={{ margin: 8, color: darkMode ? "#ffd600" : "#d32f2f" }}>Musique</Link>
-        <Link to="/notifications" style={{ margin: 8, color: darkMode ? "#ffd600" : "#d32f2f" }}>Notifications</Link>
-        <Link to="/social-interactions" style={{ margin: 8, color: darkMode ? "#ffd600" : "#d32f2f" }}>Interactions Sociales</Link>
-        <Link to="/reseaux-sociaux" style={{ margin: 8, color: darkMode ? "#ffd600" : "#d32f2f" }}>Réseaux Sociaux</Link>
-        <Link to="/rooms" style={{ margin: 8, color: darkMode ? "#ffd600" : "#d32f2f" }}>Rooms</Link>
-        <Link to="/virtual-classroom" style={{ margin: 8, color: darkMode ? "#ffd600" : "#d32f2f" }}>Classes Virtuelles</Link>
-        <Link to="/wallet" style={{ margin: 8, color: darkMode ? "#ffd600" : "#d32f2f" }}>Wallet</Link>
+      <nav
+        style={{
+          marginTop: 32,
+          textAlign: "center",
+          display: "flex",
+          flexWrap: "wrap",
+          gap: 8,
+          justifyContent: "center",
+        }}
+        aria-label="Navigation principale"
+      >
+        <Link
+          to="/"
+          style={{ margin: 8, color: darkMode ? "#ffd600" : "#d32f2f" }}
+        >
+          Accueil
+        </Link>
+        <Link
+          to="/dashboard"
+          style={{ margin: 8, color: darkMode ? "#ffd600" : "#d32f2f" }}
+        >
+          Dashboard
+        </Link>
+        <Link
+          to="/profile"
+          style={{ margin: 8, color: darkMode ? "#ffd600" : "#d32f2f" }}
+        >
+          Profil
+        </Link>
+        <Link
+          to="/settings"
+          style={{ margin: 8, color: darkMode ? "#ffd600" : "#d32f2f" }}
+        >
+          Paramètres
+        </Link>
+        <Link
+          to="/accessibilite"
+          style={{ margin: 8, color: darkMode ? "#ffd600" : "#d32f2f" }}
+        >
+          Accessibilité
+        </Link>
+        <Link
+          to="/friends"
+          style={{ margin: 8, color: darkMode ? "#ffd600" : "#d32f2f" }}
+        >
+          Amis
+        </Link>
+        <Link
+          to="/leaderboard"
+          style={{ margin: 8, color: darkMode ? "#ffd600" : "#d32f2f" }}
+        >
+          Classement
+        </Link>
+        <Link
+          to="/creator-tools"
+          style={{ margin: 8, color: darkMode ? "#ffd600" : "#d32f2f" }}
+        >
+          Creator Tools
+        </Link>
+        <Link
+          to="/admin"
+          style={{ margin: 8, color: darkMode ? "#ffd600" : "#d32f2f" }}
+        >
+          Admin
+        </Link>
+        <Link
+          to="/music"
+          style={{ margin: 8, color: darkMode ? "#ffd600" : "#d32f2f" }}
+        >
+          Musique
+        </Link>
+        <Link
+          to="/notifications"
+          style={{ margin: 8, color: darkMode ? "#ffd600" : "#d32f2f" }}
+        >
+          Notifications
+        </Link>
+        <Link
+          to="/social-interactions"
+          style={{ margin: 8, color: darkMode ? "#ffd600" : "#d32f2f" }}
+        >
+          Interactions Sociales
+        </Link>
+        <Link
+          to="/reseaux-sociaux"
+          style={{ margin: 8, color: darkMode ? "#ffd600" : "#d32f2f" }}
+        >
+          Réseaux Sociaux
+        </Link>
+        <Link
+          to="/rooms"
+          style={{ margin: 8, color: darkMode ? "#ffd600" : "#d32f2f" }}
+        >
+          Rooms
+        </Link>
+        <Link
+          to="/virtual-classroom"
+          style={{ margin: 8, color: darkMode ? "#ffd600" : "#d32f2f" }}
+        >
+          Classes Virtuelles
+        </Link>
+        <Link
+          to="/wallet"
+          style={{ margin: 8, color: darkMode ? "#ffd600" : "#d32f2f" }}
+        >
+          Wallet
+        </Link>
       </nav>
       <footer
         style={{
           marginTop: 24,
           color: darkMode ? "#ffd600" : "#888",
           fontSize: "0.93em",
-          textAlign: "center"
+          textAlign: "center",
         }}
       >
-        <span role="img" aria-label="sécurité">🔒</span> Sécurisé | <span role="img" aria-label="accessibilité">♿</span> Accessible | <span role="img" aria-label="mobile">📱</span> Mobile/Web
+        <span role="img" aria-label="sécurité">
+          🔒
+        </span>{" "}
+        Sécurisé |{" "}
+        <span role="img" aria-label="accessibilité">
+          ♿
+        </span>{" "}
+        Accessible |{" "}
+        <span role="img" aria-label="mobile">
+          📱
+        </span>{" "}
+        Mobile/Web
       </footer>
       <style>{`
         main[aria-label="Paramètres d'urgence"]:focus {

@@ -1,5 +1,11 @@
 import React, { useState } from "react";
-import { FaCog, FaMoon, FaSun, FaUniversalAccess, FaCheckCircle } from "react-icons/fa";
+import {
+  FaCog,
+  FaMoon,
+  FaSun,
+  FaUniversalAccess,
+  FaCheckCircle,
+} from "react-icons/fa";
 
 /**
  * UserSettingsPanel – Achiri
@@ -15,12 +21,18 @@ import { FaCog, FaMoon, FaSun, FaUniversalAccess, FaCheckCircle } from "react-ic
 
 const accessibilityOptions = [
   { value: "Sous-titres", label: "Sous-titres", icon: <FaUniversalAccess /> },
-  { value: "Lecture vocale", label: "Lecture vocale", icon: <FaUniversalAccess style={{ color: "#43a047" }} /> }
+  {
+    value: "Lecture vocale",
+    label: "Lecture vocale",
+    icon: <FaUniversalAccess style={{ color: "#43a047" }} />,
+  },
 ];
 
 export default function UserSettingsPanel({ settings = {}, onUpdate }) {
   const [theme, setTheme] = useState(settings.theme || "light");
-  const [accessibility, setAccessibility] = useState(settings.accessibility || []);
+  const [accessibility, setAccessibility] = useState(
+    settings.accessibility || [],
+  );
   const [success, setSuccess] = useState("");
   const [error, setError] = useState("");
 
@@ -28,7 +40,7 @@ export default function UserSettingsPanel({ settings = {}, onUpdate }) {
     setAccessibility((prev) =>
       prev.includes(option)
         ? prev.filter((a) => a !== option)
-        : [...prev, option]
+        : [...prev, option],
     );
   };
 
@@ -60,27 +72,58 @@ export default function UserSettingsPanel({ settings = {}, onUpdate }) {
         maxWidth: 500,
         margin: "2rem auto",
         boxShadow: "0 4px 24px 0 rgba(33,150,243,0.08)",
-        fontFamily: "'Segoe UI', Arial, sans-serif"
+        fontFamily: "'Segoe UI', Arial, sans-serif",
       }}
       aria-label="Réglages utilisateur"
       onSubmit={handleSubmit}
       autoComplete="off"
     >
-      <h2 style={{ color: "#1976d2", fontWeight: 700, fontSize: "1.2em", display: "flex", alignItems: "center", gap: 8 }}>
+      <h2
+        style={{
+          color: "#1976d2",
+          fontWeight: 700,
+          fontSize: "1.2em",
+          display: "flex",
+          alignItems: "center",
+          gap: 8,
+        }}
+      >
         <FaCog /> Réglages utilisateur
       </h2>
-      {error && <div style={{ color: "red", marginBottom: 8 }} aria-live="assertive">{error}</div>}
+      {error && (
+        <div style={{ color: "red", marginBottom: 8 }} aria-live="assertive">
+          {error}
+        </div>
+      )}
       {success && (
-        <div style={{ color: "#43a047", marginBottom: 8, display: "flex", alignItems: "center", gap: 6 }} aria-live="polite">
+        <div
+          style={{
+            color: "#43a047",
+            marginBottom: 8,
+            display: "flex",
+            alignItems: "center",
+            gap: 6,
+          }}
+          aria-live="polite"
+        >
           <FaCheckCircle /> {success}
         </div>
       )}
 
       {/* Thème */}
-      <fieldset style={{ border: "none", margin: 0, padding: 0, marginBottom: 18 }}>
+      <fieldset
+        style={{ border: "none", margin: 0, padding: 0, marginBottom: 18 }}
+      >
         <legend style={{ fontWeight: 500, marginBottom: 6 }}>Thème</legend>
         <div style={{ display: "flex", gap: 18 }}>
-          <label style={{ display: "flex", alignItems: "center", gap: 6, cursor: "pointer" }}>
+          <label
+            style={{
+              display: "flex",
+              alignItems: "center",
+              gap: 6,
+              cursor: "pointer",
+            }}
+          >
             <input
               type="radio"
               name="theme"
@@ -93,7 +136,14 @@ export default function UserSettingsPanel({ settings = {}, onUpdate }) {
             />
             <FaSun style={{ color: "#fbbf24" }} /> Clair
           </label>
-          <label style={{ display: "flex", alignItems: "center", gap: 6, cursor: "pointer" }}>
+          <label
+            style={{
+              display: "flex",
+              alignItems: "center",
+              gap: 6,
+              cursor: "pointer",
+            }}
+          >
             <input
               type="radio"
               name="theme"
@@ -110,11 +160,24 @@ export default function UserSettingsPanel({ settings = {}, onUpdate }) {
       </fieldset>
 
       {/* Accessibilité */}
-      <fieldset style={{ border: "none", margin: 0, padding: 0, marginBottom: 16 }}>
-        <legend style={{ fontWeight: 500, marginBottom: 6 }}>Options d’accessibilité</legend>
+      <fieldset
+        style={{ border: "none", margin: 0, padding: 0, marginBottom: 16 }}
+      >
+        <legend style={{ fontWeight: 500, marginBottom: 6 }}>
+          Options d’accessibilité
+        </legend>
         <div style={{ display: "flex", gap: 18, flexWrap: "wrap" }}>
-          {accessibilityOptions.map(opt => (
-            <label key={opt.value} style={{ display: "flex", alignItems: "center", gap: 6, fontWeight: 400, cursor: "pointer" }}>
+          {accessibilityOptions.map((opt) => (
+            <label
+              key={opt.value}
+              style={{
+                display: "flex",
+                alignItems: "center",
+                gap: 6,
+                fontWeight: 400,
+                cursor: "pointer",
+              }}
+            >
               <input
                 type="checkbox"
                 checked={accessibility.includes(opt.value)}
@@ -141,7 +204,7 @@ export default function UserSettingsPanel({ settings = {}, onUpdate }) {
           fontSize: "1em",
           cursor: "pointer",
           marginTop: 8,
-          transition: "background 0.2s"
+          transition: "background 0.2s",
         }}
         aria-label="Sauvegarder les réglages"
       >
@@ -152,10 +215,21 @@ export default function UserSettingsPanel({ settings = {}, onUpdate }) {
           marginTop: 24,
           color: "#888",
           fontSize: "0.93em",
-          textAlign: "center"
+          textAlign: "center",
         }}
       >
-        <span role="img" aria-label="sécurité">🔒</span> Sécurisé | <span role="img" aria-label="accessibilité">♿</span> Accessible | <span role="img" aria-label="mobile">📱</span> Mobile/Web
+        <span role="img" aria-label="sécurité">
+          🔒
+        </span>{" "}
+        Sécurisé |{" "}
+        <span role="img" aria-label="accessibilité">
+          ♿
+        </span>{" "}
+        Accessible |{" "}
+        <span role="img" aria-label="mobile">
+          📱
+        </span>{" "}
+        Mobile/Web
       </footer>
     </form>
   );

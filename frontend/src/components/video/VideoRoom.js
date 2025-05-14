@@ -5,35 +5,50 @@
  * - Props : roomId, user, type ("free" | "private" | ...)
  */
 
-import React, { useRef, useEffect, useState, useCallback, useContext } from 'react';
-import io from 'socket.io-client';
-import { Helmet } from 'react-helmet-async';
-import { NavLink } from 'react-router-dom';
+import React, {
+  useRef,
+  useEffect,
+  useState,
+  useCallback,
+  useContext,
+} from "react";
+import io from "socket.io-client";
+import { Helmet } from "react-helmet-async";
+import { NavLink } from "react-router-dom";
 
-import UserList from '../common/UserList.js';
-import ChatBox from '../chat/ChatBox.js';
-import { RoomContext } from '../../context/RoomContext';
-import { UserContext } from '../../context/UserContext';
-import { AccessibilityContext } from '../../context/AccessibilityContext';
-import ModerationPanel from '../moderation/ModerationPanel.js';
+import UserList from "../common/UserList.js";
+import ChatBox from "../chat/ChatBox.js";
+import { RoomContext } from "../../context/RoomContext";
+import { UserContext } from "../../context/UserContext";
+import { AccessibilityContext } from "../../context/AccessibilityContext";
+import ModerationPanel from "../moderation/ModerationPanel.js";
 
-import RoomHeader from './RoomHeader';
-import ParticipantList from './ParticipantList';
-import RoomControls from './RoomControls';
-import MediaRcv from './MediaRcv.js';
-import AccessibilityOptions from './AccessibilityOptions';
-import AnimationsManager from './AnimationsManager';
-import SubtitlesPanel from './SubtitlesPanel';
-import ScreenSharePanel from './ScreenSharePanel';
-import BreakoutRoomsPanel from './BreakoutRoomsPanel';
-import NotificationBanner from './NotificationBanner';
+import RoomHeader from "./RoomHeader";
+import ParticipantList from "./ParticipantList";
+import RoomControls from "./RoomControls";
+import MediaRcv from "./MediaRcv.js";
+import AccessibilityOptions from "./AccessibilityOptions";
+import AnimationsManager from "./AnimationsManager";
+import SubtitlesPanel from "./SubtitlesPanel";
+import ScreenSharePanel from "./ScreenSharePanel";
+import BreakoutRoomsPanel from "./BreakoutRoomsPanel";
+import NotificationBanner from "./NotificationBanner";
 
-import '../../styles/videochat.css';
+import "../../styles/videochat.css";
 
-const BACKEND_URL = process.env.REACT_APP_BACKEND_URL || 'http://localhost:3001';
+const BACKEND_URL =
+  process.env.REACT_APP_BACKEND_URL || "http://localhost:3001";
 
 const ROOM_CATEGORIES = [
-  "Général", "Deaf", "Aveugle", "+18", "Education", "Hobby", "Challenge", "Payante", "Privée"
+  "Général",
+  "Deaf",
+  "Aveugle",
+  "+18",
+  "Education",
+  "Hobby",
+  "Challenge",
+  "Payante",
+  "Privée",
 ];
 
 function VideoRoom({ roomId, user, type = "free" }) {
@@ -55,7 +70,10 @@ function VideoRoom({ roomId, user, type = "free" }) {
     category: "Général",
     description: "",
   });
-  const [remoteTracks, setRemoteTracks] = useState({ video: null, audio: null });
+  const [remoteTracks, setRemoteTracks] = useState({
+    video: null,
+    audio: null,
+  });
   const [videoEnabled, setVideoEnabled] = useState(true);
   const [audioEnabled, setAudioEnabled] = useState(true);
   const [loading, setLoading] = useState(true);
@@ -75,7 +93,10 @@ function VideoRoom({ roomId, user, type = "free" }) {
 
   // SEO & accessibilité
   useEffect(() => {
-    document.body.classList.toggle('dark', accessibilityCtx?.accessibility?.darkMode);
+    document.body.classList.toggle(
+      "dark",
+      accessibilityCtx?.accessibility?.darkMode,
+    );
   }, [accessibilityCtx?.accessibility?.darkMode]);
 
   // Réfs pour focus/accessibilité
@@ -85,7 +106,11 @@ function VideoRoom({ roomId, user, type = "free" }) {
 
   // Focus sur la vidéo principale à l'entrée (accessibilité)
   useEffect(() => {
-    if (mainVideoRef.current && (accessibilityCtx?.accessibility?.autoFocusVideo || accessibilityCtx?.autoFocusVideo)) {
+    if (
+      mainVideoRef.current &&
+      (accessibilityCtx?.accessibility?.autoFocusVideo ||
+        accessibilityCtx?.autoFocusVideo)
+    ) {
       mainVideoRef.current.focus();
     }
   }, [accessibilityCtx]);
@@ -98,7 +123,7 @@ function VideoRoom({ roomId, user, type = "free" }) {
         window.speechSynthesis.speak(utter);
       }
     },
-    [ttsEnabled]
+    [ttsEnabled],
   );
 
   // --- LOGIQUE WEBRTC/SOCKET ---
@@ -116,7 +141,9 @@ function VideoRoom({ roomId, user, type = "free" }) {
 
         peerConnection.current = new window.RTCPeerConnection();
 
-        stream.getTracks().forEach((track) => peerConnection.current.addTrack(track, stream));
+        stream
+          .getTracks()
+          .forEach((track) => peerConnection.current.addTrack(track, stream));
 
         peerConnection.current.ontrack = (event) => {
           const videoTrack = event.streams[0].getVideoTracks()[0];
@@ -129,62 +156,74 @@ function VideoRoom({ roomId, user, type = "free" }) {
 
         peerConnection.current.onicecandidate = (event) => {
           if (event.candidate) {
-            socket.emit('webrtc_ice_candidate', { room: roomId, candidate: event.candidate });
+            socket.emit("webrtc_ice_candidate", {
+              room: roomId,
+              candidate: event.candidate,
+            });
           }
         };
 
-        socket = io(BACKEND_URL, { transports: ['websocket'] });
+        socket = io(BACKEND_URL, { transports: ["websocket"] });
 
-        socket.emit('join_room', { room_id: roomId, user: user?.name || user || 'user' + Math.random() });
+        socket.emit("join_room", {
+          room_id: roomId,
+          user: user?.name || user || "user" + Math.random(),
+        });
 
         // --- WebRTC Signaling ---
-        socket.on('webrtc_offer', async (data) => {
+        socket.on("webrtc_offer", async (data) => {
           if (!peerConnection.current) return;
-          await peerConnection.current.setRemoteDescription(new RTCSessionDescription(data.offer));
+          await peerConnection.current.setRemoteDescription(
+            new RTCSessionDescription(data.offer),
+          );
           const answer = await peerConnection.current.createAnswer();
           await peerConnection.current.setLocalDescription(answer);
-          socket.emit('webrtc_answer', { room: roomId, answer });
+          socket.emit("webrtc_answer", { room: roomId, answer });
         });
 
-        socket.on('webrtc_answer', async (data) => {
+        socket.on("webrtc_answer", async (data) => {
           if (!peerConnection.current) return;
-          await peerConnection.current.setRemoteDescription(new RTCSessionDescription(data.answer));
+          await peerConnection.current.setRemoteDescription(
+            new RTCSessionDescription(data.answer),
+          );
         });
 
-        socket.on('webrtc_ice_candidate', (data) => {
+        socket.on("webrtc_ice_candidate", (data) => {
           if (!peerConnection.current) return;
-          peerConnection.current.addIceCandidate(new RTCIceCandidate(data.candidate));
+          peerConnection.current.addIceCandidate(
+            new RTCIceCandidate(data.candidate),
+          );
         });
 
         // --- Room update (rôles, mute, main levée, badges, points, etc.) ---
-        socket.on('room_update', (info) => {
+        socket.on("room_update", (info) => {
           setRoomInfo((prev) => ({ ...prev, ...info }));
           setHandRaised(info.hands?.includes(socket.id));
           if (info.users.length === 1) {
             peerConnection.current.createOffer().then((offer) => {
               peerConnection.current.setLocalDescription(offer);
-              socket.emit('webrtc_offer', { room: roomId, offer });
+              socket.emit("webrtc_offer", { room: roomId, offer });
             });
           }
         });
 
         // --- Kick & mute ---
-        socket.on('muted', () => {
+        socket.on("muted", () => {
           speak("Vous avez été mis en sourdine.");
         });
-        socket.on('kicked', () => {
+        socket.on("kicked", () => {
           setKicked(true);
           speak("Vous avez été exclu de la room.");
           setTimeout(() => window.location.reload(), 2000);
         });
 
         // --- Main levée ---
-        socket.on('hand_raised', ({ user: userId }) => {
+        socket.on("hand_raised", ({ user: userId }) => {
           if (userId !== socket.id) speak(`Main levée par ${userId}`);
         });
 
         // --- Chat history (optionnel) ---
-        socket.on('chat_history', (history) => {
+        socket.on("chat_history", (history) => {
           setRoomInfo((prev) => ({ ...prev, chatHistory: history }));
         });
 
@@ -203,23 +242,22 @@ function VideoRoom({ roomId, user, type = "free" }) {
       }
       if (socket) socket.disconnect();
     };
-     
   }, [roomId, user, ttsEnabled, speak, videoEnabled, audioEnabled]);
 
   // Actions owner/admin
   const handleMute = (targetId) => {
-    const socket = io(BACKEND_URL, { transports: ['websocket'] });
-    socket.emit('mute_user', { room_id: roomId, target_id: targetId });
+    const socket = io(BACKEND_URL, { transports: ["websocket"] });
+    socket.emit("mute_user", { room_id: roomId, target_id: targetId });
     socket.disconnect();
   };
   const handleKick = (targetId) => {
-    const socket = io(BACKEND_URL, { transports: ['websocket'] });
-    socket.emit('kick_user', { room_id: roomId, target_id: targetId });
+    const socket = io(BACKEND_URL, { transports: ["websocket"] });
+    socket.emit("kick_user", { room_id: roomId, target_id: targetId });
     socket.disconnect();
   };
   const handleRaiseHand = () => {
-    const socket = io(BACKEND_URL, { transports: ['websocket'] });
-    socket.emit('raise_hand', { room_id: roomId });
+    const socket = io(BACKEND_URL, { transports: ["websocket"] });
+    socket.emit("raise_hand", { room_id: roomId });
     setHandRaised(true);
     socket.disconnect();
   };
@@ -228,18 +266,35 @@ function VideoRoom({ roomId, user, type = "free" }) {
   const renderBadges = (userId) =>
     roomInfo.badges && roomInfo.badges[userId]
       ? roomInfo.badges[userId].map((b) => (
-          <span key={b} className="badge" aria-label={`Badge ${b}`}>{b}</span>
+          <span key={b} className="badge" aria-label={`Badge ${b}`}>
+            {b}
+          </span>
         ))
       : null;
 
   const renderPoints = (userId) =>
     roomInfo.points && roomInfo.points[userId] ? (
-      <span className="points" aria-label={`Points: ${roomInfo.points[userId]}`}>{roomInfo.points[userId]} pts</span>
+      <span
+        className="points"
+        aria-label={`Points: ${roomInfo.points[userId]}`}
+      >
+        {roomInfo.points[userId]} pts
+      </span>
     ) : null;
 
   if (loading) return <div aria-busy="true">Connexion en cours...</div>;
-  if (error) return <div role="alert" style={{ color: 'red' }}>{error}</div>;
-  if (kicked) return <div role="alert" style={{ color: 'red' }}>Vous avez été exclu de la room.</div>;
+  if (error)
+    return (
+      <div role="alert" style={{ color: "red" }}>
+        {error}
+      </div>
+    );
+  if (kicked)
+    return (
+      <div role="alert" style={{ color: "red" }}>
+        Vous avez été exclu de la room.
+      </div>
+    );
 
   const myId = user?.name || user;
 
@@ -265,7 +320,12 @@ function VideoRoom({ roomId, user, type = "free" }) {
     >
       <Helmet>
         <title>{`Achiri | Room ${roomInfo.category || "Général"}`}</title>
-        <meta name="description" content={roomInfo.description || "Salle de visioconférence immersive Achiri"} />
+        <meta
+          name="description"
+          content={
+            roomInfo.description || "Salle de visioconférence immersive Achiri"
+          }
+        />
         <meta name="robots" content="index,follow" />
       </Helmet>
       {/* Header de la room */}
@@ -292,7 +352,12 @@ function VideoRoom({ roomId, user, type = "free" }) {
         )}
 
         {/* Zone vidéo principale */}
-        <div className="video-room-video-area" tabIndex={0} ref={mainVideoRef} aria-label="Zone vidéo principale">
+        <div
+          className="video-room-video-area"
+          tabIndex={0}
+          ref={mainVideoRef}
+          aria-label="Zone vidéo principale"
+        >
           {/* Vidéo locale */}
           <section style={{ minWidth: 340, maxWidth: 360 }}>
             <h3 className="sr-only">Votre caméra</h3>
@@ -300,21 +365,34 @@ function VideoRoom({ roomId, user, type = "free" }) {
               ref={localVideo}
               autoPlay
               muted
-              style={{ width: '100%', background: '#222', borderRadius: 12 }}
+              style={{ width: "100%", background: "#222", borderRadius: 12 }}
               aria-label="Vidéo locale"
             />
             <div className="video-controls">
-              <button onClick={() => setVideoEnabled((v) => !v)} aria-pressed={videoEnabled}>
-                {videoEnabled ? 'Désactiver la caméra' : 'Activer la caméra'}
+              <button
+                onClick={() => setVideoEnabled((v) => !v)}
+                aria-pressed={videoEnabled}
+              >
+                {videoEnabled ? "Désactiver la caméra" : "Activer la caméra"}
               </button>
-              <button onClick={() => setAudioEnabled((v) => !v)} aria-pressed={audioEnabled}>
-                {audioEnabled ? 'Couper le micro' : 'Activer le micro'}
+              <button
+                onClick={() => setAudioEnabled((v) => !v)}
+                aria-pressed={audioEnabled}
+              >
+                {audioEnabled ? "Couper le micro" : "Activer le micro"}
               </button>
-              <button onClick={handleRaiseHand} disabled={handRaised} aria-pressed={handRaised}>
-                {handRaised ? 'Main levée' : 'Lever la main'}
+              <button
+                onClick={handleRaiseHand}
+                disabled={handRaised}
+                aria-pressed={handRaised}
+              >
+                {handRaised ? "Main levée" : "Lever la main"}
               </button>
-              <button onClick={() => setTtsEnabled((v) => !v)} aria-pressed={ttsEnabled}>
-                {ttsEnabled ? 'Désactiver vocal' : 'Activer vocal'}
+              <button
+                onClick={() => setTtsEnabled((v) => !v)}
+                aria-pressed={ttsEnabled}
+              >
+                {ttsEnabled ? "Désactiver vocal" : "Activer vocal"}
               </button>
             </div>
             <UserList
@@ -348,7 +426,10 @@ function VideoRoom({ roomId, user, type = "free" }) {
           {accessibilityOptions.subtitles && <SubtitlesPanel />}
           {/* Fenêtre interprète langue des signes */}
           {accessibilityOptions.signLanguage && (
-            <div className="sign-language-panel" aria-label="Interprète langue des signes">
+            <div
+              className="sign-language-panel"
+              aria-label="Interprète langue des signes"
+            >
               {/* À intégrer : flux vidéo interprète */}
             </div>
           )}
@@ -370,7 +451,15 @@ function VideoRoom({ roomId, user, type = "free" }) {
         />
 
         {/* Chat */}
-        {showChat && <ChatBox roomId={roomId} user={user} chatHistory={roomInfo.chatHistory} ttsEnabled={ttsEnabled} speak={speak} />}
+        {showChat && (
+          <ChatBox
+            roomId={roomId}
+            user={user}
+            chatHistory={roomInfo.chatHistory}
+            ttsEnabled={ttsEnabled}
+            speak={speak}
+          />
+        )}
 
         {/* Modération */}
         {showModeration && canModerate && (
@@ -392,18 +481,18 @@ function VideoRoom({ roomId, user, type = "free" }) {
         )}
 
         {/* Partage d’écran */}
-        {showScreenShare && canShareScreen && <ScreenSharePanel onClose={() => setShowScreenShare(false)} />}
+        {showScreenShare && canShareScreen && (
+          <ScreenSharePanel onClose={() => setShowScreenShare(false)} />
+        )}
 
         {/* Breakout rooms */}
-        {showBreakout && canAccessBreakout && <BreakoutRoomsPanel onClose={() => setShowBreakout(false)} />}
+        {showBreakout && canAccessBreakout && (
+          <BreakoutRoomsPanel onClose={() => setShowBreakout(false)} />
+        )}
       </div>
       {/* Navigation rapide */}
       <nav style={{ position: "absolute", left: 20, top: 20 }}>
-        <NavLink
-          to="/"
-          className="btn-home"
-          aria-label="Retour à l'accueil"
-        >
+        <NavLink to="/" className="btn-home" aria-label="Retour à l'accueil">
           ← Accueil
         </NavLink>
       </nav>

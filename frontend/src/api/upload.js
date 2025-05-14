@@ -43,7 +43,7 @@ export async function getUploads(userId) {
 export async function deleteUpload(fileId) {
   const res = await fetch(`/api/upload/${fileId}`, {
     method: "DELETE",
-    headers: { "Accept": "application/json" },
+    headers: { Accept: "application/json" },
   });
   if (!res.ok) throw new Error("Erreur lors de la suppression du fichier");
   return await res.json();

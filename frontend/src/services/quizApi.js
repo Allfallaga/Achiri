@@ -46,10 +46,12 @@ const quizApi = {
     // Filtrage par difficulté ou tags si fourni
     let questions = fakeQuestions;
     if (difficulty) {
-      questions = questions.filter(q => q.difficulty === difficulty);
+      questions = questions.filter((q) => q.difficulty === difficulty);
     }
     if (tags && tags.length) {
-      questions = questions.filter(q => tags.some(tag => q.tags.includes(tag)));
+      questions = questions.filter((q) =>
+        tags.some((tag) => q.tags.includes(tag)),
+      );
     }
     if (!questions.length) questions = fakeQuestions;
     const question = questions[currentIndex % questions.length];
@@ -69,7 +71,7 @@ const quizApi = {
    * @returns {Promise<{feedback: string, correct: boolean, correction: string, score: number, explanation: string}>}
    */
   async submitAnswer({ classroomId, userId, questionId, answer }) {
-    const question = fakeQuestions.find(q => q.id === questionId);
+    const question = fakeQuestions.find((q) => q.id === questionId);
     const isCorrect =
       question && answer.trim().toLowerCase() === question.answer.toLowerCase();
     return {
@@ -87,7 +89,7 @@ const quizApi = {
    * @returns {Promise<Array>}
    */
   async getAllQuestions() {
-    return fakeQuestions.map(q => ({
+    return fakeQuestions.map((q) => ({
       id: q.id,
       text: q.text,
       answer: q.answer,

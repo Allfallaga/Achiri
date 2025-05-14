@@ -5,9 +5,9 @@
  * - Prêt pour extensions futures (alertes, logs sécurité, feedback UX…).
  * @param {function} onPerfEntry - Callback pour recevoir les métriques (CLS, FID, FCP, LCP, TTFB)
  */
-const reportWebVitals = onPerfEntry => {
+const reportWebVitals = (onPerfEntry) => {
   if (onPerfEntry && typeof onPerfEntry === "function") {
-    import('web-vitals').then(({ getCLS, getFID, getFCP, getLCP, getTTFB }) => {
+    import("web-vitals").then(({ getCLS, getFID, getFCP, getLCP, getTTFB }) => {
       getCLS(onPerfEntry);
       getFID(onPerfEntry);
       getFCP(onPerfEntry);

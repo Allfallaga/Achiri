@@ -1,4 +1,4 @@
-import React from 'react';
+import React from "react";
 import { Link } from "react-router-dom";
 
 /**
@@ -28,31 +28,40 @@ function Footer() {
     { to: "/creator-tools", label: "Creator Tools" },
     { to: "/moderation", label: "Modération" },
     { to: "/reseaux-sociaux", label: "Réseaux Sociaux" },
-    { to: "/social-interactions", label: "Interactions Sociales" }
+    { to: "/social-interactions", label: "Interactions Sociales" },
   ];
 
   return (
     <footer
       className="footer-achiri"
       style={{
-        background: '#222',
-        color: '#fff',
-        textAlign: 'center',
-        padding: '1rem 0',
-        marginTop: '2rem',
-        borderRadius: '12px 12px 0 0',
-        fontSize: '1rem',
+        background: "#222",
+        color: "#fff",
+        textAlign: "center",
+        padding: "1rem 0",
+        marginTop: "2rem",
+        borderRadius: "12px 12px 0 0",
+        fontSize: "1rem",
         opacity: 0.97,
         letterSpacing: 0.2,
-        boxShadow: '0 -2px 12px #1976d233',
-        width: '100%',
-        outline: 'none'
+        boxShadow: "0 -2px 12px #1976d233",
+        width: "100%",
+        outline: "none",
       }}
       aria-label="Pied de page"
       tabIndex={0}
     >
-      <nav aria-label="Navigation pied de page" style={{ marginBottom: 8, flexWrap: "wrap", display: "flex", justifyContent: "center", gap: 8 }}>
-        {navLinks.map(link => (
+      <nav
+        aria-label="Navigation pied de page"
+        style={{
+          marginBottom: 8,
+          flexWrap: "wrap",
+          display: "flex",
+          justifyContent: "center",
+          gap: 8,
+        }}
+      >
+        {navLinks.map((link) => (
           <Link
             key={link.to}
             to={link.to}
@@ -64,7 +73,7 @@ function Footer() {
               outline: "none",
               borderRadius: 6,
               padding: "0.1em 0.4em",
-              transition: "background 0.2s, color 0.2s"
+              transition: "background 0.2s, color 0.2s",
             }}
             aria-label={link.label}
             className="footer-link"
@@ -81,10 +90,10 @@ function Footer() {
           target="_blank"
           rel="noopener noreferrer"
           style={{
-            color: '#90caf9',
-            textDecoration: 'underline',
+            color: "#90caf9",
+            textDecoration: "underline",
             fontWeight: 500,
-            outline: 'none'
+            outline: "none",
           }}
           aria-label="Voir le code source sur GitHub (nouvel onglet)"
         >
@@ -92,7 +101,18 @@ function Footer() {
         </a>
       </span>
       <div style={{ marginTop: 8, color: "#bbb", fontSize: "0.93em" }}>
-        <span role="img" aria-label="sécurité">🔒</span> Sécurisé | <span role="img" aria-label="accessibilité">♿</span> Accessible | <span role="img" aria-label="mobile">📱</span> Mobile/Web
+        <span role="img" aria-label="sécurité">
+          🔒
+        </span>{" "}
+        Sécurisé |{" "}
+        <span role="img" aria-label="accessibilité">
+          ♿
+        </span>{" "}
+        Accessible |{" "}
+        <span role="img" aria-label="mobile">
+          📱
+        </span>{" "}
+        Mobile/Web
       </div>
       <style>{`
         .footer-link:focus {

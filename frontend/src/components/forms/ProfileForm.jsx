@@ -1,5 +1,11 @@
 import React, { useState } from "react";
-import { FaUser, FaEnvelope, FaLock, FaUniversalAccess, FaCheckCircle } from "react-icons/fa";
+import {
+  FaUser,
+  FaEnvelope,
+  FaLock,
+  FaUniversalAccess,
+  FaCheckCircle,
+} from "react-icons/fa";
 
 /**
  * ProfileForm – Achiri
@@ -15,7 +21,11 @@ import { FaUser, FaEnvelope, FaLock, FaUniversalAccess, FaCheckCircle } from "re
 
 const accessibilityOptions = [
   { value: "Sous-titres", label: "Sous-titres", icon: <FaUniversalAccess /> },
-  { value: "Lecture vocale", label: "Lecture vocale", icon: <FaUniversalAccess style={{ color: "#43a047" }} /> }
+  {
+    value: "Lecture vocale",
+    label: "Lecture vocale",
+    icon: <FaUniversalAccess style={{ color: "#43a047" }} />,
+  },
 ];
 
 export default function ProfileForm({ user = {}, onUpdate }) {
@@ -30,12 +40,11 @@ export default function ProfileForm({ user = {}, onUpdate }) {
     setAccessibility((prev) =>
       prev.includes(option)
         ? prev.filter((a) => a !== option)
-        : [...prev, option]
+        : [...prev, option],
     );
   };
 
-  const validateEmail = (mail) =>
-    /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(mail);
+  const validateEmail = (mail) => /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(mail);
 
   const handleSubmit = (e) => {
     e.preventDefault();
@@ -58,7 +67,7 @@ export default function ProfileForm({ user = {}, onUpdate }) {
       name: name.trim(),
       email: email.trim(),
       accessibility,
-      ...(password ? { password } : {})
+      ...(password ? { password } : {}),
     };
     setTimeout(() => {
       setSuccess("Profil mis à jour !");
@@ -78,29 +87,57 @@ export default function ProfileForm({ user = {}, onUpdate }) {
         maxWidth: 500,
         margin: "2rem auto",
         boxShadow: "0 4px 24px 0 rgba(33,150,243,0.08)",
-        fontFamily: "'Segoe UI', Arial, sans-serif"
+        fontFamily: "'Segoe UI', Arial, sans-serif",
       }}
       aria-label="Modifier mon profil"
       onSubmit={handleSubmit}
       autoComplete="off"
     >
-      <h2 style={{ color: "#1976d2", fontWeight: 700, fontSize: "1.25em", display: "flex", alignItems: "center", gap: 8 }}>
+      <h2
+        style={{
+          color: "#1976d2",
+          fontWeight: 700,
+          fontSize: "1.25em",
+          display: "flex",
+          alignItems: "center",
+          gap: 8,
+        }}
+      >
         <FaUser /> Mon profil
       </h2>
-      {error && <div style={{ color: "red", marginBottom: 8 }} aria-live="assertive">{error}</div>}
+      {error && (
+        <div style={{ color: "red", marginBottom: 8 }} aria-live="assertive">
+          {error}
+        </div>
+      )}
       {success && (
-        <div style={{ color: "#43a047", marginBottom: 8, display: "flex", alignItems: "center", gap: 6 }} aria-live="polite">
+        <div
+          style={{
+            color: "#43a047",
+            marginBottom: 8,
+            display: "flex",
+            alignItems: "center",
+            gap: 6,
+          }}
+          aria-live="polite"
+        >
           <FaCheckCircle /> {success}
         </div>
       )}
-      <label htmlFor="profile-name" style={{ fontWeight: 500, marginTop: 18, display: "block" }}>
-        Nom <span aria-hidden="true" style={{ color: "#d32f2f" }}>*</span>
+      <label
+        htmlFor="profile-name"
+        style={{ fontWeight: 500, marginTop: 18, display: "block" }}
+      >
+        Nom{" "}
+        <span aria-hidden="true" style={{ color: "#d32f2f" }}>
+          *
+        </span>
       </label>
       <input
         id="profile-name"
         type="text"
         value={name}
-        onChange={e => setName(e.target.value)}
+        onChange={(e) => setName(e.target.value)}
         maxLength={60}
         required
         aria-required="true"
@@ -112,17 +149,23 @@ export default function ProfileForm({ user = {}, onUpdate }) {
           padding: "0.7em 1em",
           fontSize: 15,
           marginBottom: 12,
-          marginTop: 4
+          marginTop: 4,
         }}
       />
-      <label htmlFor="profile-email" style={{ fontWeight: 500, display: "block" }}>
-        Email <span aria-hidden="true" style={{ color: "#d32f2f" }}>*</span>
+      <label
+        htmlFor="profile-email"
+        style={{ fontWeight: 500, display: "block" }}
+      >
+        Email{" "}
+        <span aria-hidden="true" style={{ color: "#d32f2f" }}>
+          *
+        </span>
       </label>
       <input
         id="profile-email"
         type="email"
         value={email}
-        onChange={e => setEmail(e.target.value)}
+        onChange={(e) => setEmail(e.target.value)}
         maxLength={80}
         required
         aria-required="true"
@@ -134,17 +177,21 @@ export default function ProfileForm({ user = {}, onUpdate }) {
           padding: "0.7em 1em",
           fontSize: 15,
           marginBottom: 12,
-          marginTop: 4
+          marginTop: 4,
         }}
       />
-      <label htmlFor="profile-password" style={{ fontWeight: 500, display: "block" }}>
-        Nouveau mot de passe (optionnel) <FaLock style={{ color: "#bdbdbd", marginLeft: 4 }} />
+      <label
+        htmlFor="profile-password"
+        style={{ fontWeight: 500, display: "block" }}
+      >
+        Nouveau mot de passe (optionnel){" "}
+        <FaLock style={{ color: "#bdbdbd", marginLeft: 4 }} />
       </label>
       <input
         id="profile-password"
         type="password"
         value={password}
-        onChange={e => setPassword(e.target.value)}
+        onChange={(e) => setPassword(e.target.value)}
         maxLength={32}
         aria-label="Nouveau mot de passe"
         style={{
@@ -154,15 +201,28 @@ export default function ProfileForm({ user = {}, onUpdate }) {
           padding: "0.7em 1em",
           fontSize: 15,
           marginBottom: 18,
-          marginTop: 4
+          marginTop: 4,
         }}
         autoComplete="new-password"
       />
-      <fieldset style={{ border: "none", margin: 0, padding: 0, marginBottom: 16 }}>
-        <legend style={{ fontWeight: 500, marginBottom: 6 }}>Options d’accessibilité</legend>
+      <fieldset
+        style={{ border: "none", margin: 0, padding: 0, marginBottom: 16 }}
+      >
+        <legend style={{ fontWeight: 500, marginBottom: 6 }}>
+          Options d’accessibilité
+        </legend>
         <div style={{ display: "flex", gap: 18, flexWrap: "wrap" }}>
-          {accessibilityOptions.map(opt => (
-            <label key={opt.value} style={{ display: "flex", alignItems: "center", gap: 6, fontWeight: 400, cursor: "pointer" }}>
+          {accessibilityOptions.map((opt) => (
+            <label
+              key={opt.value}
+              style={{
+                display: "flex",
+                alignItems: "center",
+                gap: 6,
+                fontWeight: 400,
+                cursor: "pointer",
+              }}
+            >
               <input
                 type="checkbox"
                 checked={accessibility.includes(opt.value)}
@@ -188,7 +248,7 @@ export default function ProfileForm({ user = {}, onUpdate }) {
           fontSize: "1em",
           cursor: "pointer",
           marginTop: 8,
-          transition: "background 0.2s"
+          transition: "background 0.2s",
         }}
         aria-label="Mettre à jour le profil"
       >

@@ -48,41 +48,70 @@ const VideoRooms = () => {
         boxShadow: "0 2px 16px #1976d222",
         minHeight: "60vh",
         color: darkMode ? "#e3f2fd" : "#222",
-        transition: "background 0.3s, color 0.3s"
+        transition: "background 0.3s, color 0.3s",
       }}
       aria-label="Liste des salons vidéo"
       tabIndex={0}
     >
       <Helmet>
         <title>Salons vidéo | Achiri</title>
-        <meta name="description" content="Rejoignez ou créez un salon vidéo sur Achiri. Plateforme IA inclusive pour tous : accessibilité, santé, éducation, domotique." />
+        <meta
+          name="description"
+          content="Rejoignez ou créez un salon vidéo sur Achiri. Plateforme IA inclusive pour tous : accessibilité, santé, éducation, domotique."
+        />
         <html lang="fr" />
       </Helmet>
-      <header style={{ display: "flex", alignItems: "center", justifyContent: "space-between", marginBottom: 8 }}>
-        <h1 style={{ color: darkMode ? "#ffd600" : "#1976d2", fontSize: "2em", marginBottom: 18, textAlign: "center", flex: 1 }}>
+      <header
+        style={{
+          display: "flex",
+          alignItems: "center",
+          justifyContent: "space-between",
+          marginBottom: 8,
+        }}
+      >
+        <h1
+          style={{
+            color: darkMode ? "#ffd600" : "#1976d2",
+            fontSize: "2em",
+            marginBottom: 18,
+            textAlign: "center",
+            flex: 1,
+          }}
+        >
           Salons vidéo Achiri
         </h1>
         <button
           type="button"
           onClick={handleDarkMode}
-          aria-label={darkMode ? "Désactiver le mode sombre" : "Activer le mode sombre"}
+          aria-label={
+            darkMode ? "Désactiver le mode sombre" : "Activer le mode sombre"
+          }
           style={{
             background: "none",
             border: "none",
             color: darkMode ? "#ffd600" : "#1976d2",
             cursor: "pointer",
             fontSize: 22,
-            marginLeft: 12
+            marginLeft: 12,
           }}
           tabIndex={0}
         >
           {darkMode ? "🎨" : "🌙"}
         </button>
       </header>
-      <p style={{ textAlign: "center", color: darkMode ? "#e3f2fd" : "#333", marginBottom: 28 }}>
+      <p
+        style={{
+          textAlign: "center",
+          color: darkMode ? "#e3f2fd" : "#333",
+          marginBottom: 28,
+        }}
+      >
         Retrouvez, créez ou rejoignez un salon vidéo inclusif en un clic.
       </p>
-      <nav aria-label="Actions salons vidéo" style={{ textAlign: "center", marginBottom: 32 }}>
+      <nav
+        aria-label="Actions salons vidéo"
+        style={{ textAlign: "center", marginBottom: 32 }}
+      >
         <Link
           to="/create-room"
           className="btn"
@@ -96,7 +125,7 @@ const VideoRooms = () => {
             textDecoration: "none",
             boxShadow: "0 2px 8px #1976d222",
             marginRight: 8,
-            transition: "background 0.2s"
+            transition: "background 0.2s",
           }}
           aria-label="Créer un nouveau salon vidéo"
         >
@@ -105,12 +134,19 @@ const VideoRooms = () => {
       </nav>
       <section aria-label="Liste des salons vidéo">
         {rooms.length === 0 ? (
-          <div style={{ textAlign: "center", color: "#888", fontStyle: "italic", marginTop: 30 }}>
+          <div
+            style={{
+              textAlign: "center",
+              color: "#888",
+              fontStyle: "italic",
+              marginTop: 30,
+            }}
+          >
             Aucun salon disponible pour l’instant.
           </div>
         ) : (
           <ul style={{ listStyle: "none", padding: 0, margin: 0 }}>
-            {rooms.map(room => (
+            {rooms.map((room) => (
               <li
                 key={room.id}
                 style={{
@@ -122,14 +158,28 @@ const VideoRooms = () => {
                   alignItems: "center",
                   justifyContent: "space-between",
                   padding: "1em 1.2em",
-                  color: darkMode ? "#ffd600" : "#222"
+                  color: darkMode ? "#ffd600" : "#222",
                 }}
                 tabIndex={0}
                 aria-label={`Salon ${room.name}, ${room.users} participant${room.users > 1 ? "s" : ""}`}
               >
                 <div>
-                  <span style={{ fontWeight: 600, color: darkMode ? "#ffd600" : "#1976d2", fontSize: "1.1em" }}>{room.name}</span>
-                  <span style={{ color: "#43a047", marginLeft: 12, fontSize: "0.98em" }}>
+                  <span
+                    style={{
+                      fontWeight: 600,
+                      color: darkMode ? "#ffd600" : "#1976d2",
+                      fontSize: "1.1em",
+                    }}
+                  >
+                    {room.name}
+                  </span>
+                  <span
+                    style={{
+                      color: "#43a047",
+                      marginLeft: 12,
+                      fontSize: "0.98em",
+                    }}
+                  >
                     {room.users} participant{room.users > 1 ? "s" : ""}
                   </span>
                 </div>
@@ -137,7 +187,8 @@ const VideoRooms = () => {
                   to={`/rooms/${room.id}`}
                   className="btn"
                   style={{
-                    background: "linear-gradient(90deg, #43a047 0%, #1976d2 100%)",
+                    background:
+                      "linear-gradient(90deg, #43a047 0%, #1976d2 100%)",
                     color: "#fff",
                     borderRadius: 8,
                     padding: "0.5em 1.2em",
@@ -145,7 +196,7 @@ const VideoRooms = () => {
                     fontSize: "1em",
                     textDecoration: "none",
                     boxShadow: "0 1px 4px #1976d222",
-                    transition: "background 0.2s"
+                    transition: "background 0.2s",
                   }}
                   aria-label={`Rejoindre le salon ${room.name}`}
                 >
@@ -164,37 +215,133 @@ const VideoRooms = () => {
           display: "flex",
           flexWrap: "wrap",
           gap: 8,
-          justifyContent: "center"
+          justifyContent: "center",
         }}
         aria-label="Navigation principale"
       >
-        <Link to="/" style={{ margin: 8, color: darkMode ? "#ffd600" : "#1976d2" }}>Accueil</Link>
-        <Link to="/dashboard" style={{ margin: 8, color: darkMode ? "#ffd600" : "#1976d2" }}>Dashboard</Link>
-        <Link to="/profile" style={{ margin: 8, color: darkMode ? "#ffd600" : "#1976d2" }}>Profil</Link>
-        <Link to="/accessibilite" style={{ margin: 8, color: darkMode ? "#ffd600" : "#1976d2" }}>Accessibilité</Link>
-        <Link to="/challenges" style={{ margin: 8, color: darkMode ? "#ffd600" : "#1976d2" }}>Challenges</Link>
-        <Link to="/friends" style={{ margin: 8, color: darkMode ? "#ffd600" : "#1976d2" }}>Amis</Link>
-        <Link to="/leaderboard" style={{ margin: 8, color: darkMode ? "#ffd600" : "#1976d2" }}>Classement</Link>
-        <Link to="/creator-tools" style={{ margin: 8, color: darkMode ? "#ffd600" : "#1976d2" }}>Creator Tools</Link>
-        <Link to="/admin" style={{ margin: 8, color: darkMode ? "#ffd600" : "#1976d2" }}>Admin</Link>
-        <Link to="/music" style={{ margin: 8, color: darkMode ? "#ffd600" : "#1976d2" }}>Musique</Link>
-        <Link to="/notifications" style={{ margin: 8, color: darkMode ? "#ffd600" : "#1976d2" }}>Notifications</Link>
-        <Link to="/social-interactions" style={{ margin: 8, color: darkMode ? "#ffd600" : "#1976d2" }}>Interactions Sociales</Link>
-        <Link to="/reseaux-sociaux" style={{ margin: 8, color: darkMode ? "#ffd600" : "#1976d2" }}>Réseaux Sociaux</Link>
-        <Link to="/rooms" style={{ margin: 8, color: darkMode ? "#ffd600" : "#1976d2" }}>Rooms</Link>
-        <Link to="/settings" style={{ margin: 8, color: darkMode ? "#ffd600" : "#1976d2" }}>Paramètres</Link>
-        <Link to="/virtual-classroom" style={{ margin: 8, color: darkMode ? "#ffd600" : "#1976d2" }}>Classes Virtuelles</Link>
-        <Link to="/wallet" style={{ margin: 8, color: darkMode ? "#ffd600" : "#1976d2" }}>Wallet</Link>
+        <Link
+          to="/"
+          style={{ margin: 8, color: darkMode ? "#ffd600" : "#1976d2" }}
+        >
+          Accueil
+        </Link>
+        <Link
+          to="/dashboard"
+          style={{ margin: 8, color: darkMode ? "#ffd600" : "#1976d2" }}
+        >
+          Dashboard
+        </Link>
+        <Link
+          to="/profile"
+          style={{ margin: 8, color: darkMode ? "#ffd600" : "#1976d2" }}
+        >
+          Profil
+        </Link>
+        <Link
+          to="/accessibilite"
+          style={{ margin: 8, color: darkMode ? "#ffd600" : "#1976d2" }}
+        >
+          Accessibilité
+        </Link>
+        <Link
+          to="/challenges"
+          style={{ margin: 8, color: darkMode ? "#ffd600" : "#1976d2" }}
+        >
+          Challenges
+        </Link>
+        <Link
+          to="/friends"
+          style={{ margin: 8, color: darkMode ? "#ffd600" : "#1976d2" }}
+        >
+          Amis
+        </Link>
+        <Link
+          to="/leaderboard"
+          style={{ margin: 8, color: darkMode ? "#ffd600" : "#1976d2" }}
+        >
+          Classement
+        </Link>
+        <Link
+          to="/creator-tools"
+          style={{ margin: 8, color: darkMode ? "#ffd600" : "#1976d2" }}
+        >
+          Creator Tools
+        </Link>
+        <Link
+          to="/admin"
+          style={{ margin: 8, color: darkMode ? "#ffd600" : "#1976d2" }}
+        >
+          Admin
+        </Link>
+        <Link
+          to="/music"
+          style={{ margin: 8, color: darkMode ? "#ffd600" : "#1976d2" }}
+        >
+          Musique
+        </Link>
+        <Link
+          to="/notifications"
+          style={{ margin: 8, color: darkMode ? "#ffd600" : "#1976d2" }}
+        >
+          Notifications
+        </Link>
+        <Link
+          to="/social-interactions"
+          style={{ margin: 8, color: darkMode ? "#ffd600" : "#1976d2" }}
+        >
+          Interactions Sociales
+        </Link>
+        <Link
+          to="/reseaux-sociaux"
+          style={{ margin: 8, color: darkMode ? "#ffd600" : "#1976d2" }}
+        >
+          Réseaux Sociaux
+        </Link>
+        <Link
+          to="/rooms"
+          style={{ margin: 8, color: darkMode ? "#ffd600" : "#1976d2" }}
+        >
+          Rooms
+        </Link>
+        <Link
+          to="/settings"
+          style={{ margin: 8, color: darkMode ? "#ffd600" : "#1976d2" }}
+        >
+          Paramètres
+        </Link>
+        <Link
+          to="/virtual-classroom"
+          style={{ margin: 8, color: darkMode ? "#ffd600" : "#1976d2" }}
+        >
+          Classes Virtuelles
+        </Link>
+        <Link
+          to="/wallet"
+          style={{ margin: 8, color: darkMode ? "#ffd600" : "#1976d2" }}
+        >
+          Wallet
+        </Link>
       </nav>
       <footer
         style={{
           marginTop: 24,
           color: darkMode ? "#ffd600" : "#888",
           fontSize: "0.93em",
-          textAlign: "center"
+          textAlign: "center",
         }}
       >
-        <span role="img" aria-label="sécurité">🔒</span> Sécurisé | <span role="img" aria-label="accessibilité">♿</span> Accessible | <span role="img" aria-label="mobile">📱</span> Mobile/Web
+        <span role="img" aria-label="sécurité">
+          🔒
+        </span>{" "}
+        Sécurisé |{" "}
+        <span role="img" aria-label="accessibilité">
+          ♿
+        </span>{" "}
+        Accessible |{" "}
+        <span role="img" aria-label="mobile">
+          📱
+        </span>{" "}
+        Mobile/Web
       </footer>
       <style>{`
         .video-rooms-container:focus {

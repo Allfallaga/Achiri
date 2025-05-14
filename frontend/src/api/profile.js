@@ -30,7 +30,7 @@ export async function analyzeProfile(userId) {
 export async function getProfile(userId) {
   const res = await fetch(`/api/user/${userId}`, {
     method: "GET",
-    headers: { "Accept": "application/json" },
+    headers: { Accept: "application/json" },
   });
   if (!res.ok) throw new Error("Erreur lors de la récupération du profil");
   return await res.json();
@@ -62,7 +62,7 @@ export async function updateProfile(userId, data) {
 export async function deleteProfile(userId) {
   const res = await fetch(`/api/user/${userId}`, {
     method: "DELETE",
-    headers: { "Accept": "application/json" },
+    headers: { Accept: "application/json" },
   });
   if (!res.ok) throw new Error("Erreur lors de la suppression du profil");
   return await res.json();

@@ -17,22 +17,48 @@ import "../../styles/assistantAgent.css";
 // Icônes SVG inline pour accessibilité et performance
 const icons = {
   chat: (
-    <svg width="24" height="24" aria-hidden="true"><circle cx="12" cy="12" r="10" fill="#4f8cff"/><text x="12" y="16" textAnchor="middle" fontSize="12" fill="#fff">💬</text></svg>
+    <svg width="24" height="24" aria-hidden="true">
+      <circle cx="12" cy="12" r="10" fill="#4f8cff" />
+      <text x="12" y="16" textAnchor="middle" fontSize="12" fill="#fff">
+        💬
+      </text>
+    </svg>
   ),
   video: (
-    <svg width="24" height="24" aria-hidden="true"><rect x="3" y="7" width="14" height="10" rx="2" fill="#4f8cff"/><polygon points="17,9 23,12 17,15" fill="#fff"/></svg>
+    <svg width="24" height="24" aria-hidden="true">
+      <rect x="3" y="7" width="14" height="10" rx="2" fill="#4f8cff" />
+      <polygon points="17,9 23,12 17,15" fill="#fff" />
+    </svg>
   ),
   wallet: (
-    <svg width="24" height="24" aria-hidden="true"><rect x="3" y="6" width="18" height="12" rx="3" fill="#4f8cff"/><circle cx="17" cy="12" r="2" fill="#fff"/></svg>
+    <svg width="24" height="24" aria-hidden="true">
+      <rect x="3" y="6" width="18" height="12" rx="3" fill="#4f8cff" />
+      <circle cx="17" cy="12" r="2" fill="#fff" />
+    </svg>
   ),
   accessibility: (
-    <svg width="24" height="24" aria-hidden="true"><circle cx="12" cy="12" r="10" fill="#4f8cff"/><text x="12" y="16" textAnchor="middle" fontSize="12" fill="#fff">♿</text></svg>
+    <svg width="24" height="24" aria-hidden="true">
+      <circle cx="12" cy="12" r="10" fill="#4f8cff" />
+      <text x="12" y="16" textAnchor="middle" fontSize="12" fill="#fff">
+        ♿
+      </text>
+    </svg>
   ),
   emergency: (
-    <svg width="24" height="24" aria-hidden="true"><circle cx="12" cy="12" r="10" fill="#ff4f4f"/><text x="12" y="16" textAnchor="middle" fontSize="14" fill="#fff">!</text></svg>
+    <svg width="24" height="24" aria-hidden="true">
+      <circle cx="12" cy="12" r="10" fill="#ff4f4f" />
+      <text x="12" y="16" textAnchor="middle" fontSize="14" fill="#fff">
+        !
+      </text>
+    </svg>
   ),
   settings: (
-    <svg width="24" height="24" aria-hidden="true"><circle cx="12" cy="12" r="10" fill="#4f8cff"/><text x="12" y="16" textAnchor="middle" fontSize="12" fill="#fff">⚙️</text></svg>
+    <svg width="24" height="24" aria-hidden="true">
+      <circle cx="12" cy="12" r="10" fill="#4f8cff" />
+      <text x="12" y="16" textAnchor="middle" fontSize="12" fill="#fff">
+        ⚙️
+      </text>
+    </svg>
   ),
 };
 
@@ -40,7 +66,8 @@ const quickActions = [
   {
     label: "Chat IA",
     icon: icons.chat,
-    description: "Discuter avec Achiri, poser une question ou demander de l'aide.",
+    description:
+      "Discuter avec Achiri, poser une question ou demander de l'aide.",
     action: "chat",
     to: "/",
   },
@@ -92,7 +119,8 @@ function AssistantAgent() {
   ]);
   const [listening, setListening] = useState(false);
   const [lang, setLang] = useState("fr");
-  const { accessibility, setAccessibility } = useContext(AccessibilityContext) || {};
+  const { accessibility, setAccessibility } =
+    useContext(AccessibilityContext) || {};
   const { memory, setMemory } = useContext(AssistantContext) || {};
   const navigate = useNavigate();
   const inputRef = useRef();
@@ -125,7 +153,11 @@ function AssistantAgent() {
     if (!("webkitSpeechRecognition" in window)) {
       setMessages((msgs) => [
         ...msgs,
-        { from: "achiri", text: "La reconnaissance vocale n'est pas supportée sur ce navigateur.", time: new Date().toLocaleTimeString() },
+        {
+          from: "achiri",
+          text: "La reconnaissance vocale n'est pas supportée sur ce navigateur.",
+          time: new Date().toLocaleTimeString(),
+        },
       ]);
       return;
     }
@@ -156,27 +188,42 @@ function AssistantAgent() {
     setTimeout(() => {
       let response = "Je réfléchis...";
       if (/sant[ée]|urgence|danger/i.test(text)) {
-        response = "⚠️ Veux-tu déclencher une alerte santé ou contacter un proche ?";
+        response =
+          "⚠️ Veux-tu déclencher une alerte santé ou contacter un proche ?";
       } else if (/room|salle|vidéo|classroom|3d/i.test(text)) {
-        response = "Tu veux rejoindre ou créer une salle vidéo ? Clique sur 'Video Rooms' ou précise ta demande.";
+        response =
+          "Tu veux rejoindre ou créer une salle vidéo ? Clique sur 'Video Rooms' ou précise ta demande.";
       } else if (/wallet|points|récompense/i.test(text)) {
-        response = "Voici ton portefeuille Achiri. Tu peux consulter tes points et récompenses.";
-      } else if (/accessibilit[ée]|sourd|aveugle|langue des signes|tts/i.test(text)) {
-        response = "Tu peux activer les options d'accessibilité ici. Besoin d'aide pour la navigation ?";
+        response =
+          "Voici ton portefeuille Achiri. Tu peux consulter tes points et récompenses.";
+      } else if (
+        /accessibilit[ée]|sourd|aveugle|langue des signes|tts/i.test(text)
+      ) {
+        response =
+          "Tu peux activer les options d'accessibilité ici. Besoin d'aide pour la navigation ?";
       } else if (/param[èe]tre|profil|badge/i.test(text)) {
-        response = "Tu peux gérer ton profil et tes paramètres dans la section dédiée.";
+        response =
+          "Tu peux gérer ton profil et tes paramètres dans la section dédiée.";
       } else if (/musique|artiste|biblioth[èe]que/i.test(text)) {
-        response = "Découvre la bibliothèque musicale Achiri ou soutiens tes artistes préférés.";
+        response =
+          "Découvre la bibliothèque musicale Achiri ou soutiens tes artistes préférés.";
       } else if (/challenge|défi/i.test(text)) {
-        response = "Prêt pour un défi ? Consulte les challenges quotidiens ou hebdomadaires !";
+        response =
+          "Prêt pour un défi ? Consulte les challenges quotidiens ou hebdomadaires !";
       } else if (/aide|help|support/i.test(text)) {
-        response = "Je suis là pour t'aider ! Pose-moi ta question ou utilise les boutons rapides ci-dessous.";
+        response =
+          "Je suis là pour t'aider ! Pose-moi ta question ou utilise les boutons rapides ci-dessous.";
       } else {
-        response = "Je n'ai pas compris, mais je peux t'aider à naviguer ou répondre à tes questions.";
+        response =
+          "Je n'ai pas compris, mais je peux t'aider à naviguer ou répondre à tes questions.";
       }
       setMessages((msgs) => [
         ...msgs,
-        { from: "achiri", text: response, time: new Date().toLocaleTimeString() },
+        {
+          from: "achiri",
+          text: response,
+          time: new Date().toLocaleTimeString(),
+        },
       ]);
     }, 700);
   };
@@ -196,15 +243,23 @@ function AssistantAgent() {
       tabIndex={0}
     >
       <Helmet>
-        <title>Achiri Assistant IA | Guide, accessibilité, rooms, wallet, urgence</title>
-        <meta name="description" content="Assistant intelligent Achiri : navigation, accessibilité, rooms vidéo, wallet, urgence, IA multilingue, inclusif et sécurisé." />
+        <title>
+          Achiri Assistant IA | Guide, accessibilité, rooms, wallet, urgence
+        </title>
+        <meta
+          name="description"
+          content="Assistant intelligent Achiri : navigation, accessibilité, rooms vidéo, wallet, urgence, IA multilingue, inclusif et sécurisé."
+        />
         <meta name="robots" content="index,follow" />
       </Helmet>
 
       {/* Header IA */}
       <header className="assistant-header" aria-label="En-tête assistant IA">
         <h1>
-          <span role="img" aria-label="robot">🤖</span> Achiri Assistant
+          <span role="img" aria-label="robot">
+            🤖
+          </span>{" "}
+          Achiri Assistant
         </h1>
         <select
           aria-label="Changer la langue"
@@ -226,9 +281,13 @@ function AssistantAgent() {
             <li
               key={idx}
               className={`msg-${msg.from}`}
-              aria-label={msg.from === "achiri" ? "Message IA" : "Message utilisateur"}
+              aria-label={
+                msg.from === "achiri" ? "Message IA" : "Message utilisateur"
+              }
             >
-              <span className="msg-author">{msg.from === "achiri" ? "Achiri" : "Moi"}</span>
+              <span className="msg-author">
+                {msg.from === "achiri" ? "Achiri" : "Moi"}
+              </span>
               <span className="msg-text">{msg.text}</span>
               <span className="msg-time">{msg.time}</span>
             </li>
@@ -288,7 +347,18 @@ function AssistantAgent() {
       {/* Accessibilité et sécurité */}
       <footer className="assistant-footer" aria-label="Pied de page assistant">
         <small>
-          <span role="img" aria-label="sécurité">🔒</span> Sécurisé & inclusif | <span role="img" aria-label="accessibilité">♿</span> Accessibilité avancée | <span role="img" aria-label="mobile">📱</span> Mobile/Web
+          <span role="img" aria-label="sécurité">
+            🔒
+          </span>{" "}
+          Sécurisé & inclusif |{" "}
+          <span role="img" aria-label="accessibilité">
+            ♿
+          </span>{" "}
+          Accessibilité avancée |{" "}
+          <span role="img" aria-label="mobile">
+            📱
+          </span>{" "}
+          Mobile/Web
         </small>
       </footer>
     </main>

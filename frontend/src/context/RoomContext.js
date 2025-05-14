@@ -68,8 +68,8 @@ export function RoomProvider({ children }) {
       prev.map((room) =>
         room.id === roomId && !room.members.find((m) => m.id === user.id)
           ? { ...room, members: [...room.members, user] }
-          : room
-      )
+          : room,
+      ),
     );
     const found = rooms.find((r) => r.id === roomId) || null;
     setCurrentRoom(found);
@@ -82,8 +82,8 @@ export function RoomProvider({ children }) {
       prev.map((room) =>
         room.id === roomId
           ? { ...room, members: room.members.filter((m) => m.id !== userId) }
-          : room
-      )
+          : room,
+      ),
     );
     if (currentRoom && currentRoom.id === roomId) setCurrentRoom(null);
     notify(`Un utilisateur a quitté la salle.`);
@@ -92,9 +92,7 @@ export function RoomProvider({ children }) {
   // Mettre à jour une room (ex : modération, settings, badges, points)
   const updateRoom = (roomId, updates) => {
     setRooms((prev) =>
-      prev.map((room) =>
-        room.id === roomId ? { ...room, ...updates } : room
-      )
+      prev.map((room) => (room.id === roomId ? { ...room, ...updates } : room)),
     );
     if (currentRoom && currentRoom.id === roomId) {
       setCurrentRoom({ ...currentRoom, ...updates });

@@ -1,9 +1,9 @@
-import React, { useState } from 'react';
+import React, { useState } from "react";
 import { Helmet } from "react-helmet-async";
 import { Link } from "react-router-dom";
 
-import SocialNetworkCard from '../components/social/SocialNetworkCard';
-import VerificationModal from '../modals/VerificationModal.js';
+import SocialNetworkCard from "../components/social/SocialNetworkCard";
+import VerificationModal from "../modals/VerificationModal.js";
 
 /**
  * SocialNetworksPage – Achiri
@@ -19,7 +19,7 @@ const SUPPORTED_NETWORKS = [
   { key: "tiktok", name: "TikTok", icon: "🎵" },
   { key: "youtube", name: "YouTube", icon: "▶️" },
   { key: "twitter", name: "Twitter", icon: "🐦" },
-  { key: "linkedin", name: "LinkedIn", icon: "💼" }
+  { key: "linkedin", name: "LinkedIn", icon: "💼" },
 ];
 
 // Simule l'état initial (à remplacer par un fetch backend plus tard)
@@ -28,39 +28,41 @@ const initialState = SUPPORTED_NETWORKS.reduce((acc, n) => {
     url: "",
     status: "non-verifie", // "non-verifie" | "en-attente" | "verifie"
     code: Math.random().toString(36).substring(2, 8).toUpperCase(),
-    method: n.key === "facebook" ? "oauth" : "bio"
+    method: n.key === "facebook" ? "oauth" : "bio",
   };
   return acc;
 }, {});
 
-export default function SocialNetworksPage({ user = { name: "Utilisateur", role: "user" } }) {
+export default function SocialNetworksPage({
+  user = { name: "Utilisateur", role: "user" },
+}) {
   const [networks, setNetworks] = useState(initialState);
   const [modal, setModal] = useState({ open: false, key: null });
   const [darkMode, setDarkMode] = useState(false);
 
   // Gestion du changement d'URL
   const handleUrlChange = (key, url) => {
-    setNetworks(prev => ({
+    setNetworks((prev) => ({
       ...prev,
-      [key]: { ...prev[key], url }
+      [key]: { ...prev[key], url },
     }));
   };
 
   // Lancer la vérification
   const handleVerify = (key) => {
     setModal({ open: true, key });
-    setNetworks(prev => ({
+    setNetworks((prev) => ({
       ...prev,
-      [key]: { ...prev[key], status: "en-attente" }
+      [key]: { ...prev[key], status: "en-attente" },
     }));
   };
 
   // Validation de la vérification
   const handleValidate = () => {
     if (!modal.key) return;
-    setNetworks(prev => ({
+    setNetworks((prev) => ({
       ...prev,
-      [modal.key]: { ...prev[modal.key], status: "verifie" }
+      [modal.key]: { ...prev[modal.key], status: "verifie" },
     }));
     setModal({ open: false, key: null });
   };
@@ -75,7 +77,7 @@ export default function SocialNetworksPage({ user = { name: "Utilisateur", role:
 
   // Dark mode toggle
   const handleDarkMode = () => {
-    setDarkMode(v => !v);
+    setDarkMode((v) => !v);
     if (!darkMode) {
       document.body.classList.add("achiri-dark");
     } else {
@@ -96,31 +98,50 @@ export default function SocialNetworksPage({ user = { name: "Utilisateur", role:
         padding: "2.5rem 2rem",
         fontFamily: "'Segoe UI', Arial, sans-serif",
         color: darkMode ? "#e3f2fd" : "#222",
-        transition: "background 0.3s, color 0.3s"
+        transition: "background 0.3s, color 0.3s",
       }}
       aria-label="Réseaux sociaux connectés"
       tabIndex={0}
     >
       <Helmet>
         <title>Réseaux Sociaux | Achiri</title>
-        <meta name="description" content="Gérez et vérifiez vos réseaux sociaux sur Achiri. Plateforme IA inclusive, accessible et sécurisée." />
+        <meta
+          name="description"
+          content="Gérez et vérifiez vos réseaux sociaux sur Achiri. Plateforme IA inclusive, accessible et sécurisée."
+        />
         <html lang="fr" />
       </Helmet>
-      <div style={{ display: "flex", alignItems: "center", justifyContent: "space-between", marginBottom: 8 }}>
-        <h2 style={{ color: darkMode ? "#ffd600" : "#1976d2", marginBottom: 28, textAlign: "center", flex: 1 }}>
+      <div
+        style={{
+          display: "flex",
+          alignItems: "center",
+          justifyContent: "space-between",
+          marginBottom: 8,
+        }}
+      >
+        <h2
+          style={{
+            color: darkMode ? "#ffd600" : "#1976d2",
+            marginBottom: 28,
+            textAlign: "center",
+            flex: 1,
+          }}
+        >
           🌐 Mes Réseaux Sociaux
         </h2>
         <button
           type="button"
           onClick={handleDarkMode}
-          aria-label={darkMode ? "Désactiver le mode sombre" : "Activer le mode sombre"}
+          aria-label={
+            darkMode ? "Désactiver le mode sombre" : "Activer le mode sombre"
+          }
           style={{
             background: "none",
             border: "none",
             color: darkMode ? "#ffd600" : "#1976d2",
             cursor: "pointer",
             fontSize: 22,
-            marginLeft: 12
+            marginLeft: 12,
           }}
           tabIndex={0}
         >
@@ -128,14 +149,14 @@ export default function SocialNetworksPage({ user = { name: "Utilisateur", role:
         </button>
       </div>
       <div>
-        {SUPPORTED_NETWORKS.map(n => (
+        {SUPPORTED_NETWORKS.map((n) => (
           <SocialNetworkCard
             key={n.key}
             name={n.name}
             icon={n.icon}
             profileUrl={networks[n.key].url}
             status={networks[n.key].status}
-            onUrlChange={url => handleUrlChange(n.key, url)}
+            onUrlChange={(url) => handleUrlChange(n.key, url)}
             onVerify={() => handleVerify(n.key)}
             onBoost={() => handleBoost(n.key)}
             role={user.role}
@@ -147,7 +168,7 @@ export default function SocialNetworksPage({ user = { name: "Utilisateur", role:
         <VerificationModal
           open={modal.open}
           onClose={handleCloseModal}
-          platform={SUPPORTED_NETWORKS.find(n => n.key === modal.key)?.name}
+          platform={SUPPORTED_NETWORKS.find((n) => n.key === modal.key)?.name}
           code={networks[modal.key]?.code}
           method={networks[modal.key]?.method}
           onValidate={handleValidate}
@@ -155,34 +176,98 @@ export default function SocialNetworksPage({ user = { name: "Utilisateur", role:
         />
       )}
       {/* Navigation rapide vers les principales pages */}
-      <nav style={{
-        marginTop: 32,
-        textAlign: "center",
-        display: "flex",
-        flexWrap: "wrap",
-        gap: 8,
-        justifyContent: "center"
-      }} aria-label="Navigation principale">
-        <Link to="/" style={{ margin: 8, color: darkMode ? "#ffd600" : "#1976d2" }}>Accueil</Link>
-        <Link to="/dashboard" style={{ margin: 8, color: darkMode ? "#ffd600" : "#1976d2" }}>Dashboard</Link>
-        <Link to="/profile" style={{ margin: 8, color: darkMode ? "#ffd600" : "#1976d2" }}>Profil</Link>
-        <Link to="/accessibilite" style={{ margin: 8, color: darkMode ? "#ffd600" : "#1976d2" }}>Accessibilité</Link>
-        <Link to="/challenges" style={{ margin: 8, color: darkMode ? "#ffd600" : "#1976d2" }}>Challenges</Link>
-        <Link to="/friends" style={{ margin: 8, color: darkMode ? "#ffd600" : "#1976d2" }}>Amis</Link>
-        <Link to="/leaderboard" style={{ margin: 8, color: darkMode ? "#ffd600" : "#1976d2" }}>Classement</Link>
-        <Link to="/creator-tools" style={{ margin: 8, color: darkMode ? "#ffd600" : "#1976d2" }}>Creator Tools</Link>
-        <Link to="/admin" style={{ margin: 8, color: darkMode ? "#ffd600" : "#1976d2" }}>Admin</Link>
-        <Link to="/social-interactions" style={{ margin: 8, color: darkMode ? "#ffd600" : "#1976d2" }}>Interactions Sociales</Link>
+      <nav
+        style={{
+          marginTop: 32,
+          textAlign: "center",
+          display: "flex",
+          flexWrap: "wrap",
+          gap: 8,
+          justifyContent: "center",
+        }}
+        aria-label="Navigation principale"
+      >
+        <Link
+          to="/"
+          style={{ margin: 8, color: darkMode ? "#ffd600" : "#1976d2" }}
+        >
+          Accueil
+        </Link>
+        <Link
+          to="/dashboard"
+          style={{ margin: 8, color: darkMode ? "#ffd600" : "#1976d2" }}
+        >
+          Dashboard
+        </Link>
+        <Link
+          to="/profile"
+          style={{ margin: 8, color: darkMode ? "#ffd600" : "#1976d2" }}
+        >
+          Profil
+        </Link>
+        <Link
+          to="/accessibilite"
+          style={{ margin: 8, color: darkMode ? "#ffd600" : "#1976d2" }}
+        >
+          Accessibilité
+        </Link>
+        <Link
+          to="/challenges"
+          style={{ margin: 8, color: darkMode ? "#ffd600" : "#1976d2" }}
+        >
+          Challenges
+        </Link>
+        <Link
+          to="/friends"
+          style={{ margin: 8, color: darkMode ? "#ffd600" : "#1976d2" }}
+        >
+          Amis
+        </Link>
+        <Link
+          to="/leaderboard"
+          style={{ margin: 8, color: darkMode ? "#ffd600" : "#1976d2" }}
+        >
+          Classement
+        </Link>
+        <Link
+          to="/creator-tools"
+          style={{ margin: 8, color: darkMode ? "#ffd600" : "#1976d2" }}
+        >
+          Creator Tools
+        </Link>
+        <Link
+          to="/admin"
+          style={{ margin: 8, color: darkMode ? "#ffd600" : "#1976d2" }}
+        >
+          Admin
+        </Link>
+        <Link
+          to="/social-interactions"
+          style={{ margin: 8, color: darkMode ? "#ffd600" : "#1976d2" }}
+        >
+          Interactions Sociales
+        </Link>
       </nav>
       <footer
         style={{
           marginTop: 24,
           color: darkMode ? "#ffd600" : "#888",
           fontSize: "0.93em",
-          textAlign: "center"
+          textAlign: "center",
         }}
       >
-        <span role="img" aria-label="sécurité">🔒</span> Sécurisé | <span role="img" aria-label="accessibilité">♿</span> Accessible | <span role="img" aria-label="mobile">📱</span> Mobile/Web
+        <span role="img" aria-label="sécurité">
+          🔒
+        </span>{" "}
+        Sécurisé |{" "}
+        <span role="img" aria-label="accessibilité">
+          ♿
+        </span>{" "}
+        Accessible |{" "}
+        <span role="img" aria-label="mobile">
+          📱
+        </span>{" "}
+        Mobile/Web
       </footer>
       <style>{`
         main[aria-label="Réseaux sociaux connectés"]:focus {

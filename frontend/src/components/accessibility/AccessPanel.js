@@ -1,4 +1,4 @@
-import React from 'react';
+import React from "react";
 
 /**
  * AccessPanel – Achiri
@@ -30,37 +30,48 @@ function AccessPanel({
     <aside
       className="achiri-access-panel"
       style={{
-        background: highContrast ? '#222' : '#fffde7',
-        color: highContrast ? '#fff' : '#222',
+        background: highContrast ? "#222" : "#fffde7",
+        color: highContrast ? "#fff" : "#222",
         borderRadius: 14,
         padding: 22,
         margin: 16,
-        boxShadow: '0 2px 16px #1976d233',
+        boxShadow: "0 2px 16px #1976d233",
         maxWidth: 400,
         fontSize: fontSize,
-        transition: 'background 0.3s, color 0.3s',
-        outline: 'none'
+        transition: "background 0.3s, color 0.3s",
+        outline: "none",
       }}
       aria-label="Panneau d'accessibilité Achiri"
       tabIndex={0}
     >
-      <h3 style={{
-        marginTop: 0,
-        fontSize: 22,
-        color: highContrast ? '#fbbf24' : '#1976d2',
-        display: "flex",
-        alignItems: "center",
-        gap: 8
-      }}>
-        <span role="img" aria-label="Accessibilité">♿</span>
+      <h3
+        style={{
+          marginTop: 0,
+          fontSize: 22,
+          color: highContrast ? "#fbbf24" : "#1976d2",
+          display: "flex",
+          alignItems: "center",
+          gap: 8,
+        }}
+      >
+        <span role="img" aria-label="Accessibilité">
+          ♿
+        </span>
         Accessibilité
       </h3>
       <div style={{ marginBottom: 16 }}>
-        <label style={{ cursor: "pointer", display: "flex", alignItems: "center", gap: 8 }}>
+        <label
+          style={{
+            cursor: "pointer",
+            display: "flex",
+            alignItems: "center",
+            gap: 8,
+          }}
+        >
           <input
             type="checkbox"
             checked={ttsEnabled}
-            onChange={e => setTtsEnabled && setTtsEnabled(e.target.checked)}
+            onChange={(e) => setTtsEnabled && setTtsEnabled(e.target.checked)}
             style={{ accentColor: "#1976d2" }}
             aria-checked={ttsEnabled}
             aria-label="Activer la lecture vocale (TTS)"
@@ -69,11 +80,20 @@ function AccessPanel({
         </label>
       </div>
       <div style={{ marginBottom: 16 }}>
-        <label style={{ cursor: "pointer", display: "flex", alignItems: "center", gap: 8 }}>
+        <label
+          style={{
+            cursor: "pointer",
+            display: "flex",
+            alignItems: "center",
+            gap: 8,
+          }}
+        >
           <input
             type="checkbox"
             checked={highContrast}
-            onChange={e => setHighContrast && setHighContrast(e.target.checked)}
+            onChange={(e) =>
+              setHighContrast && setHighContrast(e.target.checked)
+            }
             style={{ accentColor: "#fbbf24" }}
             aria-checked={highContrast}
             aria-label="Activer le contraste élevé"
@@ -89,14 +109,14 @@ function AccessPanel({
             min={12}
             max={28}
             value={fontSize}
-            onChange={e => setFontSize && setFontSize(Number(e.target.value))}
+            onChange={(e) => setFontSize && setFontSize(Number(e.target.value))}
             style={{ accentColor: "#1976d2" }}
             aria-valuenow={fontSize}
             aria-valuemin={12}
             aria-valuemax={28}
             aria-label="Ajuster la taille du texte"
           />
-          <span style={{ fontWeight: 'bold' }}>{fontSize}px</span>
+          <span style={{ fontWeight: "bold" }}>{fontSize}px</span>
         </label>
       </div>
       {shortcuts.length > 0 && (
@@ -105,15 +125,21 @@ function AccessPanel({
           <ul style={{ paddingLeft: 18, margin: 0, fontSize: 15 }}>
             {shortcuts.map((s, i) => (
               <li key={i} style={{ marginBottom: 4 }}>
-                <kbd style={{
-                  background: highContrast ? '#444' : '#eee',
-                  borderRadius: 4,
-                  padding: '2px 8px',
-                  marginRight: 8,
-                  fontFamily: 'monospace',
-                  color: highContrast ? '#fbbf24' : '#1976d2',
-                  border: highContrast ? '1px solid #fbbf24' : '1px solid #bbb'
-                }}>{s.key}</kbd>
+                <kbd
+                  style={{
+                    background: highContrast ? "#444" : "#eee",
+                    borderRadius: 4,
+                    padding: "2px 8px",
+                    marginRight: 8,
+                    fontFamily: "monospace",
+                    color: highContrast ? "#fbbf24" : "#1976d2",
+                    border: highContrast
+                      ? "1px solid #fbbf24"
+                      : "1px solid #bbb",
+                  }}
+                >
+                  {s.key}
+                </kbd>
                 {s.description}
               </li>
             ))}
@@ -125,10 +151,21 @@ function AccessPanel({
           marginTop: 18,
           color: "#888",
           fontSize: "0.93em",
-          textAlign: "center"
+          textAlign: "center",
         }}
       >
-        <span role="img" aria-label="sécurité">🔒</span> Sécurisé | <span role="img" aria-label="accessibilité">♿</span> Accessible | <span role="img" aria-label="mobile">📱</span> Mobile/Web
+        <span role="img" aria-label="sécurité">
+          🔒
+        </span>{" "}
+        Sécurisé |{" "}
+        <span role="img" aria-label="accessibilité">
+          ♿
+        </span>{" "}
+        Accessible |{" "}
+        <span role="img" aria-label="mobile">
+          📱
+        </span>{" "}
+        Mobile/Web
       </footer>
       <style>{`
         .achiri-access-panel:focus {

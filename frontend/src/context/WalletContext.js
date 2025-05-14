@@ -34,7 +34,8 @@ export function WalletProvider({ children }) {
     try {
       const saved = JSON.parse(localStorage.getItem("achiri-wallet") || "{}");
       if (typeof saved.balance === "number") setBalance(saved.balance);
-      if (Array.isArray(saved.transactions)) setTransactions(saved.transactions);
+      if (Array.isArray(saved.transactions))
+        setTransactions(saved.transactions);
     } catch {
       setError("Erreur lors du chargement du wallet.");
     }
@@ -44,7 +45,7 @@ export function WalletProvider({ children }) {
   useEffect(() => {
     localStorage.setItem(
       "achiri-wallet",
-      JSON.stringify({ balance, transactions })
+      JSON.stringify({ balance, transactions }),
     );
   }, [balance, transactions]);
 
@@ -54,8 +55,20 @@ export function WalletProvider({ children }) {
     setTimeout(() => {
       setBalance(100); // Valeur mock
       setTransactions([
-        { id: 1, type: "credit", amount: 50, date: "2024-05-01", label: "Bonus inscription" },
-        { id: 2, type: "debit", amount: 10, date: "2024-05-02", label: "Défi relevé" },
+        {
+          id: 1,
+          type: "credit",
+          amount: 50,
+          date: "2024-05-01",
+          label: "Bonus inscription",
+        },
+        {
+          id: 2,
+          type: "debit",
+          amount: 10,
+          date: "2024-05-02",
+          label: "Défi relevé",
+        },
       ]);
       setLoading(false);
       setError(null);
@@ -65,19 +78,16 @@ export function WalletProvider({ children }) {
 
   // Ajouter une transaction (mock, à remplacer par API)
   const addTransaction = (transaction) => {
-    setTransactions((prev) => [
-      { ...transaction, id: Date.now() },
-      ...prev,
-    ]);
+    setTransactions((prev) => [{ ...transaction, id: Date.now() }, ...prev]);
     setBalance((b) =>
       transaction.type === "credit"
         ? b + transaction.amount
-        : b - transaction.amount
+        : b - transaction.amount,
     );
     notify(
       transaction.type === "credit"
         ? `+${transaction.amount} crédité (${transaction.label || "Crédit"})`
-        : `-${transaction.amount} débité (${transaction.label || "Débit"})`
+        : `-${transaction.amount} débité (${transaction.label || "Débit"})`,
     );
   };
 

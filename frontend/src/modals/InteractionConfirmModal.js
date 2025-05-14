@@ -24,7 +24,7 @@ const actionLabels = {
   follow: "Abonnement",
   share: "Partage",
   view: "Vue",
-  default: "Interaction"
+  default: "Interaction",
 };
 
 function InteractionConfirmModal({
@@ -34,37 +34,51 @@ function InteractionConfirmModal({
   action = "default",
   points = 0,
   link,
-  badge
+  badge,
 }) {
-  if (!open) return null;
+  // --- Hooks déplacés au niveau supérieur ---
+  const continueBtnRef = React.useRef();
 
   // Accessibilité : focus sur le bouton "Continuer" à l'ouverture
-  const continueBtnRef = React.useRef();
   React.useEffect(() => {
+    // La logique ne s'exécute que si 'open' est vrai
     if (open && continueBtnRef.current) {
       continueBtnRef.current.focus();
     }
-  }, [open]);
+  }, [open]); // Dépend de 'open'
 
   // Fermer avec la touche Escape
   React.useEffect(() => {
     const handleKeyDown = (e) => {
       if (e.key === "Escape") onClose();
     };
+    // L'écouteur n'est ajouté que si 'open' est vrai
     if (open) {
       window.addEventListener("keydown", handleKeyDown);
+      // La fonction de nettoyage est retournée pour supprimer l'écouteur
       return () => window.removeEventListener("keydown", handleKeyDown);
     }
-  }, [open, onClose]);
+    // Si 'open' est faux, rien ne se passe et aucun nettoyage n'est nécessaire pour cet effet
+  }, [open, onClose]); // Dépend de 'open' et 'onClose'
 
   // Empêche le scroll du body quand le modal est ouvert (UX mobile/web)
   React.useEffect(() => {
+    // La modification du style ne se fait que si 'open' est vrai
     if (open) {
       document.body.style.overflow = "hidden";
-      return () => { document.body.style.overflow = ""; };
+      // La fonction de nettoyage est retournée pour restaurer le style
+      return () => {
+        document.body.style.overflow = "";
+      };
     }
-  }, [open]);
+    // Si 'open' est faux, rien ne se passe et aucun nettoyage n'est nécessaire pour cet effet
+  }, [open]); // Dépend de 'open'
+  // --- Fin des Hooks ---
 
+  // Retour précoce si le modal n'est pas ouvert
+  if (!open) return null;
+
+  // Le reste du rendu du composant
   return (
     <div
       role="dialog"
@@ -73,12 +87,15 @@ function InteractionConfirmModal({
       aria-describedby="interaction-modal-desc"
       style={{
         position: "fixed",
-        top: 0, left: 0, right: 0, bottom: 0,
+        top: 0,
+        left: 0,
+        right: 0,
+        bottom: 0,
         background: "rgba(0,0,0,0.55)",
         zIndex: 9999,
         display: "flex",
         alignItems: "center",
-        justifyContent: "center"
+        justifyContent: "center",
       }}
       tabIndex={-1}
     >
@@ -92,7 +109,7 @@ function InteractionConfirmModal({
           maxWidth: "90vw",
           position: "relative",
           textAlign: "center",
-          outline: "none"
+          outline: "none",
         }}
       >
         <button
@@ -109,30 +126,47 @@ function InteractionConfirmModal({
             height: 32,
             fontWeight: "bold",
             fontSize: 18,
-            cursor: "pointer"
+            cursor: "pointer",
           }}
           aria-label="Fermer la fenêtre de confirmation"
-        >✕</button>
-        <h2 id="interaction-modal-title" style={{ color: "#1976d2", marginBottom: 18 }}>
+        >
+          ✕
+        </button>
+        <h2
+          id="interaction-modal-title"
+          style={{ color: "#1976d2", marginBottom: 18 }}
+        >
           {actionLabels[action] || actionLabels.default} confirmé(e) !
         </h2>
-        <div style={{
-          fontSize: 48,
-          marginBottom: 12
-        }}>
+        <div
+          style={{
+            fontSize: 48,
+            marginBottom: 12,
+          }}
+        >
           🎉
         </div>
-        <p id="interaction-modal-desc" style={{ fontSize: 17, color: "#222", marginBottom: 18 }}>
-          Bravo, tu as gagné <span style={{ color: "#43a047", fontWeight: "bold" }}>+{points} points</span> pour ton action sur <b>{platform}</b> !
+        <p
+          id="interaction-modal-desc"
+          style={{ fontSize: 17, color: "#222", marginBottom: 18 }}
+        >
+          Bravo, tu as gagné{" "}
+          <span style={{ color: "#43a047", fontWeight: "bold" }}>
+            +{points} points
+          </span>{" "}
+          pour ton action sur <b>{platform}</b> !
         </p>
         {badge && (
-          <div style={{
-            marginBottom: 16,
-            fontSize: 15,
-            color: "#8E24AA",
-            fontWeight: "bold"
-          }}>
-            🏅 Nouveau badge débloqué : <span style={{ color: "#1976d2" }}>{badge}</span>
+          <div
+            style={{
+              marginBottom: 16,
+              fontSize: 15,
+              color: "#8E24AA",
+              fontWeight: "bold",
+            }}
+          >
+            🏅 Nouveau badge débloqué :{" "}
+            <span style={{ color: "#1976d2" }}>{badge}</span>
           </div>
         )}
         {link && (
@@ -149,7 +183,7 @@ function InteractionConfirmModal({
               fontWeight: "bold",
               fontSize: 15,
               textDecoration: "none",
-              marginBottom: 18
+              marginBottom: 18,
             }}
             aria-label="Revoir le contenu sur la plateforme"
           >
@@ -169,7 +203,7 @@ function InteractionConfirmModal({
               fontWeight: "bold",
               fontSize: 16,
               cursor: "pointer",
-              marginTop: 10
+              marginTop: 10,
             }}
             aria-label="Continuer"
           >

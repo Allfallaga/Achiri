@@ -1,8 +1,19 @@
 import React, { useState } from "react";
 import PropTypes from "prop-types";
 import {
-  FaUser, FaMoon, FaSun, FaLock, FaBell, FaLanguage, FaSignLanguage,
-  FaEye, FaSave, FaVolumeUp, FaLowVision, FaShieldAlt, FaInfoCircle
+  FaUser,
+  FaMoon,
+  FaSun,
+  FaLock,
+  FaBell,
+  FaLanguage,
+  FaSignLanguage,
+  FaEye,
+  FaSave,
+  FaVolumeUp,
+  FaLowVision,
+  FaShieldAlt,
+  FaInfoCircle,
 } from "react-icons/fa";
 import { motion } from "framer-motion";
 import "../common/Settings.css";
@@ -33,7 +44,7 @@ const mockUserSettings = {
   },
   security: {
     twoFactor: false,
-  }
+  },
 };
 
 const UserSettings = ({ userId }) => {
@@ -108,10 +119,17 @@ const UserSettings = ({ userId }) => {
       {/* Thème */}
       <div className="settings-section flex items-center justify-between">
         <span className="flex items-center">
-          {settings.darkMode ? <FaMoon style={{ marginRight: 8 }} /> : <FaSun style={{ marginRight: 8 }} />}
+          {settings.darkMode ? (
+            <FaMoon style={{ marginRight: 8 }} />
+          ) : (
+            <FaSun style={{ marginRight: 8 }} />
+          )}
           Mode {settings.darkMode ? "sombre" : "clair"}
         </span>
-        <label className="settings-switch" aria-label="Changer le mode d'affichage">
+        <label
+          className="settings-switch"
+          aria-label="Changer le mode d'affichage"
+        >
           <input
             type="checkbox"
             checked={settings.darkMode}
@@ -127,7 +145,10 @@ const UserSettings = ({ userId }) => {
         <span className="flex items-center">
           <FaBell style={{ marginRight: 8 }} /> Notifications
         </span>
-        <label className="settings-switch" aria-label="Activer/désactiver les notifications">
+        <label
+          className="settings-switch"
+          aria-label="Activer/désactiver les notifications"
+        >
           <input
             type="checkbox"
             checked={settings.notifications}
@@ -268,18 +289,22 @@ const UserSettings = ({ userId }) => {
       )}
 
       {/* Astuce sécurité */}
-      <div className="settings-tip" style={{
-        marginTop: 24,
-        background: "#fffde7",
-        color: "#bfa700",
-        borderRadius: 8,
-        padding: "0.7em 1em",
-        display: "flex",
-        alignItems: "center",
-        fontSize: 15
-      }}>
+      <div
+        className="settings-tip"
+        style={{
+          marginTop: 24,
+          background: "#fffde7",
+          color: "#bfa700",
+          borderRadius: 8,
+          padding: "0.7em 1em",
+          display: "flex",
+          alignItems: "center",
+          fontSize: 15,
+        }}
+      >
         <FaInfoCircle style={{ marginRight: 8 }} />
-        Astuce : Active la double authentification pour renforcer la sécurité de ton compte Achiri.
+        Astuce : Active la double authentification pour renforcer la sécurité de
+        ton compte Achiri.
       </div>
     </motion.div>
   );

@@ -43,7 +43,14 @@ export default function RoomHeader({
       role="banner"
       aria-label="En-tête de la salle vidéo"
     >
-      <div style={{ display: "flex", alignItems: "center", gap: 16, flexWrap: "wrap" }}>
+      <div
+        style={{
+          display: "flex",
+          alignItems: "center",
+          gap: 16,
+          flexWrap: "wrap",
+        }}
+      >
         <h1 style={{ margin: 0, fontSize: "1.5em", flex: 1 }}>
           {room.category ? `[${room.category}] ` : ""}
           {room.description || "Salle de visioconférence"}
@@ -65,14 +72,23 @@ export default function RoomHeader({
           ← Rooms
         </NavLink>
       </div>
-      <div style={{ display: "flex", gap: 12, flexWrap: "wrap", alignItems: "center" }}>
+      <div
+        style={{
+          display: "flex",
+          gap: 12,
+          flexWrap: "wrap",
+          alignItems: "center",
+        }}
+      >
         <span>
           <strong>Type :</strong> {type}
         </span>
         {room.owner && (
           <span>
             <strong>Propriétaire :</strong> {room.owner}
-            {isOwner && <span style={{ marginLeft: 6, color: "#ffd600" }}> (Vous)</span>}
+            {isOwner && (
+              <span style={{ marginLeft: 6, color: "#ffd600" }}> (Vous)</span>
+            )}
           </span>
         )}
         <span>

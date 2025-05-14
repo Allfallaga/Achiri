@@ -38,15 +38,15 @@ export default function ProfileAnalysis({ userId }) {
         conseils: [
           "Participez régulièrement aux quiz pour progresser.",
           "Activez les options d’accessibilité selon vos besoins.",
-          "Complétez votre profil pour une expérience personnalisée."
-        ]
+          "Complétez votre profil pour une expérience personnalisée.",
+        ],
       };
       setResult(data);
       setBadges(data.badges || []);
       setStats({
         activity: data.activity,
         progression: data.progression,
-        conseils: data.conseils
+        conseils: data.conseils,
       });
       setLoading(false);
     }, 1000);
@@ -64,12 +64,19 @@ export default function ProfileAnalysis({ userId }) {
         marginLeft: "auto",
         marginRight: "auto",
         boxShadow: "0 2px 12px #43a04722",
-        outline: "none"
+        outline: "none",
       }}
       aria-label="Analyse du Profil"
       tabIndex={0}
     >
-      <h1 style={{ color: "#43a047", fontWeight: 700, fontSize: "1.4em", marginBottom: 12 }}>
+      <h1
+        style={{
+          color: "#43a047",
+          fontWeight: 700,
+          fontSize: "1.4em",
+          marginBottom: 12,
+        }}
+      >
         🧑‍💼 Analyse du Profil
       </h1>
       <p style={{ fontSize: "1.1em", marginBottom: 18 }}>
@@ -89,13 +96,17 @@ export default function ProfileAnalysis({ userId }) {
           cursor: loading ? "not-allowed" : "pointer",
           boxShadow: "0 2px 8px #43a04722",
           transition: "background 0.2s, box-shadow 0.2s",
-          marginBottom: 18
+          marginBottom: 18,
         }}
         aria-label="Analyser mon profil"
       >
         {loading ? "Analyse en cours..." : "Analyser mon profil"}
       </button>
-      {error && <div style={{ color: "red", marginTop: 12 }} role="alert">{error}</div>}
+      {error && (
+        <div style={{ color: "red", marginTop: 12 }} role="alert">
+          {error}
+        </div>
+      )}
       {result && (
         <div
           style={{
@@ -105,7 +116,7 @@ export default function ProfileAnalysis({ userId }) {
             boxShadow: "0 1px 4px #43a04711",
             color: "#333",
             fontSize: "1em",
-            marginTop: 10
+            marginTop: 10,
           }}
           aria-live="polite"
         >
@@ -115,7 +126,9 @@ export default function ProfileAnalysis({ userId }) {
             <ul style={{ margin: 0, paddingLeft: 18 }}>
               <li>
                 <strong>Activité :</strong>{" "}
-                <span style={{ color: "#1976d2", fontWeight: 600 }}>{stats.activity}%</span>
+                <span style={{ color: "#1976d2", fontWeight: 600 }}>
+                  {stats.activity}%
+                </span>
                 <div
                   style={{
                     background: "#e3f2fd",
@@ -125,7 +138,7 @@ export default function ProfileAnalysis({ userId }) {
                     marginBottom: 8,
                     width: "100%",
                     maxWidth: 220,
-                    position: "relative"
+                    position: "relative",
                   }}
                   aria-label={`Barre de progression activité ${stats.activity}%`}
                 >
@@ -135,7 +148,7 @@ export default function ProfileAnalysis({ userId }) {
                       width: `${stats.activity}%`,
                       height: "100%",
                       borderRadius: 6,
-                      transition: "width 0.5s"
+                      transition: "width 0.5s",
                     }}
                   />
                 </div>
@@ -155,14 +168,14 @@ export default function ProfileAnalysis({ userId }) {
                     stroke="#1976d2"
                     strokeWidth="3"
                     points={stats.progression
-                      .map((v, i) => `${i * 30},${40 - (v * 0.4)}`)
+                      .map((v, i) => `${i * 30},${40 - v * 0.4}`)
                       .join(" ")}
                   />
                   {stats.progression.map((v, i) => (
                     <circle
                       key={i}
                       cx={i * 30}
-                      cy={40 - (v * 0.4)}
+                      cy={40 - v * 0.4}
                       r="3.5"
                       fill="#43a047"
                     />
@@ -173,7 +186,12 @@ export default function ProfileAnalysis({ userId }) {
                 <strong>Conseils personnalisés :</strong>
                 <ul style={{ marginTop: 4, marginBottom: 0 }}>
                   {stats.conseils.map((c, i) => (
-                    <li key={i} style={{ fontSize: "0.98em", color: "#1976d2" }}>{c}</li>
+                    <li
+                      key={i}
+                      style={{ fontSize: "0.98em", color: "#1976d2" }}
+                    >
+                      {c}
+                    </li>
                   ))}
                 </ul>
               </li>
@@ -193,14 +211,19 @@ export default function ProfileAnalysis({ userId }) {
           {/* Rôles */}
           {result.roles && (
             <div style={{ marginBottom: 12 }}>
-              <strong>Rôles :</strong> {Array.isArray(result.roles) ? result.roles.join(", ") : result.roles}
+              <strong>Rôles :</strong>{" "}
+              {Array.isArray(result.roles)
+                ? result.roles.join(", ")
+                : result.roles}
             </div>
           )}
           {/* Réseaux sociaux */}
           {result.social && (
             <div style={{ marginBottom: 12 }}>
               <strong>Réseaux sociaux analysés :</strong>
-              <pre style={{ background: "#f5f5f5", padding: 8, borderRadius: 4 }}>
+              <pre
+                style={{ background: "#f5f5f5", padding: 8, borderRadius: 4 }}
+              >
                 {JSON.stringify(result.social, null, 2)}
               </pre>
             </div>
@@ -223,7 +246,7 @@ export default function ProfileAnalysis({ userId }) {
             boxShadow: "0 1px 4px #43a04711",
             color: "#333",
             fontSize: "1em",
-            marginTop: 10
+            marginTop: 10,
           }}
         >
           <ul style={{ margin: 0, paddingLeft: 18 }}>
@@ -233,7 +256,11 @@ export default function ProfileAnalysis({ userId }) {
             <li>Badges, rôles, réseaux sociaux (à intégrer)</li>
           </ul>
           <div style={{ color: "#888", fontSize: "0.97em", marginTop: 18 }}>
-            <span role="img" aria-label="info">ℹ️</span> Cette section affichera bientôt des analyses avancées de votre profil.
+            <span role="img" aria-label="info">
+              ℹ️
+            </span>{" "}
+            Cette section affichera bientôt des analyses avancées de votre
+            profil.
           </div>
         </div>
       )}
@@ -242,10 +269,21 @@ export default function ProfileAnalysis({ userId }) {
           marginTop: 24,
           color: "#888",
           fontSize: "0.93em",
-          textAlign: "center"
+          textAlign: "center",
         }}
       >
-        <span role="img" aria-label="sécurité">🔒</span> Sécurisé | <span role="img" aria-label="accessibilité">♿</span> Accessible | <span role="img" aria-label="mobile">📱</span> Mobile/Web
+        <span role="img" aria-label="sécurité">
+          🔒
+        </span>{" "}
+        Sécurisé |{" "}
+        <span role="img" aria-label="accessibilité">
+          ♿
+        </span>{" "}
+        Accessible |{" "}
+        <span role="img" aria-label="mobile">
+          📱
+        </span>{" "}
+        Mobile/Web
       </footer>
       <style>{`
         .achiri-profile-analysis:focus {

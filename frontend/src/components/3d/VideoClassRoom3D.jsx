@@ -7,29 +7,35 @@
  * - Prêt pour moteur 3D (three.js…), analytics, badges, points, notifications.
  */
 
-import React, { useRef, useEffect, useState, useContext } from "react";
+import React, { useRef, useEffect, useState } from "react"; // Retiré useContext car les hooks sont utilisés directement
 import { Helmet } from "react-helmet-async";
 
-import { AccessibilityContext } from "../../context/AccessibilityContext";
-import { RoomContext } from "../../context/RoomContext";
-import { UserContext } from "../../context/UserContext";
+// Correction: Importer les hooks au lieu des contextes
+import { useAccessibility } from "../../context/AccessibilityContext.js";
+import { useRoom } from "../../context/RoomContext.js";
+import { useUser } from "../../context/UserContext.js";
 import "../../styles/videoClassRoom3D.css";
-
 // Composants réutilisables
-import ChatBox from "../chat/ChatBox";
-import SubtitlesPanel from "../video/SubtitlesPanel";
-import AnimationsManager from "../video/AnimationsManager";
-import SignLanguagePanel from "../signlanguage/SignLanguagePanel";
-import MediaRcv from "../video/MediaRcv";
+import ChatBox from "../chat/ChatBox.js"; // Ajout de .js
+// Correction: Utiliser l'extension .js pour correspondre aux fichiers réels
+import SubtitlesPanel from "../video/SubtitlesPanel.js";
+import AnimationsManager from "../video/AnimationsManager.js";
+import SignLanguagePanel from "../signlanguage/SignLanguagePanel.jsx"; // Ajout de .jsx
+import MediaRcv from "../video/MediaRcv.js";
 
-import Avatar3D from "./Avatar3D";
+import Avatar3D from "./Avatar3D.jsx"; // Ajout de .jsx
 
 function VideoClassRoom3D({ roomId, user }) {
-  const { accessibility } = useContext(AccessibilityContext) || {};
-  const { room } = useContext(RoomContext) || {};
-  const { currentUser } = useContext(UserContext) || {};
+  // Correction: Utiliser les hooks directement
+  const { accessibility } = useAccessibility() || {};
+  const { room } = useRoom() || {};
+  const { currentUser } = useUser() || {};
+
   const [participants, setParticipants] = useState(room?.users || []);
-  const [remoteTracks, setRemoteTracks] = useState({ video: null, audio: null });
+  const [remoteTracks, setRemoteTracks] = useState({
+    video: null,
+    audio: null,
+  });
   const [videoEnabled, setVideoEnabled] = useState(true);
   const [audioEnabled, setAudioEnabled] = useState(true);
   const [showChat, setShowChat] = useState(true);
@@ -50,14 +56,17 @@ function VideoClassRoom3D({ roomId, user }) {
   // WebRTC natif (simplifié, à enrichir selon besoin)
   useEffect(() => {
     let socket;
-    let cleanupVideoRef = localVideo.current;
+    const currentLocalVideo = localVideo.current; // Copier la ref pour le nettoyage
+
     import("socket.io-client").then(({ default: io }) => {
       navigator.mediaDevices
         .getUserMedia({ video: true, audio: true })
         .then((stream) => {
-          if (localVideo.current) localVideo.current.srcObject = stream;
+          if (currentLocalVideo) currentLocalVideo.srcObject = stream; // Utiliser la variable copiée
           peerConnection.current = new window.RTCPeerConnection();
-          stream.getTracks().forEach((track) => peerConnection.current.addTrack(track, stream));
+          stream
+            .getTracks()
+            .forEach((track) => peerConnection.current.addTrack(track, stream));
           peerConnection.current.ontrack = (event) => {
             const videoTrack = event.streams[0].getVideoTracks()[0];
             const audioTrack = event.streams[0].getAudioTracks()[0];
@@ -66,23 +75,33 @@ function VideoClassRoom3D({ roomId, user }) {
               audio: audioTrack ? { track: audioTrack } : null,
             });
           };
-          socket = io(process.env.REACT_APP_BACKEND_URL || "http://localhost:3001", { transports: ["websocket"] });
-          socket.emit("join_room", { room_id: roomId, user: user?.name || user || "user" + Math.random() });
+          socket = io(
+            process.env.REACT_APP_BACKEND_URL || "http://localhost:3001",
+            { transports: ["websocket"] },
+          );
+          socket.emit("join_room", {
+            room_id: roomId,
+            user: user?.name || user || "user" + Math.random(),
+          });
           socket.on("room_update", (info) => setParticipants(info.users || []));
           socket.on("user_speaking", (userId) => setSpeakingUser(userId));
           socket.on("user_badges", (data) => setBadges(data.badges || []));
           socket.on("user_points", (data) => setPoints(data.points || 0));
-          socket.on("notification", (notif) => setNotifications((prev) => [...prev, notif]));
+          socket.on("notification", (notif) =>
+            setNotifications((prev) => [...prev, notif]),
+          );
         });
     });
     return () => {
       if (peerConnection.current) peerConnection.current.close();
-      if (cleanupVideoRef && cleanupVideoRef.srcObject) {
-        cleanupVideoRef.srcObject.getTracks().forEach((track) => track.stop());
+      // Utiliser la variable copiée dans le nettoyage
+      if (currentLocalVideo && currentLocalVideo.srcObject) {
+        currentLocalVideo.srcObject.getTracks().forEach((track) => track.stop());
       }
+      if (socket) socket.disconnect(); // Assurer la déconnexion du socket
     };
-     
-  }, [roomId, user]);
+
+  }, [roomId, user]); // Garder les dépendances originales, la ref n'en fait pas partie
 
   // Accessibilité : TTS, sous-titres, langue des signes
   const handleToggleSign = () => setShowSign((v) => !v);
@@ -93,7 +112,9 @@ function VideoClassRoom3D({ roomId, user }) {
     notifications.length > 0 ? (
       <div className="videoclassroom3d-notifications" aria-live="polite">
         {notifications.map((n, i) => (
-          <div key={i} className="videoclassroom3d-notification">{n}</div>
+          <div key={i} className="videoclassroom3d-notification">
+            {n}
+          </div>
         ))}
       </div>
     ) : null;
@@ -105,26 +126,52 @@ function VideoClassRoom3D({ roomId, user }) {
       tabIndex={0}
     >
       <Helmet>
-        <title>Classe Virtuelle 3D Achiri | Vidéo, audio, chat, accessibilité</title>
-        <meta name="description" content="Salle de classe 3D Achiri : vidéo, audio, chat temps réel, avatars, accessibilité sourds/aveugles, mobile/web, sécurisé." />
+        <title>
+          Classe Virtuelle 3D Achiri | Vidéo, audio, chat, accessibilité
+        </title>
+        <meta
+          name="description"
+          content="Salle de classe 3D Achiri : vidéo, audio, chat temps réel, avatars, accessibilité sourds/aveugles, mobile/web, sécurisé."
+        />
       </Helmet>
       <header className="videoclassroom3d-header">
         <h1>
-          <span role="img" aria-label="classe 3D">🕶️</span> Classe Virtuelle 3D
+          <span role="img" aria-label="classe 3D">
+            🕶️
+          </span>{" "}
+          Classe Virtuelle 3D
         </h1>
         <nav className="videoclassroom3d-actions" aria-label="Actions rapides">
-          <button onClick={() => setShowChat((v) => !v)} aria-pressed={showChat}>💬 Chat</button>
-          <button onClick={handleToggleSign} aria-pressed={showSign}>🤟 Langue des signes</button>
-          <button onClick={handleToggleSubtitles} aria-pressed={showSubtitles}>📝 Sous-titres</button>
-          <button onClick={() => setVideoEnabled((v) => !v)} aria-pressed={videoEnabled}>
+          <button
+            onClick={() => setShowChat((v) => !v)}
+            aria-pressed={showChat}
+          >
+            💬 Chat
+          </button>
+          <button onClick={handleToggleSign} aria-pressed={showSign}>
+            🤟 Langue des signes
+          </button>
+          <button onClick={handleToggleSubtitles} aria-pressed={showSubtitles}>
+            📝 Sous-titres
+          </button>
+          <button
+            onClick={() => setVideoEnabled((v) => !v)}
+            aria-pressed={videoEnabled}
+          >
             {videoEnabled ? "🎥 Désactiver vidéo" : "🎥 Activer vidéo"}
           </button>
-          <button onClick={() => setAudioEnabled((v) => !v)} aria-pressed={audioEnabled}>
+          <button
+            onClick={() => setAudioEnabled((v) => !v)}
+            aria-pressed={audioEnabled}
+          >
             {audioEnabled ? "🔊 Couper micro" : "🔊 Activer micro"}
           </button>
         </nav>
       </header>
-      <section className="videoclassroom3d-main" aria-label="Espace 3D avatars et vidéo">
+      <section
+        className="videoclassroom3d-main"
+        aria-label="Espace 3D avatars et vidéo"
+      >
         {/* Zone 3D avatars */}
         <div className="avatars3d-zone" aria-label="Avatars 3D">
           {participants.map((p, idx) => (
@@ -148,12 +195,20 @@ function VideoClassRoom3D({ roomId, user }) {
             ref={localVideo}
             autoPlay
             muted
-            style={{ width: "100%", background: "#222", borderRadius: 12, maxWidth: 320 }}
+            style={{
+              width: "100%",
+              background: "#222",
+              borderRadius: 12,
+              maxWidth: 320,
+            }}
             aria-label="Vidéo locale"
           />
         </section>
         {/* Vidéo distante */}
-        <section className="videoclassroom3d-video" aria-label="Caméra distante">
+        <section
+          className="videoclassroom3d-video"
+          aria-label="Caméra distante"
+        >
           <MediaRcv video={remoteTracks.video} audio={remoteTracks.audio} />
         </section>
         {/* Sous-titres temps réel */}
@@ -173,7 +228,18 @@ function VideoClassRoom3D({ roomId, user }) {
       )}
       <footer className="videoclassroom3d-footer">
         <small>
-          <span role="img" aria-label="sécurité">🔒</span> Sécurisé & inclusif | <span role="img" aria-label="accessibilité">♿</span> Accessibilité | <span role="img" aria-label="mobile">📱</span> Mobile/Web
+          <span role="img" aria-label="sécurité">
+            🔒
+          </span>{" "}
+          Sécurisé & inclusif |{" "}
+          <span role="img" aria-label="accessibilité">
+            ♿
+          </span>{" "}
+          Accessibilité |{" "}
+          <span role="img" aria-label="mobile">
+            📱
+          </span>{" "}
+          Mobile/Web
         </small>
       </footer>
     </main>

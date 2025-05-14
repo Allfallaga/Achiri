@@ -46,7 +46,7 @@ const UniversalRemote = ({ userId }) => {
         borderRadius: 14,
         boxShadow: "0 2px 16px #1976d233",
         padding: "2rem",
-        outline: "none"
+        outline: "none",
       }}
       aria-label="Télécommande domotique IA"
       tabIndex={0}
@@ -59,7 +59,7 @@ const UniversalRemote = ({ userId }) => {
           marginBottom: 18,
           display: "flex",
           alignItems: "center",
-          gap: 8
+          gap: 8,
         }}
       >
         🏠 Télécommande Domotique IA
@@ -71,10 +71,10 @@ const UniversalRemote = ({ userId }) => {
           flexWrap: "wrap",
           gap: 18,
           justifyContent: "center",
-          margin: "1.5em 0"
+          margin: "1.5em 0",
         }}
       >
-        {actions.map(action => (
+        {actions.map((action) => (
           <button
             key={action.key}
             onClick={() => handleAction(action)}
@@ -95,7 +95,7 @@ const UniversalRemote = ({ userId }) => {
               alignItems: "center",
               gap: 6,
               opacity: loading && loading !== action.key ? 0.6 : 1,
-              transition: "background 0.2s, opacity 0.2s"
+              transition: "background 0.2s, opacity 0.2s",
             }}
             aria-label={action.label}
             aria-busy={loading === action.key}
@@ -117,7 +117,7 @@ const UniversalRemote = ({ userId }) => {
             marginBottom: 16,
             fontSize: "1.05em",
             border: "1px solid #b7e4c7",
-            textAlign: "center"
+            textAlign: "center",
           }}
           aria-live="polite"
         >
@@ -125,7 +125,10 @@ const UniversalRemote = ({ userId }) => {
         </div>
       )}
       {error && (
-        <div style={{ color: "red", marginTop: 10, textAlign: "center" }} role="alert">
+        <div
+          style={{ color: "red", marginTop: 10, textAlign: "center" }}
+          role="alert"
+        >
           {error}
         </div>
       )}
@@ -134,10 +137,21 @@ const UniversalRemote = ({ userId }) => {
           marginTop: 18,
           color: "#888",
           fontSize: "0.93em",
-          textAlign: "center"
+          textAlign: "center",
         }}
       >
-        <span role="img" aria-label="sécurité">🔒</span> Sécurisé | <span role="img" aria-label="accessibilité">♿</span> Accessible | <span role="img" aria-label="mobile">📱</span> Mobile/Web
+        <span role="img" aria-label="sécurité">
+          🔒
+        </span>{" "}
+        Sécurisé |{" "}
+        <span role="img" aria-label="accessibilité">
+          ♿
+        </span>{" "}
+        Accessible |{" "}
+        <span role="img" aria-label="mobile">
+          📱
+        </span>{" "}
+        Mobile/Web
       </footer>
     </section>
   );

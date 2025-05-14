@@ -53,7 +53,8 @@ export async function setAccessibilityPreferences(userId, preferences = {}) {
 // Récupérer les préférences d’accessibilité utilisateur
 export async function getAccessibilityPreferences(userId) {
   const res = await fetch(`/api/accessibility/preferences/${userId}`);
-  if (!res.ok) throw new Error("Erreur lors de la récupération des préférences");
+  if (!res.ok)
+    throw new Error("Erreur lors de la récupération des préférences");
   return await res.json();
 }
 

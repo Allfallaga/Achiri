@@ -37,7 +37,7 @@ export default function Navbar({ user, onLogout }) {
     { to: "/creator-tools", label: "Creator Tools" },
     { to: "/moderation", label: "Modération" },
     { to: "/reseaux-sociaux", label: "Réseaux Sociaux" },
-    { to: "/social-interactions", label: "Interactions Sociales" }
+    { to: "/social-interactions", label: "Interactions Sociales" },
   ];
 
   // Ferme le menu burger lors du changement de route
@@ -73,7 +73,7 @@ export default function Navbar({ user, onLogout }) {
         boxShadow: "0 2px 8px rgba(25, 118, 210, 0.12)",
         position: "sticky",
         top: 0,
-        zIndex: 100
+        zIndex: 100,
       }}
     >
       {/* Logo & Burger */}
@@ -86,7 +86,7 @@ export default function Navbar({ user, onLogout }) {
             fontWeight: "bold",
             fontSize: 22,
             letterSpacing: 1,
-            outline: "none"
+            outline: "none",
           }}
           aria-label="Accueil Achiri"
         >
@@ -104,7 +104,7 @@ export default function Navbar({ user, onLogout }) {
             color: "#fff",
             fontSize: 28,
             cursor: "pointer",
-            display: "none"
+            display: "none",
           }}
         >
           <span aria-hidden="true">{menuOpen ? "✖" : "☰"}</span>
@@ -116,7 +116,7 @@ export default function Navbar({ user, onLogout }) {
             display: "flex",
             alignItems: "center",
             gap: "1.2rem",
-            flexWrap: "wrap"
+            flexWrap: "wrap",
           }}
           className="navbar-links-desktop"
         >
@@ -128,10 +128,11 @@ export default function Navbar({ user, onLogout }) {
                 color: location.pathname === link.to ? "#ffd600" : "#fff",
                 textDecoration: "none",
                 fontWeight: location.pathname === link.to ? "bold" : "normal",
-                borderBottom: location.pathname === link.to ? "2px solid #ffd600" : "none",
+                borderBottom:
+                  location.pathname === link.to ? "2px solid #ffd600" : "none",
                 paddingBottom: 2,
                 outline: "none",
-                transition: "color 0.2s, border-bottom 0.2s"
+                transition: "color 0.2s, border-bottom 0.2s",
               }}
               aria-current={location.pathname === link.to ? "page" : undefined}
               tabIndex={0}
@@ -146,7 +147,12 @@ export default function Navbar({ user, onLogout }) {
         {user ? (
           <>
             <span style={{ fontSize: 15 }}>
-              Connecté en tant que <strong>{typeof user === "string" ? user : user.nickname || "Utilisateur"}</strong>
+              Connecté en tant que{" "}
+              <strong>
+                {typeof user === "string"
+                  ? user
+                  : user.nickname || "Utilisateur"}
+              </strong>
             </span>
             <button
               onClick={handleLogout}
@@ -161,7 +167,7 @@ export default function Navbar({ user, onLogout }) {
                 cursor: "pointer",
                 marginLeft: 4,
                 boxShadow: "0 2px 8px #1976d222",
-                transition: "background 0.2s, color 0.2s"
+                transition: "background 0.2s, color 0.2s",
               }}
             >
               Logout
@@ -181,7 +187,7 @@ export default function Navbar({ user, onLogout }) {
               cursor: "pointer",
               marginLeft: 4,
               boxShadow: "0 2px 8px #1976d222",
-              textDecoration: "none"
+              textDecoration: "none",
             }}
           >
             Login

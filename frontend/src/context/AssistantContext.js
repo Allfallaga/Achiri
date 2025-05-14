@@ -31,8 +31,12 @@ export function AssistantProvider({ children }) {
   const [isOpen, setIsOpen] = useState(defaultState.isOpen);
   const [messages, setMessages] = useState(defaultState.messages);
   const [unread, setUnread] = useState(defaultState.unread);
-  const [assistantMode, setAssistantMode] = useState(defaultState.assistantMode);
-  const [userPreferences, setUserPreferences] = useState(defaultState.userPreferences);
+  const [assistantMode, setAssistantMode] = useState(
+    defaultState.assistantMode,
+  );
+  const [userPreferences, setUserPreferences] = useState(
+    defaultState.userPreferences,
+  );
 
   // Persistance locale (localStorage)
   useEffect(() => {
@@ -47,7 +51,13 @@ export function AssistantProvider({ children }) {
   useEffect(() => {
     localStorage.setItem(
       "achiri-assistant",
-      JSON.stringify({ isOpen, messages, unread, assistantMode, userPreferences })
+      JSON.stringify({
+        isOpen,
+        messages,
+        unread,
+        assistantMode,
+        userPreferences,
+      }),
     );
   }, [isOpen, messages, unread, assistantMode, userPreferences]);
 
@@ -123,7 +133,8 @@ export function AssistantProvider({ children }) {
             tabIndex={-1}
             role="status"
           >
-            {unread} nouveau{x => unread > 1 ? "x" : ""} message{unread > 1 ? "s" : ""}
+            {unread} nouveau{(x) => (unread > 1 ? "x" : "")} message
+            {unread > 1 ? "s" : ""}
           </div>
         )}
       </div>

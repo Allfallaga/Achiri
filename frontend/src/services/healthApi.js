@@ -22,7 +22,7 @@ export async function monitorHealthMock(userId) {
         steps: 5400,
         timestamp: new Date().toISOString(),
       });
-    }, 700)
+    }, 700),
   );
 }
 
@@ -40,7 +40,7 @@ export async function getHealthHistoryMock(userId) {
         { date: "2025-04-24", heartRate: 74, steps: 5200 },
         { date: "2025-04-23", heartRate: 71, steps: 4800 },
       ]);
-    }, 600)
+    }, 600),
   );
 }
 
@@ -62,7 +62,7 @@ export async function analyzeHealthMock(userId, data) {
           "Hydratez-vous bien.",
         ],
       });
-    }, 800)
+    }, 800),
   );
 }
 
@@ -80,7 +80,7 @@ export async function getHealthRecommendationsMock(userId) {
         "Dormez suffisamment pour récupérer.",
         "Évitez le stress prolongé.",
       ]);
-    }, 500)
+    }, 500),
   );
 }
 

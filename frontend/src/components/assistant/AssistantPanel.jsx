@@ -21,7 +21,11 @@ const panelSections = [
 ];
 
 function AssistantPanel({ onClose }) {
-  const { memory = [], suggestions = [], notifications = [] } = useContext(AssistantContext) || {};
+  const {
+    memory = [],
+    suggestions = [],
+    notifications = [],
+  } = useContext(AssistantContext) || {};
   const { accessibility } = useContext(AccessibilityContext) || {};
   const [activeSection, setActiveSection] = useState("memory");
 
@@ -47,15 +51,27 @@ function AssistantPanel({ onClose }) {
       tabIndex={0}
     >
       <Helmet>
-        <title>Assistant Achiri | Panneau IA, mémoire, notifications, raccourcis</title>
-        <meta name="description" content="Panneau contextuel de l'assistant Achiri : mémoire IA, suggestions, notifications, accès rapide à toutes les fonctions, accessibilité avancée." />
+        <title>
+          Assistant Achiri | Panneau IA, mémoire, notifications, raccourcis
+        </title>
+        <meta
+          name="description"
+          content="Panneau contextuel de l'assistant Achiri : mémoire IA, suggestions, notifications, accès rapide à toutes les fonctions, accessibilité avancée."
+        />
       </Helmet>
       <header className="assistant-panel-header">
         <h2>
-          <span role="img" aria-label="assistant">🤖</span> Panneau IA
+          <span role="img" aria-label="assistant">
+            🤖
+          </span>{" "}
+          Panneau IA
         </h2>
         {onClose && (
-          <button className="panel-close-btn" aria-label="Fermer le panneau" onClick={onClose}>
+          <button
+            className="panel-close-btn"
+            aria-label="Fermer le panneau"
+            onClick={onClose}
+          >
             ✖
           </button>
         )}
@@ -69,7 +85,10 @@ function AssistantPanel({ onClose }) {
             onClick={() => setActiveSection(section.key)}
             tabIndex={0}
           >
-            <span role="img" aria-label={section.label}>{section.icon}</span> {section.label}
+            <span role="img" aria-label={section.label}>
+              {section.icon}
+            </span>{" "}
+            {section.label}
           </button>
         ))}
       </nav>
@@ -78,13 +97,22 @@ function AssistantPanel({ onClose }) {
           <div className="panel-section panel-memory">
             <h3>Historique & Mémoire IA</h3>
             <ul>
-              {memory.length ? memory.slice(-10).reverse().map((msg, idx) => (
-                <li key={idx} className={`msg-${msg.from}`}>
-                  <span className="msg-author">{msg.from === "achiri" ? "Achiri" : "Moi"}</span>
-                  <span className="msg-text">{msg.text}</span>
-                  <span className="msg-time">{msg.time}</span>
-                </li>
-              )) : <li>Aucune interaction récente.</li>}
+              {memory.length ? (
+                memory
+                  .slice(-10)
+                  .reverse()
+                  .map((msg, idx) => (
+                    <li key={idx} className={`msg-${msg.from}`}>
+                      <span className="msg-author">
+                        {msg.from === "achiri" ? "Achiri" : "Moi"}
+                      </span>
+                      <span className="msg-text">{msg.text}</span>
+                      <span className="msg-time">{msg.time}</span>
+                    </li>
+                  ))
+              ) : (
+                <li>Aucune interaction récente.</li>
+              )}
             </ul>
           </div>
         )}
@@ -92,9 +120,9 @@ function AssistantPanel({ onClose }) {
           <div className="panel-section panel-suggestions">
             <h3>Suggestions IA</h3>
             <ul>
-              {suggestions.length ? suggestions.map((s, idx) => (
-                <li key={idx}>{s}</li>
-              )) : (
+              {suggestions.length ? (
+                suggestions.map((s, idx) => <li key={idx}>{s}</li>)
+              ) : (
                 <>
                   <li>Essayez : "Créer une salle vidéo 3D"</li>
                   <li>Essayez : "Activer l'accessibilité pour aveugle"</li>
@@ -108,9 +136,11 @@ function AssistantPanel({ onClose }) {
           <div className="panel-section panel-notifications">
             <h3>Notifications IA</h3>
             <ul>
-              {notifications.length ? notifications.map((n, idx) => (
-                <li key={idx}>{n}</li>
-              )) : <li>Aucune notification récente.</li>}
+              {notifications.length ? (
+                notifications.map((n, idx) => <li key={idx}>{n}</li>)
+              ) : (
+                <li>Aucune notification récente.</li>
+              )}
             </ul>
           </div>
         )}
@@ -120,8 +150,15 @@ function AssistantPanel({ onClose }) {
             <ul className="shortcuts-list">
               {shortcuts.map((sc, idx) => (
                 <li key={idx}>
-                  <a href={sc.to} className="shortcut-btn" aria-label={sc.label}>
-                    <span role="img" aria-label={sc.label}>{sc.icon}</span> {sc.label}
+                  <a
+                    href={sc.to}
+                    className="shortcut-btn"
+                    aria-label={sc.label}
+                  >
+                    <span role="img" aria-label={sc.label}>
+                      {sc.icon}
+                    </span>{" "}
+                    {sc.label}
                   </a>
                 </li>
               ))}
@@ -131,7 +168,18 @@ function AssistantPanel({ onClose }) {
       </section>
       <footer className="assistant-panel-footer">
         <small>
-          <span role="img" aria-label="sécurité">🔒</span> Sécurisé & inclusif | <span role="img" aria-label="accessibilité">♿</span> Accessibilité | <span role="img" aria-label="mobile">📱</span> Mobile/Web
+          <span role="img" aria-label="sécurité">
+            🔒
+          </span>{" "}
+          Sécurisé & inclusif |{" "}
+          <span role="img" aria-label="accessibilité">
+            ♿
+          </span>{" "}
+          Accessibilité |{" "}
+          <span role="img" aria-label="mobile">
+            📱
+          </span>{" "}
+          Mobile/Web
         </small>
       </footer>
     </aside>

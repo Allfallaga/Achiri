@@ -16,7 +16,7 @@ import React from "react";
 const ContentViolationAlert = ({
   message = "Contenu non conforme détecté.",
   details = "",
-  onAcknowledge
+  onAcknowledge,
 }) => {
   return (
     <section
@@ -30,22 +30,29 @@ const ContentViolationAlert = ({
         boxShadow: "0 2px 16px #ff980022",
         padding: "1.5rem",
         color: "#b71c1c",
-        outline: "none"
+        outline: "none",
       }}
       aria-label="Alerte de contenu non conforme"
       tabIndex={0}
       role="alertdialog"
       aria-modal="true"
     >
-      <div style={{ display: "flex", alignItems: "center", gap: 10, marginBottom: 10 }}>
-        <span role="img" aria-label="Alerte">⚠️</span>
+      <div
+        style={{
+          display: "flex",
+          alignItems: "center",
+          gap: 10,
+          marginBottom: 10,
+        }}
+      >
+        <span role="img" aria-label="Alerte">
+          ⚠️
+        </span>
         <h3 style={{ margin: 0, fontSize: 20, color: "#b71c1c" }}>
           Alerte de contenu
         </h3>
       </div>
-      <div style={{ fontWeight: 500, marginBottom: 8 }}>
-        {message}
-      </div>
+      <div style={{ fontWeight: 500, marginBottom: 8 }}>{message}</div>
       {details && (
         <div style={{ fontSize: 15, color: "#b26a00", marginBottom: 12 }}>
           {details}
@@ -63,7 +70,7 @@ const ContentViolationAlert = ({
           fontSize: 15,
           cursor: "pointer",
           marginTop: 8,
-          transition: "background 0.2s"
+          transition: "background 0.2s",
         }}
         aria-label="Fermer l’alerte"
         autoFocus
@@ -75,10 +82,21 @@ const ContentViolationAlert = ({
           marginTop: 16,
           color: "#888",
           fontSize: "0.93em",
-          textAlign: "center"
+          textAlign: "center",
         }}
       >
-        <span role="img" aria-label="sécurité">🔒</span> Sécurisé | <span role="img" aria-label="accessibilité">♿</span> Accessible | <span role="img" aria-label="mobile">📱</span> Mobile/Web
+        <span role="img" aria-label="sécurité">
+          🔒
+        </span>{" "}
+        Sécurisé |{" "}
+        <span role="img" aria-label="accessibilité">
+          ♿
+        </span>{" "}
+        Accessible |{" "}
+        <span role="img" aria-label="mobile">
+          📱
+        </span>{" "}
+        Mobile/Web
       </footer>
     </section>
   );

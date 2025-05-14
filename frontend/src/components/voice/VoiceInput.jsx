@@ -6,7 +6,7 @@ import React, { useRef, useState } from "react";
  * - UX avancée, accessibilité, sécurité, responsive, SEO friendly, design Achiri.
  * - Fonctionnalités : reconnaissance vocale (speech-to-text), feedback visuel, mobile/web.
  * - Prêt pour extensions futures (langues, analytics, dark mode, etc).
- * 
+ *
  * Props :
  *   value: string
  *   onChange: function (string)
@@ -20,7 +20,7 @@ const VoiceInput = ({
   onChange,
   placeholder = "Parlez ou tapez ici...",
   lang = "fr-FR",
-  disabled = false
+  disabled = false,
 }) => {
   const [listening, setListening] = useState(false);
   const [error, setError] = useState("");
@@ -28,7 +28,8 @@ const VoiceInput = ({
 
   // Initialisation de la reconnaissance vocale
   const getRecognition = () => {
-    const SpeechRecognition = window.SpeechRecognition || window.webkitSpeechRecognition;
+    const SpeechRecognition =
+      window.SpeechRecognition || window.webkitSpeechRecognition;
     if (!SpeechRecognition) return null;
     if (!recognitionRef.current) {
       recognitionRef.current = new SpeechRecognition();
@@ -79,7 +80,7 @@ const VoiceInput = ({
         boxShadow: "0 1px 8px #1976d222",
         padding: "0.7em 1em",
         maxWidth: 420,
-        margin: "1em auto"
+        margin: "1em auto",
       }}
       aria-label="Champ de saisie vocale"
       tabIndex={0}
@@ -87,7 +88,7 @@ const VoiceInput = ({
       <input
         type="text"
         value={value}
-        onChange={e => onChange && onChange(e.target.value)}
+        onChange={(e) => onChange && onChange(e.target.value)}
         placeholder={placeholder}
         disabled={disabled}
         aria-label={placeholder}
@@ -97,14 +98,16 @@ const VoiceInput = ({
           outline: "none",
           fontSize: 16,
           background: "transparent",
-          color: "#222"
+          color: "#222",
         }}
       />
       <button
         type="button"
         onClick={listening ? stopListening : startListening}
         disabled={disabled}
-        aria-label={listening ? "Arrêter la saisie vocale" : "Démarrer la saisie vocale"}
+        aria-label={
+          listening ? "Arrêter la saisie vocale" : "Démarrer la saisie vocale"
+        }
         style={{
           background: listening ? "#43a047" : "#1976d2",
           color: "#fff",
@@ -115,13 +118,17 @@ const VoiceInput = ({
           fontSize: 15,
           cursor: disabled ? "not-allowed" : "pointer",
           outline: listening ? "2px solid #43a047" : "none",
-          transition: "background 0.2s"
+          transition: "background 0.2s",
         }}
       >
         {listening ? "🎤 Parlez..." : "🎤"}
       </button>
       {error && (
-        <span style={{ color: "#b71c1c", fontSize: 13, marginLeft: 8 }} role="alert" tabIndex={0}>
+        <span
+          style={{ color: "#b71c1c", fontSize: 13, marginLeft: 8 }}
+          role="alert"
+          tabIndex={0}
+        >
           {error}
         </span>
       )}

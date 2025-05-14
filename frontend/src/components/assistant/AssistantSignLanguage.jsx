@@ -17,7 +17,9 @@ function SignAvatar({ signWord }) {
       <span role="img" aria-label="langue des signes" style={{ fontSize: 64 }}>
         🧑‍🦯
       </span>
-      <div className="sign-word">{signWord ? `Mot signé : ${signWord}` : "Tapez un texte à traduire"}</div>
+      <div className="sign-word">
+        {signWord ? `Mot signé : ${signWord}` : "Tapez un texte à traduire"}
+      </div>
     </div>
   );
 }
@@ -43,12 +45,20 @@ function AssistantSignLanguage() {
       tabIndex={0}
     >
       <Helmet>
-        <title>Assistant Langue des Signes Achiri | Traduction, accessibilité</title>
-        <meta name="description" content="Module langue des signes de l'assistant Achiri : traduction texte <-> LSF, avatar animé, accessibilité sourds/aveugles, mobile/web." />
+        <title>
+          Assistant Langue des Signes Achiri | Traduction, accessibilité
+        </title>
+        <meta
+          name="description"
+          content="Module langue des signes de l'assistant Achiri : traduction texte <-> LSF, avatar animé, accessibilité sourds/aveugles, mobile/web."
+        />
       </Helmet>
       <header className="signlanguage-header">
         <h2>
-          <span role="img" aria-label="langue des signes">🤟</span> Assistant Langue des Signes
+          <span role="img" aria-label="langue des signes">
+            🤟
+          </span>{" "}
+          Assistant Langue des Signes
         </h2>
       </header>
       <div className="signlanguage-controls">
@@ -89,7 +99,18 @@ function AssistantSignLanguage() {
       </div>
       <footer className="signlanguage-footer">
         <small>
-          <span role="img" aria-label="sécurité">🔒</span> Sécurisé | <span role="img" aria-label="accessibilité">♿</span> Accessible | <span role="img" aria-label="mobile">📱</span> Mobile/Web
+          <span role="img" aria-label="sécurité">
+            🔒
+          </span>{" "}
+          Sécurisé |{" "}
+          <span role="img" aria-label="accessibilité">
+            ♿
+          </span>{" "}
+          Accessible |{" "}
+          <span role="img" aria-label="mobile">
+            📱
+          </span>{" "}
+          Mobile/Web
         </small>
       </footer>
     </section>

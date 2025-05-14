@@ -6,10 +6,17 @@
  * - Intègre : TTS, raccrocher, design avancé, documentation claire.
  */
 
-import React, { useEffect, useRef, useState } from 'react';
+import React, { useEffect, useRef, useState } from "react";
 import { Helmet } from "react-helmet-async";
 
-function AudioCall({ localStream, remoteStream, onEnd, user, targetUser, tts = null }) {
+function AudioCall({
+  localStream,
+  remoteStream,
+  onEnd,
+  user,
+  targetUser,
+  tts = null,
+}) {
   const localAudioRef = useRef();
   const remoteAudioRef = useRef();
   const [muted, setMuted] = useState(false);
@@ -49,53 +56,68 @@ function AudioCall({ localStream, remoteStream, onEnd, user, targetUser, tts = n
     <div
       className="audio-call"
       style={{
-        position: 'relative',
-        background: '#222',
+        position: "relative",
+        background: "#222",
         borderRadius: 16,
-        boxShadow: '0 2px 16px #1976d244',
-        padding: '2.5rem 1.5rem 2rem 1.5rem',
+        boxShadow: "0 2px 16px #1976d244",
+        padding: "2.5rem 1.5rem 2rem 1.5rem",
         width: 340,
         minHeight: 210,
-        overflow: 'hidden',
-        display: 'flex',
-        flexDirection: 'column',
-        alignItems: 'center',
-        justifyContent: 'center'
+        overflow: "hidden",
+        display: "flex",
+        flexDirection: "column",
+        alignItems: "center",
+        justifyContent: "center",
       }}
       aria-label="Appel audio en cours"
       tabIndex={0}
     >
       <Helmet>
         <title>Appel audio | Achiri</title>
-        <meta name="description" content="Appel audio sécurisé Achiri : avatars, nom, accessibilité, mobile/web, TTS, design moderne." />
+        <meta
+          name="description"
+          content="Appel audio sécurisé Achiri : avatars, nom, accessibilité, mobile/web, TTS, design moderne."
+        />
       </Helmet>
       {/* Avatar et nom de l'utilisateur distant */}
-      <div style={{
-        display: 'flex',
-        alignItems: 'center',
-        marginBottom: 18,
-        background: 'rgba(0,0,0,0.25)',
-        borderRadius: 10,
-        padding: '8px 18px'
-      }}>
+      <div
+        style={{
+          display: "flex",
+          alignItems: "center",
+          marginBottom: 18,
+          background: "rgba(0,0,0,0.25)",
+          borderRadius: 10,
+          padding: "8px 18px",
+        }}
+      >
         <span
           style={{ fontSize: 38, marginRight: 12 }}
-          aria-label={targetUser?.name ? `Avatar de ${targetUser.name}` : "Avatar invité"}
+          aria-label={
+            targetUser?.name ? `Avatar de ${targetUser.name}` : "Avatar invité"
+          }
         >
-          {targetUser?.avatar || '👤'}
+          {targetUser?.avatar || "👤"}
         </span>
-        <span style={{ color: '#fff', fontWeight: 'bold', fontSize: '1.15em' }}>
-          {targetUser?.name || 'Invité'}
+        <span style={{ color: "#fff", fontWeight: "bold", fontSize: "1.15em" }}>
+          {targetUser?.name || "Invité"}
         </span>
       </div>
       {/* Animation ou icône audio */}
-      <div style={{ fontSize: 48, color: '#43a047', marginBottom: 18 }} aria-hidden="true">
+      <div
+        style={{ fontSize: 48, color: "#43a047", marginBottom: 18 }}
+        aria-hidden="true"
+      >
         {muted ? "🔇" : "🎧"}
       </div>
       {/* Audio distant */}
       <audio ref={remoteAudioRef} autoPlay aria-label="Audio distant" />
       {/* Audio local (muté pour éviter l'écho) */}
-      <audio ref={localAudioRef} autoPlay muted aria-label="Votre audio (muet)" />
+      <audio
+        ref={localAudioRef}
+        autoPlay
+        muted
+        aria-label="Votre audio (muet)"
+      />
       {/* Contrôles accessibilité */}
       <div style={{ display: "flex", gap: 12, marginTop: 10 }}>
         <button
@@ -110,7 +132,7 @@ function AudioCall({ localStream, remoteStream, onEnd, user, targetUser, tts = n
             padding: "0.4em 1em",
             fontWeight: "bold",
             fontSize: "1em",
-            cursor: "pointer"
+            cursor: "pointer",
           }}
         >
           {muted ? "🔇" : "🔊"}
@@ -118,15 +140,15 @@ function AudioCall({ localStream, remoteStream, onEnd, user, targetUser, tts = n
         <button
           onClick={onEnd}
           style={{
-            background: '#ffcdd2',
-            color: '#b71c1c',
-            border: 'none',
+            background: "#ffcdd2",
+            color: "#b71c1c",
+            border: "none",
             borderRadius: 8,
-            padding: '0.4em 1em',
-            fontWeight: 'bold',
-            fontSize: '1em',
-            cursor: 'pointer',
-            boxShadow: '0 2px 8px #0002'
+            padding: "0.4em 1em",
+            fontWeight: "bold",
+            fontSize: "1em",
+            cursor: "pointer",
+            boxShadow: "0 2px 8px #0002",
           }}
           aria-label="Raccrocher l'appel"
           title="Raccrocher l'appel"
@@ -146,11 +168,22 @@ function AudioCall({ localStream, remoteStream, onEnd, user, targetUser, tts = n
           color: "#fff",
           fontSize: "0.85em",
           textAlign: "center",
-          padding: "2px 0"
+          padding: "2px 0",
         }}
       >
         <small>
-          <span role="img" aria-label="sécurité">🔒</span> Sécurisé | <span role="img" aria-label="accessibilité">♿</span> Accessible | <span role="img" aria-label="mobile">📱</span> Mobile/Web
+          <span role="img" aria-label="sécurité">
+            🔒
+          </span>{" "}
+          Sécurisé |{" "}
+          <span role="img" aria-label="accessibilité">
+            ♿
+          </span>{" "}
+          Accessible |{" "}
+          <span role="img" aria-label="mobile">
+            📱
+          </span>{" "}
+          Mobile/Web
         </small>
       </footer>
     </div>

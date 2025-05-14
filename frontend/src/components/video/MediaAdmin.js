@@ -34,6 +34,7 @@ function MediaAdmin({
 
   useEffect(() => {
     let mediaStream = new MediaStream();
+    const currentVideoRef = videoRef.current; // Copie de la ref
 
     if (imAdmin && stream) {
       const tracks = stream.getVideoTracks();
@@ -49,12 +50,13 @@ function MediaAdmin({
       if (audioTrack) mediaStream.addTrack(audioTrack);
     }
 
-    if (videoRef.current) {
-      videoRef.current.srcObject = mediaStream;
+    if (currentVideoRef) {
+      currentVideoRef.srcObject = mediaStream;
     }
 
+    // Nettoyage
     return () => {
-      if (videoRef.current) videoRef.current.srcObject = null;
+      if (currentVideoRef) currentVideoRef.srcObject = null; // Utilisation de la copie
     };
   }, [imAdmin, stream, videoTrack, audioTrack]);
 
@@ -78,9 +80,21 @@ function MediaAdmin({
   const renderBadges = () =>
     Array.isArray(badges) && badges.length > 0
       ? badges.map((b) => (
-          <span key={b} className="badge" aria-label={`Badge ${b}`} style={{
-            marginLeft: 4, background: "#e3f2fd", color: "#1976d2", borderRadius: 6, padding: "0 6px", fontSize: "0.95em"
-          }}>{b}</span>
+          <span
+            key={b}
+            className="badge"
+            aria-label={`Badge ${b}`}
+            style={{
+              marginLeft: 4,
+              background: "#e3f2fd",
+              color: "#1976d2",
+              borderRadius: 6,
+              padding: "0 6px",
+              fontSize: "0.95em",
+            }}
+          >
+            {b}
+          </span>
         ))
       : null;
 
@@ -104,7 +118,10 @@ function MediaAdmin({
     >
       <Helmet>
         <title>{imAdmin ? "Flux admin" : "Flux membre"} | Achiri</title>
-        <meta name="description" content="Flux vidéo/audio sécurisé, accessible et responsive pour Achiri." />
+        <meta
+          name="description"
+          content="Flux vidéo/audio sécurisé, accessible et responsive pour Achiri."
+        />
       </Helmet>
       {/* Infos utilisateur */}
       {user && (
@@ -123,7 +140,7 @@ function MediaAdmin({
             color: "#fff",
             fontWeight: "bold",
             gap: 6,
-            fontSize: "1em"
+            fontSize: "1em",
           }}
         >
           <span
@@ -135,9 +152,18 @@ function MediaAdmin({
           <span>{user?.name || "Invité"}</span>
           {renderBadges()}
           {points > 0 && (
-            <span className="points" aria-label={`Points: ${points}`} style={{
-              marginLeft: 8, color: "#ffd600", fontWeight: 600, fontSize: "0.98em"
-            }}>{points} pts</span>
+            <span
+              className="points"
+              aria-label={`Points: ${points}`}
+              style={{
+                marginLeft: 8,
+                color: "#ffd600",
+                fontWeight: 600,
+                fontSize: "0.98em",
+              }}
+            >
+              {points} pts
+            </span>
           )}
         </div>
       )}
@@ -153,7 +179,7 @@ function MediaAdmin({
           padding: "2px 12px",
           fontWeight: "bold",
           fontSize: "1em",
-          zIndex: 2
+          zIndex: 2,
         }}
         aria-hidden="true"
       >
@@ -168,7 +194,7 @@ function MediaAdmin({
           right: 16,
           display: "flex",
           gap: 10,
-          zIndex: 2
+          zIndex: 2,
         }}
         aria-label="Contrôles accessibilité"
       >
@@ -184,14 +210,16 @@ function MediaAdmin({
             padding: "0.4em 0.8em",
             fontWeight: "bold",
             fontSize: "1em",
-            cursor: "pointer"
+            cursor: "pointer",
           }}
         >
           {audioEnabled ? "🔊" : "🔇"}
         </button>
         <button
           onClick={toggleVideo}
-          aria-label={videoEnabled ? "Désactiver la caméra" : "Activer la caméra"}
+          aria-label={
+            videoEnabled ? "Désactiver la caméra" : "Activer la caméra"
+          }
           title={videoEnabled ? "Désactiver la caméra" : "Activer la caméra"}
           style={{
             background: videoEnabled ? "#fff" : "#ffcdd2",
@@ -201,7 +229,7 @@ function MediaAdmin({
             padding: "0.4em 0.8em",
             fontWeight: "bold",
             fontSize: "1em",
-            cursor: "pointer"
+            cursor: "pointer",
           }}
         >
           {videoEnabled ? "🎥" : "📷"}
@@ -220,7 +248,7 @@ function MediaAdmin({
           minHeight: 180,
           objectFit: "cover",
           boxShadow: "0 2px 12px #1976d244",
-          outline: "none"
+          outline: "none",
         }}
         aria-label={imAdmin ? "Flux vidéo administrateur" : "Flux vidéo membre"}
       />
@@ -234,13 +262,15 @@ function MediaAdmin({
             left: 0,
             right: 0,
             bottom: 70,
-            background: darkMode ? "rgba(24,28,36,0.95)" : "rgba(255,255,255,0.95)",
+            background: darkMode
+              ? "rgba(24,28,36,0.95)"
+              : "rgba(255,255,255,0.95)",
             color: darkMode ? "#ffd600" : "#222",
             borderRadius: 8,
             fontSize: "1.08em",
             padding: "4px 12px",
             textAlign: "center",
-            zIndex: 10
+            zIndex: 10,
           }}
         >
           {subtitles}
@@ -258,7 +288,7 @@ function MediaAdmin({
             background: "rgba(255,255,255,0.8)",
             borderRadius: 10,
             padding: 6,
-            zIndex: 11
+            zIndex: 11,
           }}
         >
           {signLanguage}
@@ -275,11 +305,22 @@ function MediaAdmin({
           color: "#fff",
           fontSize: "0.85em",
           textAlign: "center",
-          padding: "2px 0"
+          padding: "2px 0",
         }}
       >
         <small>
-          <span role="img" aria-label="sécurité">🔒</span> Sécurisé | <span role="img" aria-label="accessibilité">♿</span> Accessible | <span role="img" aria-label="mobile">📱</span> Mobile/Web
+          <span role="img" aria-label="sécurité">
+            🔒
+          </span>{" "}
+          Sécurisé |{" "}
+          <span role="img" aria-label="accessibilité">
+            ♿
+          </span>{" "}
+          Accessible |{" "}
+          <span role="img" aria-label="mobile">
+            📱
+          </span>{" "}
+          Mobile/Web
         </small>
       </footer>
       <style>{`

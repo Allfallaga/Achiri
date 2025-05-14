@@ -36,7 +36,9 @@ export default function BreakoutRoomsPanel({
   };
 
   const isInRoom = (room) =>
-    room.participants && currentUser && room.participants.includes(currentUser.id);
+    room.participants &&
+    currentUser &&
+    room.participants.includes(currentUser.id);
 
   return (
     <div
@@ -68,7 +70,10 @@ export default function BreakoutRoomsPanel({
           {error}
         </div>
       )}
-      <form onSubmit={handleCreate} style={{ marginBottom: 18, display: "flex", gap: 8 }}>
+      <form
+        onSubmit={handleCreate}
+        style={{ marginBottom: 18, display: "flex", gap: 8 }}
+      >
         <input
           type="text"
           value={newRoomName}
@@ -100,9 +105,19 @@ export default function BreakoutRoomsPanel({
           Créer
         </button>
       </form>
-      <ul style={{ listStyle: "none", padding: 0, margin: 0, maxHeight: 220, overflowY: "auto" }}>
+      <ul
+        style={{
+          listStyle: "none",
+          padding: 0,
+          margin: 0,
+          maxHeight: 220,
+          overflowY: "auto",
+        }}
+      >
         {rooms.length === 0 && (
-          <li style={{ color: "#888", fontStyle: "italic" }}>Aucune breakout room</li>
+          <li style={{ color: "#888", fontStyle: "italic" }}>
+            Aucune breakout room
+          </li>
         )}
         {rooms.map((room) => (
           <li
@@ -115,9 +130,12 @@ export default function BreakoutRoomsPanel({
               borderBottom: "1px solid #e3e3e3",
             }}
           >
-            <span style={{ fontWeight: 600, color: "#1976d2" }}>{room.name}</span>
+            <span style={{ fontWeight: 600, color: "#1976d2" }}>
+              {room.name}
+            </span>
             <span style={{ fontSize: "0.95em", color: "#555" }}>
-              ({room.participants?.length || 0} participant{room.participants?.length > 1 ? "s" : ""})
+              ({room.participants?.length || 0} participant
+              {room.participants?.length > 1 ? "s" : ""})
             </span>
             <div style={{ flex: 1 }} />
             {isInRoom(room) ? (

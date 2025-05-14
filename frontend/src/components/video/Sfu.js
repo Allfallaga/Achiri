@@ -11,10 +11,9 @@ import io from "socket.io-client";
 import { Device } from "mediasoup-client";
 import { Helmet } from "react-helmet-async";
 
-import MediaRcv from "../MediaRcv/MediaRcv";
-
+import MediaRcv from "./MediaRcv.js";
 import MediaAdmin from "./MediaAdmin";
-import "../../styles/sfu.css";
+import "./Sfu.scss";
 
 function Sfu(props) {
   const alreadyConnected = useRef(false);
@@ -54,6 +53,7 @@ function Sfu(props) {
   // Accessibilité : focus sur la vidéo principale à l'entrée
   useEffect(() => {
     if (my_media.current) my_media.current.focus();
+
   }, []);
 
   useEffect(() => {
@@ -61,6 +61,7 @@ function Sfu(props) {
     socket.current = io(process.env.REACT_APP_PEERSERVER_ADDR_COMP, {
       transports: ["websocket"],
     });
+    const currentMyMedia = my_media.current; // Copie de la ref
 
     socket.current.on("connection-success", ({ socketId }) => {
       startStreaming(props.isAdmin);
@@ -70,13 +71,13 @@ function Sfu(props) {
     });
     socket.current.on("producer-closed", ({ remoteProducerId }) => {
       const producerToClose = consumerTransports.current.find(
-        (transportData) => transportData.producerId === remoteProducerId
+        (transportData) => transportData.producerId === remoteProducerId,
       );
       if (producerToClose) {
         producerToClose.consumerTransport.close();
         producerToClose.consumer.close();
         consumerTransports.current = consumerTransports.current.filter(
-          (transportData) => transportData.producerId !== remoteProducerId
+          (transportData) => transportData.producerId !== remoteProducerId,
         );
       }
     });
@@ -86,17 +87,24 @@ function Sfu(props) {
 
     return () => {
       socket.current && socket.current.disconnect();
-      if (my_media.current) my_media.current.srcObject = null;
-      setAdminMedia({ socketId: "", videoTrack: undefined, audioTrack: undefined });
+      if (currentMyMedia) currentMyMedia.srcObject = null; // Utilisation de la copie
+      setAdminMedia({
+        socketId: "",
+        videoTrack: undefined,
+        audioTrack: undefined,
+      });
       setVideoConsumers({});
       setAudioConsumers({});
     };
-     
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
   const startStreaming = async (isAdmin) => {
     try {
-      const stream = await navigator.mediaDevices.getUserMedia({ video: true, audio: true });
+      const stream = await navigator.mediaDevices.getUserMedia({
+        video: true,
+        audio: true,
+      });
       videoTrack.current = stream.getVideoTracks()[0];
       audioTrack.current = stream.getAudioTracks()[0];
       videoParams.current = {
@@ -129,7 +137,7 @@ function Sfu(props) {
       (data) => {
         rtpCapabilities.current = data.rtpCapabilities;
         createDevice();
-      }
+      },
     );
   };
 
@@ -159,12 +167,14 @@ function Sfu(props) {
           "connect",
           async ({ dtlsParameters }, callback, errback) => {
             try {
-              await socket.current.emit("transport-connect", { dtlsParameters });
+              await socket.current.emit("transport-connect", {
+                dtlsParameters,
+              });
               callback();
             } catch (error) {
               errback(error);
             }
-          }
+          },
         );
         producerTransport.current.on(
           "produce",
@@ -180,17 +190,17 @@ function Sfu(props) {
                   },
                   ({ id }) => {
                     callback({ id });
-                  }
+                  },
                 );
               }
             } catch (error) {
               // Optionnel : afficher une notification d'erreur à l'utilisateur
             }
-          }
+          },
         );
 
         connectSendTransport();
-      }
+      },
     );
   };
 
@@ -240,17 +250,17 @@ function Sfu(props) {
             } catch (error) {
               errback(error);
             }
-          }
+          },
         );
         connectRecvTransport(consumerTransport, remoteProducerId, params.id);
-      }
+      },
     );
   };
 
   const connectRecvTransport = async (
     consumerTransport,
     remoteProducerId,
-    serverConsumerTransportId
+    serverConsumerTransportId,
   ) => {
     await socket.current.emit(
       "consume",
@@ -309,7 +319,7 @@ function Sfu(props) {
         socket.current.emit("consumer-resume", {
           serverConsumerId: params.serverConsumerId,
         });
-      }
+      },
     );
   };
 
@@ -317,9 +327,15 @@ function Sfu(props) {
     <div className="media-area" aria-label="Zone de médias SFU" tabIndex={0}>
       <Helmet>
         <title>Classe virtuelle SFU | Achiri</title>
-        <meta name="description" content="Salle de classe virtuelle Achiri avec gestion avancée des flux vidéo/audio, accessibilité, sécurité, mobile/web." />
+        <meta
+          name="description"
+          content="Salle de classe virtuelle Achiri avec gestion avancée des flux vidéo/audio, accessibilité, sécurité, mobile/web."
+        />
       </Helmet>
-      <div className="main-media" style={{ display: "flex", flexDirection: "column", gap: 18 }}>
+      <div
+        className="main-media"
+        style={{ display: "flex", flexDirection: "column", gap: 18 }}
+      >
         {imAdmin && <MediaAdmin imAdmin={true} stream={stream} />}
         {!imAdmin && (
           <MediaAdmin
@@ -339,16 +355,23 @@ function Sfu(props) {
               background: "#222",
               minHeight: 120,
               objectFit: "cover",
-              boxShadow: "0 1px 4px #1976d222"
+              boxShadow: "0 1px 4px #1976d222",
             }}
             aria-label="Votre flux"
             tabIndex={0}
           />
         </div>
       </div>
-      <div className="secondary-media" style={{ display: "flex", flexWrap: "wrap", gap: 16, marginTop: 18 }}>
+      <div
+        className="secondary-media"
+        style={{ display: "flex", flexWrap: "wrap", gap: 16, marginTop: 18 }}
+      >
         {Object.entries(videoConsumers).map(([socketId, videoConsumer]) => (
-          <div key={socketId} className="their-media" style={{ position: "relative", minWidth: 180, flex: "1 1 220px" }}>
+          <div
+            key={socketId}
+            className="their-media"
+            style={{ position: "relative", minWidth: 180, flex: "1 1 220px" }}
+          >
             <MediaRcv
               video={videoConsumer}
               audio={audioConsumers[socketId]}
@@ -359,17 +382,31 @@ function Sfu(props) {
           </div>
         ))}
       </div>
-      <footer className="sfu-footer" style={{
-        marginTop: 18,
-        background: "rgba(0,0,0,0.18)",
-        color: "#fff",
-        fontSize: "0.9em",
-        textAlign: "center",
-        borderRadius: 8,
-        padding: "4px 0"
-      }}>
+      <footer
+        className="sfu-footer"
+        style={{
+          marginTop: 18,
+          background: "rgba(0,0,0,0.18)",
+          color: "#fff",
+          fontSize: "0.9em",
+          textAlign: "center",
+          borderRadius: 8,
+          padding: "4px 0",
+        }}
+      >
         <small>
-          <span role="img" aria-label="sécurité">🔒</span> Sécurisé | <span role="img" aria-label="accessibilité">♿</span> Accessible | <span role="img" aria-label="mobile">📱</span> Mobile/Web
+          <span role="img" aria-label="sécurité">
+            🔒
+          </span>{" "}
+          Sécurisé |{" "}
+          <span role="img" aria-label="accessibilité">
+            ♿
+          </span>{" "}
+          Accessible |{" "}
+          <span role="img" aria-label="mobile">
+            📱
+          </span>{" "}
+          Mobile/Web
         </small>
       </footer>
     </div>

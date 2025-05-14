@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import { Helmet } from "react-helmet-async";
 import { Link } from "react-router-dom";
 
-import RoomList from "../components/RoomList";
+import RoomList from "../components/rooms/RoomList.js";
 
 /**
  * RoomsPage – Achiri
@@ -37,42 +37,73 @@ export default function RoomsPage({ userId }) {
         boxShadow: "0 4px 24px 0 rgba(25, 118, 210, 0.06)",
         fontFamily: "'Segoe UI', Arial, sans-serif",
         color: darkMode ? "#e3f2fd" : "#222",
-        transition: "background 0.3s, color 0.3s"
+        transition: "background 0.3s, color 0.3s",
       }}
       aria-label="Liste des rooms"
       tabIndex={0}
     >
       <Helmet>
         <title>Rooms | Achiri</title>
-        <meta name="description" content="Liste et gestion des salles de visioconférence sur Achiri. Plateforme IA inclusive, accessible et sécurisée." />
+        <meta
+          name="description"
+          content="Liste et gestion des salles de visioconférence sur Achiri. Plateforme IA inclusive, accessible et sécurisée."
+        />
         <html lang="fr" />
       </Helmet>
-      <header style={{ marginBottom: 24, display: "flex", alignItems: "center", justifyContent: "space-between" }}>
-        <h1 style={{ color: darkMode ? "#ffd600" : "#1976d2", fontWeight: 700, fontSize: "2rem", margin: 0, flex: 1 }}>
+      <header
+        style={{
+          marginBottom: 24,
+          display: "flex",
+          alignItems: "center",
+          justifyContent: "space-between",
+        }}
+      >
+        <h1
+          style={{
+            color: darkMode ? "#ffd600" : "#1976d2",
+            fontWeight: 700,
+            fontSize: "2rem",
+            margin: 0,
+            flex: 1,
+          }}
+        >
           Liste des Rooms
         </h1>
         <button
           type="button"
           onClick={handleDarkMode}
-          aria-label={darkMode ? "Désactiver le mode sombre" : "Activer le mode sombre"}
+          aria-label={
+            darkMode ? "Désactiver le mode sombre" : "Activer le mode sombre"
+          }
           style={{
             background: "none",
             border: "none",
             color: darkMode ? "#ffd600" : "#1976d2",
             cursor: "pointer",
             fontSize: 22,
-            marginLeft: 12
+            marginLeft: 12,
           }}
           tabIndex={0}
         >
           {darkMode ? "🎨" : "🌙"}
         </button>
       </header>
-      <p style={{ color: darkMode ? "#e3f2fd" : "#444", marginBottom: 0, fontSize: "1.1em", textAlign: "center" }}>
-        Retrouvez ici toutes les salles de visioconférence disponibles ou créez-en une nouvelle.
+      <p
+        style={{
+          color: darkMode ? "#e3f2fd" : "#444",
+          marginBottom: 0,
+          fontSize: "1.1em",
+          textAlign: "center",
+        }}
+      >
+        Retrouvez ici toutes les salles de visioconférence disponibles ou
+        créez-en une nouvelle.
       </p>
       {/* Affichage de la liste des rooms */}
-      <section aria-label="Rooms disponibles" style={{ minHeight: 120, marginTop: 18 }}>
+      <section
+        aria-label="Rooms disponibles"
+        style={{ minHeight: 120, marginTop: 18 }}
+      >
         <RoomList userId={userId} darkMode={darkMode} />
       </section>
       {/* Navigation rapide vers les principales pages */}
@@ -83,37 +114,133 @@ export default function RoomsPage({ userId }) {
           display: "flex",
           flexWrap: "wrap",
           gap: 8,
-          justifyContent: "center"
+          justifyContent: "center",
         }}
         aria-label="Navigation principale"
       >
-        <Link to="/" style={{ margin: 8, color: darkMode ? "#ffd600" : "#1976d2" }}>Accueil</Link>
-        <Link to="/dashboard" style={{ margin: 8, color: darkMode ? "#ffd600" : "#1976d2" }}>Dashboard</Link>
-        <Link to="/profile" style={{ margin: 8, color: darkMode ? "#ffd600" : "#1976d2" }}>Profil</Link>
-        <Link to="/virtual-classroom" style={{ margin: 8, color: darkMode ? "#ffd600" : "#1976d2" }}>Classes Virtuelles</Link>
-        <Link to="/music" style={{ margin: 8, color: darkMode ? "#ffd600" : "#1976d2" }}>Musique</Link>
-        <Link to="/notifications" style={{ margin: 8, color: darkMode ? "#ffd600" : "#1976d2" }}>Notifications</Link>
-        <Link to="/challenges" style={{ margin: 8, color: darkMode ? "#ffd600" : "#1976d2" }}>Challenges</Link>
-        <Link to="/accessibilite" style={{ margin: 8, color: darkMode ? "#ffd600" : "#1976d2" }}>Accessibilité</Link>
-        <Link to="/friends" style={{ margin: 8, color: darkMode ? "#ffd600" : "#1976d2" }}>Amis</Link>
-        <Link to="/leaderboard" style={{ margin: 8, color: darkMode ? "#ffd600" : "#1976d2" }}>Classement</Link>
-        <Link to="/creator-tools" style={{ margin: 8, color: darkMode ? "#ffd600" : "#1976d2" }}>Creator Tools</Link>
-        <Link to="/admin" style={{ margin: 8, color: darkMode ? "#ffd600" : "#1976d2" }}>Admin</Link>
-        <Link to="/social-interactions" style={{ margin: 8, color: darkMode ? "#ffd600" : "#1976d2" }}>Interactions Sociales</Link>
-        <Link to="/reseaux-sociaux" style={{ margin: 8, color: darkMode ? "#ffd600" : "#1976d2" }}>Réseaux Sociaux</Link>
-        <Link to="/rooms" style={{ margin: 8, color: darkMode ? "#ffd600" : "#1976d2" }}>Rooms</Link>
-        <Link to="/settings" style={{ margin: 8, color: darkMode ? "#ffd600" : "#1976d2" }}>Paramètres</Link>
-        <Link to="/wallet" style={{ margin: 8, color: darkMode ? "#ffd600" : "#1976d2" }}>Wallet</Link>
+        <Link
+          to="/"
+          style={{ margin: 8, color: darkMode ? "#ffd600" : "#1976d2" }}
+        >
+          Accueil
+        </Link>
+        <Link
+          to="/dashboard"
+          style={{ margin: 8, color: darkMode ? "#ffd600" : "#1976d2" }}
+        >
+          Dashboard
+        </Link>
+        <Link
+          to="/profile"
+          style={{ margin: 8, color: darkMode ? "#ffd600" : "#1976d2" }}
+        >
+          Profil
+        </Link>
+        <Link
+          to="/virtual-classroom"
+          style={{ margin: 8, color: darkMode ? "#ffd600" : "#1976d2" }}
+        >
+          Classes Virtuelles
+        </Link>
+        <Link
+          to="/music"
+          style={{ margin: 8, color: darkMode ? "#ffd600" : "#1976d2" }}
+        >
+          Musique
+        </Link>
+        <Link
+          to="/notifications"
+          style={{ margin: 8, color: darkMode ? "#ffd600" : "#1976d2" }}
+        >
+          Notifications
+        </Link>
+        <Link
+          to="/challenges"
+          style={{ margin: 8, color: darkMode ? "#ffd600" : "#1976d2" }}
+        >
+          Challenges
+        </Link>
+        <Link
+          to="/accessibilite"
+          style={{ margin: 8, color: darkMode ? "#ffd600" : "#1976d2" }}
+        >
+          Accessibilité
+        </Link>
+        <Link
+          to="/friends"
+          style={{ margin: 8, color: darkMode ? "#ffd600" : "#1976d2" }}
+        >
+          Amis
+        </Link>
+        <Link
+          to="/leaderboard"
+          style={{ margin: 8, color: darkMode ? "#ffd600" : "#1976d2" }}
+        >
+          Classement
+        </Link>
+        <Link
+          to="/creator-tools"
+          style={{ margin: 8, color: darkMode ? "#ffd600" : "#1976d2" }}
+        >
+          Creator Tools
+        </Link>
+        <Link
+          to="/admin"
+          style={{ margin: 8, color: darkMode ? "#ffd600" : "#1976d2" }}
+        >
+          Admin
+        </Link>
+        <Link
+          to="/social-interactions"
+          style={{ margin: 8, color: darkMode ? "#ffd600" : "#1976d2" }}
+        >
+          Interactions Sociales
+        </Link>
+        <Link
+          to="/reseaux-sociaux"
+          style={{ margin: 8, color: darkMode ? "#ffd600" : "#1976d2" }}
+        >
+          Réseaux Sociaux
+        </Link>
+        <Link
+          to="/rooms"
+          style={{ margin: 8, color: darkMode ? "#ffd600" : "#1976d2" }}
+        >
+          Rooms
+        </Link>
+        <Link
+          to="/settings"
+          style={{ margin: 8, color: darkMode ? "#ffd600" : "#1976d2" }}
+        >
+          Paramètres
+        </Link>
+        <Link
+          to="/wallet"
+          style={{ margin: 8, color: darkMode ? "#ffd600" : "#1976d2" }}
+        >
+          Wallet
+        </Link>
       </nav>
       <footer
         style={{
           marginTop: 24,
           color: darkMode ? "#ffd600" : "#888",
           fontSize: "0.93em",
-          textAlign: "center"
+          textAlign: "center",
         }}
       >
-        <span role="img" aria-label="sécurité">🔒</span> Sécurisé | <span role="img" aria-label="accessibilité">♿</span> Accessible | <span role="img" aria-label="mobile">📱</span> Mobile/Web
+        <span role="img" aria-label="sécurité">
+          🔒
+        </span>{" "}
+        Sécurisé |{" "}
+        <span role="img" aria-label="accessibilité">
+          ♿
+        </span>{" "}
+        Accessible |{" "}
+        <span role="img" aria-label="mobile">
+          📱
+        </span>{" "}
+        Mobile/Web
       </footer>
       <style>{`
         main[aria-label="Liste des rooms"]:focus {

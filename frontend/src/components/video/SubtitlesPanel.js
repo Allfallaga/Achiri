@@ -15,7 +15,7 @@ function SubtitlesPanel({
   lang = "fr",
   visible = true,
   onClose = null,
-  darkMode = false
+  darkMode = false,
 }) {
   const panelRef = useRef();
 
@@ -51,7 +51,7 @@ function SubtitlesPanel({
         fontSize: "1.15em",
         textAlign: "center",
         zIndex: 20,
-        outline: "none"
+        outline: "none",
       }}
     >
       <span style={{ wordBreak: "break-word" }}>
@@ -70,7 +70,7 @@ function SubtitlesPanel({
             border: "none",
             color: darkMode ? "#ffd600" : "#1976d2",
             fontSize: "1.2em",
-            cursor: "pointer"
+            cursor: "pointer",
           }}
         >
           ✖
@@ -105,7 +105,7 @@ SubtitlesPanel.propTypes = {
   lang: PropTypes.string,
   visible: PropTypes.bool,
   onClose: PropTypes.func,
-  darkMode: PropTypes.bool
+  darkMode: PropTypes.bool,
 };
 
 export default SubtitlesPanel;

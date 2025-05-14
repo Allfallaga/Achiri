@@ -34,8 +34,11 @@ export function EmergencyProvider({ children }) {
   // Chargement initial depuis localStorage (mock, à remplacer par API)
   useEffect(() => {
     try {
-      const saved = JSON.parse(localStorage.getItem("achiri-emergency") || "{}");
-      if (typeof saved.emergencyActive === "boolean") setEmergencyActive(saved.emergencyActive);
+      const saved = JSON.parse(
+        localStorage.getItem("achiri-emergency") || "{}",
+      );
+      if (typeof saved.emergencyActive === "boolean")
+        setEmergencyActive(saved.emergencyActive);
       if (saved.emergencyType) setEmergencyType(saved.emergencyType);
       if (saved.message) setMessage(saved.message);
       if (Array.isArray(saved.contacts)) setContacts(saved.contacts);
@@ -49,7 +52,13 @@ export function EmergencyProvider({ children }) {
   useEffect(() => {
     localStorage.setItem(
       "achiri-emergency",
-      JSON.stringify({ emergencyActive, emergencyType, message, contacts, logs })
+      JSON.stringify({
+        emergencyActive,
+        emergencyType,
+        message,
+        contacts,
+        logs,
+      }),
     );
   }, [emergencyActive, emergencyType, message, contacts, logs]);
 
@@ -82,7 +91,11 @@ export function EmergencyProvider({ children }) {
   // Supprimer un contact d’urgence
   const removeContact = (contactId) => {
     setContacts((prev) => prev.filter((c) => c.id !== contactId));
-    addLog({ date: new Date().toISOString(), action: "removeContact", contactId });
+    addLog({
+      date: new Date().toISOString(),
+      action: "removeContact",
+      contactId,
+    });
     notify(`Contact d'urgence supprimé.`);
   };
 

@@ -9,7 +9,7 @@ import {
   FaLanguage,
   FaUsers,
   FaMoon,
-  FaPalette
+  FaPalette,
 } from "react-icons/fa";
 
 /**
@@ -45,13 +45,13 @@ export default function VirtualClassroomDetail({ classroomId, userId }) {
         id: "q1",
         text: "Quelle est la couleur du ciel ?",
         choices: ["Bleu", "Vert", "Rouge"],
-        answer: "Bleu"
+        answer: "Bleu",
       },
       {
         id: "q2",
         text: "Combien font 2 + 2 ?",
         choices: ["3", "4", "5"],
-        answer: "4"
+        answer: "4",
       },
     ],
   });
@@ -63,7 +63,7 @@ export default function VirtualClassroomDetail({ classroomId, userId }) {
   const [message, setMessage] = useState("");
   const [chat, setChat] = useState([
     { user: "alice", text: "Bonjour à tous !" },
-    { user: "bob", text: "Salut !" }
+    { user: "bob", text: "Salut !" },
   ]);
   const [error, setError] = useState("");
   const [success, setSuccess] = useState("");
@@ -89,13 +89,10 @@ export default function VirtualClassroomDetail({ classroomId, userId }) {
     setError("");
     // Correction simple
     let score = 0;
-    quiz.questions.forEach(q => {
+    quiz.questions.forEach((q) => {
       if (answers[q.id] === q.answer) score++;
     });
-    setScores(prev => [
-      ...prev,
-      { userId: userId || "moi", score }
-    ]);
+    setScores((prev) => [...prev, { userId: userId || "moi", score }]);
     setSuccess("Quiz soumis !");
     setTimeout(() => setSuccess(""), 2000);
   };
@@ -104,7 +101,7 @@ export default function VirtualClassroomDetail({ classroomId, userId }) {
   const handleSendMessage = (e) => {
     e.preventDefault();
     if (!message.trim()) return;
-    setChat(prev => [...prev, { user: userId || "moi", text: message }]);
+    setChat((prev) => [...prev, { user: userId || "moi", text: message }]);
     setSuccess("Message envoyé !");
     setMessage("");
     setTimeout(() => setSuccess(""), 2000);
@@ -123,69 +120,139 @@ export default function VirtualClassroomDetail({ classroomId, userId }) {
         boxShadow: "0 4px 24px 0 rgba(0,0,0,0.06)",
         fontFamily: "'Segoe UI', Arial, sans-serif",
         color: darkMode ? "#ffe082" : "#222",
-        transition: "background 0.3s, color 0.3s"
+        transition: "background 0.3s, color 0.3s",
       }}
       aria-label="Détail de la classe virtuelle"
       tabIndex={0}
     >
-      <div style={{ display: "flex", alignItems: "center", marginBottom: 18, justifyContent: "space-between" }}>
+      <div
+        style={{
+          display: "flex",
+          alignItems: "center",
+          marginBottom: 18,
+          justifyContent: "space-between",
+        }}
+      >
         <div style={{ display: "flex", alignItems: "center" }}>
-          <FaChalkboardTeacher style={{ color: darkMode ? "#ffe082" : "#1976d2", fontSize: 28, marginRight: 12 }} />
-          <h2 style={{ fontWeight: 700, fontSize: "1.3em", color: darkMode ? "#ffe082" : "#1976d2", margin: 0 }}>
+          <FaChalkboardTeacher
+            style={{
+              color: darkMode ? "#ffe082" : "#1976d2",
+              fontSize: 28,
+              marginRight: 12,
+            }}
+          />
+          <h2
+            style={{
+              fontWeight: 700,
+              fontSize: "1.3em",
+              color: darkMode ? "#ffe082" : "#1976d2",
+              margin: 0,
+            }}
+          >
             Détail de la Classe Virtuelle
           </h2>
         </div>
         <button
           type="button"
           onClick={handleDarkMode}
-          aria-label={darkMode ? "Désactiver le mode sombre" : "Activer le mode sombre"}
+          aria-label={
+            darkMode ? "Désactiver le mode sombre" : "Activer le mode sombre"
+          }
           style={{
             background: "none",
             border: "none",
             color: darkMode ? "#ffe082" : "#1976d2",
             cursor: "pointer",
-            fontSize: 20
+            fontSize: 20,
           }}
           tabIndex={0}
         >
           {darkMode ? <FaPalette /> : <FaMoon />}
         </button>
       </div>
-      {error && <div style={{ color: "#b71c1c", marginBottom: 8 }} aria-live="assertive">{error}</div>}
+      {error && (
+        <div
+          style={{ color: "#b71c1c", marginBottom: 8 }}
+          aria-live="assertive"
+        >
+          {error}
+        </div>
+      )}
       {success && (
-        <div style={{ color: "#43a047", marginBottom: 8, display: "flex", alignItems: "center", gap: 6 }}>
+        <div
+          style={{
+            color: "#43a047",
+            marginBottom: 8,
+            display: "flex",
+            alignItems: "center",
+            gap: 6,
+          }}
+        >
           <FaCheckCircle /> {success}
         </div>
       )}
       {classroom ? (
         <>
           <div style={{ marginBottom: 16 }}>
-            <strong>Nom :</strong> {classroom.name || `Classe #${classroom.id}`}<br />
+            <strong>Nom :</strong> {classroom.name || `Classe #${classroom.id}`}
+            <br />
             <strong>Description :</strong> {classroom.description || "Aucune"}
-            <div style={{ marginTop: 8, display: "flex", gap: 12, alignItems: "center" }}>
-              <FaUsers style={{ color: "#43a047" }} /> {classroom.participants} participants
-              {classroom.accessibility && classroom.accessibility.map((a, i) => {
-                const feature = accessibilityFeatures.find(f => f.label === a);
-                return feature ? (
-                  <span key={i} title={feature.label} aria-label={feature.label} style={{ fontSize: 20, marginLeft: 8 }}>
-                    {feature.icon}
-                  </span>
-                ) : null;
-              })}
+            <div
+              style={{
+                marginTop: 8,
+                display: "flex",
+                gap: 12,
+                alignItems: "center",
+              }}
+            >
+              <FaUsers style={{ color: "#43a047" }} /> {classroom.participants}{" "}
+              participants
+              {classroom.accessibility &&
+                classroom.accessibility.map((a, i) => {
+                  const feature = accessibilityFeatures.find(
+                    (f) => f.label === a,
+                  );
+                  return feature ? (
+                    <span
+                      key={i}
+                      title={feature.label}
+                      aria-label={feature.label}
+                      style={{ fontSize: 20, marginLeft: 8 }}
+                    >
+                      {feature.icon}
+                    </span>
+                  ) : null;
+                })}
             </div>
           </div>
           {/* Quiz */}
           {quiz && quiz.questions && (
             <form onSubmit={handleSubmitQuiz} style={{ marginTop: 16 }}>
-              <h3 style={{ color: darkMode ? "#ffe082" : "#1976d2", fontWeight: 600, fontSize: "1.1em", marginBottom: 10 }}>
+              <h3
+                style={{
+                  color: darkMode ? "#ffe082" : "#1976d2",
+                  fontWeight: 600,
+                  fontSize: "1.1em",
+                  marginBottom: 10,
+                }}
+              >
                 <FaTrophy style={{ marginRight: 6 }} /> Quiz
               </h3>
-              {quiz.questions.map(q => (
+              {quiz.questions.map((q) => (
                 <div key={q.id} style={{ marginBottom: 14 }}>
-                  <div style={{ fontWeight: 500, marginBottom: 4 }}>{q.text}</div>
+                  <div style={{ fontWeight: 500, marginBottom: 4 }}>
+                    {q.text}
+                  </div>
                   <div style={{ display: "flex", gap: 16 }}>
-                    {q.choices.map(choice => (
-                      <label key={choice} style={{ marginRight: 12, fontWeight: 400, cursor: "pointer" }}>
+                    {q.choices.map((choice) => (
+                      <label
+                        key={choice}
+                        style={{
+                          marginRight: 12,
+                          fontWeight: 400,
+                          cursor: "pointer",
+                        }}
+                      >
                         <input
                           type="radio"
                           name={`q_${q.id}`}
@@ -213,7 +280,7 @@ export default function VirtualClassroomDetail({ classroomId, userId }) {
                   fontWeight: "bold",
                   fontSize: "1em",
                   cursor: "pointer",
-                  transition: "background 0.2s"
+                  transition: "background 0.2s",
                 }}
                 aria-label="Soumettre le quiz"
               >
@@ -223,21 +290,51 @@ export default function VirtualClassroomDetail({ classroomId, userId }) {
           )}
           {/* Scores */}
           <div style={{ marginTop: 28 }}>
-            <h4 style={{ color: darkMode ? "#ffe082" : "#2563eb", fontWeight: 600, fontSize: "1.05em" }}>Scores</h4>
+            <h4
+              style={{
+                color: darkMode ? "#ffe082" : "#2563eb",
+                fontWeight: 600,
+                fontSize: "1.05em",
+              }}
+            >
+              Scores
+            </h4>
             <ul style={{ paddingLeft: 18, margin: 0 }}>
               {scores.length === 0 && <li>Aucun score</li>}
               {scores.map((s, idx) => (
                 <li key={idx} style={{ marginBottom: 2 }}>
-                  <span style={{ fontWeight: s.userId === (userId || "moi") ? 600 : 400 }}>
+                  <span
+                    style={{
+                      fontWeight: s.userId === (userId || "moi") ? 600 : 400,
+                    }}
+                  >
                     {s.userId}
-                  </span> : <span style={{ color: darkMode ? "#ffe082" : "#1976d2", fontWeight: 600 }}>{s.score}</span>
+                  </span>{" "}
+                  :{" "}
+                  <span
+                    style={{
+                      color: darkMode ? "#ffe082" : "#1976d2",
+                      fontWeight: 600,
+                    }}
+                  >
+                    {s.score}
+                  </span>
                 </li>
               ))}
             </ul>
           </div>
           {/* Chat/messages */}
           <div style={{ marginTop: 28 }}>
-            <h4 style={{ color: darkMode ? "#ffe082" : "#2563eb", fontWeight: 600, fontSize: "1.05em", marginBottom: 8 }}>Chat de la classe</h4>
+            <h4
+              style={{
+                color: darkMode ? "#ffe082" : "#2563eb",
+                fontWeight: 600,
+                fontSize: "1.05em",
+                marginBottom: 8,
+              }}
+            >
+              Chat de la classe
+            </h4>
             <div
               style={{
                 background: darkMode ? "#181f2a" : "#f9fafb",
@@ -247,24 +344,36 @@ export default function VirtualClassroomDetail({ classroomId, userId }) {
                 maxHeight: 120,
                 overflowY: "auto",
                 marginBottom: 8,
-                color: darkMode ? "#ffe082" : "#222"
+                color: darkMode ? "#ffe082" : "#222",
               }}
               aria-live="polite"
             >
-              {chat.length === 0 && <div style={{ color: "#888" }}>Aucun message</div>}
+              {chat.length === 0 && (
+                <div style={{ color: "#888" }}>Aucun message</div>
+              )}
               {chat.map((msg, idx) => (
                 <div key={idx} style={{ marginBottom: 4 }}>
-                  <span style={{ fontWeight: msg.user === (userId || "moi") ? 600 : 400, color: darkMode ? "#ffe082" : "#1976d2" }}>{msg.user}</span>
+                  <span
+                    style={{
+                      fontWeight: msg.user === (userId || "moi") ? 600 : 400,
+                      color: darkMode ? "#ffe082" : "#1976d2",
+                    }}
+                  >
+                    {msg.user}
+                  </span>
                   {": "}
                   <span>{msg.text}</span>
                 </div>
               ))}
             </div>
-            <form onSubmit={handleSendMessage} style={{ display: "flex", alignItems: "center", gap: 8 }}>
+            <form
+              onSubmit={handleSendMessage}
+              style={{ display: "flex", alignItems: "center", gap: 8 }}
+            >
               <input
                 type="text"
                 value={message}
-                onChange={e => setMessage(e.target.value)}
+                onChange={(e) => setMessage(e.target.value)}
                 placeholder="Envoyer un message à la classe"
                 style={{
                   width: "70%",
@@ -273,7 +382,7 @@ export default function VirtualClassroomDetail({ classroomId, userId }) {
                   padding: "8px 12px",
                   fontSize: "1em",
                   background: darkMode ? "#232b3b" : "#fff",
-                  color: darkMode ? "#ffe082" : "#222"
+                  color: darkMode ? "#ffe082" : "#222",
                 }}
                 aria-label="Envoyer un message à la classe"
               />
@@ -290,7 +399,7 @@ export default function VirtualClassroomDetail({ classroomId, userId }) {
                   cursor: "pointer",
                   display: "flex",
                   alignItems: "center",
-                  gap: 6
+                  gap: 6,
                 }}
                 aria-label="Envoyer le message"
               >
@@ -307,10 +416,21 @@ export default function VirtualClassroomDetail({ classroomId, userId }) {
           marginTop: 24,
           color: darkMode ? "#ffe082" : "#888",
           fontSize: "0.93em",
-          textAlign: "center"
+          textAlign: "center",
         }}
       >
-        <span role="img" aria-label="sécurité">🔒</span> Sécurisé | <span role="img" aria-label="accessibilité">♿</span> Accessible | <span role="img" aria-label="mobile">📱</span> Mobile/Web
+        <span role="img" aria-label="sécurité">
+          🔒
+        </span>{" "}
+        Sécurisé |{" "}
+        <span role="img" aria-label="accessibilité">
+          ♿
+        </span>{" "}
+        Accessible |{" "}
+        <span role="img" aria-label="mobile">
+          📱
+        </span>{" "}
+        Mobile/Web
       </footer>
       <style>{`
         .virtual-classroom-detail-container:focus {

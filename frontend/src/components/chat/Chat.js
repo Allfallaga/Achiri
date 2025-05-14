@@ -1,7 +1,7 @@
-import React, { useEffect, useRef, useState } from 'react';
+import React, { useEffect, useRef, useState } from "react";
 
-import Message from '../Message/Message';
-import MessageInput from '../Message/MessageInput';
+import Message from "../Message/Message";
+import MessageInput from "../Message/MessageInput";
 
 /**
  * Chat – Achiri
@@ -23,7 +23,7 @@ function Chat({ socket, room, ...props }) {
         room,
         nickname: data.nickname,
         message: data.message,
-        time: data.time
+        time: data.time,
       };
       setMessagesList((list) => [...list, newMessage]);
     };
@@ -55,29 +55,29 @@ function Chat({ socket, room, ...props }) {
       aria-label="Zone de discussion Achiri"
       tabIndex={0}
       style={{
-        outline: 'none',
-        background: '#fff',
+        outline: "none",
+        background: "#fff",
         borderRadius: 14,
-        boxShadow: '0 2px 16px #1976d222',
-        padding: '1.2rem 0.8rem 0.5rem 0.8rem',
+        boxShadow: "0 2px 16px #1976d222",
+        padding: "1.2rem 0.8rem 0.5rem 0.8rem",
         maxWidth: 480,
         minWidth: 240,
-        width: '100%',
+        width: "100%",
         minHeight: 320,
-        display: 'flex',
-        flexDirection: 'column',
-        justifyContent: 'flex-end',
-        margin: '0 auto'
+        display: "flex",
+        flexDirection: "column",
+        justifyContent: "flex-end",
+        margin: "0 auto",
       }}
     >
       <header
         style={{
           fontWeight: 700,
-          color: '#1976d2',
-          fontSize: '1.1em',
+          color: "#1976d2",
+          fontSize: "1.1em",
           marginBottom: 8,
           letterSpacing: 1,
-          textAlign: 'center'
+          textAlign: "center",
         }}
         aria-label="Titre du chat"
       >

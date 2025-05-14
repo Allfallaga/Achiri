@@ -92,7 +92,9 @@ const CreatorTools = () => {
               onClick={() => setSelectedAvatar(a.id)}
               tabIndex={0}
               aria-label={`Sélectionner l'avatar ${a.id}`}
-              onKeyDown={e => (e.key === "Enter" || e.key === " ") && setSelectedAvatar(a.id)}
+              onKeyDown={(e) =>
+                (e.key === "Enter" || e.key === " ") && setSelectedAvatar(a.id)
+              }
             />
           ))}
         </div>
@@ -105,10 +107,16 @@ const CreatorTools = () => {
 
       {/* Filtres photo (mock) */}
       <section className="mb-6" aria-labelledby="photo-filters">
-        <div id="photo-filters" className="font-semibold mb-2 flex items-center">
+        <div
+          id="photo-filters"
+          className="font-semibold mb-2 flex items-center"
+        >
           <FaImage className="mr-2" /> Filtres photo
         </div>
-        <label htmlFor="creator-image-upload" className="flex items-center gap-2 cursor-pointer">
+        <label
+          htmlFor="creator-image-upload"
+          className="flex items-center gap-2 cursor-pointer"
+        >
           <FaCloudUploadAlt /> <span>Choisir une image à filtrer</span>
         </label>
         <input
@@ -121,12 +129,20 @@ const CreatorTools = () => {
         />
         {image && (
           <div className="mt-2">
-            <img src={image} alt="Aperçu" className="w-32 h-32 rounded shadow" />
-            <div className="text-xs text-gray-400 mt-1">Filtre appliqué (mock)</div>
+            <img
+              src={image}
+              alt="Aperçu"
+              className="w-32 h-32 rounded shadow"
+            />
+            <div className="text-xs text-gray-400 mt-1">
+              Filtre appliqué (mock)
+            </div>
           </div>
         )}
         {uploadMsg && (
-          <div className="text-green-600 text-xs mt-1" aria-live="polite">{uploadMsg}</div>
+          <div className="text-green-600 text-xs mt-1" aria-live="polite">
+            {uploadMsg}
+          </div>
         )}
       </section>
 
@@ -151,7 +167,10 @@ const CreatorTools = () => {
           Générer une légende SEO
         </button>
         {seoCaption && (
-          <div className="mt-2 bg-gray-100 dark:bg-gray-800 rounded p-2 text-sm" aria-live="polite">
+          <div
+            className="mt-2 bg-gray-100 dark:bg-gray-800 rounded p-2 text-sm"
+            aria-live="polite"
+          >
             <FaHashtag className="inline mr-1" /> {seoCaption}
             <button
               className="ml-3 text-blue-600 underline text-xs"
@@ -188,15 +207,21 @@ const CreatorTools = () => {
           </button>
         </form>
         {shareMsg && (
-          <div className="mt-2 text-green-700 text-xs" aria-live="polite">{shareMsg}</div>
+          <div className="mt-2 text-green-700 text-xs" aria-live="polite">
+            {shareMsg}
+          </div>
         )}
       </section>
 
       {/* Astuce créateur */}
-      <section className="mt-6 p-3 bg-yellow-50 dark:bg-yellow-900 rounded text-yellow-800 dark:text-yellow-200 flex items-center" aria-label="Astuce créateur">
+      <section
+        className="mt-6 p-3 bg-yellow-50 dark:bg-yellow-900 rounded text-yellow-800 dark:text-yellow-200 flex items-center"
+        aria-label="Astuce créateur"
+      >
         <FaLightbulb className="mr-2" />
         <span>
-          Astuce : Utilise les outils IA Achiri pour booster ta créativité et ta visibilité !
+          Astuce : Utilise les outils IA Achiri pour booster ta créativité et ta
+          visibilité !
         </span>
       </section>
       <style>{`

@@ -13,7 +13,10 @@ import PropTypes from "prop-types";
  *   transactions : [{ id, type, date, amount, description }]
  */
 
-export default function TransactionList({ userId, transactions: propTransactions }) {
+export default function TransactionList({
+  userId,
+  transactions: propTransactions,
+}) {
   const [transactions, setTransactions] = useState([]);
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState("");
@@ -54,7 +57,7 @@ export default function TransactionList({ userId, transactions: propTransactions
   const sortedTx = [...transactions].sort((a, b) =>
     sortDesc
       ? new Date(b.date) - new Date(a.date)
-      : new Date(a.date) - new Date(b.date)
+      : new Date(a.date) - new Date(b.date),
   );
 
   return (
@@ -67,16 +70,40 @@ export default function TransactionList({ userId, transactions: propTransactions
         borderRadius: 14,
         maxWidth: 480,
         boxShadow: "0 2px 16px #ffb30033",
-        outline: "none"
+        outline: "none",
       }}
       aria-label="Historique des transactions"
       tabIndex={0}
     >
-      <header style={{ display: "flex", alignItems: "center", justifyContent: "space-between", marginBottom: 14 }}>
-        <h2 style={{ color: "#bfa000", fontWeight: 700, fontSize: "1.18em", margin: 0, display: "flex", alignItems: "center", gap: 8 }}>
+      <header
+        style={{
+          display: "flex",
+          alignItems: "center",
+          justifyContent: "space-between",
+          marginBottom: 14,
+        }}
+      >
+        <h2
+          style={{
+            color: "#bfa000",
+            fontWeight: 700,
+            fontSize: "1.18em",
+            margin: 0,
+            display: "flex",
+            alignItems: "center",
+            gap: 8,
+          }}
+        >
           💸 Transactions récentes
           {userId && (
-            <span style={{ fontSize: 14, color: "#888", fontWeight: 400, marginLeft: 8 }}>
+            <span
+              style={{
+                fontSize: 14,
+                color: "#888",
+                fontWeight: 400,
+                marginLeft: 8,
+              }}
+            >
               Utilisateur : <strong>{userId}</strong>
             </span>
           )}
@@ -93,28 +120,38 @@ export default function TransactionList({ userId, transactions: propTransactions
             color: "#bfa000",
             cursor: "pointer",
             fontSize: 14,
-            marginLeft: 10
+            marginLeft: 10,
           }}
         >
           {sortDesc ? "↓" : "↑"} Trier
         </button>
       </header>
-      {loading && <div aria-live="polite" style={{ color: "#bfa000" }}>Chargement...</div>}
-      {error && <div style={{ color: "red" }} role="alert">{error}</div>}
+      {loading && (
+        <div aria-live="polite" style={{ color: "#bfa000" }}>
+          Chargement...
+        </div>
+      )}
+      {error && (
+        <div style={{ color: "red" }} role="alert">
+          {error}
+        </div>
+      )}
       <ul
         style={{
           maxHeight: 220,
           overflowY: "auto",
           padding: 0,
           listStyle: "none",
-          margin: 0
+          margin: 0,
         }}
         aria-live="polite"
       >
         {sortedTx.length === 0 && !loading && (
-          <li style={{ color: "#888", fontStyle: "italic" }}>Aucune transaction</li>
+          <li style={{ color: "#888", fontStyle: "italic" }}>
+            Aucune transaction
+          </li>
         )}
-        {sortedTx.map(tx => (
+        {sortedTx.map((tx) => (
           <li
             key={tx.id}
             tabIndex={0}
@@ -127,13 +164,16 @@ export default function TransactionList({ userId, transactions: propTransactions
               background: tx.amount < 0 ? "#fff8e1" : "#f1f8e9",
               borderRadius: 6,
               paddingLeft: 8,
-              paddingRight: 8
+              paddingRight: 8,
             }}
             aria-label={`${tx.type}, ${tx.amount > 0 ? "+" : ""}${tx.amount}€, ${tx.description}, ${new Date(tx.date).toLocaleString()}`}
           >
-            <strong>{tx.type}</strong> : {tx.amount > 0 ? "+" : ""}{tx.amount} €
+            <strong>{tx.type}</strong> : {tx.amount > 0 ? "+" : ""}
+            {tx.amount} €
             <br />
-            <span style={{ fontSize: 13, color: "#444" }}>{tx.description}</span>
+            <span style={{ fontSize: 13, color: "#444" }}>
+              {tx.description}
+            </span>
             <br />
             <span style={{ fontSize: 11, color: "#888" }}>
               {new Date(tx.date).toLocaleString()}
@@ -146,10 +186,21 @@ export default function TransactionList({ userId, transactions: propTransactions
           marginTop: 18,
           color: "#888",
           fontSize: "0.93em",
-          textAlign: "center"
+          textAlign: "center",
         }}
       >
-        <span role="img" aria-label="sécurité">🔒</span> Sécurisé | <span role="img" aria-label="accessibilité">♿</span> Accessible | <span role="img" aria-label="mobile">📱</span> Mobile/Web
+        <span role="img" aria-label="sécurité">
+          🔒
+        </span>{" "}
+        Sécurisé |{" "}
+        <span role="img" aria-label="accessibilité">
+          ♿
+        </span>{" "}
+        Accessible |{" "}
+        <span role="img" aria-label="mobile">
+          📱
+        </span>{" "}
+        Mobile/Web
       </footer>
       <style>{`
         .achiri-transaction-list:focus {
@@ -200,7 +251,7 @@ TransactionList.propTypes = {
       date: PropTypes.string.isRequired,
       amount: PropTypes.number.isRequired,
       description: PropTypes.string.isRequired,
-    })
+    }),
   ),
 };
 

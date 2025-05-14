@@ -6,7 +6,7 @@ import {
   FaKeyboard,
   FaLowVision,
   FaVolumeUp,
-  FaSignLanguage
+  FaSignLanguage,
 } from "react-icons/fa";
 
 /**
@@ -27,32 +27,32 @@ export default function AccessibilityTest({ userId }) {
       label: "Contraste suffisant",
       icon: <FaLowVision />,
       passed: true,
-      desc: "Le contraste des couleurs est conforme aux normes WCAG AA."
+      desc: "Le contraste des couleurs est conforme aux normes WCAG AA.",
     },
     {
       label: "Navigation clavier",
       icon: <FaKeyboard />,
       passed: true,
-      desc: "Tous les éléments interactifs sont accessibles au clavier."
+      desc: "Tous les éléments interactifs sont accessibles au clavier.",
     },
     {
       label: "Labels ARIA présents",
       icon: <FaUniversalAccess />,
       passed: false,
-      desc: "Certains boutons ou champs n'ont pas de label ARIA explicite."
+      desc: "Certains boutons ou champs n'ont pas de label ARIA explicite.",
     },
     {
       label: "Lecture vocale",
       icon: <FaVolumeUp />,
       passed: true,
-      desc: "Le contenu est compatible avec les lecteurs d'écran."
+      desc: "Le contenu est compatible avec les lecteurs d'écran.",
     },
     {
       label: "Traduction LSF",
       icon: <FaSignLanguage />,
       passed: true,
-      desc: "Support de la Langue des Signes Française pour les vidéos et messages."
-    }
+      desc: "Support de la Langue des Signes Française pour les vidéos et messages.",
+    },
   ];
 
   return (
@@ -69,7 +69,7 @@ export default function AccessibilityTest({ userId }) {
         marginLeft: "auto",
         marginRight: "auto",
         boxShadow: "0 2px 16px #1976d222",
-        outline: "none"
+        outline: "none",
       }}
     >
       <h2
@@ -80,7 +80,7 @@ export default function AccessibilityTest({ userId }) {
           color: "#1976d2",
           marginBottom: 18,
           fontWeight: 700,
-          fontSize: "1.25em"
+          fontSize: "1.25em",
         }}
         tabIndex={0}
         aria-label="Test d'accessibilité IA"
@@ -107,19 +107,34 @@ export default function AccessibilityTest({ userId }) {
               boxShadow: t.passed
                 ? "0 1px 4px #43a04722"
                 : "0 1px 4px #ff980022",
-              outline: "none"
+              outline: "none",
             }}
             aria-label={t.label + (t.passed ? " : OK" : " : À corriger")}
             tabIndex={0}
           >
             <span style={{ fontSize: 20 }}>{t.icon}</span>
             {t.passed ? (
-              <FaCheckCircle style={{ color: "#43a047", fontSize: 20 }} aria-label="Succès" />
+              <FaCheckCircle
+                style={{ color: "#43a047", fontSize: 20 }}
+                aria-label="Succès"
+              />
             ) : (
-              <FaExclamationTriangle style={{ color: "#fbc02d", fontSize: 20 }} aria-label="Attention" />
+              <FaExclamationTriangle
+                style={{ color: "#fbc02d", fontSize: 20 }}
+                aria-label="Attention"
+              />
             )}
             <span>{t.label}</span>
-            <span style={{ fontSize: 13, color: "#555", fontWeight: 400, marginLeft: 8 }}>{t.desc}</span>
+            <span
+              style={{
+                fontSize: 13,
+                color: "#555",
+                fontWeight: 400,
+                marginLeft: 8,
+              }}
+            >
+              {t.desc}
+            </span>
           </li>
         ))}
       </ul>
@@ -129,13 +144,15 @@ export default function AccessibilityTest({ userId }) {
           fontSize: 15,
           color: "#1976d2",
           textAlign: "center",
-          fontWeight: 600
+          fontWeight: 600,
         }}
         aria-live="polite"
         tabIndex={0}
       >
-        {tests.some(t => !t.passed) ? (
-          <>Des améliorations sont recommandées pour une accessibilité optimale.</>
+        {tests.some((t) => !t.passed) ? (
+          <>
+            Des améliorations sont recommandées pour une accessibilité optimale.
+          </>
         ) : (
           <>Toutes les vérifications sont conformes. Bravo !</>
         )}
@@ -145,10 +162,21 @@ export default function AccessibilityTest({ userId }) {
           marginTop: 18,
           color: "#888",
           fontSize: "0.93em",
-          textAlign: "center"
+          textAlign: "center",
         }}
       >
-        <span role="img" aria-label="sécurité">🔒</span> Sécurisé | <span role="img" aria-label="accessibilité">♿</span> Accessible | <span role="img" aria-label="mobile">📱</span> Mobile/Web
+        <span role="img" aria-label="sécurité">
+          🔒
+        </span>{" "}
+        Sécurisé |{" "}
+        <span role="img" aria-label="accessibilité">
+          ♿
+        </span>{" "}
+        Accessible |{" "}
+        <span role="img" aria-label="mobile">
+          📱
+        </span>{" "}
+        Mobile/Web
       </footer>
       <style>{`
         .accessibility-ia-report:focus {
